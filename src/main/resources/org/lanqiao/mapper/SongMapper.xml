@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.SongMapper" >
+  <resultMap id="SongResultMap" type="org.lanqiao.entity.Song" >
+    <id column="song_id" property="songId" jdbcType="INTEGER" />
+    <result column="song_name" property="songName" jdbcType="VARCHAR" />
+    <result column="song_lyric" property="songLyric" jdbcType="VARCHAR" />
+    <result column="song_description" property="songDescription" jdbcType="VARCHAR" />
+    <result column="song_url" property="songUrl" jdbcType="VARCHAR" />
+    <result column="song_duration" property="songDuration" jdbcType="VARCHAR" />
+    <result column="song_download" property="songDownload" jdbcType="INTEGER" />
+    <result column="song_commet_count" property="songCommetCount" jdbcType="INTEGER" />
+    <result column="song_play_times" property="songPlayTimes" jdbcType="INTEGER" />
+    <result column="song_create_date" property="songCreateDate" jdbcType="TIMESTAMP" />
+    <result column="song_status" property="songStatus" jdbcType="INTEGER" />
+    <result column="song_keep_num" property="songKeepNum" jdbcType="INTEGER" />
+    <result column="album_id" property="albumId" jdbcType="INTEGER" />
+    <result column="song_pic_url" property="songPicUrl" jdbcType="VARCHAR" />
+    <result column="singer_id" property="singerId" jdbcType="INTEGER" />
+    <result column="singer_name" property="singerName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectSingerByPK_q" resultMap="SongResultMap" parameterType="java.lang.Integer">
+    select song_name, song_url, singer_name from song, singer where song.singer_id = singer.singer_id and song_id = 1
+  </select>
+
+
+  <sql id="Base_Column_List" >
+    song_id, song_name, song_lyric, song_description, song_url, song_duration, song_download, 
+    song_commet_count, song_play_times, song_create_date, song_status, song_keep_num, 
+    album_id, song_pic_url, singer_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="SongResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from song
+    where song_id = #{songId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from song
+    where song_id = #{songId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.Song" >
+    insert into song (song_id, song_name, song_lyric, 
+      song_description, song_url, song_duration, 
+      song_download, song_commet_count, song_play_times, 
+      song_create_date, song_status, song_keep_num, 
+      album_id, song_pic_url, singer_id
+      )
+    values (#{songId,jdbcType=INTEGER}, #{songName,jdbcType=VARCHAR}, #{songLyric,jdbcType=VARCHAR}, 
+      #{songDescription,jdbcType=VARCHAR}, #{songUrl,jdbcType=VARCHAR}, #{songDuration,jdbcType=VARCHAR}, 
+      #{songDownload,jdbcType=INTEGER}, #{songCommetCount,jdbcType=INTEGER}, #{songPlayTimes,jdbcType=INTEGER}, 
+      #{songCreateDate,jdbcType=TIMESTAMP}, #{songStatus,jdbcType=INTEGER}, #{songKeepNum,jdbcType=INTEGER}, 
+      #{albumId,jdbcType=INTEGER}, #{songPicUrl,jdbcType=VARCHAR}, #{singerId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.Song" >
+    insert into song
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="songId != null" >
+        song_id,
+      </if>
+      <if test="songName != null" >
+        song_name,
+      </if>
+      <if test="songLyric != null" >
+        song_lyric,
+      </if>
+      <if test="songDescription != null" >
+        song_description,
+      </if>
+      <if test="songUrl != null" >
+        song_url,
+      </if>
+      <if test="songDuration != null" >
+        song_duration,
+      </if>
+      <if test="songDownload != null" >
+        song_download,
+      </if>
+      <if test="songCommetCount != null" >
+        song_commet_count,
+      </if>
+      <if test="songPlayTimes != null" >
+        song_play_times,
+      </if>
+      <if test="songCreateDate != null" >
+        song_create_date,
+      </if>
+      <if test="songStatus != null" >
+        song_status,
+      </if>
+      <if test="songKeepNum != null" >
+        song_keep_num,
+      </if>
+      <if test="albumId != null" >
+        album_id,
+      </if>
+      <if test="songPicUrl != null" >
+        song_pic_url,
+      </if>
+      <if test="singerId != null" >
+        singer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="songId != null" >
+        #{songId,jdbcType=INTEGER},
+      </if>
+      <if test="songName != null" >
+        #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="songLyric != null" >
+        #{songLyric,jdbcType=VARCHAR},
+      </if>
+      <if test="songDescription != null" >
+        #{songDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="songUrl != null" >
+        #{songUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="songDuration != null" >
+        #{songDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="songDownload != null" >
+        #{songDownload,jdbcType=INTEGER},
+      </if>
+      <if test="songCommetCount != null" >
+        #{songCommetCount,jdbcType=INTEGER},
+      </if>
+      <if test="songPlayTimes != null" >
+        #{songPlayTimes,jdbcType=INTEGER},
+      </if>
+      <if test="songCreateDate != null" >
+        #{songCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="songStatus != null" >
+        #{songStatus,jdbcType=INTEGER},
+      </if>
+      <if test="songKeepNum != null" >
+        #{songKeepNum,jdbcType=INTEGER},
+      </if>
+      <if test="albumId != null" >
+        #{albumId,jdbcType=INTEGER},
+      </if>
+      <if test="songPicUrl != null" >
+        #{songPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="singerId != null" >
+        #{singerId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Song" >
+    update song
+    <set >
+      <if test="songName != null" >
+        song_name = #{songName,jdbcType=VARCHAR},
+      </if>
+      <if test="songLyric != null" >
+        song_lyric = #{songLyric,jdbcType=VARCHAR},
+      </if>
+      <if test="songDescription != null" >
+        song_description = #{songDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="songUrl != null" >
+        song_url = #{songUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="songDuration != null" >
+        song_duration = #{songDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="songDownload != null" >
+        song_download = #{songDownload,jdbcType=INTEGER},
+      </if>
+      <if test="songCommetCount != null" >
+        song_commet_count = #{songCommetCount,jdbcType=INTEGER},
+      </if>
+      <if test="songPlayTimes != null" >
+        song_play_times = #{songPlayTimes,jdbcType=INTEGER},
+      </if>
+      <if test="songCreateDate != null" >
+        song_create_date = #{songCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="songStatus != null" >
+        song_status = #{songStatus,jdbcType=INTEGER},
+      </if>
+      <if test="songKeepNum != null" >
+        song_keep_num = #{songKeepNum,jdbcType=INTEGER},
+      </if>
+      <if test="albumId != null" >
+        album_id = #{albumId,jdbcType=INTEGER},
+      </if>
+      <if test="songPicUrl != null" >
+        song_pic_url = #{songPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="singerId != null" >
+        singer_id = #{singerId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where song_id = #{songId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Song" >
+    update song
+    set song_name = #{songName,jdbcType=VARCHAR},
+      song_lyric = #{songLyric,jdbcType=VARCHAR},
+      song_description = #{songDescription,jdbcType=VARCHAR},
+      song_url = #{songUrl,jdbcType=VARCHAR},
+      song_duration = #{songDuration,jdbcType=VARCHAR},
+      song_download = #{songDownload,jdbcType=INTEGER},
+      song_commet_count = #{songCommetCount,jdbcType=INTEGER},
+      song_play_times = #{songPlayTimes,jdbcType=INTEGER},
+      song_create_date = #{songCreateDate,jdbcType=TIMESTAMP},
+      song_status = #{songStatus,jdbcType=INTEGER},
+      song_keep_num = #{songKeepNum,jdbcType=INTEGER},
+      album_id = #{albumId,jdbcType=INTEGER},
+      song_pic_url = #{songPicUrl,jdbcType=VARCHAR},
+      singer_id = #{singerId,jdbcType=INTEGER}
+    where song_id = #{songId,jdbcType=INTEGER}
+  </update>
+</mapper>

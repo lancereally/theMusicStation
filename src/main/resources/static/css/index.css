@@ -1,0 +1,266 @@
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+header,
+menu,
+section,
+p,
+input,
+td,
+th,
+ins {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0px;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+/*header*/
+
+header {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  zoom: 1;
+}
+
+.logo {
+  float: left;
+  width: 176px;
+  height: 70px;
+  background-position: 0 0;
+  background-color: inherit;
+  line-height: 35px;
+}
+
+header #head-title #head-title-container .logo a {
+  float: left;
+  width: 157px;
+  height: 100%;
+  padding-right: 20px;
+  color: white;
+  text-align: center;
+  line-height: 90px;
+  -webkit-text-emphasis-style: double-circle;
+}
+
+#head-title {
+  position: relative;
+  z-index: 1000;
+  height: 70px;
+  box-sizing: border-box;
+  background: #242424;
+  border-bottom: 1px solid #000;
+}
+
+#head-title-container {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+#head-nav {
+  z-index: 90;
+  height: 35px;
+  box-sizing: border-box;
+  background-color: #ffd700;
+  border-bottom: 1px solid #a40011;
+}
+
+.head-ul,
+.head-ul li,
+.head-ul li span,
+.head-ul li span a {
+  float: left;
+  height: 70px;
+  font-size: 14px;
+  line-height: 70px;
+  list-style: none;
+}
+
+.head-ul a {
+  padding: 0px 19px;
+}
+
+.head-ul a:hover,
+.head-ul a:hover em {
+  background: #000;
+  text-decoration: none;
+  color: #fff;
+}
+
+.head-ul a em {
+  font-style: normal;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+/*导航栏下小三角标有点麻烦*/
+.cor {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 64px;
+  width: 12px;
+  height: 7px;
+  margin-left: -6px;
+  overflow: hidden;
+  background-position: -226px 0;
+}
+
+.login-button,
+.login-button span {
+  height: 70px;
+  color: #787878;
+  font-size: 12px;
+}
+
+.login-button {
+  float: right;
+  height: 45px;
+  margin: 14px 0 0 25px;
+  padding: 0 22px 0 0;
+  background-position: right -47px;
+}
+
+.login-button:hover span a,
+.login-button:hover span .sanjiao_down {
+  color: #999;
+  border-color: #999 transparent transparent transparent;
+}
+
+.login-button span a {
+  display: block;
+  width: 28px;
+  margin-top: 7px;
+  color: #787878;
+}
+
+.sanjiao_down {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  margin: 8px 5.5px;
+  line-height: 0;
+  border-width: 6px;
+  border-style: solid dashed dashed dashed;
+  border-color: #787878 transparent transparent transparent;
+}
+
+.creator-center {
+  float: right;
+  width: 90px;
+  height: 32px;
+  margin: 19px 0 0 12px;
+  box-sizing: border-box;
+  padding-left: 16px;
+  border: 1px solid #4f4f4f;
+  background-position: 0 -140px;
+  line-height: 33px;
+  color: #ccc;
+  border-radius: 20px;
+  background-color: none;
+  font-size: 12px;
+}
+
+.creator-center:hover {
+  color: #fff;
+  border-color: #fff;
+}
+
+.srchbg {
+  margin-top: 19px;
+  background-position: 0 -99px;
+  background-color: #fff;
+  border-radius: 32px;
+  float: right;
+  width: 158px;
+  height: 32px;
+}
+
+.parent {
+  display: block;
+  position: relative;
+  margin: 8px 0 0 30px;
+  font-size: 12px;
+  color: #333;
+}
+.parent input {
+  width: 90%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: #333;
+  line-height: 16px;
+  border: none;
+  outline: none;
+}
+
+.parent input::placeholder {
+  font-size: 12px;
+}
+
+.parent label {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  color: #9b9b9b;
+  cursor: text;
+}
+
+/*菜单下的导航（子菜单）*/
+#head-nav-contain {
+  width: 1100px;
+  height: 34px;
+  margin: 0 auto;
+}
+
+#head-nav-contain ul {
+  float: left;
+  padding-left: 180px;
+}
+#head-nav-contain ul li,
+#head-nav-contain ul li a {
+  list-style: none;
+  float: left;
+  height: 34px;
+  text-align: center;
+}
+
+#head-nav-contain ul li a em {
+  display: inline-block;
+  height: 20px;
+  padding: 0 13px;
+  margin: 7px 17px 0;
+  border-radius: 20px;
+  line-height: 21px;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+#head-nav-contain ul li a em:hover {
+  background: rgb(238, 107, 0);
+}

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.ShareMapper">
+    <resultMap id="ShareResultMap" type="org.lanqiao.entity.Share">
+        <id column="share_id" property="shareId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="song_id" property="songId" jdbcType="INTEGER"/>
+        <result column="share_text" property="shareText" jdbcType="VARCHAR"/>
+        <result column="share_title" property="shareTitle" jdbcType="VARCHAR"/>
+        <result column="share_annex_url" property="shareAnnexUrl" jdbcType="VARCHAR"/>
+        <result column="share_location" property="shareLocation" jdbcType="VARCHAR"/>
+        <result column="share_likes" property="shareLikes" jdbcType="INTEGER"/>
+        <result column="share_from_id" property="shareFromId" jdbcType="INTEGER"/>
+        <result column="share_time" property="shareTime" jdbcType="TIMESTAMP"/>
+        <result column="share_video_times" property="shareVideoTimes" jdbcType="INTEGER"/>
+
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR"/>
+
+        <result column="share_comment_count" property="shareCommentCount" jdbcType="INTEGER"/>
+        <result column="share_forward_count" property="shareForwardCount" jdbcType="INTEGER"/>
+
+    </resultMap>
+
+<!--    <select id="getSongAndSinger" parameterType="Integer" resultMap="ShareResultMap">-->
+<!--        select song.song_name, singer.singer_name from song , singer where song.singer_id = singer.singer_id and song.song_id-->
+<!--        = (select song_id from share where share_id = #{share_id})-->
+<!--    </select>-->
+
+
+
+    <select id="getShareCommentCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">
+        select count(sc_id) as share_comment_count from sharecomment where share_id = #{share_id}
+    </select>
+
+    <select id="getShareForwardCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">
+        select count(share_id) as share_forward_count from share where share_from_id = #{share_from_id}
+    </select>
+
+
+    <select id="selectShareByPK_q" resultMap="ShareResultMap" parameterType="Integer">
+    select u.user_name,u.user_head_url,s.song_id,
+      s.share_text,s.share_title, s.share_annex_url, s.share_location, s.share_likes,
+        s.share_from_id, s.share_time, s.share_video_times
+        from share s ,users u
+         where s.user_id = u.user_id and s.share_id = #{share_id}
+    </select>
+
+
+    <select id="getAllShare_q" resultMap="ShareResultMap">
+    select u.user_name,u.user_head_url,s.song_id,
+      s.share_text,s.share_title, s.share_annex_url, s.share_location, s.share_likes,
+        s.share_from_id, s.share_time, s.share_video_times
+        from share s ,users u
+         where s.user_id = u.user_id
+  </select>
+
+
+    <sql id="Base_Column_List">
+    share_id, user_id, song_id, share_text, share_title, share_annex_url, share_location, 
+    share_likes, share_from_id, share_time, share_video_times
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="ShareResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from share
+        where share_id = #{shareId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from share
+    where share_id = #{shareId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="org.lanqiao.entity.Share">
+    insert into share (share_id, user_id, song_id, 
+      share_text, share_title, share_annex_url, 
+      share_location, share_likes, share_from_id, 
+      share_time, share_video_times)
+    values (#{shareId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{songId,jdbcType=INTEGER}, 
+      #{shareText,jdbcType=VARCHAR}, #{shareTitle,jdbcType=VARCHAR}, #{shareAnnexUrl,jdbcType=VARCHAR}, 
+      #{shareLocation,jdbcType=VARCHAR}, #{shareLikes,jdbcType=INTEGER}, #{shareFromId,jdbcType=INTEGER}, 
+      #{shareTime,jdbcType=TIMESTAMP}, #{shareVideoTimes,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.Share">
+        insert into share
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shareId != null">
+                share_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="songId != null">
+                song_id,
+            </if>
+            <if test="shareText != null">
+                share_text,
+            </if>
+            <if test="shareTitle != null">
+                share_title,
+            </if>
+            <if test="shareAnnexUrl != null">
+                share_annex_url,
+            </if>
+            <if test="shareLocation != null">
+                share_location,
+            </if>
+            <if test="shareLikes != null">
+                share_likes,
+            </if>
+            <if test="shareFromId != null">
+                share_from_id,
+            </if>
+            <if test="shareTime != null">
+                share_time,
+            </if>
+            <if test="shareVideoTimes != null">
+                share_video_times,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shareId != null">
+                #{shareId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="songId != null">
+                #{songId,jdbcType=INTEGER},
+            </if>
+            <if test="shareText != null">
+                #{shareText,jdbcType=VARCHAR},
+            </if>
+            <if test="shareTitle != null">
+                #{shareTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="shareAnnexUrl != null">
+                #{shareAnnexUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="shareLocation != null">
+                #{shareLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="shareLikes != null">
+                #{shareLikes,jdbcType=INTEGER},
+            </if>
+            <if test="shareFromId != null">
+                #{shareFromId,jdbcType=INTEGER},
+            </if>
+            <if test="shareTime != null">
+                #{shareTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="shareVideoTimes != null">
+                #{shareVideoTimes,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Share">
+        update share
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="songId != null">
+                song_id = #{songId,jdbcType=INTEGER},
+            </if>
+            <if test="shareText != null">
+                share_text = #{shareText,jdbcType=VARCHAR},
+            </if>
+            <if test="shareTitle != null">
+                share_title = #{shareTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="shareAnnexUrl != null">
+                share_annex_url = #{shareAnnexUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="shareLocation != null">
+                share_location = #{shareLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="shareLikes != null">
+                share_likes = #{shareLikes,jdbcType=INTEGER},
+            </if>
+            <if test="shareFromId != null">
+                share_from_id = #{shareFromId,jdbcType=INTEGER},
+            </if>
+            <if test="shareTime != null">
+                share_time = #{shareTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="shareVideoTimes != null">
+                share_video_times = #{shareVideoTimes,jdbcType=INTEGER},
+            </if>
+        </set>
+        where share_id = #{shareId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Share">
+    update share
+    set user_id = #{userId,jdbcType=INTEGER},
+      song_id = #{songId,jdbcType=INTEGER},
+      share_text = #{shareText,jdbcType=VARCHAR},
+      share_title = #{shareTitle,jdbcType=VARCHAR},
+      share_annex_url = #{shareAnnexUrl,jdbcType=VARCHAR},
+      share_location = #{shareLocation,jdbcType=VARCHAR},
+      share_likes = #{shareLikes,jdbcType=INTEGER},
+      share_from_id = #{shareFromId,jdbcType=INTEGER},
+      share_time = #{shareTime,jdbcType=TIMESTAMP},
+      share_video_times = #{shareVideoTimes,jdbcType=INTEGER}
+    where share_id = #{shareId,jdbcType=INTEGER}
+  </update>
+</mapper>

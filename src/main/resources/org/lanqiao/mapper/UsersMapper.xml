@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.UsersMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Users" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_account" property="userAccount" jdbcType="INTEGER" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="user_text" property="userText" jdbcType="VARCHAR" />
+    <result column="user_sex" property="userSex" jdbcType="VARCHAR" />
+    <result column="user_birthday" property="userBirthday" jdbcType="VARCHAR" />
+    <result column="user_location" property="userLocation" jdbcType="VARCHAR" />
+    <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR" />
+    <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+    <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+    <result column="user_phone_activation" property="userPhoneActivation" jdbcType="INTEGER" />
+    <result column="user_phone" property="userPhone" jdbcType="INTEGER" />
+    <result column="user_qq" property="userQq" jdbcType="INTEGER" />
+    <result column="user_id_card" property="userIdCard" jdbcType="VARCHAR" />
+    <result column="user_vip_state" property="userVipState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, 
+    user_location, user_head_url, user_real_name, user_email, user_phone_activation, 
+    user_phone, user_qq, user_id_card, user_vip_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from users
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.Users" >
+    insert into users (user_id, user_name, user_account, 
+      user_password, user_text, user_sex, 
+      user_birthday, user_location, user_head_url, 
+      user_real_name, user_email, user_phone_activation, 
+      user_phone, user_qq, user_id_card, 
+      user_vip_state)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userAccount,jdbcType=INTEGER}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userText,jdbcType=VARCHAR}, #{userSex,jdbcType=VARCHAR}, 
+      #{userBirthday,jdbcType=VARCHAR}, #{userLocation,jdbcType=VARCHAR}, #{userHeadUrl,jdbcType=VARCHAR}, 
+      #{userRealName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{userPhoneActivation,jdbcType=INTEGER}, 
+      #{userPhone,jdbcType=INTEGER}, #{userQq,jdbcType=INTEGER}, #{userIdCard,jdbcType=VARCHAR}, 
+      #{userVipState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userAccount != null" >
+        user_account,
+      </if>
+      <if test="userPassword != null" >
+        user_password,
+      </if>
+      <if test="userText != null" >
+        user_text,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday,
+      </if>
+      <if test="userLocation != null" >
+        user_location,
+      </if>
+      <if test="userHeadUrl != null" >
+        user_head_url,
+      </if>
+      <if test="userRealName != null" >
+        user_real_name,
+      </if>
+      <if test="userEmail != null" >
+        user_email,
+      </if>
+      <if test="userPhoneActivation != null" >
+        user_phone_activation,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="userQq != null" >
+        user_qq,
+      </if>
+      <if test="userIdCard != null" >
+        user_id_card,
+      </if>
+      <if test="userVipState != null" >
+        user_vip_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        #{userAccount,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userText != null" >
+        #{userText,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userLocation != null" >
+        #{userLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadUrl != null" >
+        #{userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoneActivation != null" >
+        #{userPhoneActivation,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=INTEGER},
+      </if>
+      <if test="userQq != null" >
+        #{userQq,jdbcType=INTEGER},
+      </if>
+      <if test="userIdCard != null" >
+        #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userVipState != null" >
+        #{userVipState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Users" >
+    update users
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userText != null" >
+        user_text = #{userText,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userLocation != null" >
+        user_location = #{userLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadUrl != null" >
+        user_head_url = #{userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        user_real_name = #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoneActivation != null" >
+        user_phone_activation = #{userPhoneActivation,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=INTEGER},
+      </if>
+      <if test="userQq != null" >
+        user_qq = #{userQq,jdbcType=INTEGER},
+      </if>
+      <if test="userIdCard != null" >
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userVipState != null" >
+        user_vip_state = #{userVipState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Users" >
+    update users
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_account = #{userAccount,jdbcType=INTEGER},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_text = #{userText,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=VARCHAR},
+      user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      user_location = #{userLocation,jdbcType=VARCHAR},
+      user_head_url = #{userHeadUrl,jdbcType=VARCHAR},
+      user_real_name = #{userRealName,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_phone_activation = #{userPhoneActivation,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=INTEGER},
+      user_qq = #{userQq,jdbcType=INTEGER},
+      user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      user_vip_state = #{userVipState,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

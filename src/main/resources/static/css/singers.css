@@ -1,0 +1,65 @@
+.mainBody{
+    width: 984px;
+    height: 1253px;
+    margin: auto;
+}
+.m-left{
+    position: relative;
+    float: left;
+    width: 140px;
+    height: 1253px;
+    border: 1px #C4C4C4 solid;
+    padding:50px 10px 30px 10px;
+}
+.m-right{
+    position: relative;
+    float: left;
+    width: 720px;
+    height: 100%;
+    padding: 40px;
+    border: 1px #C4C4C4 solid;
+}
+.tit{
+    height: 25px;
+    font-size: 16px;
+}
+.m-left ul li i{
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 30px;
+}
+.recommend{
+    display: block;
+    width: 140px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+}
+.h-line{
+    border-bottom: 1px #9b9b9b solid;
+}
+.u-title{
+    width: 719px;
+    height: 40px;
+    border-bottom: 2px #ffd700 solid;
+}
+.more{
+    display: block;
+    padding-top: 10px;
+}
+.sPic{
+    margin: 20px 0 0 -17px;
+}
+.sPic li{
+    padding: 0 0 30px 17px;
+}
+.singerName{
+    display: block;
+}
+.sNames li{
+    height: 30px;
+    width: 130px;
+    padding-bottom: 0;
+    line-height: 23px;
+    padding-left: 14px;
+}
