@@ -8,5 +8,7 @@ public interface ShareService {
 
     public List<Share> getAllShare();
 
+    public int updateShareLikesByPK(Integer shareId);
+
 
 }

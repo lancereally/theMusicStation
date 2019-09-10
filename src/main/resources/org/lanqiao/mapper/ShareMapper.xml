@@ -22,10 +22,9 @@
 
     </resultMap>
 
-<!--    <select id="getSongAndSinger" parameterType="Integer" resultMap="ShareResultMap">-->
-<!--        select song.song_name, singer.singer_name from song , singer where song.singer_id = singer.singer_id and song.song_id-->
-<!--        = (select song_id from share where share_id = #{share_id})-->
-<!--    </select>-->
+    <update id="updateShareLikesByPK_q" parameterType="Integer">
+       update share set share_likes = share_likes + 1  where share_id = #{share_id}
+    </update>
 
 
 
@@ -39,7 +38,7 @@
 
 
     <select id="selectShareByPK_q" resultMap="ShareResultMap" parameterType="Integer">
-    select u.user_name,u.user_head_url,s.song_id,
+    select u.user_name,u.user_head_url,s.song_id, s.share_id,
       s.share_text,s.share_title, s.share_annex_url, s.share_location, s.share_likes,
         s.share_from_id, s.share_time, s.share_video_times
         from share s ,users u
@@ -48,7 +47,7 @@
 
 
     <select id="getAllShare_q" resultMap="ShareResultMap">
-    select u.user_name,u.user_head_url,s.song_id,
+    select u.user_name,u.user_head_url,s.song_id,s.share_id,
       s.share_text,s.share_title, s.share_annex_url, s.share_location, s.share_likes,
         s.share_from_id, s.share_time, s.share_video_times
         from share s ,users u

@@ -30,6 +30,6 @@ public interface ShareMapper {
 
     Share selectShareByPK_q(Integer shareId);
 
-//    Share getSongAndSinger(Integer shareId);
+    int updateShareLikesByPK_q(Integer shareId);
 
 }

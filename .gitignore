@@ -36,4 +36,3 @@ application-dev.yml
 generatorConfig.xml
 mybatis-Config.xml
 mybatis.properties
-mybatis-Config.xml

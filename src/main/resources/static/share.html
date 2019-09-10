@@ -11,46 +11,79 @@
         $(function () {
 
             var bigBox = new Vue({
-                el:"#mainBody",
-                data:{
-                    shares:[]
+                el: "#mainBody",
+                data: {
+                    shares: []
                 },
-                methods:{
-                    toGetShares:function () {
+                methods: {
+                    //搜索显示动态
+                    toGetShares: function () {
                         $.ajax({
-                            url:"/share/getAllShare",
-                            datatype:"json",
-                            type:"post",
-                            success:function (data) {
-                                for (var i = 0 ; i< data.length ; i++)
-                                bigBox.shares.push({
-                                    userName:data[i].userName,
-                                    videoOrMusic:data[i].songUrl == null ?  data[i].shareFromId == null ? "发布视频" :"转发动态" : "分享音乐",
-                                    songUrl:data[i].songUrl,
-                                    songName:data[i].songName,
-                                    singerName:data[i].singerName,
-                                    shareTime:data[i].shareTime,
-                                    shareTitle:data[i].shareTitle,
-                                    videoLength:data[i].shareVideoTimes,
-                                    shareVideoTimes:data[i].shareVideoTimes,
-                                    shareAnnexUrl:data[i].shareAnnexUrl,
-                                    shareLocation:data[i].shareLocation,
-                                    shareForwardCount:data[i].shareForwardCount,
-                                    shareCommentCount:data[i].shareCommentCount,
-                                    shareList:data[i].shareList,
-                                    userHeadUrl:data[i].userHeadUrl
-                                })
+                            url: "/share/getAllShare",
+                            datatype: "json",
+                            type: "post",
+                            success: function (data) {
+                                for (var i = 0; i < data.length; i++)
+                                    bigBox.shares.push({
+                                        userName: data[i].userName,
+                                        videoOrMusic: data[i].songUrl == null ? data[i].shareFromId == null ? "发布视频" : "转发动态" : "分享音乐",
+                                        songUrl: data[i].songUrl,
+                                        songName: data[i].songName,
+                                        singerName: data[i].singerName,
+                                        shareTime: data[i].shareTime,
+                                        shareTitle: data[i].shareTitle,
+                                        videoLength: data[i].shareVideoTimes,
+                                        shareVideoTimes: data[i].shareVideoTimes,
+                                        shareAnnexUrl: data[i].shareAnnexUrl,
+                                        shareLocation: data[i].shareLocation,
+                                        shareForwardCount: data[i].shareForwardCount,
+                                        shareCommentCount: data[i].shareCommentCount,
+                                        shareList: data[i].shareList,
+                                        userHeadUrl: data[i].userHeadUrl,
+                                        shareText: data[i].shareText,
+                                        shareId: data[i].shareId,
+                                        shareLikes: data[i].shareLikes
+                                    })
                             }
                         })
                     },
-                    toDispaly:function () {
-                        if (bigBox.shareList.length == null) {
-                            $("")
-                        }
+                    //点赞功能
+                    addLikes: function (index) {
+                        $.ajax({
+                            url: "/share/addLikes",
+                            datatype: "json",
+                            data: {"shareId": bigBox.shares[index].shareId},
+                            type: "post",
+                            success: function (data) {
+                                bigBox.shares[index].shareLikes = bigBox.shares[index].shareLikes + 1;
+                                // alert("dianzan")
+                            },
+                            error: function (data) {
+                                // alert("dsa")
+                            }
+                        })
+                        // alert(11)
+                    },
+                    addSonLikes:function (index, indexSon) {
+                        $.ajax({
+                            url: "/share/addLikes",
+                            datatype: "json",
+                            data: {"shareId": bigBox.shares[index].shareList[indexSon].shareId},
+                            type: "post",
+                            success: function (data) {
+                                bigBox.shares[index].shareList[indexSon].shareLikes = bigBox.shares[index].shareList[indexSon].shareLikes + 1;
+                                alert("dianzan")
+                            },
+                            error: function (data) {
+                                // alert("dsa")
+                            }
+                        })
                     }
 
                 }
             });
+
+
             bigBox.toGetShares();
 
         })
@@ -95,8 +128,9 @@
 
         <div class="btns">
             <a href="#">
-            <div class="btn-share btn f-left" style="font-size: 16px">分享</div>
-            <div class=" btn-share btn f-left btn-w" style="font-size: 16px">取消</div></a>
+                <div class="btn-share btn f-left" style="font-size: 16px">分享</div>
+                <div class=" btn-share btn f-left btn-w" style="font-size: 16px">取消</div>
+            </a>
         </div>
 
 
@@ -114,7 +148,7 @@
         <div id="left-body">
             <ul>
                 <!--动态-->
-                <li v-for="sh in shares">
+                <li v-for="(sh, index) in shares">
                     <div class="userPic f-left">
                         <a href="#">
                             <img :src="sh.userHeadUrl" height="45">
@@ -132,20 +166,19 @@
                         <div class="font-14 f-c-3 text">{{sh.shareText}}</div>
 
 
-
                         <!--视频动态---播放视频时-->
-                        <div class="video" v-if="sh.shareAnnexUrl != null">
-                            <div class="font-14 f-c-3 text">{{sh.shareText}}</div>
+                        <div class="video" v-if="sh.shareTitle != null">
 
                             <div>
                                 <span><i><img src="images/up.png" height="13px"></i><a href="#"
                                                                                        class="font-12">收起</a></span>
                                 <span class="line">|</span>
-                                <span><i><img src="images/share.png" height="10px"></i><a href="#">  {{sh.shareTitle}}</a><a href="#"
-                                                                                                               class="font-12"
-                                                                                                               style="color:#aaa;">  {{sh.userName}}</a></span>
+                                <span><i><img src="images/share.png" height="10px"></i><a
+                                        href="#">  {{sh.shareTitle}}</a><a href="#"
+                                                                           class="font-12"
+                                                                           style="color:#aaa;">  {{sh.userName}}</a></span>
                             </div>
-                            <video width="565" height="318" controls="controls" autoplay="autoplay">
+                            <video width="450" height="250" controls="controls" autoplay="autoplay">
                                 <source :src="sh.shareAnnexUrl" type="video/mp4">
                             </video>
                         </div>
@@ -153,7 +186,6 @@
                         <!--音频动态-->
                         <div v-if="sh.songName != null">
                             <div class="s-music">
-                                <div class="font-14 f-c-3 text">{{sh.shareText}}</div>
                                 <div class="f-left">
                                     <a href="#">
                                         <img src="images/userPic.jpg" height="45">
@@ -164,11 +196,11 @@
                                 <div><a href="#"><h4 class="">{{sh.singerName}}</h4></a></div>
 
                             </div>
-                            <div class=" z-0"><img src="images/mvPic.jpg" height="189"></div>
+                            <div class=" z-0"><img :src="sh.shareAnnexUrl" height="189"></div>
                         </div>
 
                         <!--转发动态-->
-                        <div class="zhuanFa" v-if="sh.shareList != null" v-for="shSon in sh.shareList">
+                        <div class="zhuanFa" v-if="sh.shareList != null" v-for="(shSon,indexSon) in sh.shareList">
                             <div class="userPic f-left">
                                 <a href="#">
                                     <img :src="shSon.userHeadUrl" height="45">
@@ -191,9 +223,10 @@
                                 <span><i><img src="images/up.png" height="13px"></i><a href="#"
                                                                                        class="font-12">收起</a></span>
                                         <span class="line">|</span>
-                                        <span><i><img src="images/share.png" height="10px"></i><a href="#">  {{shSon.shareTitle}}</a><a href="#"
-                                                                                                                                        class="font-12"
-                                                                                                                                        style="color:#aaa;">  {{shSon.userName}}</a></span>
+                                        <span><i><img src="images/share.png" height="10px"></i><a href="#">  {{shSon.shareTitle}}</a><a
+                                                href="#"
+                                                class="font-12"
+                                                style="color:#aaa;">  {{shSon.userName}}</a></span>
                                     </div>
                                     <video width="450" height="250" controls="controls" autoplay="autoplay">
                                         <source :src="shSon.shareAnnexUrl" type="video/mp4">
@@ -201,7 +234,7 @@
                                 </div>
 
                                 <!--音频动态-->
-                                <div >
+                                <div>
                                     <div class="s-music" v-if="shSon.songName != null">
                                         <div class="f-left">
                                             <a href="#">
@@ -221,12 +254,12 @@
                                         <span><img src="images/location.png" height="14px"><i class="f-c-d">{{shSon.shareLocation}}</i></span>
                                     </div>
                                     <div class="f-right">
-                                <span><a href="#" class="f-c-gold"><img src="images/thumbs.png"
-                                                                        height="14px">(<i>12</i>)</a></span>
+                                <span><a class="f-c-gold" @click="addSonLikes(index, indexSon)"><img src="images/thumbs.png"
+                                                                        height="14px">(<i>{{shSon.shareLikes}}</i>)</a></span>
                                         <span class="line f-c-gold">|</span>
-                                        <span><a href="#" class="f-c-gold">转发(<i>12</i>)</a></span>
+                                        <span><a href="#" class="f-c-gold">转发(<i>{{shSon.shareForwardCount}}</i>)</a></span>
                                         <span class="line f-c-gold">|</span>
-                                        <span><a href="#" class="f-c-gold">评论(<i>12</i>)</a></span>
+                                        <span><a href="#" class="f-c-gold">评论(<i>{{shSon.shareCommentCount}}</i>)</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -234,11 +267,12 @@
 
                         <div class="s-foot">
                             <div class="f-left">
-                                <span><img src="images/location.png" height="14px"><i class="f-c-d">{{sh.shareLocation}}</i></span>
+                                <span><img src="images/location.png" height="14px"><i
+                                        class="f-c-d">{{sh.shareLocation}}</i></span>
                             </div>
                             <div class="f-right">
-                                <span><a href="#" class="f-c-gold"><img src="images/thumbs.png"
-                                                                        height="14px">(<i>{{sh.shareLikes}}</i>)</a></span>
+                                <span><a class="f-c-gold" @click="addLikes(index)"><img src="images/thumbs.png"
+                                                                                        height="14px">(<i>{{sh.shareLikes}}</i>)</a></span>
                                 <span class="line f-c-gold">|</span>
                                 <span><a href="#" class="f-c-gold">转发(<i>{{sh.shareForwardCount}}</i>)</a></span>
                                 <span class="line f-c-gold">|</span>

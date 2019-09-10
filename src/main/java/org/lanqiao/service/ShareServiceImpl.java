@@ -37,8 +37,8 @@ public class ShareServiceImpl implements ShareService{
                 shareList1.add(shareMapper.selectShareByPK_q(s.getShareFromId()));
                 s.setShareList(shareList1);
                 for (Share s1: s.getShareList()) {
-                    s1.setShareCommentCount(shareMapper.getShareCommentCount_q(s.getShareId()).getShareCommentCount());
-                    s1.setShareForwardCount(shareMapper.getShareForwardCount_q(s.getShareId()).getShareForwardCount());
+                    s1.setShareCommentCount(shareMapper.getShareCommentCount_q(s.getShareFromId()).getShareCommentCount());
+                    s1.setShareForwardCount(shareMapper.getShareForwardCount_q(s.getShareFromId()).getShareForwardCount());
                     if (s1.getSongId() != null){
                         Song song = songMapper.selectSingerByPK_q(s1.getSongId());
                         s1.setSongName(song.getSongName());
@@ -46,12 +46,15 @@ public class ShareServiceImpl implements ShareService{
                         s1.setSingerName(song.getSingerName());
                     }
                 }
-
-
             }
 
 
         }
         return shareList;
+    }
+
+    @Override
+    public int updateShareLikesByPK(Integer shareId) {
+        return shareMapper.updateShareLikesByPK_q(shareId);
     }
 }
