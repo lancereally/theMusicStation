@@ -94,6 +94,7 @@
 .video {
     width: 450px;
     height: 270px;
+    border: 1px #dddddd solid;
 }
 
 .line {

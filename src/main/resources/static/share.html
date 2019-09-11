@@ -7,13 +7,21 @@
     <link href="css/share.css" rel="stylesheet">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.min.js"></script>
+    <script src="js/wangEditor.min.js"></script>
+    <link href="css/wangEditor.css" rel="stylesheet">
     <script>
         $(function () {
 
+
+
+
+            //Vue
             var bigBox = new Vue({
                 el: "#mainBody",
                 data: {
-                    shares: []
+                    shares: [],
+                    otherShareId:0,
+                    shareText:""
                 },
                 methods: {
                     //搜索显示动态
@@ -32,7 +40,6 @@
                                         singerName: data[i].singerName,
                                         shareTime: data[i].shareTime,
                                         shareTitle: data[i].shareTitle,
-                                        videoLength: data[i].shareVideoTimes,
                                         shareVideoTimes: data[i].shareVideoTimes,
                                         shareAnnexUrl: data[i].shareAnnexUrl,
                                         shareLocation: data[i].shareLocation,
@@ -42,7 +49,8 @@
                                         userHeadUrl: data[i].userHeadUrl,
                                         shareText: data[i].shareText,
                                         shareId: data[i].shareId,
-                                        shareLikes: data[i].shareLikes
+                                        shareLikes: data[i].shareLikes,
+                                        shareFromId:data[i].shareFromId
                                     })
                             }
                         })
@@ -64,7 +72,7 @@
                         })
                         // alert(11)
                     },
-                    addSonLikes:function (index, indexSon) {
+                    addSonLikes: function (index, indexSon) {
                         $.ajax({
                             url: "/share/addLikes",
                             datatype: "json",
@@ -75,16 +83,81 @@
                                 alert("dianzan")
                             },
                             error: function (data) {
-                                // alert("dsa")
                             }
                         })
+                    },
+                    shareForwardDivShow:function (index) {
+                        if (bigBox.shares[index].shareFromId == null) {
+                            var el = event.currentTarget;
+                            bigBox.otherShareId = el.lastChild.innerHTML;
+                            $("#shareOthersDiv").show();
+                        }else{
+                            alert("转发动态不能再次转发")
+                        }
+                    },
+                    shareOtherDivHide:function () {
+                        $("#shareOthersDiv").hide();
+                    },
+                    shareForwardBtn:function () {
+                        $.ajax({
+                            url:"share/shareForward",
+                            type:"post",
+                            datatype:"json",
+                            data:{
+                                shareText:bigBox.shareText,
+                                shareFromId:bigBox.otherShareId,
+                                userId:2
+                            },
+                            success:function () {
+                                $("#shareOthersDiv").hide();
+                                location.reload(true);
+                            }
+                        })
+                    },
+                    shareForwardCancel:function () {
+                        $("#shareOthersDiv").hide();
                     }
 
                 }
             });
 
+            //wangEditor富文本编辑器
+            var E = window.wangEditor;
+            //这里的id为<div id="editor">中的id.
+            var editor = new E('#editorPic', '#editorText');
+            // var editor1 = new E('#div1', '#div2')  // 两个参数也可以传入 elem 对象，class 选择器
+            // 配置服务器端地址,也就是servlet的请求路径，不带项目路径，前面没有/
+            // editor.customConfig.uploadImgServer = 'uploadFile';
+            editor.customConfig.uploadImgShowBase64 = true;
+            editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+            editor.customConfig.menus = [
+                'emoticon' // 表情
+
+            ];
+            editor.customConfig.onchange = function (html) {
+                // // 监控变化，同步更新到 textarea
+                // $("#show_box").html(html);
+                // $("textarea").val(html);
+            };
+            //创建编辑器
+            editor.create();
+
+            var editor1 = new E('#editorForwardEmoji', '#editorForwardText');
+            editor1.customConfig.menus = [
+                'emoticon' // 表情
+
+            ];
+            editor1.customConfig.onchange = function (html) {
+                bigBox.shareText = html ;
+                // // 监控变化，同步更新到 textarea
+                // $("#show_box").html(html);
+                // $("textarea").val(html);
+            };
+            editor1.create();
 
             bigBox.toGetShares();
+
+            $(".popWindow").hide();
 
         })
 
@@ -92,16 +165,21 @@
     </script>
 </head>
 <body>
+
 <iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
 <div id="mainBody">
-    <div class="popWindow" style="display: none">
+
+
+    <!--发布音乐动态-->
+    <div class="popWindow" id="shareMusicDiv">
         <div class="popWindow-top">
             <div class="font-14 f-w-b f-c-e">分享</div>
             <div class="f-right"><a><i class="font-14 f-c-gold XXX">X</i></a></div>
         </div>
         <div class="share-text">
-            <textarea class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt"
-                      id="auto-id-pWQ0eHFeZTtaJZnh"></textarea>
+            <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt" id="editorText">
+
+            </div>
             <div class="f-thide">
                 <a>
                     <i style="padding: 5px 5px; display: block" class="f-left">
@@ -112,19 +190,15 @@
         </div>
 
         <div class="f-tde">
-            <a href="#">
-                <i class="f-left" style="margin-right: 10px">
-                    <img src="images/smiley.png" height="25px">
-                </i>
+            <div style="height: 30px; width: 40px;" id="editorPic" class="f-left"></div>
+            <a href="#" style="display: block;padding: 5px 10px;" class="f-left">
                 <i class="f-left">
-                    <img src="images/Picture.png" height="25px">
+                    <img src="images/Picture.png" height="15px">
                 </i>
             </a>
-
-            <i class="f-right f-c-6">140</i>
         </div>
 
-        <div style="padding-left: 40px">图片预览</div>
+        <div style="padding-left: 40px"><img src="images/yuefu.png" height="100px"></div>
 
         <div class="btns">
             <a href="#">
@@ -136,13 +210,37 @@
 
     </div>
 
+    <!--转发动态-->
+    <div class="popWindow" id="shareOthersDiv">
+        <div class="popWindow-top">
+            <div class="font-14 f-w-b f-c-e">转发动态</div>
+            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareOtherDivHide">X</i></a></div>
+        </div>
+        <div class="share-text">
+            <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt" id="editorForwardText"></div>
+        </div>
+
+        <div class="f-tde">
+            <div style="height: 30px; width: 40px;" id="editorForwardEmoji" class="f-left"></div>
+        </div>
+
+        <div class="btns">
+            <a href="#">
+                <div class="btn-share btn f-left" style="font-size: 16px" @click="shareForwardBtn">转发</div>
+                <div class=" btn-share btn f-left btn-w" style="font-size: 16px" @click="shareForwardCancel">取消</div>
+            </a>
+        </div>
+
+
+    </div>
+
 
     <div id="mB-left" class="f-left">
         <div id="left-top">
             <h3 class="f-left">动态</h3>
-            <span class="f-right btn"><a href="#" class="font-12"><img src="images/seX.png"
+            <span class="f-right btn" id="shareMusicBtn"><a href="#" class="font-12"><img src="images/seX.png"
                                                                        height="16px">发布视频</a></span>
-            <span class="f-right btn"><a href="#" class="font-12"><img src="images/dTai.png"
+            <span class="f-right btn" id="shareVideoBtn"><a href="#" class="font-12"><img src="images/dTai.png"
                                                                        height="16px">发动态</a></span>
         </div>
         <div id="left-body">
@@ -163,22 +261,18 @@
                         <div class="time font-12">
                             <a href="#">{{sh.shareTime}}</a>
                         </div>
-                        <div class="font-14 f-c-3 text">{{sh.shareText}}</div>
+                        <div class="font-14 f-c-3 text" v-html="sh.shareText"></div>
 
 
                         <!--视频动态---播放视频时-->
                         <div class="video" v-if="sh.shareTitle != null">
-
                             <div>
-                                <span><i><img src="images/up.png" height="13px"></i><a href="#"
-                                                                                       class="font-12">收起</a></span>
-                                <span class="line">|</span>
-                                <span><i><img src="images/share.png" height="10px"></i><a
-                                        href="#">  {{sh.shareTitle}}</a><a href="#"
-                                                                           class="font-12"
-                                                                           style="color:#aaa;">  {{sh.userName}}</a></span>
+                                <span style="padding-left: 150px;"><i><img src="images/share.png" height="10px"></i><a
+                                        href="#">{{sh.shareTitle}}</a><a href="#"
+                                                                         class="font-12"
+                                                                         style="color:#aaa;"> - by {{sh.userName}}</a></span>
                             </div>
-                            <video width="450" height="250" controls="controls" autoplay="autoplay">
+                            <video width="450" height="230" controls="controls" autoplay="autoplay">
                                 <source :src="sh.shareAnnexUrl" type="video/mp4">
                             </video>
                         </div>
@@ -215,18 +309,15 @@
                                 <div class="time font-12">
                                     <a href="#">{{shSon.shareTime}}</a>
                                 </div>
-                                <div class="font-14 f-c-3 text">{{shSon.shareText}}</div>
+                                <div class="font-14 f-c-3 text" v-html="shSon.shareText"></div>
 
                                 <!--视频动态---播放视频时-->
-                                <div class="video xiaoshi" v-if="shSon.shareAnnexUrl != null">
+                                <div class="video" v-if="shSon.shareTitle != null">
                                     <div>
-                                <span><i><img src="images/up.png" height="13px"></i><a href="#"
-                                                                                       class="font-12">收起</a></span>
-                                        <span class="line">|</span>
-                                        <span><i><img src="images/share.png" height="10px"></i><a href="#">  {{shSon.shareTitle}}</a><a
-                                                href="#"
-                                                class="font-12"
-                                                style="color:#aaa;">  {{shSon.userName}}</a></span>
+                                <span style="padding-left: 150px;"><i><img src="images/share.png" height="10px"></i><a
+                                        href="#">{{shSon.shareTitle}}</a><a href="#"
+                                                                            class="font-12"
+                                                                            style="color:#aaa;"> - by {{shSon.userName}}</a></span>
                                     </div>
                                     <video width="450" height="250" controls="controls" autoplay="autoplay">
                                         <source :src="shSon.shareAnnexUrl" type="video/mp4">
@@ -234,8 +325,8 @@
                                 </div>
 
                                 <!--音频动态-->
-                                <div>
-                                    <div class="s-music" v-if="shSon.songName != null">
+                                <div v-if="shSon.songName != null">
+                                    <div class="s-music" >
                                         <div class="f-left">
                                             <a href="#">
                                                 <img src="images/userPic.jpg" height="45">
@@ -246,7 +337,7 @@
                                         <div><a href="#"><h4 class="">{{shSon.singerName}}</h4></a></div>
 
                                     </div>
-                                    <div class=" z-0"><img src="images/mvPic.jpg" height="189"></div>
+                                    <div class=" z-0"><img :src="shSon.shareAnnexUrl" height="189"></div>
                                 </div>
 
                                 <div class="s-foot">
@@ -254,12 +345,15 @@
                                         <span><img src="images/location.png" height="14px"><i class="f-c-d">{{shSon.shareLocation}}</i></span>
                                     </div>
                                     <div class="f-right">
-                                <span><a class="f-c-gold" @click="addSonLikes(index, indexSon)"><img src="images/thumbs.png"
-                                                                        height="14px">(<i>{{shSon.shareLikes}}</i>)</a></span>
+                                <span><a class="f-c-gold" @click="addSonLikes(index, indexSon)"><img
+                                        src="images/thumbs.png"
+                                        height="14px">(<i>{{shSon.shareLikes}}</i>)</a></span>
                                         <span class="line f-c-gold">|</span>
-                                        <span><a href="#" class="f-c-gold">转发(<i>{{shSon.shareForwardCount}}</i>)</a></span>
+                                        <span><a
+                                                 class="f-c-gold" @click="shareForwardDivShow">转发(<i>{{shSon.shareForwardCount}}</i>)<i class="xiaoshi">{{shSon.shareId}}</i></a></span>
                                         <span class="line f-c-gold">|</span>
-                                        <span><a href="#" class="f-c-gold">评论(<i>{{shSon.shareCommentCount}}</i>)</a></span>
+                                        <span><a href="#"
+                                                 class="f-c-gold">评论(<i>{{shSon.shareCommentCount}}</i>)</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -273,8 +367,8 @@
                             <div class="f-right">
                                 <span><a class="f-c-gold" @click="addLikes(index)"><img src="images/thumbs.png"
                                                                                         height="14px">(<i>{{sh.shareLikes}}</i>)</a></span>
-                                <span class="line f-c-gold">|</span>
-                                <span><a href="#" class="f-c-gold">转发(<i>{{sh.shareForwardCount}}</i>)</a></span>
+                                <span class="line f-c-gold shareOtherBtn">|</span>
+                                <span><a class="f-c-gold" @click="shareForwardDivShow(index)">转发(<i>{{sh.shareForwardCount}}</i>)<i class="xiaoshi">{{sh.shareId}}</i></a></span>
                                 <span class="line f-c-gold">|</span>
                                 <span><a href="#" class="f-c-gold">评论(<i>{{sh.shareCommentCount}}</i>)</a></span>
                             </div>
