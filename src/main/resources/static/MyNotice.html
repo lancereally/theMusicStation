@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/MyNotice.css"/>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>MyNotice</title>
+</head>
+<script>
+    $(function () {
+        //获取通知数量
+        $.ajax({
+            url: "/user/getMyNotice",
+            type: "post",
+            datatype: "json",
+            //未登陆，暂且手动输入数字模拟
+            data: {"userId": 1},
+            success: function (data) {
+                vm.comments.push({
+
+                });
+            }
+        });
+    })
+</script>
+<body>
+<div class="g-mn6">
+    <div class="g-wrap">
+        <h3 class="v-hd3"><span class="tit">通知</span></h3>
+        <div class="item f-cb" ><a href="#" class="ava" v-for="notice in notices">
+            <img style="float:left;" src="https://p1.music.126.net/qDVZvy0-WZSRmxpy0MXE3w==/109951163317197479.jpg?param=40y40"></a>
+            <div class="cont">
+                <div class="sec1">
+                    <div class="time s-fc4">9月10日 22:31&nbsp;<i class="u-icn u-icn-57"></i></div>
+                    <div class="mn"><a href="#" class="s-fc0 f-fw1">Lancereally</a><span
+                            class="sep s-fc4">赞了你的评论</span></div>
+                </div>
+                <div class="sec2"><p class="s-fc3 f-brk">草，这功能可算完成了</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: ".g-wrap",
+        data: {
+            notices: []
+        },
+        methods: {}
+    });
+</script>
+</html>

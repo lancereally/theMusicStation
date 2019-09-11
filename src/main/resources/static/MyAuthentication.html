@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/MyAuthentication.css">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/MyOption.css">
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>MyAuthentication</title>
+</head>
+<script>
+    $(function () {
+        //用户选择控制
+        $(".login-button").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        $(".j-uflag").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".login-button").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".j-uflag").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+    })
+</script>
+<body>
+<header>
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="/#">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="#">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+              <a href="#" id="login">登录</a>
+              <div class="sanjiao_down"></div>
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+              <span class="parent">
+                <input
+                        type="text"
+                        name="srch"
+                        id="srch"
+                        class="txt j-flag"
+                        value=""
+                        style="opacity: 1;"
+                        placeholder="音乐/视频/电台/用户"
+                />
+              </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+    <ul class="f-cb lb mg">
+        <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
+        </li>
+        <li><a href="MyMessage.html" class="itm-2"><i class="icn icn-msg"></i><em>我的消息</em><span
+                class="m-topmsg f-pa j-uflag">9</span></a></li>
+        <li><a href="MyVIP.html" class="itm-2" ><i
+                class="icn icn-mbr"></i><em>VIP会员</em></a></li>
+    </ul>
+    <ul class="f-cb ltb mg">
+        <li><a hidefocus="true" class="itm-2" href="MySetting.html"><i class="icn icn-st"></i><em>个人设置</em></a></li>
+        <li><a hidefocus="true" class="itm-2" href="MyAuthentication.html" target="_blank"><i
+                class="icn icn-verify"></i><em>实名认证</em></a></li>
+    </ul>
+    <ul class="f-cb lt">
+        <li><a hidefocus="true" class="itm-3" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
+        </li>
+    </ul>
+    <i class="arr"></i></div>
+
+<div class="member-body">
+    <div class="index_form-section_z6JBL">
+        <h1 class="index_title_3QmRb">实名认证</h1>
+        <div class="index__form___3vVYf">
+            <form>
+                <div class="index__form-item___3hHkk"><label  class="index__label___1hASe"><i
+                        class="index__required___qSINY">*</i>真实姓名</label>
+                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入真实姓名" type="text" value="">
+                    </div>
+                    <span class="index__options___12oCV">审核通过后不可更改（VIP除外</span></div>
+                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
+                        class="index__required___qSINY">*</i>手机号</label>
+                    <div class="index__normal___PXWIw">
+                        <div class="addon-group">
+                            <div class="addon-before rc-select rc-select-enabled" style="width: 63px;">
+                                <div class="rc-select-selection
+            rc-select-selection--single" role="combobox" aria-autocomplete="list" aria-haspopup="true"
+                                     aria-controls="ff383ae2-f58c-42ab-f01d-3cd97585c721" aria-expanded="false"
+                                     tabindex="0">
+                                    <div class="rc-select-selection__rendered">
+
+                                        <div class="rc-select-search rc-select-search--inline" style="display: none;">
+                                            <div class="rc-select-search__field__wrap"><input autocomplete="off"
+                                                                                              class="rc-select-search__field"
+                                                                                              value=""><span
+                                                    class="rc-select-search__field__mirror">&nbsp;</span></div>
+                                        </div>
+                                    </div>
+                                    <span class="rc-select-arrow" unselectable="on" style="user-select: none;"><i
+                                            class="rc-select-arrow-icon"></i></span></div>
+                            </div>
+                            <input disabled="" class="input addon-after input-small" placeholder="请输入手机号" type="text"
+                                   value="178****3609"></div>
+                        <button class="index__button___34GnR index__normal-button___YLaJ-"
+                                style="vertical-align: top; width: 116px; position: absolute; top: 0px; right: 0px;">更改
+                        </button>
+                    </div>
+                    <span class="index__options___12oCV">审核后将绑定到土嗨帐号中</span></div>
+                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
+                        class="index__required___qSINY">*</i>验证码</label>
+                    <div class="index__normal___PXWIw">
+                        <div class="clearfix"><input class="input fl" placeholder="请输入验证码" type="text" value=""
+                                                     style="width: 294px;">
+                            <button class="fr index__button___34GnR index__primary-button___pcseP"
+                                    style="width: 116px;">获取验证码
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
+                        class="index__required___qSINY">*</i>邮箱</label>
+                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入邮箱" type="text" value="">
+                    </div>
+                </div>
+                <div class="index__form-item___3hHkk"><label class="index__label___1hASe">QQ</label>
+                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入QQ号" type="text" value="">
+                    </div>
+                </div>
+
+                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
+                        class="index__required___qSINY">*</i>证件号码</label>
+                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入身份证号码" type="text" value="">
+                    </div>
+                    <span class="index__options___12oCV">审核通过后不可更改</span></div>
+                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"></label>
+                </div>
+                <div class="border-top align-center index__form-item___3hHkk">
+                    <button class="index__button___34GnR index__primary-button___pcseP"
+                            style="width: 160px; margin-top: 40px;">提交审核
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

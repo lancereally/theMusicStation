@@ -1,0 +1,385 @@
+/*                                  全局控制*/
+div {
+    display: block;
+}
+.u-icn, .u-icn2, .u-icn3 {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.u-slt, .u-slt .btn {
+    background: url(https://s2.music.126.net/style/web2/img/sprite.png?a636bc30c70d391ec55978929280210c) no-repeat 0 9999px;
+}
+.u-btn2, .u-btn2 i, .u-btn2 .icn, .u-btni, .u-btni i, .u-tag, .u-tag i, .u-btni-addply .ply {
+    background: url(https://s2.music.126.net/style/web2/img/button2.png?c29a3be4941f0e9afa45b68163e0169a) no-repeat 0 9999px;
+}
+.member-wrap .f-hand, .member-wrap .f-hand *, .member-wrap a, .member-wrap a * {
+    cursor: pointer;
+}
+.m-tabs, .m-tabs a, .m-tabs em, .m-tabs1 a, .m-tabs1 em {
+    background: url(https://s2.music.126.net/style/web2/img/tab.png?aa1b8e33c8752a13d977564c37a82a1c) no-repeat 0 9999px;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+.v-hd3 .mail, .v-hd3 .u-btn2, .v-hd3 .u-btn2 {
+    float: right;
+    font-weight: normal;
+}
+.n-msgnt-hvr .item, .n-msgnt-hvr .item * {
+    cursor: pointer;
+}
+.s-fc4, a.s-fc4:hover {
+    color: #999;
+}
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+em, i {
+    font-style: normal;
+    text-align: left;
+    font-size: inherit;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+li{
+    list-style: none;
+}
+#main{
+    width: 1519px;
+    height: 1791px;
+    background-color: #e8e9ea;
+    margin-top: 70px;
+}
+/*                                            设置*/
+.member-body {
+    width: 982px;
+    min-height: 700px;
+    margin: 70px auto 0 auto;
+    background-color: #fff;
+    border: 1px solid #d39e1e;
+}
+.g-wrap {
+    padding: 40px;
+}
+.u-title-2 {
+    border-bottom: none;
+}.u-title {
+     height: 40px;
+     border-bottom: 3px solid red;
+ }
+.u-title h3 {
+    float: left;
+    font-size: 24px;
+    font-weight: normal;
+}
+.f-ff2 {
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+}
+.f-cb:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}.m-tabs {
+     height: 39px;
+     border: 1px solid #ccc;
+
+     background-position: 0 0;
+     background-repeat: repeat-x;
+ }
+.m-tabs li {
+    position: relative;
+    left: -1px;
+}
+.m-tabs li, .m-tabs a, .m-tabs em {
+    float: left;
+    height: 39px;
+    font-size: 14px;
+}
+.m-tabs a.z-slt {
+    background-position: left -90px;
+}
+.m-tabs a {
+    padding-left: 2px;
+}
+.m-tabs a.z-slt em {
+    background-position: right -90px;
+}
+.m-tabs em {
+    height: 37px;
+    width: 134px;
+    padding: 2px 2px 0 0;
+    line-height: 37px;
+    cursor: pointer;
+    text-align: center;
+}
+.f-cb:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+form {
+    display: block;
+    margin-top: 0em;
+}
+.n-base {
+    margin-top: 30px;
+}
+.n-base .frm {
+    float: left;
+    width: 340px;
+    margin-right: 30px;
+}
+.m-frm .itm {
+    position: relative;
+    zoom: 1;
+    min-height: 32px;
+    margin-bottom: 10px;
+    padding-left: 38px;
+}
+.m-frm .lab {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    line-height: 32px;
+    margin-right: 10px;
+    text-align: left;
+}
+.n-base .txt, .n-base .area {
+    width: 292px;
+}
+.u-txt {
+    height: 19px;
+    margin: 0;
+    padding: 5px 6px 6px;
+    border: 1px solid #cdcdcd;
+    border-radius: 2px;
+    line-height: 19px;
+}
+.u-err {
+    height: 17px;
+    margin-top: 5px;
+    line-height: 17px;
+    color: #e33232;
+}
+.u-err i {
+    margin-right: 8px;
+}
+
+.u-txtwrap {
+    padding-right: 14px;
+}
+.n-base .area {
+    height: 122px;
+}
+.u-txtwrap .zs {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+}
+.s-fc2, a.s-fc2:hover {
+    color: #D0D0D0;
+}
+.f-cb:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.m-frm .check {
+    float: left;
+    margin: 9px 20px 0 0;
+    *margin-top: 9px;
+}
+.f-cb:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.n-base .u-slt {
+    float: left;
+    margin-right: 20px;
+}
+.n-base .u-slt-1, .n-base .u-slt-2 {
+    margin-right: 0;
+}
+.u-slt .curr {
+    display: block;
+    width: 60px;
+    padding-left: 7px;
+    line-height: 28px;
+    font-size: small;
+}
+.u-slt .btn {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 28px;
+    background-position: -169px -47px;
+}
+.u-slt ul {
+    position: absolute;
+    top: 28px;
+    width: 72px;
+    max-height: 150px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #cdcdcd;
+    border-top: none;
+}
+.u-slt ul li {
+    line-height: 26px;
+}
+.f-thide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.n-base .wrd {
+    margin: 0 12px 0 6px;
+    line-height: 32px;
+    font-size: small;
+}
+.f-fl {
+    float: left;
+}
+.m-frm .itm-1 {
+    padding-top: 3px;
+}
+.u-slt {
+    width: 100px;
+    height: 28px;
+    background-position: 0 -47px;
+    cursor: pointer;
+}.f-pr {
+     position: relative;
+     zoom: 1;
+ }
+
+.u-slt ul {
+    position: absolute;
+    top: 28px;
+    width: 98px;
+    max-height: 150px;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid #cdcdcd;
+    border-top: none;
+}
+.n-base .ft {
+    margin-top: 40px;
+}
+.n-base .ft .u-btn2 {
+    margin-right: 20px;
+}
+.u-btn2-2 {
+    color: #fff;
+    background-position: right -428px;
+}
+.u-btn2, .u-btn2 i {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    *line-height: 32px;
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+}
+.u-btn2, .u-btn2:hover {
+    text-decoration: none;
+}
+.u-btn2 {
+    padding: 0 5px 0 0;
+    white-space: nowrap;
+}
+.u-btn2-1 {
+    color: #333;
+    background-position: right -100px;
+}
+.u-btn2-w2 i {
+    width: 40px;
+}
+.u-btn2-2 i {
+    color: #fff;
+    background-position: 0 -387px;
+    font-size: small;
+}
+.u-btn2 i {
+    padding: 0 15px 0 20px;
+    pointer-events: none;
+}
+.n-base .avatar, .n-base .avatar img {
+    float: left;
+    width: 140px;
+    height: 140px;
+}
+.n-base .avatar .btm {
+    background: #8e8e8e;
+    opacity: 0.8;
+
+}
+.n-base .avatar .btm, .n-base .avatar .upload {
+    display: block;
+    position: absolute;
+    width: 140px;
+    height: 26px;
+    left: 0;
+    bottom: 0;
+}
+.n-base .avatar .upload {
+    color: #fff;
+    text-align: center;
+    line-height: 26px;
+}
+.frm label{
+    font-size: small;
+}

@@ -1,0 +1,506 @@
+/*全局样式控制*/
+div {
+    display: block;
+}
+.u-btn2, .u-btn2 i, .u-btn2 .icn, .u-btni, .u-btni i, .u-tag, .u-tag i, .u-btni-addply .ply {
+    background: url(https://s2.music.126.net/style/web2/img/button2.png?c29a3be4941f0e9afa45b68163e0169a) no-repeat 0 9999px;
+}
+.m-record .ply, .m-record span.icn {
+    background: url(https://s2.music.126.net/style/web2/img/table.png?f146dfc557cf0feff24ad74303dceef0) no-repeat 0 9999px;
+}
+.u-cover .ply, .u-cover .icon-headset, .u-cover .icon-play, .u-face .msk, .n-note .head .msk, .icn-vip, .icn-daren, .u-checkbox {
+    background: url(https://s2.music.126.net/style/web2/img/iconall.png?8cf5e874db9724fa296a3ed45cedf8b5) no-repeat;
+}
+.u-icn, .u-title-1 .out .icon {
+    background: url(https://s2.music.126.net/style/web2/img/icon.png?abb319d9b708bd11d53a6ff34743c388) no-repeat 0 9999px;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+i, em {
+    font-style: normal;
+}
+
+li {
+    list-style: none;
+
+    float: left;
+
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+button {
+    cursor: pointer;
+}
+body, textarea, select, input, button {
+    font-size: 12px;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-text-size-adjust: none;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.main{
+    width: 982px;
+    min-height: 700px;
+    height: 1685px;
+    margin: 70px auto 0 auto;
+    border: 1px solid #d3d3d3;
+}
+.content {
+    width: 900px;
+    height: 1685px;
+    padding: 40px;
+    border: 2px solid #b278d3;
+}
+
+/*                                        用户主要信息              */
+.m-proifo {
+    margin-bottom: 123px;
+}
+.f-cb {
+    zoom: 1;
+}
+dl {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.m-proifo dt {
+    float: left;
+    width: 188px;
+    margin-right: 40px;
+}
+.f-pr {
+     position: relative;
+     zoom: 1;
+ }
+.m-proifo .name {
+    padding-bottom: 12px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.f-cb {
+    zoom: 1;
+}.m-proifo .name .edit {
+     float: right;
+     margin-top: 4px;
+ }
+.m-proifo .name .rect {
+    float: right;
+    margin-top: 4px;
+}
+.u-btn2-1 {
+    color: #333;
+    background-position: right -100px;
+}
+.u-btn2, .u-btn2 i {
+    display: inline-block;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+}
+.m-proifo .name .rect {
+    float: right;
+    margin-top: 4px;
+}
+.m-proifo .data {
+    height: 41px;
+    width: 670px;
+    margin-bottom: 15px;
+    float: right;
+}
+.m-proifo .data .fst {
+    padding-left: 0;
+    border-left: none;
+}
+.m-proifo .data li {
+    height: 39px;
+    width: 24px;
+    float: left;
+    padding: 0 30px 0 20px;
+    border-left: 1px solid #ddd;
+}
+.m-proifo .data li strong{
+    color: #666666;
+    font-size: x-large;
+}
+.m-proifo .data li span{
+    color: #666666;
+}
+.m-proifo .data li :hover{
+    color: #63a0ff;
+}
+.m-proifo .data li a{
+    text-decoration: none;
+}
+/*                                               听歌排行*/
+.ranking{
+    width: 900px;
+    height: 35px;
+    margin-top: 100px;
+
+}
+
+.m-record .ply-z-slt, .m-record .ply-z-slt:hover {
+    background-position: -20px -128px;
+}
+.m-record{
+    width: 900px;
+    height: 413px;
+
+}
+.m-record-title {
+    position: relative;
+    z-index: 2;
+    zoom: 1;
+}
+.u-title-1 {
+    height: 33px;
+}
+.u-title {
+    border-bottom: 2px solid #c20c0c;
+}
+.s-fc3, a.s-fc3:hover {
+    color: #666;
+}
+.f-ff2 {
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+    float: left;
+}
+.u-title-1 h3 {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: normal;
+}
+.m-record-title h4 {
+    float: left;
+    display: inline;
+    margin-top: 5px;
+    margin-left: 10px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #666;
+}
+.n-iconpoint {
+    position: relative;
+    margin-left: 10px;
+    left: -1px;
+    top: 8px;
+    line-height: 18px;
+    z-index: 2;
+}
+.u-icn2-5 {
+    width: 18px;
+    height: 18px;
+    background-position: 0 -50px;
+}
+.u-icn2 {
+    background: url(https://s2.music.126.net/style/web2/img/iconall.png?6c6a374484ebe326ff28473caa10bc50) no-repeat 0 9999px;
+}
+.m-record-title .nav {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 5px;
+}
+.m-record-title .nav span {
+    line-height: 26px;
+    color: #666;
+    cursor: pointer;
+}
+.m-record-title .nav span, .m-record-title .nav i {
+    float: right;
+    margin-left: 8px;
+}
+.m-record-title .nav span.z-sel {
+    color: #333;
+    font-weight: 700;
+}
+.m-record .ply {
+    float: right;
+    display: inline;
+    margin-top: 0px;
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    background-position: 0 -103px;
+}
+.m-record .ply:hover {
+    background-position: 0 -128px;
+    /*点击变红*/
+    /*background-position: -20px -128px;*/
+}
+.m-record li{
+    margin-top: 10px;
+}
+.m-record li .hd{
+    float: left;
+    margin-top: 10px;
+}
+.m-record li .hd .num {
+    float: left;
+    display: inline;
+    padding-left: 5px;
+    padding-right: 8px;
+    width: 37px;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    color: #666;
+}
+.m-record li .song {
+    float: left;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
+    padding-left: 10px;
+    width: 480px;
+    height: 38px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.m-record li .song b :hover{
+    text-decoration: underline;
+}
+.m-record li .song span :hover{
+    text-decoration: underline;
+}
+.m-record li .song .tt {
+     float: left;
+     width: 100%;
+ }
+.m-record li .song .tt .txt {
+    position: relative;
+    display: inline-block;
+    max-width: 99%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.s-fc8, a.s-fc8:hover {
+    color: #aeaeae;
+}
+.m-record .opt {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 11px;
+    display: none;
+    width: 92px;
+    height: 20px;
+    overflow: hidden;
+}.m-record .icn-add {
+     float: left;
+     margin-top: 2px;
+ }
+.u-icn-81 {
+    width: 13px;
+    height: 13px;
+    background-position: 0 -700px;
+}
+.u-icn, .u-icn2, .u-icn3 {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.m-record span.icn-fav {
+    background-position: 0 -174px;
+}
+.m-record span.icn {
+    float: left;
+    width: 18px;
+    height: 16px;
+    margin: 2px 0 0 8px;
+    overflow: hidden;
+    text-indent: -999px;
+    cursor: pointer;
+}
+.m-record span.icn-share {
+    background-position: 0 -195px;
+}
+.m-record span.icn-dl {
+    background-position: -81px -174px;
+}
+.m-record li .tops {
+    float: right;
+    position: relative;
+    z-index: 1;
+    zoom: 1;
+    width: 319px;
+    height: 38px;
+    line-height: 38px;
+}
+.m-record li .tops span.bg {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 38px;
+    background-color: #4eb4f5;
+    opacity: 0.1;
+    filter: Alpha(opacity=10);
+    /*line-height: 38px;*/
+}
+.m-record li .tops span.times {
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+    height: 38px;
+    line-height: 38px;
+    color: #666;
+}
+.f-ff2 {
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+}
+
+/*                                          我创建的歌单*/
+.h-myList{
+    width: 900px;
+    height: 35px;
+
+}
+.myList{
+    width: 900px;
+    height: 195px;
+
+}
+.u-title {
+    border-bottom: 2px solid #c20c0c;
+}
+.u-title-1 h3 {
+    font-size: 20px;
+    line-height: 28px;
+}
+.u-title h3 {
+    float: left;
+    font-weight: normal;
+}
+.f-r-black-icon {
+    background: url(https://s2.music.126.net/style/web2/img/iconall.png?8cf5e874db9724fa296a3ed45cedf8b5);
+}
+.p-prf .m-cvrlst {
+    margin: 20px 0 0 -50px;
+}
+.p-prf .m-cvrlst li {
+    height: 165px;
+    overflow: hidden;
+}
+.m-cvrlst li {
+    float: left;
+    display: inline-block;
+    width: 140px;
+    padding: 0 0 30px 50px;
+    line-height: 1.4;
+}
+.u-cover-1 {
+    width: 140px;
+    height: 140px;
+}.u-cover {
+     position: relative;
+     display: block;
+ }
+.u-cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}.u-cover-1 .msk {
+     background-position: 0 0;
+ }
+.u-cover .msk {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.u-cover .bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 27px;
+    background-position: 0 -537px;
+    color: #dbdad5;
+    background-color: rgba(120, 120, 120, 0.3);
+}.u-cover .icon-play {
+     position: absolute;
+     right: 10px;
+     bottom: 5px;
+     width: 16px;
+     height: 17px;
+     background-position: 0 0;
+     margin-top: 2px;
+ }
+.u-cover .icon-headset {
+    float: left;
+    width: 14px;
+    height: 11px;
+    background-position: 0 -24px;
+    margin: 9px 5px 9px 10px;
+}
+
+.u-cover .nb {
+    float: left;
+    margin: 7px 0 0 0;
+}
+.m-cvrlst li .dec {
+    margin: 8px 0 3px;
+    font-size: 14px;
+}
+/*控制行数为1*/
+.m-cvrlst li p {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+overflow: hidden;
+}
+/*                                          我收藏的歌单*/
+.h-list-liked{
+    width: 900px;
+    height: 35px;
+
+}
+.list-liked{
+    width: 900px;
+    height: 195px;
+
+}

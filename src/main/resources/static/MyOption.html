@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/MyOption.css">
+    <link rel="stylesheet" href="css/index.css"/>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>MyOption</title>
+</head>
+<script>
+    $(function () {
+        //用户选择控制
+        $(".login-button").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        $(".login-button").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".j-uflag").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        $(".j-uflag").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+    })
+</script>
+<body>
+<header style="z-index: 5;;">
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="/#">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="#">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+              <a href="#" id="login">登录</a>
+              <div class="sanjiao_down"></div>
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+              <span class="parent">
+                <input
+                        type="text"
+                        name="srch"
+                        id="srch"
+                        class="txt j-flag"
+                        value=""
+                        style="opacity: 1;"
+                        placeholder="音乐/视频/电台/用户"
+                />
+              </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--style="display: none;"-->
+<!--触摸变身-->
+<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+    <ul class="f-cb lb mg option">
+        <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
+        </li>
+        <li><a href="MyMessage.html" class="itm-2"><i class="icn icn-msg"></i><em>我的消息</em><span
+                class="m-topmsg f-pa j-uflag">9</span></a></li>
+        <li><a href="MyVIP.html" class="itm-2" ><i
+                class="icn icn-mbr"></i><em>VIP会员</em></a></li>
+    </ul>
+    <ul class="f-cb ltb mg option">
+        <li><a hidefocus="true" class="itm-2" href="MySetting.html"><i class="icn icn-st"></i><em>个人设置</em></a></li>
+        <li><a hidefocus="true" class="itm-2" href="MyAuthentication.html" target="_blank"><i
+                class="icn icn-verify"></i><em>实名认证</em></a></li>
+    </ul>
+    <ul class="f-cb lt  option">
+        <li><a hidefocus="true" class="itm-3" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
+        </li>
+    </ul>
+    <i class="arr"></i></div>
+</body>
+</html>

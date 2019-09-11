@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/MyOption.css">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/Login.css"/>
+    <link rel="stylesheet" href="css/LoginAccount.css"/>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<script>
+    $(function () {
+        $(".loginAccount").click(function () {
+            $("#loginAccount").css("display","block");
+            $(".login").css("display","none");
+        });
+        $(".loginPhone").click(function () {
+            $("#loginPhone").css("display","block");
+            $(".login").css("display","none");
+        });
+        $(".loginNewUser").click(function () {
+            $("#loginNewUser").css("display","block");
+            $(".login").css("display","none");
+        });
+        $(".s-primary").click(function () {
+            $(".m-layer").css("display","none");
+            $(".login").css("display","block");
+        });
+    })
+</script>
+<body>
+<div class="auto-1568105551339 m-layer z-show " id="loginPhone" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">手机短信登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+    <div class="n-log2 n-log2-2">
+        <div class="f-pr" style="z-index:5;">
+            <input type="text" name="e" class="js-input u-txt" placeholder="请输入手机号" autocomplete="off">
+            <ul class="js-suggest u-fill" style="visibility:hidden;" ></ul>
+        </div>
+        <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2 ma" hidefocus="true" href="#" data-action="login"><i>点击获取验证码</i></a>
+        </div>
+        <div class="f-mgt10">
+            <input type="password" name="epw" id="epw" class="js-input u-txt" placeholder="请输入验证码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+        </div>
+    </div>
+    <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+</div></div><span class="zcls" title="关闭窗体" >×</span></div>
+<div class="auto-1568105551339 m-layer z-show " id="loginAccount" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" id="auto-id-GIUtr1rxR6Tr59E4">
+    <div class="n-log2 n-log2-2">
+        <div class="f-pr" style="z-index:5;">
+            <input type="text" name="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+            <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+        </div>
+        <div class="f-mgt10">
+            <input type="password" name="epw" class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt10">
+            <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
+            <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+        </div>
+        <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+        </div>
+    </div>
+    <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+</div></div><span class="zcls" title="关闭窗体" >×</span></div>
+<div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+    <div class="n-log2 n-log2-2">
+        <div class="f-pr" style="z-index:5;">
+            <input type="text" name="e" id="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+            <ul class="js-suggest u-fill" style="visibility:hidden;" id="auto-id-CIFtIW9szaHfGuVh"></ul>
+        </div>
+        <div class="f-mgt10">
+            <input type="password" name="epw"  class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt10">
+            <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
+            <a href="#" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+        </div>
+        <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+        </div>
+    </div>
+    <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+</div></div><span class="zcls" title="关闭窗体" id="auto-id-H0iRlpFpOZ2EdSyw">×</span></div>
+<div class="auto-1568105551339 m-layer z-show login" style="top: 198px; left: 503px;display:none"><div class="zbar" id="auto-id-cUzAhzE6Kx69KFTU"><div class="zttl f-thide">登录</div></div><div class="zcnt"><div class="lyct lyct-1" id="auto-id-kXP3EkBRbFKINXWU">
+    <div class="n-log2 n-log2-1 f-cb">
+        <div class="u-main">
+            <div class="u-plt"></div>
+            <div class="f-mgt10">
+                <a href="javascript:;" class="loginAccount u-btn2 u-btn2-2" data-action="login" data-type="mobile"><i>土嗨账号登录</i></a>
+            </div>
+            <div class="f-mgt10">
+                <a href="javascript:;" class="loginPhone u-btn2 u-btn2-2" data-action="login" data-type="mobile"><i>手机号登录</i></a>
+            </div>
+            <div class="f-mgt10">
+                <a href="javascript:;" class="loginNewUser u-btn2 u-btn2-1" data-action="reg"><i>注　册</i></a>
+            </div>
+        </div>
+
+    </div>
+</div></div><span class="zcls" title="关闭窗体" id="auto-id-w3HErZCodgJJwRJQ">×</span></div>
+</body>
+</html>
