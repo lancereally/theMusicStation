@@ -1,5 +1,7 @@
 package org.lanqiao.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.lanqiao.entity.Share;
 import org.lanqiao.service.ShareService;
 import org.lanqiao.util.IpUtil;
@@ -19,10 +21,18 @@ public class ShareController {
     @Autowired
     ShareService shareService;
 
+
+
     @RequestMapping("/getAllShare")
-    public List<Share> get(){
+    public PageInfo get(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
+
+        PageHelper.startPage(pageNum, 3);
+
         List<Share> shareList = shareService.getAllShare();
-        return shareList;
+
+        PageInfo<Share> pageInfo = new PageInfo<>(shareList);
+
+        return pageInfo;
     }
 
     @RequestMapping("/addLikes")
