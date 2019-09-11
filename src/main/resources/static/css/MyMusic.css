@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+div{
+    display: block;
+}
+.mymusic_head{
+    height: 75px;
+    width: auto;
+    background-color: gold;
+}
+.mymusic_body{
+    background-color: #E3E4E5;
+    width: auto;
+    /*height: 700px;*/
+}
+.mymusic_main{
+    min-height: 645px;
+    width: 980px;
+    /*height: 900px;*/
+    margin-left: 260px;
+    border-right:1px solid #999999;
+    border-left:1px solid #999999;
+    background:url("../images/MyMusic/wrap3.png") repeat-y center 0 ;
+}
+/*侧边栏*/
+.mymusic_side{
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 240px;
+    height: 605px;
+    padding-top: 40px;
+    float: left;
+}
+.mymusic_side::-webkit-scrollbar{/*滚动条整体样式*/
+    width: 8px;
+    height: 8px;
+}
+.mymusic_side::-webkit-scrollbar-thumb{/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+}
+.mymusic_side::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);
+}
+.l_neirong{
+    width: 232px;
+}
+/*侧边单个*/
+.side_nav{
+    cursor: pointer;
+    display: block;
+    padding: 0 5px 2px 35px;
+    font-size: 14px;
+    font-family: simsun,\5b8b\4f53;
+    line-height: 36px;
+}
+.mineList{
+    margin-top: 8px;
+}
+.mineList h2{
+    padding: 0 10px 12px 15px;
+    font-size: 14px;
+    color: #000;
+}
+.create_btn{
+    float: right;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    font-family: simsun,\5b8b\4f53;
+    display: inline-block;
+    background: url("../images/MyMusic/button.png") no-repeat  0 -96px;
+    width: 52px;
+    height: 22px;
+}
+.create_btn span{
+    display: inline-block;
+    line-height: 22px;
+    overflow: hidden;
+    padding-left: 20px;
+    color: #515151;
+    font-size: 12px;
+    font-weight: normal;
+}
+.create_list{
+    position: relative;
+    cursor: pointer;
+    color: #333;
+    font-size: 14px;
+    font-family: simsun,\5b8b\4f53;
+}
+.list_tag{
+    border-color: #ccc transparent transparent;
+    border-style: solid dashed dashed;
+    border-width: 8px 7px 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px 0 5px;
+    cursor: pointer;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+}
+.top_icon{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-size: cover;
+    background-image: url("../images/MyMusic/black-r-icon@3x.png");
+    position: absolute;
+}
+.t_icon{
+    display: inline-block;
+    width: 10px;
+}
+.list_info *{
+    cursor: pointer;
+    vertical-align: middle;
+}
+.list_det{
+    list-style: none;
+    position: relative;
+    zoom: 1;
+    height: 42px;
+    padding: 6px 0 6px 20px;
+}
+.list_item{
+    padding-left: 50px;
+}
+.left_pic{
+    display: inline;
+    float: left;
+    margin-left: -50px;
+    overflow: hidden;
+    width: 40px;
+}
+.left_pic img{
+    height: 40px;
+}
+.item_name{
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+.song_num{
+    color: #999;
+}
+.item_xiugai{
+    position: absolute;
+    bottom: 7px;
+    right: 0;
+}
+.item_edit{
+    float: left;
+    margin-right: 10px;
+    width: 13px;
+    height: 13px;
+    /*background-position: 0 -270px;*/
+    background: url("../images/MyMusic/icon.png") no-repeat 0 -270px;
+}
+.item_del{
+    float: left;
+    margin-right: 10px;
+    width: 13px;
+    height: 13px;
+    /*background-position: 0 -270px;*/
+    background: url("../images/MyMusic/icon.png") no-repeat 0 -284px;
+}
+/*中间显示部分*/
+.mymusic_show{
+    float: left;
+    width: 740px;
+    height: 605px;
+}
+.show_frame{
+}
