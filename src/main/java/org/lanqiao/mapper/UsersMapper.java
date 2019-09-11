@@ -1,8 +1,10 @@
 package org.lanqiao.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.lanqiao.entity.Users;
 import org.springframework.stereotype.Repository;
 
+@Mapper
 @Repository
 public interface UsersMapper {
     int deleteByPrimaryKey(Integer userId);
