@@ -1,0 +1,184 @@
+
+div {
+    display: block;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+body, textarea, select, input, button {
+    font-size: 12px;
+    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-text-size-adjust: none;
+}
+body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
+    padding: 0;
+    margin: 0;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+li, s {
+    list-style: none;
+}
+body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+em, i {
+    font-style: normal;
+    text-align: left;
+    font-size: inherit;
+}
+div.m-layer .zbar, div.m-layer .zcls {
+    background: url(https://s2.music.126.net/style/web2/img/layer/layer.png?cdaa276bc4be2f205cdd4dcae5d7e3bc) no-repeat 0 9999px;
+
+}
+.n-log2 .u-main .u-plt {
+    height: 120px;
+    background: url(https://s2.music.126.net/style/web2/img/platform.png?221bf7f7d3fba7673edf0e4ce5618e6f) no-repeat 13px 0;
+}
+.u-btn2, .u-btn2 i {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    *line-height: 32px;
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+}
+.u-btn2, .u-btn2 i, .u-btn2 .icn, .u-btni, .u-btni i, .u-tag, .u-tag i, .u-btni-addply .ply {
+    background: url(https://s2.music.126.net/style/web2/img/button2.png?c29a3be4941f0e9afa45b68163e0169a) no-repeat 0 9999px;
+}
+/*                                  登录and注册*/
+.m-layer {
+    position: absolute;
+    z-index: 9998;
+    width: 530px;
+    border-radius: 4px;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.8);
+    border: none;
+}
+div.m-layer .zbar {
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid #191919;
+    border-radius: 4px 4px 0 0;
+    background: #2d2d2d;
+}
+div.m-layer .zbar, div.m-layer .zttl {
+    cursor: move;
+
+    user-select: none;
+}
+div.m-layer .zttl {
+    padding-right: 45px;
+    margin: 0;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 18px;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    background-position: 50% 0;
+    _background-image: none;
+}
+div.m-layer div.zcnt {
+    padding: 0;
+    border: 1px solid #878787;
+
+    border-radius: 0 0 4px 4px;
+    background: #fff;
+}
+div.m-layer .lyct-1 {
+    padding: 0;
+}
+.n-log2-1 {
+    padding: 40px 0 39px;
+}
+.n-log2 .u-main {
+    position: relative;
+    float: left;
+    width: 224px;
+    padding: 0 35px 3px 40px;
+    /*border: 1px solid #9e9e9e;*/
+    margin-left: 115px;
+}
+.f-mgt10 {
+    margin-top: 10px;
+}
+.n-log2 .u-main .u-btn2 {
+    width: 219px;
+}
+.u-btn2-2 {
+    color: #fff;
+    background-position: right -428px;
+}
+.u-btn2, .u-btn2:hover {
+    text-decoration: none;
+}
+.u-btn2 {
+    padding: 0 5px 0 0;
+    white-space: nowrap;
+}
+.u-btn2-1 {
+    color: #333;
+    background-position: right -100px;
+}
+.n-log2 .u-main .u-btn2 i {
+    width: 184px;
+}
+.u-btn2-2 i {
+    color: #fff;
+    background-position: 0 -387px;
+}
+
+.u-btn2 i {
+    padding: 0 15px 0 20px;
+    pointer-events: none;
+}
+.u-btn2-1 i {
+    color: #333;
+    background-position: 0 -59px;
+}
+.f-cb:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}div.m-layer .zcls {
+     position: absolute;
+     z-index: 20;
+     top: 16px;
+     right: 20px;
+     width: 10px;
+     height: 10px;
+     overflow: hidden;
+     text-indent: -9999px;
+     cursor: pointer;
+     background-position: 0 -95px;
+ }

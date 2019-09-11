@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>网易云音乐</title>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="application/javascript" src="js/layui/layui.js"></script>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <link rel="stylesheet" href="css/MyOption.css">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/Login.css"/>
+    <link rel="stylesheet" href="css/LoginAccount.css"/>
+  </head>
+  <script>
+    $(function () {
+      $("#login").click(function () {
+        $(".login").css("display","block");
+      });
+      $(".loginAccount").click(function () {
+        $("#loginAccount").css("display","block");
+        $(".login").css("display","none");
+      });
+      $(".loginPhone").click(function () {
+        $("#loginPhone").css("display","block");
+        $(".login").css("display","none");
+      });
+      $(".loginNewUser").click(function () {
+        $("#loginNewUser").css("display","block");
+        $(".login").css("display","none");
+      });
+      $(".s-primary").click(function () {
+        $(".m-layer").css("display","none");
+        $(".login").css("display","block");
+      });
+      $(".zcls").click(function () {
+        $(".m-layer").css("display","none");
+      });
+    })
+  </script>
+  <body>
+    <header>
+      <div id="head-title">
+        <div id="head-title-container">
+          <h2 class="logo"><a hidefocus="true" href="/#">土嗨音乐网</a></h2>
+          <ul class="head-ul">
+            <li>
+              <span>
+                <a href="#">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a href="#">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a href="#">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+            </li>
+            <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+            </li>
+          </ul>
+          <div class="login-button">
+            <span>
+              <a href="#" id="login">登录</a>
+              <div class="sanjiao_down"></div>
+            </span>
+          </div>
+          <a class="creator-center">创作者中心</a>
+          <div class="search-box">
+            <div class="srchbg">
+              <span class="parent">
+                <input
+                  type="text"
+                  name="srch"
+                  id="srch"
+                  class="txt j-flag"
+                  value=""
+                  style="opacity: 1;"
+                  placeholder="音乐/视频/电台/用户"
+                />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="head-nav">
+        <div id="head-nav-contain">
+          <ul class="nav">
+            <li>
+              <a href="#"><em>推荐</em></a>
+            </li>
+            <li>
+              <a href="#"><em>排行榜</em></a>
+            </li>
+            <li>
+              <a href="#"><em>歌单</em></a>
+            </li>
+            <li>
+              <a href="#"><em> 主播电台</em></a>
+            </li>
+            <li>
+              <a href="#"><em>歌手</em></a>
+            </li>
+            <li>
+              <a href="#"><em>新碟上架</em></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <div class="auto-1568105551339 m-layer z-show " id="loginPhone" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">手机短信登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+      <div class="n-log2 n-log2-2">
+        <div class="f-pr" style="z-index:5;">
+          <input type="text" name="e" class="js-input u-txt" placeholder="请输入手机号" autocomplete="off">
+          <ul class="js-suggest u-fill" style="visibility:hidden;" ></ul>
+        </div>
+        <div class="f-mgt20">
+          <a class="js-primary u-btn2 u-btn2-2 ma" hidefocus="true" href="#" data-action="login"><i>点击获取验证码</i></a>
+        </div>
+        <div class="f-mgt10">
+          <input type="password" name="epw" id="epw" class="js-input u-txt" placeholder="请输入验证码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt20">
+          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+        </div>
+      </div>
+      <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+    </div></div><span class="zcls" title="关闭窗体" >×</span></div>
+    <div class="auto-1568105551339 m-layer z-show " id="loginAccount" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" id="auto-id-GIUtr1rxR6Tr59E4">
+      <div class="n-log2 n-log2-2">
+        <div class="f-pr" style="z-index:5;">
+          <input type="text" name="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+          <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+        </div>
+        <div class="f-mgt10">
+          <input type="password" name="epw" class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt10">
+          <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
+          <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+        </div>
+        <div class="f-mgt20">
+          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+        </div>
+      </div>
+      <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+    </div></div><span class="zcls" title="关闭窗体" >×</span></div>
+    <div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+      <div class="n-log2 n-log2-2">
+        <div class="f-pr" style="z-index:5;">
+          <input type="text" name="e" id="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+          <ul class="js-suggest u-fill" style="visibility:hidden;" id="auto-id-CIFtIW9szaHfGuVh"></ul>
+        </div>
+        <div class="f-mgt10">
+          <input type="password" name="epw"  class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt10">
+          <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
+          <a href="#" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+        </div>
+        <div class="f-mgt20">
+          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+        </div>
+      </div>
+      <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+    </div></div><span class="zcls" title="关闭窗体" id="auto-id-H0iRlpFpOZ2EdSyw">×</span></div>
+    <div class="auto-1568105551339 m-layer z-show login" style="top: 198px; left: 503px;display:none"><div class="zbar" id="auto-id-cUzAhzE6Kx69KFTU"><div class="zttl f-thide">登录</div></div><div class="zcnt"><div class="lyct lyct-1" id="auto-id-kXP3EkBRbFKINXWU">
+      <div class="n-log2 n-log2-1 f-cb">
+        <div class="u-main">
+          <div class="u-plt"></div>
+          <div class="f-mgt10">
+            <a href="javascript:;" class="loginAccount u-btn2 u-btn2-2" data-action="login" data-type="mobile"><i>土嗨账号登录</i></a>
+          </div>
+          <div class="f-mgt10">
+            <a href="javascript:;" class="loginPhone u-btn2 u-btn2-2" data-action="login" data-type="mobile"><i>手机号登录</i></a>
+          </div>
+          <div class="f-mgt10">
+            <a href="javascript:;" class="loginNewUser u-btn2 u-btn2-1" data-action="reg"><i>注　册</i></a>
+          </div>
+        </div>
+
+      </div>
+    </div></div><span class="zcls" title="关闭窗体" id="auto-id-w3HErZCodgJJwRJQ">×</span></div>
+
+    <div id="mid">
+      <div class="roll">
+        <div class="layui-carousel" id="roll-screen">
+          <div carousel-item>
+            <div><img src="img/roll-1.jpg" /></div>
+            <div><img src="img/roll-2.jpg" /></div>
+            <div><img src="img/roll-3.jpg" /></div>
+          </div>
+        </div>
+        <div id="download-i"><span>DOWNLOAD</span></div>
+      </div>
+    </div>
+    <div id="container">
+      <div id="container-left">
+        <div class="v-hd">
+          <a href="#" class="tit">热门推荐</a>
+          <div class="tab">
+            <a href="" class="tab-l">华语</a><span class="line">|</span>
+            <a href="" class="tab-l">流行</a><span class="line">|</span>
+            <a href="" class="tab-l">摇滚</a><span class="line">|</span>
+            <a href="" class="tab-l">民谣</a><span class="line">|</span>
+            <a href="" class="tab-l">电子</a>
+          </div>
+          <span class="tab-l tab" style="float: right;">更多</span>
+        </div>
+        <ul class="cvrlist">
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+
+          <li>
+            <div class="u-cover u-cover-1">
+              <img src="img/cvr-1.jpg" />
+              <a href="" class="msk"> </a>
+              <div class="bottom">
+                <a class="icon-play"></a>
+                <span class="icon-headset"></span>
+                <span class="nb">1926万</span>
+              </div>
+            </div>
+            <p class="dec">
+              <a> [欧美私人订制] 最懂你的欧美日推</a>
+            </p>
+          </li>
+        </ul>
+
+        <div class="v-hd">
+          <a href="#" class="tit">新碟上架</a>
+          <span class="tab-l tab" style="float: right;">更多</span>
+        </div>
+        <div class="n-disk">
+          <div class="" id="album-roll">
+            <div></div>
+          </div>
+        </div>
+        <span class="n-clmnad"></span>
+        <div class="v-hd">
+          <a href="#" class="tit">榜单</a>
+          <span class="tab-l tab" style="float: right;">更多</span>
+        </div>
+        <div class="n-blist">
+          <dl class="blk">
+            <dt class="top">
+              <div class="cver">
+                <img src="img/speedup.jpg" />
+                <a class="msk"> </a>
+              </div>
+              <div class="tit">
+                <a href="">
+                  <h3>云音乐飙升榜</h3>
+                </a>
+                <div class="btn">
+                  <a href="" class="btn-play-1"></a>
+                  <a href="" class="btn-add-1"></a>
+                </div>
+              </div>
+            </dt>
+            <dd>
+              <ol>
+                <li
+                  onmouseover="this.className='z-hvr'"
+                  onmouseout="this.className=''"
+                  class=""
+                >
+                  <span class="no no-top">1</span>
+                  <a href="" class="nm" title="我不好">我不好</a>
+                  <div class="oper">
+                    <a href="" class="btn-play-2"></a>
+                    <a href="" class="btn-add-2"></a>
+                    <a href="" class="btn-add-3"></a>
+                  </div>
+                </li>
+                <li
+                  onmouseover="this.className='z-hvr'"
+                  onmouseout="this.className=''"
+                  class=""
+                >
+                  <span class="no no-top">2</span>
+                  <a href="" class="nm" title="她不是">我不好</a>
+                  <div class="oper">
+                    <a href="" class="btn-play-2"></a>
+                    <a href="" class="btn-add-2"></a>
+                    <a href="" class="btn-add-3"></a>
+                  </div>
+                </li>
+                <li
+                  onmouseover="this.className='z-hvr'"
+                  onmouseout="this.className=''"
+                  class=""
+                >
+                  <span class="no no-top">3</span>
+                  <a href="" class="nm" title="我不好">亦是此间少年</a>
+                  <div class="oper">
+                    <a href="" class="btn-play-2"></a>
+                    <a href="" class="btn-add-2"></a>
+                    <a href="" class="btn-add-3"></a>
+                  </div>
+                </li>
+                <li
+                  onmouseover="this.className='z-hvr'"
+                  onmouseout="this.className=''"
+                  class=""
+                >
+                  <span class="no ">4</span>
+                  <a href="" class="nm" title="我不好">我不好</a>
+                  <div class="oper">
+                    <a href="" class="btn-play-2"></a>
+                    <a href="" class="btn-add-2"></a>
+                    <a href="" class="btn-add-3"></a>
+                  </div>
+                </li>
+                <li
+                  onmouseover="this.className='z-hvr'"
+                  onmouseout="this.className=''"
+                  class=""
+                >
+                  <span class="no no-top">1</span>
+                  <a href="" class="nm" title="我不好">我不好</a>
+                  <div class="oper">
+                    <a href="" class="btn-play-2"></a>
+                    <a href="" class="btn-add-2"></a>
+                    <a href="" class="btn-add-3"></a>
+                  </div>
+                </li>
+              </ol>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <div id="container-right"></div>
+    </div>
+  </body>
+</html>
+<script>
+  layui.use('carousel', function() {
+    var carousel = layui.carousel
+    //建造实例
+    carousel.render({
+      elem: '#roll-screen',
+      width: '730px', //设置容器宽度
+      height: '336px',
+      interval: 3000,
+      arrow: 'always' //始终显示箭头
+      //,anim: 'updown' //切换动画方式
+    })
+  })
+</script>

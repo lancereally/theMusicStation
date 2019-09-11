@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/MyComment.css"/>
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>MyComment</title>
+</head>
+<script>
+    $(function () {
+        //获取评论数量
+        $.ajax({
+            url: "/user/getMyComment",
+            type: "post",
+            datatype: "json",
+            //未登陆，暂且手动输入数字模拟
+            data: {"userId": 1},
+            success: function (data) {
+                vm.comments.push({
+
+                });
+            }
+        });
+    })
+</script>
+<body>
+<div class="g-mn6">
+    <div class="g-wrap">
+        <h3 class="v-hd3"><span class="tit">评论</span></h3>
+        <div class="n-msgnt n-msgnt-1 n-msgnt-2 j-flag" id="auto-id-v0597xVPAd1mTPHK">
+            <div class="item f-cb" v-for="comment in comments"><a href="#" class="ava"><img
+                    src="https://p1.music.126.net/MEma03_GoNWOIRtW8vzGUA==/19207368625780682.jpg?param=50y50"></a>
+                <div class="cont cont-1">
+                    <div class="sec1">
+                        <div class="time s-fc3">9月7日&nbsp;<i class="u-icn u-icn-57"></i></div>
+                        <div class="mn"><a href="#" class="s-fc7 f-fw1">青大高材生</a></div>
+                    </div>
+                    <div class="sec3 f-brk">回复我：真棒</div>
+                    <div class="sec2">
+                        <div class="oper"><a data-id="4939876440:1623268565:R_SO_4_1374304123" data-type="reply"
+                                             href="#" class="s-fc7">回复</a></div>
+                        <p class="s-fc4">我的评论：<a class="s-fc4 f-brk" href="#">熬夜五组</a></p></div>
+                    <div class="corr u-arr u-arr-3"><em class="arrline">◆</em></div>
+                    <div class="sec4 f-hide"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: ".g-wrap",
+        data: {
+            comments: []
+        },
+        methods: {}
+    });
+</script>
+</html>

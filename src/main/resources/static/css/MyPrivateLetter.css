@@ -1,0 +1,235 @@
+div {
+    display: block;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.v-hd3 .mail, .v-hd3 .u-btn2, .v-hd3 .u-btn2 {
+    float: right;
+    font-weight: normal;
+}
+.u-icn, .u-title-1 .out .icon {
+    background: url(https://s2.music.126.net/style/web2/img/icon.png?abb319d9b708bd11d53a6ff34743c388) no-repeat 0 9999px;
+}
+.u-btn, div.u-page a, div.u-page a.js-selected, div.u-page a.znxt.js-disabled, div.u-page a.zprv.js-disabled {
+    background: url(https://s2.music.126.net/style/web2/img/button.png?14582f0c56aef81e465acdc186d665fa) no-repeat 0 9999px;
+}
+.n-msgnt-hvr .item, .n-msgnt-hvr .item * {
+    cursor: pointer;
+}
+.s-fc4, a.s-fc4:hover {
+    color: #999;
+}
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+i, em {
+    font-style: normal;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+li{
+    list-style: none;
+}
+/*                       消息详情*/
+.g-mn6 {
+    float: right;
+    width: 980px;
+    height: 822px;
+    margin-left: 185px;
+}
+.g-mn6c {
+
+}
+
+.g-wrap {
+    float: right;
+    padding: 40px;
+    width: 715px;
+    height: 822px;
+}
+.v-hd3 {
+    height: 35px;
+    border-bottom: 2px solid #d13030;
+}
+.v-hd3 .tit {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 35px;
+}.f-fl {
+     float: left;
+ }
+.u-btn-2 {
+    width: 89px;
+    height: 31px;
+    color: #333;
+    background-position: 0 -680px;
+    text-indent: 31px;
+    line-height: 30px;
+    font-size: small;
+}.u-btn {
+     display: inline-block;
+ }
+.n-msgnt {
+    margin-bottom: 40px;
+    margin-top: 1px;
+    width: 715px;
+    height: 664px;
+}
+.n-msgnt .item {
+    padding: 16px 0;
+    border-bottom: 1px dotted #ccc;
+}
+.item{
+    z-index: 1;
+}
+.n-msgnt-1 .ava, .n-msgnt-1 .ava img {
+    width: 50px;
+    height: 50px;
+}
+.n-msgnt .ava {
+    float: left;;
+    margin-right: -100px;
+}
+.f-pr {
+    position: relative;
+    zoom: 1;
+}.n-msgnt .ava .u-bub {
+     position: absolute;
+     top: -7px;
+     left: -8px;
+ }
+.u-bub {
+    display: block;
+    position: relative;
+    zoom: 1;
+    width: 22px;
+    height: 22px;
+    color: #fff;
+    text-align: center;
+    line-height: 23px;
+    font-weight: bold;
+}
+.u-bub b {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background: url(https://s2.music.126.net/style/web2/img/ie6/bub.png?e0854534686a82e51c48e52151d1bbe1) no-repeat;
+}
+.u-bub em {
+    float: none;
+    display: block;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+.n-msgnt-1 .cont {
+    margin-left: 70px;
+    line-height: 21px;
+}
+.n-msgnt .cont .time {
+    float: right;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+.n-msgnt .cont .time i {
+    position: relative;
+    margin-right: 0;
+}
+.n-msgnt .cont .u-icn {
+    margin: -4px 8px 0 2px;
+}
+.u-icn-57 {
+    width: 13px;
+    height: 13px;
+    background-position: -18px -682px;
+}
+.u-icn, .u-icn2, .u-icn3 {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.n-msgnt-1 .cont {
+    margin-left: 70px;
+    line-height: 21px;
+}
+.s-fc0, a.s-fc0:hover {
+    color: #000;
+}
+.f-fw1 {
+    font-weight: bold;
+}.f-fs1 {
+     font-size: 14px;
+ }
+.n-msgnt .cont .u-icn {
+    margin: -4px 8px 0 2px;
+}
+.u-icn-1 {
+    width: 11px;
+    height: 13px;
+    background-position: 0 1px;
+    font-size: 100%;
+    font-style: normal;
+}
+#mi-shu :hover{
+    text-decoration: underline;
+    z-index: 999;
+}
+.n-msgnt .cont .sec2 {
+    width: 100%;
+    margin-top: 3px;
+}
+.f-thide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    font-size: small;
+}
+.n-msgnt .cont .oper {
+    float: right;
+    text-align: right;
+    font-family: Tahoma, Geneva, sans-serif;
+}.n-msgnt .item .dlt {
+     visibility: hidden;
+ }.s-fc7, a.s-fc7:hover {
+      color: #0c73c2;
+  }
+.n-msgnt .cont .sec2-1 p {
+    width: 85%;
+}
+.f-thide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}.n-msgnt .cont .sec2 p {
+     word-break: break-word;
+ }

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/MySetting.css">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/MyOption.css">
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <meta charset="UTF-8">
+    <title>MySetting</title>
+</head>
+<script>
+    $(function () {
+        //用户选择控制
+        $(".login-button").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        $(".login-button").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".j-uflag").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".j-uflag").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        //获取用户基本信息
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+            url: "http://localhost:8080/cart/getUserInfo",
+            type: "post",
+            datatype: "json",
+            data: {"userId": 1},
+            success: function (data) {
+                // var picUrl = data.headPic;
+                // var name = data.userName;
+                // $("#avatar").attr("src","picUrl");
+                // $("#nickname").val(name);
+            }
+        });
+        $("#save").click(function () {
+        });
+        //图片校验
+        //在input file内容改变的时候触发事件
+        $('#upload-file').change(function(){
+            //获取input file的files文件数组;
+            //$('#filed')获取的是jQuery对象，.get(0)转为原生对象;
+            //这边默认只能选一个，但是存放形式仍然是数组，所以取第一个元素使用[0];
+            var file = $('#upload-file').get(0).files[0];
+            //创建用来读取此文件的对象
+            var reader = new FileReader();
+            //使用该对象读取file文件
+            reader.readAsDataURL(file);
+            //读取文件成功后执行的方法函数
+            reader.onload=function(e){
+                //读取成功后返回的一个参数e，整个的一个进度事件
+                console.log(e);
+                //选择所要显示图片的img，要赋值给img的src就是e中target下result里面
+                //的base64编码格式的地址
+                $('#avatar').get(0).src = e.target.result;
+                // $('#avatar').attr("src","e.target.result");
+            }
+        })
+    });//function结束
+    function checkForm() {
+
+    }
+</script>
+<body>
+<header>
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="/#">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="#">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+              <a href="#" id="login">登录</a>
+              <div class="sanjiao_down"></div>
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+              <span class="parent">
+                <input
+                        type="text"
+                        name="srch"
+                        id="srch"
+                        class="txt j-flag"
+                        value=""
+                        style="opacity: 1;"
+                        placeholder="音乐/视频/电台/用户"
+                />
+              </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+    <ul class="f-cb lb mg">
+        <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
+        </li>
+        <li><a href="MyMessage.html" class="itm-2"><i class="icn icn-msg"></i><em>我的消息</em><span
+                class="m-topmsg f-pa j-uflag">9</span></a></li>
+        <li><a href="MyVIP.html" class="itm-2" ><i
+                class="icn icn-mbr"></i><em>VIP会员</em></a></li>
+    </ul>
+    <ul class="f-cb ltb mg">
+        <li><a hidefocus="true" class="itm-2" href="MySetting.html"><i class="icn icn-st"></i><em>个人设置</em></a></li>
+        <li><a hidefocus="true" class="itm-2" href="MyAuthentication.html" target="_blank"><i
+                class="icn icn-verify"></i><em>实名认证</em></a></li>
+    </ul>
+    <ul class="f-cb lt">
+        <li><a hidefocus="true" class="itm-3" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
+        </li>
+    </ul>
+    <i class="arr"></i></div>
+<div class="member-body">
+    <div class="g-wrap" id="baseBox">
+        <div class="u-title u-title-2 f-cb">
+            <h3><span class="f-ff2">个人设置</span></h3>
+        </div>
+<!--        <ul class="m-tabs f-cb">-->
+<!--            <li class="fst"><a href="/user/update" class="z-slt"><em>基本设置</em></a></li>-->
+<!--            <li><a href="/user/binding/#/list"><em>绑定设置</em></a></li>-->
+<!--            <li><a href="/user/setting"><em>隐私设置</em></a></li>-->
+<!--        </ul>-->
+        <form onsubmit="return checkForm();" id="update_form" method="post">
+            <div class="n-base f-cb">
+                <div class="frm m-frm">
+                    <div class="itm">
+                        <label class="lab">昵称：</label>
+                        <input type="text" class="u-txt txt" value="Lancereallyet" id="nickname" maxlength="30">
+                        <div class="u-err" style="display:none;" id="err"><i
+                                class="u-icn u-icn-25"></i><span>昵称已存在！</span></div>
+                    </div>
+                    <div class="itm f-cb">
+                        <label class="lab">介绍：</label>
+                        <div class="u-txtwrap f-pr">
+                            <textarea class="u-txt area" id="signature"></textarea>
+                            <span class="zs s-fc2" id="remain">300</span>
+                        </div>
+                    </div>
+                    <div class="itm f-cb">
+                        <label class="lab">性别：</label>
+                        <div class="f-cb">
+                            <label class="check"><input name="gender" type="radio" class="u-rdi" checked="true"
+                                                        value="1"> 男</label>
+                            <label class="check"><input name="gender" type="radio" class="u-rdi" value="2"> 女</label>
+                            <label class="check"><input name="gender" type="radio" class="u-rdi" value="0"> 保密</label>
+                        </div>
+                    </div>
+                    <div class="itm f-cb" style="z-index:11;">
+                        <label class="lab">生日：</label>
+                        <div class="u-slt u-slt-1 f-pr" id="yselect">
+                            <span class="curr">--</span>
+                            <i class="btn" id="auto-id-Xc6mLT8y717rtu84"></i>
+                            <ul style="display: none;"><!-- ie6下，高超过150px就设_height:150px; -->
+                                <li class="f-thide" id="auto-id-pEcQ6eKc0cfunvTn"><a href="#">2019</a></li>
+                                <li class="f-thide" id="auto-id-14A3ALTIysywLuT4"><a href="#">2018</a></li>
+                                <li class="f-thide" id="auto-id-ZeuOsRr0Q0E1GP4g"><a href="#">2017</a></li>
+                                <li class="f-thide" id="auto-id-rKMgprWgGWz9srwS"><a href="#">2016</a></li>
+                                <li class="f-thide" id="auto-id-BL2JS86eBfLMHpVf"><a href="#">2015</a></li>
+                                <li class="f-thide" id="auto-id-a8QoGSBbtRgVw9lq"><a href="#">2014</a></li>
+                                <li class="f-thide" id="auto-id-yCqiZcWewB5lD4or"><a href="#">2013</a></li>
+                                <li class="f-thide" id="auto-id-32gVQVNluQ6V9eEU"><a href="#">2012</a></li>
+                                <li class="f-thide" id="auto-id-wDX25wml0nNyaWEB"><a href="#">2011</a></li>
+                                <li class="f-thide" id="auto-id-gQ98FWT6k7DLV86T"><a href="#">2010</a></li>
+                                <li class="f-thide" id="auto-id-xuRCcUgCBrWx0kzd"><a href="#">2009</a></li>
+                                <li class="f-thide" id="auto-id-0Ctc2Km4VQilI8h6"><a href="#">2008</a></li>
+                                <li class="f-thide" id="auto-id-45xyN0zfoIN6UbQF"><a href="#">2007</a></li>
+                                <li class="f-thide" id="auto-id-JpiWIK7HmLrbcrH5"><a href="#">2006</a></li>
+                                <li class="f-thide" id="auto-id-4K7pXhC5SlVNyk19"><a href="#">2005</a></li>
+                                <li class="f-thide" id="auto-id-vRPZwgFfbp192tIz"><a href="#">2004</a></li>
+                                <li class="f-thide" id="auto-id-7EGBeb6hzeziZQvh"><a href="#">2003</a></li>
+                                <li class="f-thide" id="auto-id-gJKKu8Ath3HLLlu9"><a href="#">2002</a></li>
+                                <li class="f-thide" id="auto-id-QXMNFmhy19aPf5BB"><a href="#">2001</a></li>
+                                <li class="f-thide" id="auto-id-xdUJKeAHLBUVXNFq"><a href="#">2000</a></li>
+                                <li class="f-thide" id="auto-id-3kKSHv30fEyhutXf"><a href="#">1999</a></li>
+                                <li class="f-thide" id="auto-id-vvgOfqaKIS75qIvg"><a href="#">1998</a></li>
+                                <li class="f-thide" id="auto-id-iv5n3PT7Nf3F0Z7Z"><a href="#">1997</a></li>
+                                <li class="f-thide" id="auto-id-dteqTM3Pu4s0HH94"><a href="#">1996</a></li>
+                                <li class="f-thide" id="auto-id-Ms5wwMNTMkN4yP4F"><a href="#">1995</a></li>
+                                <li class="f-thide" id="auto-id-vo1mQgIrABz0zwkT"><a href="#">1994</a></li>
+                                <li class="f-thide" id="auto-id-9B7KUluhbfTxOzwW"><a href="#">1993</a></li>
+                                <li class="f-thide" id="auto-id-nWEWIR4uIZRggvzT"><a href="#">1992</a></li>
+                                <li class="f-thide" id="auto-id-PMohRQH8O6ff4yqR"><a href="#">1991</a></li>
+                                <li class="f-thide" id="auto-id-35T7WQaHoCAALflX"><a href="#">1990</a></li>
+                                <li class="f-thide" id="auto-id-7vWkXiD7MrwpQsSL"><a href="#">1989</a></li>
+                                <li class="f-thide" id="auto-id-zMQIvuz7SuU3eBPn"><a href="#">1988</a></li>
+                                <li class="f-thide" id="auto-id-cxt50WSTCgfqFpIg"><a href="#">1987</a></li>
+                                <li class="f-thide" id="auto-id-nqq3gwBNcez7bRTa"><a href="#">1986</a></li>
+                                <li class="f-thide" id="auto-id-WwTBEMmRWWkg2Aam"><a href="#">1985</a></li>
+                                <li class="f-thide" id="auto-id-nLS9gDdLTM2M2MqW"><a href="#">1984</a></li>
+                                <li class="f-thide" id="auto-id-DnrOqLTNrbwpWTbO"><a href="#">1983</a></li>
+                                <li class="f-thide" id="auto-id-6BAvm37Za6SMxw00"><a href="#">1982</a></li>
+                                <li class="f-thide" id="auto-id-chaamoJmVSfxc1HF"><a href="#">1981</a></li>
+                                <li class="f-thide" id="auto-id-SM9Thtln1pbVmxvF"><a href="#">1980</a></li>
+                                <li class="f-thide" id="auto-id-RDpBv1vdB4O1fqB0"><a href="#">1979</a></li>
+                                <li class="f-thide" id="auto-id-P4hH8B8d0zWNeOC0"><a href="#">1978</a></li>
+                                <li class="f-thide" id="auto-id-xKBKWfIiyg3AVz2y"><a href="#">1977</a></li>
+                                <li class="f-thide" id="auto-id-cqSLbXWouGsqoEwV"><a href="#">1976</a></li>
+                                <li class="f-thide" id="auto-id-hx142zFEKLwS41Tp"><a href="#">1975</a></li>
+                                <li class="f-thide" id="auto-id-gCRhK0QKgvoZ5O58"><a href="#">1974</a></li>
+                                <li class="f-thide" id="auto-id-0lw5AmBb655QtcC7"><a href="#">1973</a></li>
+                                <li class="f-thide" id="auto-id-mM57dTP7exkXxrSe"><a href="#">1972</a></li>
+                                <li class="f-thide" id="auto-id-b8rAEQRS3f5Z0IMQ"><a href="#">1971</a></li>
+                                <li class="f-thide" id="auto-id-Zf1mSy8J7fg1XaZK"><a href="#">1970</a></li>
+                                <li class="f-thide" id="auto-id-6utfTSksBFNZ3rmI"><a href="#">1969</a></li>
+                                <li class="f-thide" id="auto-id-eSSPgrNlTc66C7l1"><a href="#">1968</a></li>
+                                <li class="f-thide" id="auto-id-Vbd7vTW4TMCZs3ib"><a href="#">1967</a></li>
+                                <li class="f-thide" id="auto-id-KIOnMrD2FS4hmoql"><a href="#">1966</a></li>
+                                <li class="f-thide" id="auto-id-SpQ17NfarkB5zSeR"><a href="#">1965</a></li>
+                                <li class="f-thide" id="auto-id-llPHLBMZTzfTvHe3"><a href="#">1964</a></li>
+                                <li class="f-thide" id="auto-id-O3L7UwITVX2T7aLw"><a href="#">1963</a></li>
+                                <li class="f-thide" id="auto-id-iUQX2yIeZbfb1kDA"><a href="#">1962</a></li>
+                                <li class="f-thide" id="auto-id-c6zJALBhZviBWZ5T"><a href="#">1961</a></li>
+                                <li class="f-thide" id="auto-id-6pCRcgrRrXtqkD5K"><a href="#">1960</a></li>
+                                <li class="f-thide" id="auto-id-1Qw03Elip1vphx0T"><a href="#">1959</a></li>
+                                <li class="f-thide" id="auto-id-89n2hhN9iXOoW0oT"><a href="#">1958</a></li>
+                                <li class="f-thide" id="auto-id-0wB5cgpJ91fR7JCl"><a href="#">1957</a></li>
+                                <li class="f-thide" id="auto-id-8TGh3G2PkcVSAs5o"><a href="#">1956</a></li>
+                                <li class="f-thide" id="auto-id-7uXrPwBEP0o61rTN"><a href="#">1955</a></li>
+                                <li class="f-thide" id="auto-id-RumWGSlwpodMCCGy"><a href="#">1954</a></li>
+                                <li class="f-thide" id="auto-id-WpcoNdEJDSGpehgT"><a href="#">1953</a></li>
+                                <li class="f-thide" id="auto-id-cATMIONBUcFeSw9G"><a href="#">1952</a></li>
+                                <li class="f-thide" id="auto-id-JZsTkaDyCGkZiM4t"><a href="#">1951</a></li>
+                                <li class="f-thide" id="auto-id-bKfHIgQUQw8Qyvzz"><a href="#">1950</a></li>
+                                <li class="f-thide" id="auto-id-psCKRi9a3pTSUwxX"><a href="#">1949</a></li>
+                                <li class="f-thide" id="auto-id-IgISvQ1o0rX34f2B"><a href="#">1948</a></li>
+                                <li class="f-thide" id="auto-id-EasZe0cSt78hlNvH"><a href="#">1947</a></li>
+                                <li class="f-thide" id="auto-id-A3uFL6L1o0QGucDA"><a href="#">1946</a></li>
+                                <li class="f-thide" id="auto-id-JuNN969MLbNtm74u"><a href="#">1945</a></li>
+                                <li class="f-thide" id="auto-id-4QPoKqg6wPJmZrJW"><a href="#">1944</a></li>
+                                <li class="f-thide" id="auto-id-w9lTwcTHsBuH5toT"><a href="#">1943</a></li>
+                                <li class="f-thide" id="auto-id-3Gwi221b0vkqEgcz"><a href="#">1942</a></li>
+                                <li class="f-thide" id="auto-id-k4ldkTin7ly5FXIt"><a href="#">1941</a></li>
+                                <li class="f-thide" id="auto-id-MOhuVeo2WGEFFMd6"><a href="#">1940</a></li>
+                                <li class="f-thide" id="auto-id-BPdX8FdtZyUX02O8"><a href="#">1939</a></li>
+                                <li class="f-thide" id="auto-id-lMHLsMLeTveCtPCK"><a href="#">1938</a></li>
+                                <li class="f-thide" id="auto-id-WaErcia5Pl66PyL9"><a href="#">1937</a></li>
+                                <li class="f-thide" id="auto-id-CVDWnCysbviwFGis"><a href="#">1936</a></li>
+                                <li class="f-thide" id="auto-id-pXEi4rHikL8OTFmi"><a href="#">1935</a></li>
+                                <li class="f-thide" id="auto-id-D2V2TEGk9lZE7Mug"><a href="#">1934</a></li>
+                                <li class="f-thide" id="auto-id-dqvtwZOLCT5OqHBT"><a href="#">1933</a></li>
+                                <li class="f-thide" id="auto-id-rB29uSqwOZ9fuHW8"><a href="#">1932</a></li>
+                                <li class="f-thide" id="auto-id-1PgZboxUqKutwlyD"><a href="#">1931</a></li>
+                                <li class="f-thide" id="auto-id-ULJS30mrP0AoGaPC"><a href="#">1930</a></li>
+                                <li class="f-thide" id="auto-id-JEMNkPXhttFJbHdg"><a href="#">1929</a></li>
+                                <li class="f-thide" id="auto-id-zb9feldTxkheiT2P"><a href="#">1928</a></li>
+                                <li class="f-thide" id="auto-id-CAfnGNd4VKJiePzR"><a href="#">1927</a></li>
+                                <li class="f-thide" id="auto-id-ON5DuvJ1OEaziPfV"><a href="#">1926</a></li>
+                                <li class="f-thide" id="auto-id-W8sRXbBXDCL6s1wd"><a href="#">1925</a></li>
+                                <li class="f-thide" id="auto-id-UV7taTLaRnpqMcRC"><a href="#">1924</a></li>
+                                <li class="f-thide" id="auto-id-qPVtL2ToXf1opuTy"><a href="#">1923</a></li>
+                                <li class="f-thide" id="auto-id-B1K5qGoZCdq5DWHP"><a href="#">1922</a></li>
+                                <li class="f-thide" id="auto-id-S412NxNTSAeTlsNp"><a href="#">1921</a></li>
+                                <li class="f-thide" id="auto-id-9MHitNcEKt9TVFCk"><a href="#">1920</a></li>
+                            </ul>
+                        </div>
+                        <span class="wrd f-fl">年</span>
+                        <div class="u-slt u-slt-2 f-pr" id="mselect">
+                            <span class="curr">01</span>
+                            <i class="btn" id="auto-id-TSBRZnokWq1GAhQk"></i>
+                            <ul style="display: none;">
+                                <li class="f-thide" id="auto-id-bcrATC6VHOOt8GTq"><a href="#">01</a></li>
+                                <li class="f-thide" id="auto-id-7KVkVWXghzp2dbhd"><a href="#">02</a></li>
+                                <li class="f-thide" id="auto-id-kciHMM7Vvn81Ibfi"><a href="#">03</a></li>
+                                <li class="f-thide" id="auto-id-O3rHZFr245wkRTnf"><a href="#">04</a></li>
+                                <li class="f-thide" id="auto-id-XgS8Xlgy1Usvwb21"><a href="#">05</a></li>
+                                <li class="f-thide" id="auto-id-uOnns2NbQLMgv3Tg"><a href="#">06</a></li>
+                                <li class="f-thide" id="auto-id-zR6gIRXWDAnme9JM"><a href="#">07</a></li>
+                                <li class="f-thide" id="auto-id-U2oe8Sy540rS6Mly"><a href="#">08</a></li>
+                                <li class="f-thide" id="auto-id-EG6JFWcWlOfd4WlN"><a href="#">09</a></li>
+                                <li class="f-thide" id="auto-id-VkOJqXLizJQc6tqN"><a href="#">10</a></li>
+                                <li class="f-thide" id="auto-id-moBOeNnBdeIVVGC8"><a href="#">11</a></li>
+                                <li class="f-thide" id="auto-id-E5F9DWxcMbJ0Azm0"><a href="#">12</a></li>
+                            </ul>
+                        </div>
+                        <span class="wrd f-fl">月</span>
+                        <div class="u-slt u-slt-2 f-pr" id="dselect">
+                            <span class="curr">-</span>
+                            <i class="btn" id="auto-id-9ITNPTSZZqZo42Zu"></i>
+                            <ul style="display: none;">
+                            </ul>
+                        </div>
+                        <span class="wrd f-fl">日</span>
+                    </div>
+                    <div class="itm itm-1 f-cb" style="z-index:10;">
+                        <label class="lab">地区：</label>
+                        <div class="u-slt f-pr" id="pselect">
+                            <span class="curr">山东省</span>
+                            <i class="btn" id="auto-id-Emu8NEJCize3FVqe"></i>
+                            <ul style="display: none;"><!-- ie6下，高超过150px就设_height:150px; -->
+                                <li class="f-thide" id="auto-id-0BvvmF3ygKNIOmQr"><a href="#">直辖市</a></li>
+                                <li class="f-thide" id="auto-id-NuGuWhGGJm37zqob"><a href="#">特别行政区</a></li>
+                                <li class="f-thide" id="auto-id-3TunSRfiGZkV0u3f"><a href="#">河北省</a></li>
+                                <li class="f-thide" id="auto-id-09m1tMEVOwsvFTnc"><a href="#">山西省</a></li>
+                                <li class="f-thide" id="auto-id-CTTSHymiy7wGtKBN"><a href="#">内蒙古</a></li>
+                                <li class="f-thide" id="auto-id-uwkE40V710macapx"><a href="#">辽宁省</a></li>
+                                <li class="f-thide" id="auto-id-kO2wdkeRC5N91T0v"><a href="#">吉林省</a></li>
+                                <li class="f-thide" id="auto-id-PQ94eWS6aIh5wGFk"><a href="#">黑龙江省</a></li>
+                                <li class="f-thide" id="auto-id-kd52kKBKp2mHumgg"><a href="#">江苏省</a></li>
+                                <li class="f-thide" id="auto-id-z3FplBEi6MZaIOQH"><a href="#">浙江省</a></li>
+                                <li class="f-thide" id="auto-id-NIMk8TgEQQHkzQy9"><a href="#">安徽省</a></li>
+                                <li class="f-thide" id="auto-id-dwnmszVilRJLqkoe"><a href="#">福建省</a></li>
+                                <li class="f-thide" id="auto-id-mmpCM10h7qcRbBx8"><a href="#">江西省</a></li>
+                                <li class="f-thide" id="auto-id-EIcr4qFiV090v1xp"><a href="#">山东省</a></li>
+                                <li class="f-thide" id="auto-id-PJpMXoBU9ICIf6eo"><a href="#">河南省</a></li>
+                                <li class="f-thide" id="auto-id-gnIw6Xqpe61IT2v0"><a href="#">湖北省</a></li>
+                                <li class="f-thide" id="auto-id-J2zDiO0K2oQARKeX"><a href="#">湖南省</a></li>
+                                <li class="f-thide" id="auto-id-CTnwfEac7pKmeVxO"><a href="#">广东省</a></li>
+                                <li class="f-thide" id="auto-id-dBRs5bsiMH2fZX54"><a href="#">广西</a></li>
+                                <li class="f-thide" id="auto-id-CXWsuNXEGAobDpaI"><a href="#">海南省</a></li>
+                                <li class="f-thide" id="auto-id-rhyss6HkipAMuLCt"><a href="#">四川省</a></li>
+                                <li class="f-thide" id="auto-id-otAf8L7biEZA4Bvf"><a href="#">贵州省</a></li>
+                                <li class="f-thide" id="auto-id-TdL0IlrWOFEmM3i6"><a href="#">云南省</a></li>
+                                <li class="f-thide" id="auto-id-Qsv3CE98QNXlRLeL"><a href="#">西藏</a></li>
+                                <li class="f-thide" id="auto-id-DqpJCX705lfic2HP"><a href="#">陕西省</a></li>
+                                <li class="f-thide" id="auto-id-vTBiDIWkmFDJTeyE"><a href="#">甘肃省</a></li>
+                                <li class="f-thide" id="auto-id-BVEgEiHywgZpKGTX"><a href="#">青海省</a></li>
+                                <li class="f-thide" id="auto-id-cbgPVNNxb0FD21m5"><a href="#">宁夏</a></li>
+                                <li class="f-thide" id="auto-id-ebe5rlNoPNCdOhSV"><a href="#">新疆</a></li>
+                                <li class="f-thide" id="auto-id-MX7BUdmJXTIGvI6T"><a href="#">台湾省</a></li>
+                                <li class="f-thide" id="auto-id-Pr3g5OalgltZ7rEC"><a href="#">海外</a></li>
+                            </ul>
+                        </div>
+                        <div class="u-slt f-pr" id="cselect">
+                            <span class="curr f-thide">青岛市</span>
+                            <i class="btn" id="auto-id-3Z3dKabnvEpL0moO"></i>
+                            <ul style="display: none;">
+                                <li class="f-thide" id="auto-id-ZxAM60LvQWReyBGU"><a href="#">济南市</a></li>
+                                <li class="f-thide" id="auto-id-GDZweQDsh79EJrUe"><a href="#">青岛市</a></li>
+                                <li class="f-thide" id="auto-id-sMeRVJ8kfdyOhTN9"><a href="#">淄博市</a></li>
+                                <li class="f-thide" id="auto-id-SDOoHwuPof2S7iSB"><a href="#">枣庄市</a></li>
+                                <li class="f-thide" id="auto-id-IDvUTUfbRWl27pqH"><a href="#">东营市</a></li>
+                                <li class="f-thide" id="auto-id-nC3ybJXNTk0ehEXw"><a href="#">烟台市</a></li>
+                                <li class="f-thide" id="auto-id-D8svUINlIowdUV39"><a href="#">潍坊市</a></li>
+                                <li class="f-thide" id="auto-id-cwpI6ZsRDb0dkyzq"><a href="#">济宁市</a></li>
+                                <li class="f-thide" id="auto-id-nxIaT1odCZ9Wtdaq"><a href="#">泰安市</a></li>
+                                <li class="f-thide" id="auto-id-xXmlLWyDxpXUhhI2"><a href="#">威海市</a></li>
+                                <li class="f-thide" id="auto-id-lF7Akek1tgixp0gy"><a href="#">日照市</a></li>
+                                <li class="f-thide" id="auto-id-LfXvn5p7gzkeT1BE"><a href="#">莱芜市</a></li>
+                                <li class="f-thide" id="auto-id-F7te7r4mecNsJziJ"><a href="#">临沂市</a></li>
+                                <li class="f-thide" id="auto-id-pmhTzUo1LkIV6ckr"><a href="#">德州市</a></li>
+                                <li class="f-thide" id="auto-id-hMgalqpLNz4US7Ii"><a href="#">聊城市</a></li>
+                                <li class="f-thide" id="auto-id-iCTgCnLRqVWxeOQB"><a href="#">滨州市</a></li>
+                                <li class="f-thide" id="auto-id-QOxBHt17OT0sem6G"><a href="#">菏泽市</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="itm ft">
+<!--                        <input type="submit" class="u-btn2 u-btn2-2 u-btn2-w2" value="保存">-->
+                        <a id="save" class="u-btn2 u-btn2-2 u-btn2-w2" hidefocus="true" href="#" data-action="save">
+                            <i>保 存</i>
+                        </a>
+                        <a class="u-btn2 u-btn2-1 u-btn2-w2" hidefocus="true" href="#" data-action="cancel"
+                           style="display:none;"><i>取 消</i></a>
+                    </div>
+                </div>
+                <div class="avatar f-pr">
+                    <img src="http://p1.music.126.net/8pIhzQNEG_eJ-d1bycBhCw==/19075427230380611.jpg?param=140y140"
+                         id="avatar">
+                    <span class="btm"></span>
+                    <a href="javascript:;" class="upload" id="upload">
+                        <input id="upload-file" accept="image/*" type="file" value="更换头像" style="opacity: 0;position:absolute;">更换头像
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

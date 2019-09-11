@@ -16,4 +16,10 @@ public interface UsersMapper {
     int updateByPrimaryKeySelective(Users record);
 
     int updateByPrimaryKey(Users record);
+
+//    徐东方
+
+
+
+//
 }
