@@ -26,10 +26,14 @@
        update share set share_likes = share_likes + 1  where share_id = #{share_id}
     </update>
 
-
+<!--    //    徐东方-->
+    <select id="getEventCount" resultMap="ShareResultMap" parameterType="java.lang.Integer">
+        select share_id from share where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+<!--    //    徐东方-->
 
     <select id="getShareCommentCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">
-        select count(sc_id) as share_comment_count from sharecomment where share_id = #{share_id}
+        select count(share_id) from sharecomment where share_id = #{share_id}
     </select>
 
     <select id="getShareForwardCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">

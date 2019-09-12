@@ -33,6 +33,96 @@ public class Users {
 
     private Integer userVipState;
 
+    private UserSong userSong;
+
+    private UserSongList userSongList;
+
+    private Song song;
+
+    private Singer singer;
+
+    private SongSongList songSongList;
+
+    private SongList songList;
+
+    private int slCount;
+
+    public int getSlCount() {
+        return slCount;
+    }
+
+    public void setSlCount(int slCount) {
+        this.slCount = slCount;
+    }
+
+    public SongList getSongList() {
+        return songList;
+    }
+
+    public void setSongList(SongList songList) {
+        this.songList = songList;
+    }
+
+    public SongSongList getSongSongList() {
+        return songSongList;
+    }
+
+    public void setSongSongList(SongSongList songSongList) {
+        this.songSongList = songSongList;
+    }
+
+    public Song getSong() {
+        return song;
+    }
+
+    public void setSong(Song song) {
+        this.song = song;
+    }
+
+    public Singer getSinger() {
+        return singer;
+    }
+
+    public void setSinger(Singer singer) {
+        this.singer = singer;
+    }
+
+    public UserSongList getUserSongList() {
+        return userSongList;
+    }
+
+    public void setUserSongList(UserSongList userSongList) {
+        this.userSongList = userSongList;
+    }
+
+    public UserSong getUserSong() {
+        return userSong;
+    }
+
+    public void setUserSong(UserSong userSong) {
+        this.userSong = userSong;
+    }
+
+    //用户粉丝关注关系表
+    private Integer useraId;
+    private Integer userbId;
+
+    public Integer getUseraId() {
+        return useraId;
+    }
+
+    public void setUseraId(Integer userAId) {
+        this.useraId = userAId;
+    }
+
+    public Integer getUserbId() {
+        return userbId;
+    }
+
+    public void setUserbId(Integer userBId) {
+        this.userbId = userBId;
+    }
+
     public Integer getUserId() {
         return userId;
     }

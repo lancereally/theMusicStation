@@ -10,5 +10,8 @@ public interface ShareService {
 
     public int updateShareLikesByPK(Integer shareId);
 
+//    徐东方
+    public List<Share> getEventCount(Integer userId);
+//    徐东方
 
 }

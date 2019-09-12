@@ -57,4 +57,11 @@ public class ShareServiceImpl implements ShareService{
     public int updateShareLikesByPK(Integer shareId) {
         return shareMapper.updateShareLikesByPK_q(shareId);
     }
+
+    @Override
+    //    徐东方
+    public List<Share> getEventCount(Integer userId){
+        return shareMapper.getEventCount(userId);
+    }
+//    徐东方
 }
