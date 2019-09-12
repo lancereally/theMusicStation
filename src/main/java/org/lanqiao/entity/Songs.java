@@ -14,6 +14,10 @@ public class Songs {
     private String songName;
     @Indexed
     private String singerName;
+    @Indexed
+    private String songDuration;
+    @Indexed
+    private String albumName;
 
     @Override
     public boolean equals(Object o) {
@@ -31,11 +35,35 @@ public class Songs {
         if(!songName.equals(songs.songName)){
             return false;
         }
+        if(!songDuration.equals(songs.songDuration)){
+            return false;
+        }
+        if(!albumName.equals(songs.albumName)){
+            return false;
+        }
         if(!singerName.equals(songs.singerName)){
             return false;
         }
         return true;
     }
+
+    public String getSongDuration() {
+        return songDuration;
+    }
+
+    public void setSongDuration(String songDuration) {
+        this.songDuration = songDuration;
+    }
+
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+
 
     @Override
     public int hashCode() {
