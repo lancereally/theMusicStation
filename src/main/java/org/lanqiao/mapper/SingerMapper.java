@@ -24,5 +24,6 @@ public interface SingerMapper {
     //》》》郭书卿》》》
     List<Singer> selectStarByRand();
     //《《《郭书卿《《《
-
+    //郭长达
+    List<Singer> selectByUserId(Integer userId);
 }

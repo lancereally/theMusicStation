@@ -18,5 +18,12 @@ public class SingerServiceImpl implements SingerService {
         List<Singer> singerList = singerMapper.selectStarByRand();
         return singerList;
     }
+    //郭长达：通过用户id查询关注的歌手
+    @Override
+    public List<Singer> selectByUserId(Integer userId) {
+        List<Singer> singerList =singerMapper.selectByUserId(userId);
+
+        return singerList;
+    }
 
 }

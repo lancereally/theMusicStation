@@ -6,21 +6,81 @@
     <link rel="stylesheet" href="css/my_singer.css">
 </head>
 <body>
-    <div class="my_singer">
-        <div class="singer_top"><h3><span>我的歌手(1)</span></h3></div>
-        <div class="singer_list">
-            <div class="singer_pic">
-                <a>
-                    <img src="images/MyMusic/eason.jpg">
-                </a>
-            </div>
-            <div class="singer_det">
-                <h4>
-                    <a>陈奕迅</a>
-                </h4>
-                <p class="ab_num">104个专辑&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;161个MV</p>
-            </div>
+<div class="my_singer" id="singerVue">
+    <!--  v-for="singer in singerList"      <button @click="getSingerList()">111</button>-->
+    <div class="singer_top"><h3><span>我的歌手</span></h3></div>
+    <div class="singer_list" >
+        <div class="singer_pic">
+            <a>
+                <img src="images/MyMusic/eason.jpg">
+            </a>
+        </div>
+        <div class="singer_det"  v-for="singer in singerList" >
+            <h4>
+                <a >{{singer.singerName}}</a>
+            </h4>
+            <p class="ab_num">104个专辑&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;161个MV</p>
         </div>
     </div>
+</div>
 </body>
+
 </html>
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script>
+    // var vm = new Vue({
+    //     el: "#singerVue",
+    //     date: {
+    //         singerList: []
+    //     },
+    //     mounted:function(){
+    //         this.getSingerList()
+    //     },
+    //     methods: {
+    //         //获取歌手列表
+    //         getSingerList: function () {
+    //             $.ajax({
+    //                 url: "/MyMusic/mysinger",
+    //                 type: "post",
+    //                 data: {'userId': 1},
+    //                 dataType: "json",
+    //                 success: function (data) {
+    //                     if (data.length > 0) {
+    //                         for (var i = 0; i < data.length; i++) {
+    //                             vm.singerList.push(data);
+    //                         }
+    //                     } else {
+    //                         alert("表中无记录");
+    //                     }
+    //                 }
+    //             })
+    //         }
+    //     }
+    // });
+    var vm = new Vue({
+        el: "#singerVue",
+        date: {
+            singerList: []
+        },
+        created:function () {
+            var self = this;
+            $.ajax({
+                url: "/MyMusic/mysinger",
+                type: "post",
+                data: {'userId': 1},
+                dataType: "json",
+                success: function (data) {
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            self.singerList=data;
+                        }
+                    } else {
+                        alert("表中无记录");
+                    }
+                }
+            })
+        }
+    });
+    alert(vm.singerList);
+</script>

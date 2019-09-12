@@ -1,5 +1,7 @@
 package org.lanqiao.entity;
 
+import java.util.Set;
+
 public class Singer {
     private Integer singerId;
 
@@ -10,12 +12,24 @@ public class Singer {
     private String singerDescription;
 
     private String singerPicUrl;
-
+    //一对多关系。在多的一方添加一的set
+    private Set<Album> albumSet;
+    //偷懒操作歌手的专辑数
+//    private  Integer albumCount;
     //用户账户的用户名
     private String userName;
 
     //用户账户的头像地址
     private String userHeadUrl;
+
+    //歌手的专辑数get set
+//    public Integer getAlbumCount() {
+//        return albumCount;
+//    }
+//
+//    public void setAlbumCount(Integer albumCount) {
+//        this.albumCount = albumCount;
+//    }
 
     public String getUserName() {
         return userName;
@@ -71,5 +85,13 @@ public class Singer {
 
     public void setSingerPicUrl(String singerPicUrl) {
         this.singerPicUrl = singerPicUrl == null ? null : singerPicUrl.trim();
+    }
+
+    public Set<Album> getAlbumSet() {
+        return albumSet;
+    }
+
+    public void setAlbumSet(Set<Album> albumSet) {
+        this.albumSet = albumSet;
     }
 }
