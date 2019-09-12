@@ -33,6 +33,39 @@ public class Users {
 
     private Integer userVipState;
 
+    //粉丝数
+    private Integer fans;
+
+    //关注数
+    private Integer attention;
+
+    //动态数量
+    private Integer shareCount;
+
+    public Integer getFans() {
+        return fans;
+    }
+
+    public void setFans(Integer fans) {
+        this.fans = fans;
+    }
+
+    public Integer getAttention() {
+        return attention;
+    }
+
+    public void setAttention(Integer attention) {
+        this.attention = attention;
+    }
+
+    public Integer getShareCount() {
+        return shareCount;
+    }
+
+    public void setShareCount(Integer shareCount) {
+        this.shareCount = shareCount;
+    }
+
     public Integer getUserId() {
         return userId;
     }

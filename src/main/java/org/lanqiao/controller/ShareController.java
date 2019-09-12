@@ -3,7 +3,11 @@ package org.lanqiao.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.lanqiao.entity.Share;
+import org.lanqiao.entity.Singer;
+import org.lanqiao.entity.Users;
 import org.lanqiao.service.ShareService;
+import org.lanqiao.service.SingerService;
+import org.lanqiao.service.UsersService;
 import org.lanqiao.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,13 @@ public class ShareController {
 
     @Autowired
     ShareService shareService;
+
+    @Autowired
+    UsersService usersService;
+
+    @Autowired
+    SingerService singerService;
+
 
 
 
@@ -44,6 +55,25 @@ public class ShareController {
     public Integer insertShareForward(Share share){
         return shareService.insertShareForward(share);
     }
+
+    @RequestMapping("/getUser")
+    public Users getUser(@RequestParam Integer userId){
+        Users users = usersService.getShareUser_q(userId);
+        return users;
+    }
+
+    @RequestMapping("/getStarUsers")
+    public List<Singer> getStarUsers(){
+        List<Singer> singerList = singerService.getStarByRand();
+        return  singerList;
+    }
+
+    @RequestMapping("/gerOtherUsers")
+    public List<Users> getOtherUsers(){
+        return usersService.getOtherUsersByRand();
+    }
+
+
 
 //
 //    @RequestMapping("/getIP")

@@ -11,6 +11,28 @@ public class Singer {
 
     private String singerPicUrl;
 
+    //用户账户的用户名
+    private String userName;
+
+    //用户账户的头像地址
+    private String userHeadUrl;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserHeadUrl() {
+        return userHeadUrl;
+    }
+
+    public void setUserHeadUrl(String userHeadUrl) {
+        this.userHeadUrl = userHeadUrl;
+    }
+
     public Integer getSingerId() {
         return singerId;
     }

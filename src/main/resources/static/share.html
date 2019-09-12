@@ -11,10 +11,6 @@
     <link href="css/wangEditor.css" rel="stylesheet">
     <script>
         $(function () {
-
-
-
-
             //Vue
             var bigBox = new Vue({
                 el: "#mainBody",
@@ -23,7 +19,10 @@
                     otherShareId:0,
                     shareText:"",
                     pageCount:0,
-                    pageNum:1
+                    pageNum:1,
+                    users:[],
+                    starUsers:[],
+                    otherUsers:[]
                 },
                 methods: {
                     //搜索显示动态
@@ -137,6 +136,70 @@
                             bigBox.toGetShares();
                         }
 
+                    },
+                    shareMusic:function () {
+                        $("#shareMusicDiv").hide();
+                    },
+                    //获取用户
+                    toGetUser:function () {
+                        bigBox.user = [];
+                        $.ajax({
+                            url:"share/getUser",
+                            type:"post",
+                            datatype:'json',
+                            data:{
+                                userId:1
+                            },
+                            success:function (user) {
+                                bigBox.users.push({
+                                    userName:user.userName,
+                                    shareCount:user.shareCount == null ? 0 : user.shareCount,
+                                    attention:user.attention == null ? 0 : user.attention,
+                                    fans:user.fans == null ? 0 : user.fans,
+                                    userHeadUrl:user.userHeadUrl
+                                })
+                            }
+                        })
+                    },
+                    //随机获取明星
+                    toGerStar:function () {
+                        bigBox.starUsers = [];
+                        $.ajax({
+                            url:"/share/getStarUsers",
+                            type:"post",
+                            datatype:"json",
+                            success:function (starUsers) {
+                                for (var i = 0 ;i <starUsers.length;i++){
+                                    bigBox.starUsers.push({
+                                        singerDescription:starUsers[i].singerDescription,
+                                        userName:starUsers[i].userName,
+                                        userHeadUrl:starUsers[i].userHeadUrl
+                                    })
+                                }
+                            }
+                        })
+                    },
+                    //换一批明星
+                    changeStar:function () {
+                        bigBox.toGerStar();
+                    },
+                    //随机获取其他用户
+                    toGetOthers:function () {
+                        bigBox.otherUsers = [];
+                        $.ajax({
+                            url:"share/gerOtherUsers",
+                            type:"post",
+                            datatype:"json",
+                            success:function (otherUsers) {
+                                for (var i = 0; i < otherUsers.length ; i++){
+                                    bigBox.otherUsers.push({
+                                        userName:otherUsers[i].userName,
+                                        userText:otherUsers[i].userText,
+                                        userHeadUrl:otherUsers[i].userHeadUrl
+                                    })
+                                }
+                            }
+                        })
                     }
 
                 }
@@ -177,8 +240,16 @@
             editor1.create();
 
             bigBox.toGetShares();
+            bigBox.toGetUser();
+            bigBox.toGerStar();
+            bigBox.toGetOthers();
 
             $(".popWindow").hide();
+
+            $("#shareMusicBtn").click(function () {
+                $("#shareMusicDiv").show();
+            });
+
 
         })
 
@@ -198,7 +269,7 @@
     <div class="popWindow" id="shareMusicDiv">
         <div class="popWindow-top">
             <div class="font-14 f-w-b f-c-e">分享</div>
-            <div class="f-right"><a><i class="font-14 f-c-gold XXX">X</i></a></div>
+            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareMusic">X</i></a></div>
         </div>
         <div class="share-text">
             <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt" id="editorText">
@@ -259,12 +330,13 @@
     </div>
 
 
+    <!--左侧-动态-->
     <div id="mB-left" class="f-left">
         <div id="left-top">
             <h3 class="f-left">动态</h3>
-            <span class="f-right btn" id="shareMusicBtn"><a href="#" class="font-12"><img src="images/seX.png"
+            <span class="f-right btn" id="shareVideoBtn"><a href="#" class="font-12"><img src="images/seX.png"
                                                                        height="16px">发布视频</a></span>
-            <span class="f-right btn" id="shareVideoBtn"><a href="#" class="font-12"><img src="images/dTai.png"
+            <span class="f-right btn" id="shareMusicBtn"><a class="font-12" ><img src="images/dTai.png"
                                                                        height="16px">发动态</a></span>
         </div>
         <div id="left-body">
@@ -418,31 +490,33 @@
 
         </div>
     </div>
-    <div id="mB-right" class="f-right">
+
+    <!--右侧-用户-->
+    <div id="mB-right" class="f-right" >
         <!--用户-->
-        <div class="user">
+        <div class="user" v-for="user in users">
             <div class="userPic">
                 <a href="#" id="face">
-                    <img src="images/userPic.jpg" height="70">
+                    <img :src="user.userHeadUrl" height="70">
                 </a>
-                <a class="font-14 userName">用户名</a>
+                <a class="font-14 userName">{{user.userName}}</a>
             </div>
             <ul class="u-fans">
                 <li class="f-left">
                     <a href="#">
-                        <em>1</em>
+                        <em>{{user.shareCount}}</em>
                         <i>动态</i>
                     </a>
                 </li>
                 <li class="f-left">
                     <a href="#">
-                        <em>1</em>
+                        <em>{{user.attention}}</em>
                         <i>关注</i>
                     </a>
                 </li>
                 <li class="f-left">
                     <a href="#">
-                        <em>1</em>
+                        <em>{{user.fans}}</em>
                         <i>粉丝</i>
                     </a>
                 </li>
@@ -454,127 +528,49 @@
         <!--其他用户-->
         <div class="otherUser">
             <div class="starUser"><i class="font-12 f-w-b">明星用户</i><i class="f-right"><a class="font-12"
-                                                                                         href="#">换一批</a></i></div>
-            <div class="otherUser-div">
+                                                                                         href="#" @click="changeStar">换一批</a></i></div>
+            <div class="otherUser-div" v-for="star in starUsers">
                 <div class="userPic f-left">
                     <a href="#">
-                        <img src="images/userPic.jpg" height="45">
+                        <img :src="star.userHeadUrl" height="45">
                     </a>
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
+                        <a href="#" class="font-14" style="color: black">{{star.userName}}</a>
                         <img src="images/V.png" height="11">
                     </div>
                     <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
+                        <a href="#">{{star.singerDescription}}</a>
                     </div>
                     <div>
                         <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
                     </div>
                 </div>
             </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
 
-            </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
 
-            </div>
-            <div class="starUser"><i class="font-12 f-w-b">感兴趣的人</i><i class="f-right"><a class="font-12"
-                                                                                          href="#">换一批</a></i></div>
-            <div class="otherUser-div">
+            <div class="starUser"><i class="font-12 f-w-b">感兴趣的人</i><i class="f-right"><a class="font-12" href="#">换一批</a></i></div>
+            <div class="otherUser-div" v-for="user in otherUsers">
                 <div class="userPic f-left">
                     <a href="#">
-                        <img src="images/userPic.jpg" height="45">
+                        <img :src="user.userHeadUrl" height="45">
                     </a>
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
+                        <a href="#" class="font-14" style="color: black">{{user.userName}}</a>
                         <img src="images/V.png" height="11">
                     </div>
                     <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
+                        <a href="#">{{user.userText}}</a>
                     </div>
                     <div>
                         <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
                     </div>
                 </div>
+            </div>
 
-            </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
-            </div>
             <div><i class="font-12 f-w-b">添加微博好友，和他们分享音乐</i></div>
             <div>
                 <i><img src="images/Weibo.png" height="20px" class="weibo"></i>
