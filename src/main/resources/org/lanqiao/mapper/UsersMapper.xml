@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.UsersMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Users" >
+  <resultMap id="UsersResultMap" type="org.lanqiao.entity.Users" >
     <id column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_account" property="userAccount" jdbcType="INTEGER" />
@@ -18,13 +18,40 @@
     <result column="user_qq" property="userQq" jdbcType="INTEGER" />
     <result column="user_id_card" property="userIdCard" jdbcType="VARCHAR" />
     <result column="user_vip_state" property="userVipState" jdbcType="INTEGER" />
+
+    <result column="attention" property="attention" jdbcType="INTEGER" />
+    <result column="fans" property="fans" jdbcType="INTEGER" />
+    <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
+
   </resultMap>
+
+  <!--》》》郭书卿》》》-->
+  <select id="selectFansByPk_q" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select count(uf_id) as fans from userfan where userb_id = #{userId}
+  </select>
+
+  <select id="selectAttentionByPK_q" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select count(uf_id) as attention from userfan where usera_id  = #{userId}
+  </select>
+
+  <select id="selectShareCountByPK_q" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select count(user_id) as shareCount from share where user_id =#{userId}
+  </select>
+
+  <select id="selectOtherUsersByRand" resultMap="UsersResultMap">
+    select  user_text, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
+  </select>
+
+  <!--《《《郭书卿《《《-->
+
+
+
   <sql id="Base_Column_List" >
     user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, 
     user_location, user_head_url, user_real_name, user_email, user_phone_activation, 
     user_phone, user_qq, user_id_card, user_vip_state
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from users

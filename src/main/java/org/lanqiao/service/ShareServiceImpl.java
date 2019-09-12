@@ -20,6 +20,11 @@ public class ShareServiceImpl implements ShareService{
     SongMapper songMapper;
 
     @Override
+    public int insertShareForward(Share share) {
+        return shareMapper.insertSelective(share);
+    }
+
+    @Override
     public List<Share> getAllShare() {
         List<Share> shareList = shareMapper.getAllShare_q();
         System.out.println("n");

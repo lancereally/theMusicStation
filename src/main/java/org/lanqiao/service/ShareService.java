@@ -10,5 +10,7 @@ public interface ShareService {
 
     public int updateShareLikesByPK(Integer shareId);
 
+    public int insertShareForward(Share share);
+
 
 }
