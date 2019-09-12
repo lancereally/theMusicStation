@@ -37,6 +37,15 @@
         <!--            <artifactId>springloaded</artifactId>-->
         <!--        </dependency>-->
 
+
+        <!-- solr -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-solr</artifactId>
+            <version>2.1.8.RELEASE</version>
+        </dependency>
+
+
         <!-- mybatis -->
         <dependency>
             <groupId>org.mybatis</groupId>
