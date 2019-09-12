@@ -1,8 +1,9 @@
 package org.lanqiao.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.lanqiao.entity.ShareComment;
 import org.springframework.stereotype.Repository;
-
+@Mapper
 @Repository
 public interface ShareCommentMapper {
     int deleteByPrimaryKey(Integer scId);

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/my_songlist.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+
+<div class="sl_head">
+    <div class="sl_sechd">
+        <div class="sl_pic">
+            <img src="images/MyMusic/sl_pic1.jpg">
+            <span class="sl_msk"></span>
+        </div>
+        <div class="sl_det">
+            <div class="det_one ">
+                <i class="one_tag">
+                    <!--                    <span class="one_top"></span>-->
+                </i>
+                <a class="one_edit" href="MyMusic_edit.html">编辑</a>
+                <h2 class="one_title">君の名は。(动画电影《你的名字。》原声带)</h2>
+            </div>
+            <div class="det_two">
+                <a class="two_pic">
+                    <img src="images/MyMusic/facepic.jpg">
+                </a>
+                <span class="two_name"><a class="username">共饮长江水丶</a></span>
+                <span class="two_time">2017-09-05 创建</span>
+            </div>
+            <div class="det_three">
+                <button type="button" class="btn btn-primary btn-sm">播放</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">收藏</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">分享</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">下载</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">评论</button>
+                <!--                <a class="three_play thicon">-->
+                <!--                    <i><em class="ply"></em>播放</i>-->
+                <!--                </a>-->
+                <!--                <a class="three_shou thicon">收藏</a>-->
+                <!--                <a class="three_show thicon">分享</a>-->
+                <!--                <a class="three_down thicon">下载</a>-->
+                <!--                <a class="three_talk thicon">评论</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="sl_headtitle">
+    <h3>
+        <span class="title_size">歌曲列表</span>
+    </h3>
+    <span class="songlist_num">
+            <span class="list_size"></span>
+            首歌
+        </span>
+    <div class="play_num">
+        播放：<strong id="playcount">2</strong>次
+    </div>
+</div>
+<div class="sl_body">
+    <table class="body_table">
+        <thead>
+        <th class="w1">
+            <div class="wp ap0"></div>
+        </th>
+        <th>
+            <div class="wp ">歌曲标题</div>
+        </th>
+        <th class="w2">
+            <div class="wp">时长</div>
+        </th>
+        <th class="w3">
+            <div class="wp">歌手</div>
+        </th>
+        <th class="w4">
+            <div class="wp">专辑</div>
+        </th>
+        </thead>
+        <tbody >
+        <tr class="even">
+            <td>
+                <div class="table_head">
+                    <span class="table_num">1</span>
+                    <span class="tb_play"></span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_name">
+                    <a>星空</a>
+                </div>
+            </td>
+            <td>
+                <span class="tb_time">04:45</span>
+            </td>
+            <td>
+                <div class="tb_text">
+                    <span>
+                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_text ab_text">
+                    <span>
+                        <a>Richard&nbsp;Clayderman</a>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr >
+            <td>
+                <div class="table_head">
+                    <span class="table_num">1</span>
+                    <span class="tb_play"></span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_name">
+                    <a>星空</a>
+                </div>
+            </td>
+            <td>
+                <span class="tb_time">04:45</span>
+            </td>
+            <td>
+                <div class="tb_text">
+                    <span>
+                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_text ab_text" >
+                    <span>
+                        <a>Richard&nbsp;Clayderman</a>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr class="even">
+            <td>
+                <div class="table_head">
+                    <span class="table_num">1</span>
+                    <span class="tb_play"></span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_name">
+                    <a>星空</a>
+                </div>
+            </td>
+            <td>
+                <span class="tb_time">04:45</span>
+            </td>
+            <td>
+                <div class="tb_text">
+                    <span>
+                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_text ab_text">
+                    <span>
+                        <a>Richard&nbsp;Clayderman</a>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="table_head">
+                    <span class="table_num">1</span>
+                    <span class="tb_play"></span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_name">
+                    <a>星空</a>
+                </div>
+            </td>
+            <td>
+                <span class="tb_time">04:45</span>
+            </td>
+            <td>
+                <div class="tb_text">
+                    <span>
+                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_text ab_text">
+                    <span>
+                        <a>Richard&nbsp;Clayderman</a>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="sl_msg">
+    <div class="msg_headtitle">
+        <h3>
+            <span class="msg_size">评论</span>
+        </h3>
+        <span class="msg_num">共
+            <span class="msg_size"></span>
+            条评论
+        </span>
+    </div>
+    <div class="msg_det">
+        <div class="msg_user">
+            <div class="userpic">
+                <img src="images/MyMusic/facepic.jpg">
+            </div>
+            <div class="msg_text">
+                <div class="msg_textarea">
+                    <textarea class="msg_info" placeholder="评论"></textarea>
+                </div>
+                <div class="msg_bar">
+                    <i class="bar_emoj msg_icon"></i>
+                    <i class="bar_at msg_icon"></i>
+                </div>
+                <button type="button" class="btn btn-primary btn-xs" id="msg_send">评论</button>
+                <span class="info_num">140</span>
+            </div>
+        </div>
+        <div class="msg_show">
+            <h3 class="m_hd">精彩评论</h3>
+            <div class="aw_msg">
+                <div class="msg_userpic">
+                    <a><img src="images/MyMusic/facepic.jpg"></a>
+                </div>
+                <div class="msg_userinfo">
+                    <div class="msg_pl">
+                        <a>okc!up</a>
+                        <img>
+                        ：孟子坤《π》
+                    </div>
+                    <div class="pl_bar">
+                        <div class="pl_time">9月6日&nbsp;13:00</div>
+                        <a>
+                            <i class="zan"></i>(22)
+                        </a>
+                        <span class="pl_jg">|</span>
+                        <a class="replay">回复</a>
+                    </div>
+                </div>
+            </div>
+            <h3 class="m_hd">最新评论</h3>
+            <div class="aw_msg">
+                <div class="msg_userpic">
+                    <a><img src="images/MyMusic/facepic.jpg"></a>
+                </div>
+                <div class="msg_userinfo">
+                    <div class="msg_pl">
+                        <a>okc!up</a>
+                        <img>
+                        ：孟子坤《π》
+                    </div>
+                    <div class="pl_bar">
+                        <div class="pl_time">9月6日&nbsp;13:00</div>
+                        <a>
+                            <i class="zan"></i>(22)
+                        </a>
+                        <span class="pl_jg">|</span>
+                        <a class="replay">回复</a>
+                    </div>
+                </div>
+            </div>
+            <div class="aw_msg">
+                <div class="msg_userpic">
+                    <a><img src="images/MyMusic/facepic.jpg"></a>
+                </div>
+                <div class="msg_userinfo">
+                    <div class="msg_pl">
+                        <a>okc!up</a>
+                        <img>
+                        ：孟子坤《π》
+                    </div>
+                    <div class="pl_bar">
+                        <div class="pl_time">9月6日&nbsp;13:00</div>
+                        <a>
+                            <i class="zan"></i>(22)
+                        </a>
+                        <span class="pl_jg">|</span>
+                        <a class="replay">回复</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="msg_page">
+            <div class="page_bar">
+                <a>上一页</a>
+                <a>1</a>
+                <a>2</a>
+                <a>3</a>
+                <a>下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

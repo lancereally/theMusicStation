@@ -1,0 +1,46 @@
+.my_singer{
+    padding: 40px;
+}
+.singer_top{
+    height: 42px;
+    border-bottom: 3px solid #E1251B;
+}
+.singer_top span{
+    font-size: 24px;
+    font-weight: normal;
+    font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif;
+}
+.singer_list{
+    padding: 10px 0;
+    height: 80px;
+    border-bottom: 1px solid #999999;
+}
+.singer_pic{
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: -95px;
+}
+.singer_pic a{
+    cursor: pointer;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    text-decoration: none;
+}
+.singer_det{
+    margin-left: 95px;
+}
+.singer_det a{
+
+    cursor: pointer;
+}
+.singer_det h4{
+    height: 21px;
+    margin: 10px 0;
+    line-height: 21px;
+    font-size: 16px;
+}
+.singer_det p{
+    color: #666;
+}
