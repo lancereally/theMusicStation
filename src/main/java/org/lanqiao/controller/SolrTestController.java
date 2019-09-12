@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Controller
-public class SongsController {
+public class SolrTestController {
 
     @Autowired
     private SolrTemplate solrTemplate;
