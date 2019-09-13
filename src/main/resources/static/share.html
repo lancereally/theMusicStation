@@ -11,9 +11,6 @@
     <link href="css/wangEditor.css" rel="stylesheet">
     <script>
         $(function () {
-
-
-
             //Vue
             var bigBox = new Vue({
                 el: "#mainBody",
@@ -25,7 +22,13 @@
                     pageNum: 1,
                     users: [],
                     starUsers: [],
-                    otherUsers: []
+                    otherUsers: [],
+                    songKey:"",
+                    songs:[],
+                    checkSongId:"",
+                    userId:1,
+                    choseSong:"",
+                    choseSinger:""
                 },
                 methods: {
                     //搜索显示动态
@@ -204,26 +207,36 @@
                             }
                         })
                     },
-                    //发布音乐动态
-                    toShareMusic:function () {
-                        $.ajax({
-                            url:"/share/music",
-                            data:{
-                                userId:1,
-
-                            }
-
-
-                        })
+                    // 发布音乐动态
+                    // toShareMusic:function () {
+                    //     $.ajax({
+                    //         url:"/share/music",
+                    //         data:{
+                    //             userId:1,
+                    //             songId:bigBox.checkSongId,
+                    //
+                    //
+                    //         }
+                    //
+                    //
+                    //     })
+                    // },
+                    checkSong:function (index) {
+                        bigBox.checkSongId = bigBox.songs[index].songId;
+                        $("#selectMusicDiv").hide();
+                        $("#shareMusicDiv").show();
+                        $("#beforeChoseMusic").hide();
+                        bigBox.choseSong = bigBox.songs[index].songName;
+                        bigBox.choseSinger = bigBox.songs[index].singerName;
+                        $("#afterChoseMusic").show();
                     },
-                    //搜索音乐
-                    toSelectMusic:function() {
-                        $.ajax({
-                            url:"share/getSongsBySolr",
-                            data:{
-
-                            }
-                        })
+                    showSelectMusicDiv:function () {
+                        $("#selectMusicDiv").show();
+                        $("#shareMusicDiv").hide();
+                    },
+                    backToShareText:function () {
+                        $("#selectMusicDiv").hide();
+                        $("#shareMusicDiv").show();
                     }
 
                 }
@@ -241,10 +254,9 @@
             editor.customConfig.menus = [
                 'emoticon' // 表情
             ];
+            //监控音乐的文字，实时更新到shareText
             editor.customConfig.onchange = function (html) {
-                // // 监控变化，同步更新到 textarea
-                // $("#show_box").html(html);
-                // $("textarea").val(html);
+                bigBox.shareText = html;
             };
             //创建编辑器
             editor.create();
@@ -268,20 +280,44 @@
 
             // $('#fileupload').show();
 
-            $('#fileupload').change(function () {
-                var url = getUrl(this.files[0]);
-                var $img = $("<img>").attr("src", url).css("width","50px");
-                $("#img").children(1).remove();
-                $("#img").append($img);
-            });
+            // $('#fileupload').change(function () {
+            //     var url = getUrl(this.files[0]);
+            //     var $img = $("<img>").attr("src", url).css("width","50px");
+            //     $("#img").children(1).remove();
+            //     $("#img").append($img);
+            // });
 
 
 
             $(".popWindow").hide();
+            $("#afterChoseMusic").hide();
 
             $("#shareMusicBtn").click(function () {
                 $("#shareMusicDiv").show();
             });
+
+            $("#songsKeyInput").change(function () {
+                $.ajax({
+                    url:"share/getSongsBySolr",
+                    data:{
+                        songKey:bigBox.songKey
+                    },
+                    type:"post",
+                    datatype:"json",
+                    success:function (songs) {
+                        bigBox.songs = [];
+                        for (var i =0 ; i < songs.length ; i++){
+                            bigBox.songs.push({
+                                songName:songs[i].songName,
+                                singerName:songs[i].singerName,
+                                songId:songs[i].id
+                            })
+                        }
+                    }
+                })
+            })
+
+            // $(".checkSongDiv").
 
 
 
@@ -314,6 +350,11 @@
 
     <!--发布音乐动态-->
     <div class="popWindow" id="shareMusicDiv">
+        <form action="/share/shareMusic" method="post" enctype="multipart/form-data" class="xiaoshi" id="shareMusicForm">
+            <input class="xiaoshi" v-model="shareText" type="text" name="shareText">
+            <input class="xiaoshi" v-model="checkSongId" type="text" name="songId">
+            <input class="xiaoshi" name="userId" type="text" v-model="userId">
+        </form>
         <div class="popWindow-top">
             <div class="font-14 f-w-b f-c-e">分享</div>
             <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareMusicX">X</i></a></div>
@@ -323,10 +364,15 @@
 
             </div>
             <div class="f-thide">
-                <a>
-                    <i style="padding: 5px 5px; display: block" class="f-left">
-                        <img src="images/yuefu.png" height="30px"></i>
-                    <span class="f-fs1 f-fl">给动态配上音乐</span>
+                <a @click="showSelectMusicDiv">
+                    <div id="beforeChoseMusic">
+                        <i style="padding: 5px 5px; display: block" class="f-left">
+                            <img src="images/yuefu.png" height="30px"></i>
+                        <span class="f-fs1 f-fl">给动态配上音乐</span>
+                    </div>
+                    <div id="afterChoseMusic">
+                        <span class="f-fs1 f-fl">单曲 - <i>{{choseSong}}</i> - <i>{{choseSinger}}</i></span>
+                    </div>
                 </a>
             </div>
         </div>
@@ -335,7 +381,7 @@
             <div style="height: 30px; width: 40px;" id="editorPic" class="f-left"></div>
             <a href="#" style="display: block;padding: 5px 10px;" class="f-left"><span class="f-left fileinput-button">
             <img src="images/Picture.png" height="15px">
-            <input type="file" id="fileupload">
+            <input type="file" id="fileupload" name="file" form="shareMusicForm">
             </span>
             </a>
         </div>
@@ -343,7 +389,7 @@
 
         <div class="btns">
             <a>
-                <div class="btn-share btn f-left" style="font-size: 16px">分享</div>
+                <button class="btn-share btn f-left" style="font-size: 16px" type="submit" form="shareMusicForm">分享</button>
                 <div class=" btn-share btn f-left btn-w" style="font-size: 16px" @click="shareMusicX">取消</div>
             </a>
         </div>
@@ -351,8 +397,32 @@
 
     </div>
 
+    <div class="popWindow" id="selectMusicDiv">
+        <div class="popWindow-top">
+            <div class="font-14 f-w-b f-c-e">分享</div>
+<!--            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareMusicX">X</i></a></div>-->
+        </div>
+        <div class="share-text">
+            <input type="text" v-model="songKey" id="songsKeyInput" style="width: 425px; height: 20px; margin-left: 10px">
+            <div class="songsGet" v-if="songs != null">
+               <ul v-for="(song,index) in songs">
+                   <li @click="checkSong(index)">
+                       <div><span class="margin-r-100">{{song.songName}}</span><span>{{song.singerName}}</span></div>
+                   </li>
+               </ul>
+            </div>
+        </div>
+        <div class="btns">
+            <a>
+                <div class="btn-share btn f-left" style="font-size: 16px" @click="backToShareText">返回</div>
+            </a>
+        </div>
+
+
+    </div>
+
     <!--转发动态-->
-    <div class="popWindow" id="shareOthersDiv">
+    <div class="popWindow xiaoshi" id="shareOthersDiv">
         <div class="popWindow-top">
             <div class="font-14 f-w-b f-c-e">转发动态</div>
             <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareOtherDivHide">X</i></a></div>

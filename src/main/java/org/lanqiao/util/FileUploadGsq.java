@@ -8,7 +8,15 @@ import java.util.UUID;
 
 public class FileUploadGsq {
 
-    public String upload(HttpServletRequest request, MultipartFile file) {
+    public String uploadToDisk(String str, MultipartFile file){
+        return uploadToDiskSon(str,file);
+    }
+
+    public String uploadToDisk(MultipartFile file){
+        return uploadToDiskSon("D:/MusicImages",file);
+    }
+
+    public String uploadToTomcat(HttpServletRequest request, MultipartFile file) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
 
@@ -33,7 +41,7 @@ public class FileUploadGsq {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 inputStream.close();
                 outputStream.close();
@@ -42,6 +50,38 @@ public class FileUploadGsq {
             }
         }
         return "images/uploadFile/" + fileName;
+    }
+
+    public String uploadToDiskSon(String str, MultipartFile file) {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        //寻找或者建立路径
+        File fileDir = new File(str);
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+        String fileName = file.getOriginalFilename();
+        fileName = UUID.randomUUID() + fileName.substring(fileName.lastIndexOf("."));
+        try {
+            inputStream = file.getInputStream();
+            outputStream = new FileOutputStream(fileDir + File.separator + fileName);
+            byte[] b = new byte[1024];
+            while ((inputStream.read(b)) != -1) {
+                outputStream.write(b);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                inputStream.close();
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return str + "/" + fileName;
+
     }
 }
 
