@@ -43,5 +43,14 @@ public interface UsersMapper {
     //展示收藏的歌单
     public List<Users> getSongListLiked(Integer userId);
 
+    public int updateUserInfo(Users users);
+
+    public int checkName(String userName);
+
+    //注册
+
+
+    //账号登录
+    public int accountLogin(Users users);
 // 徐东方
 }

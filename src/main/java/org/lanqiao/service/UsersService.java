@@ -26,4 +26,14 @@ public interface UsersService {
 
     //展示收藏的歌单
     public List<Users> getSongListLiked(Integer userId);
+
+    public int updateUserInfo(Users users);
+
+    public boolean checkName(String userName);
+
+    //注册
+    public int register(Users users);
+
+    //账号登录
+    public boolean accountLogin(Users users);
 }

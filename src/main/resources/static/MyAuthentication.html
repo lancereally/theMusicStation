@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="css/MyOption.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
     <meta charset="UTF-8">
     <title>MyAuthentication</title>
 </head>
@@ -24,6 +26,72 @@
         $(".j-uflag").mouseenter(function () {
             $(".j-uflag").css("display","block");
         });
+
+        //信息校验
+            $(".Authentication").validate({
+                rules: {
+                    realName:{
+                        required: true,
+                        regex: /^[\u2E80-\u9FFF]+$/
+                        // 昵称 /^\w{4,20}$/
+                        //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                    },
+                    email:{
+                        required:true,
+                        email:true
+                    },
+                    qq:{
+                        required:true,
+                        regex: /^[1-9][0-9]{6,11}$/
+                    },
+                    idCard:{
+                        required:true,
+                        regex: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+                    }
+                },
+                messages: {
+                    realName:{
+                        required: "真实姓名审核通过后不可更改（VIP除外",
+                        regex: "姓名格式不正确"
+                    },
+                    email:{
+                        required:"请输入邮箱",
+                        email:"邮箱格式不正确"
+                    },
+                    qq:{
+                        required:"请输入QQ",
+                        regex:"QQ格式不正确"
+                    },
+                    idCard:{
+                        required:"审核通过后不可更改",
+                        regex:"身份证号格式不正确"
+                    }
+                },
+                errorPlacement: function(error, element) {
+
+                    error.appendTo( element.parent().next() );
+                }
+            });
+//表单提交
+         $(".submit").click(function () {
+             $.ajax({
+                 // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
+                 url: "/user/updateUserInfo",
+                 type: "post",
+                 datatype: "json",
+                 data: {
+                     "userId": 1,
+                     "userRealName": $("#realName").val(),
+                     "userPhone":17854283609,
+                     "userEmail":$(".email").text(),
+                     "userQq":$(".qq").val(),
+                     "userIdCard":$(".idCard").text(),
+                 },
+                 success: function (data) {
+                     alert("9.12 15:31完成，开始做下一个页面吧~")
+                 }
+             });
+         });
     })
 </script>
 <body>
@@ -130,14 +198,14 @@
     <div class="index_form-section_z6JBL">
         <h1 class="index_title_3QmRb">实名认证</h1>
         <div class="index__form___3vVYf">
-            <form>
-                <div class="index__form-item___3hHkk"><label  class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>真实姓名</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入真实姓名" type="text" value="">
+            <form class="Authentication">
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label  class="index__label___1hASe">真实姓名</label>
+                    <div class="index__normal___PXWIw"><input name="realName" id="realName" class="input " placeholder="请输入真实姓名" type="text" value="">
                     </div>
-                    <span class="index__options___12oCV">审核通过后不可更改（VIP除外</span></div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>手机号</label>
+                    <span class="index__options___12oCV realNameInfo"></span></div>
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">手机号</label>
                     <div class="index__normal___PXWIw">
                         <div class="addon-group">
                             <div class="addon-before rc-select rc-select-enabled" style="width: 63px;">
@@ -164,8 +232,8 @@
                         </button>
                     </div>
                     <span class="index__options___12oCV">审核后将绑定到土嗨帐号中</span></div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>验证码</label>
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">验证码</label>
                     <div class="index__normal___PXWIw">
                         <div class="clearfix"><input class="input fl" placeholder="请输入验证码" type="text" value=""
                                                      style="width: 294px;">
@@ -175,25 +243,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>邮箱</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入邮箱" type="text" value="">
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">邮箱</label>
+                    <div class="index__normal___PXWIw"><input name="email" class="input email" placeholder="请输入邮箱" type="text" value="">
                     </div>
-                </div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe">QQ</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入QQ号" type="text" value="">
-                    </div>
-                </div>
+                    <span class="index__options___12oCV emailInfo"></span></div>
 
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>证件号码</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入身份证号码" type="text" value="">
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">QQ</label>
+                    <div class="index__normal___PXWIw"><input name="qq" class="input qq" placeholder="请输入QQ号" type="text" value="">
                     </div>
-                    <span class="index__options___12oCV">审核通过后不可更改</span></div>
+                    <span class="index__options___12oCV qqInfo"></span></div>
+
+
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">证件号码</label>
+                    <div class="index__normal___PXWIw"><input name="idCard" class="input idCard" placeholder="" type="text" value="">
+                    </div>
+                    <span class="index__options___12oCV idCardInfo"></span></div>
                 <div class="index__form-item___3hHkk"><label class="index__label___1hASe"></label>
                 </div>
                 <div class="border-top align-center index__form-item___3hHkk">
-                    <button class="index__button___34GnR index__primary-button___pcseP"
+                    <button class="index__button___34GnR index__primary-button___pcseP submit"
                             style="width: 160px; margin-top: 40px;">提交审核
                     </button>
                 </div>

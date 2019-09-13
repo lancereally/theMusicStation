@@ -61,4 +61,27 @@ public class UsersServiceImpl implements UsersService {
     public List<Users> getSongListLiked(Integer userId){
         return usersMapper.getSongListLiked(userId);
     }
+
+    //更新用户基本设置信息
+    @Override
+    public int updateUserInfo(Users users){
+        return usersMapper.updateUserInfo(users);
+    }
+
+    @Override
+    public boolean checkName(String userName){
+        return usersMapper.checkName(userName) < 1 ? true : false;
+    }
+
+    //注册
+    @Override
+    public int register(Users users){
+        return usersMapper.insertSelective(users);
+    }
+
+    //账号登录
+    @Override
+    public boolean accountLogin(Users users){
+        return usersMapper.accountLogin(users) < 0 ? true : false;
+    }
 }

@@ -20,6 +20,8 @@ public class UsersController {
 
     @Autowired
     ShareServiceImpl shareService;
+
+    //MyHomePage页面
 //获取用户基本信息
     @RequestMapping("/user/getUserInfo")
     public Users getLittleInfo (Integer userId){
@@ -75,4 +77,36 @@ public class UsersController {
         List<Users> a =usersService.getSongListLiked(userId);
         return usersService.getSongListLiked(userId);
     }
+
+
+
+//MySetting
+    //更新用户基本设置信息
+    @RequestMapping("/user/updateUserInfo")
+    public int updateUserInfo(Users users){
+        return usersService.updateUserInfo(users);
+    }
+
+    //查找用户昵称是否重复
+    @RequestMapping("/user/checkName")
+    public boolean checkName(String userName){
+        return usersService.checkName(userName);
+    }
+
+//注册and登录
+    //注册
+    @RequestMapping("/user/register")
+    public int register(Users users){
+        return usersService.register(users);
+    }
+
+    //账号登录
+    @RequestMapping("/user/accountLogin")
+    public boolean accountLogin(Users users){
+        return usersService.accountLogin(users);
+    }
+
+    //手机登录
+
+
 }

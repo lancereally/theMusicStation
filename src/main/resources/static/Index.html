@@ -37,7 +37,114 @@
       $(".zcls").click(function () {
         $(".m-layer").css("display","none");
       });
-    })
+
+
+      //注册
+      $(".username").blur(function () {
+        $.ajax({
+          url:"/user/checkName",
+          type:"post",
+          dataType:"text",
+          data:{
+            'userName':$(".username").val()
+          },
+          success:function (data) {
+            if(data == "false"){
+              alert("该用户名已经存在！");
+            }else{
+              alert("哦哟，这名字可以哦~");
+            }
+            if($("#nickname").val() == ""){
+              $(".text").addClass("error");
+              $("#nickname").val("昵称不得为空！");
+            }
+          }
+        })
+      });
+
+      function account() {
+        //x上限，y下限
+        var x = 999999;
+        var y = 100000;
+        var rand = parseInt(Math.random() * (x - y + 1) + y);
+        return rand;
+      }
+
+        $(".userLogin").click(function () {
+          if($(".proto").attr('checked')=='checked'){
+            alert(1);
+            var userAccount = account();
+            $.ajax({
+              url:"/user/register",
+              type:"post",
+              dataType:"text",
+              data:{
+                'userName':$(".username").val(),
+                "userAccount":userAccount,
+                "userPassword":$(".password").val()
+              },
+              success:function (data) {
+                if(data == "false")
+                  alert("YOYO切克闹~注册成功嗨起来！" +
+                          "您的账号为"+userAccount);
+                else
+                  alert("DB管理员已经删库跑路，本站暂停使用~");
+              }
+            })
+          }
+          else
+          {
+            alert("您还未同意土嗨音乐协议哦~");
+          }
+        });
+
+      //账号密码登录
+      $(".accountLogin").click(function () {
+        $.ajax({
+          url:"/user/accountLogin",
+          type:"post",
+          dataType:"json",
+          data:{
+            'userAccount':$(".account").val(),
+            "userPassword":$(".pass").val()
+          },
+          success:function (data) {
+            if(data == "false"){
+              alert("YOYO切克闹~登录成功嗨起来！");
+              location.reload("MyHomePage.html");
+            }
+            else
+              alert("DB管理员已经删库跑路，本站暂停使用~");
+          }
+        })
+      });
+
+
+      //手机验证码登录
+      $(".phoneNum").blur(function () {
+        if($(this).val()){}
+      });
+      // $(".phoneLogin").click(function () {
+      //   $.ajax({
+      //     url:"/user/phoneLogin",
+      //     type:"post",
+      //     dataType:"text",
+      //     data:{
+      //       'userAccount':$(".account").val(),
+      //       "userPassword":$(".password").val()
+      //     },
+      //     success:function (data) {
+      //       if(data == "true")
+      //         alert("YOYO切克闹~登录成功嗨起来！");
+      //       else
+      //         alert("DB管理员已经删库跑路，本站暂停使用~");
+      //     }
+      //   })
+      // });
+
+
+    })//function
+
   </script>
   <body>
     <header>
@@ -146,20 +253,20 @@
     <div class="auto-1568105551339 m-layer z-show " id="loginPhone" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">手机短信登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
       <div class="n-log2 n-log2-2">
         <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" class="js-input u-txt" placeholder="请输入手机号" autocomplete="off">
+          <input type="text" name="e" class="js-input u-txt phoneNum" placeholder="请输入手机号" autocomplete="off">
           <ul class="js-suggest u-fill" style="visibility:hidden;" ></ul>
         </div>
         <div class="f-mgt20">
           <a class="js-primary u-btn2 u-btn2-2 ma" hidefocus="true" href="#" data-action="login"><i>点击获取验证码</i></a>
         </div>
         <div class="f-mgt10">
-          <input type="password" name="epw" id="epw" class="js-input u-txt" placeholder="请输入验证码" autocomplete="new-password">
+          <input type="password" name="epw" id="epw" class="js-input u-txt validate" placeholder="请输入验证码" autocomplete="new-password">
         </div>
         <div class="js-captcha"></div>
         <div class="ScapTcha js-scaptcha"></div>
         <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
         <div class="f-mgt20">
-          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+          <a class="js-primary u-btn2 u-btn2-2 phoneLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
         </div>
       </div>
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
@@ -167,11 +274,11 @@
     <div class="auto-1568105551339 m-layer z-show " id="loginAccount" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" id="auto-id-GIUtr1rxR6Tr59E4">
       <div class="n-log2 n-log2-2">
         <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+          <input type="text" name="e" class="js-input u-txt account" placeholder="请输入帐号" autocomplete="off">
           <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
         </div>
         <div class="f-mgt10">
-          <input type="password" name="epw" class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+          <input type="password" name="epw" class="js-input u-txt pass" placeholder="请输入密码" autocomplete="new-password">
         </div>
         <div class="js-captcha"></div>
         <div class="ScapTcha js-scaptcha"></div>
@@ -181,29 +288,33 @@
           <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
         </div>
         <div class="f-mgt20">
-          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+          <a class="js-primary u-btn2 u-btn2-2 accountLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
         </div>
       </div>
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
     </div></div><span class="zcls" title="关闭窗体" >×</span></div>
-    <div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+    <div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号注册</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
       <div class="n-log2 n-log2-2">
         <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" id="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+          <input type="text" name="e" id="e" class="js-input u-txt username" placeholder="请输入昵称" autocomplete="off">
           <ul class="js-suggest u-fill" style="visibility:hidden;" id="auto-id-CIFtIW9szaHfGuVh"></ul>
         </div>
         <div class="f-mgt10">
-          <input type="password" name="epw"  class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+          <input type="password" name="epw"  class="js-input u-txt password" placeholder="请输入密码" autocomplete="new-password">
+        </div>
+        <div class="f-mgt10">
+          <input type="password" name="epw"  class="js-input u-txt password2" placeholder="请再次输入密码" autocomplete="new-password">
         </div>
         <div class="js-captcha"></div>
         <div class="ScapTcha js-scaptcha"></div>
         <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
         <div class="f-mgt10">
-          <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
-          <a href="#" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+          <label class="check"><input name="gender" type="radio" class="proto" value="0">
+            <a href="#" target="_blank" class="">请阅读并遵守土嗨音乐协议</a>
+          </label>
         </div>
         <div class="f-mgt20">
-          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+          <a class="js-primary u-btn2 u-btn2-2 userLogin" hidefocus="true" href="#" data-action="login"><i>注　册</i></a>
         </div>
       </div>
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
