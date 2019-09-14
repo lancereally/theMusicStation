@@ -149,6 +149,10 @@
 #playcount{
     color: #c20c0c;
 }
+.sl_body{
+    border-bottom: 1px solid #E3E4E5;
+}
+
 .body_table{
     width: 100%;
     display: table;

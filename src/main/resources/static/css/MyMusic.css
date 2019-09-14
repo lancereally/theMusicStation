@@ -308,7 +308,7 @@ div{
     height: 43px;
     display: inline-block;
     border-radius: 5px;
-
+    cursor: pointer;
 }
 .btnCre_bcolor{
     background: #0c73c2;
