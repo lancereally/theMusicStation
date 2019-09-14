@@ -3,10 +3,7 @@ package org.lanqiao.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.json.JSONException;
-import org.lanqiao.entity.Share;
-import org.lanqiao.entity.Singer;
-import org.lanqiao.entity.Songs;
-import org.lanqiao.entity.Users;
+import org.lanqiao.entity.*;
 import org.lanqiao.service.ShareService;
 import org.lanqiao.service.SingerService;
 import org.lanqiao.service.UsersService;
@@ -36,7 +33,6 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping("/share")
 public class ShareController {
 
     @Autowired
@@ -51,7 +47,8 @@ public class ShareController {
     @Autowired
     private SolrTemplate solrTemplate;
 
-    @RequestMapping("/getAllShare")
+
+    @RequestMapping("/share/getAllShare")
     public PageInfo get(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
 
         PageHelper.startPage(pageNum, 3);
@@ -63,37 +60,37 @@ public class ShareController {
         return pageInfo;
     }
 
-    @RequestMapping("/addLikes")
+    @RequestMapping("/share/addLikes")
     public Integer addLikes(@RequestParam Integer shareId){
         return shareService.updateShareLikesByPK(shareId);
     }
 
-    @RequestMapping("/shareForward")
+    @RequestMapping("/share/shareForward")
     public void insertShareForward(Share share, HttpServletRequest request, HttpServletResponse response)throws IOException {
         share.setShareLocation(GetPlaceByIp.getPlace(request));
         shareService.insertShareForward(share);
         response.sendRedirect("/share.html");
     }
 
-    @RequestMapping("/getUser")
+    @RequestMapping("/share/getUser")
     public Users getUser(@RequestParam Integer userId){
         Users users = usersService.getShareUser_q(userId);
         return users;
     }
 
-    @RequestMapping("/getStarUsers")
+    @RequestMapping("/share/getStarUsers")
     public List<Singer> getStarUsers(){
         List<Singer> singerList = singerService.getStarByRand();
         return  singerList;
     }
 
-    @RequestMapping("/gerOtherUsers")
+    @RequestMapping("/share/gerOtherUsers")
     public List<Users> getOtherUsers(){
         return usersService.getOtherUsersByRand();
     }
 
 
-    @RequestMapping("/getSongsBySolr")
+    @RequestMapping("/share/getSongsBySolr")
     public List<Songs> getSongs(@RequestParam String songKey){
         // 查询所有
         Query query = new SimpleQuery();
@@ -131,7 +128,7 @@ public class ShareController {
         return songsList;
     }
 
-    @RequestMapping("/shareMusicOrVideo")
+    @RequestMapping("/share/shareMusicOrVideo")
     public void insertShareMusic(Share share , MultipartFile file, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(file.getSize() != 0){
             share.setShareAnnexUrl(new FileUploadGsq().uploadToDisk(file));
@@ -141,10 +138,24 @@ public class ShareController {
         response.sendRedirect("/share.html");
     }
 
-    @RequestMapping("becomeOtherFan")
+    @RequestMapping("/share/becomeOtherFan")
     public Integer becomeOtherFan(Integer userId, Integer otherId){
         return usersService.becomeOtherFan(userId,otherId);
     }
 
+    @RequestMapping("/singer/getEnterSingers/first")
+    public List<Singer> getEnterSingers(){
+        return singerService.getEnterSinger(10,1);
+    }
+
+    @RequestMapping("/share/getShareComment")
+    public List<ShareComment> getShareComments(Integer shareId){
+        return shareService.selectByShareId(shareId);
+    }
+
+    @RequestMapping("/share/insertShareComment")
+    public Integer insertShareComment(ShareComment shareComment){
+        return shareService.insertShareComment(shareComment);
+    }
 
 }

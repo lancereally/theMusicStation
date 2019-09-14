@@ -5,30 +5,78 @@
     <title>singer</title>
     <link href="css/main-gsq.css" rel="stylesheet">
     <link href="css/singers.css" rel="stylesheet">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+
+            var bigBox = new Vue({
+                el:"#bigBox",
+                data:{
+                    singerKey:"",
+                    singers:[]
+                },
+                methods:{
+                    getEnterSingers:function () {
+                        bigBox.singers = [];
+                        $.ajax({
+                            url:"/singer/getEnterSingers/first",
+                            datatype:"json",
+                            type:"post",
+                            success:function (singers) {
+                                for (var i =0 ;i< singers.length;i++){
+                                    bigBox.singers.push({
+                                        singerName:singers[i].singerName,
+                                        singerPicUrl:singers[i].singerPicUrl,
+                                        singerId:singers[i].singerId
+                                    })
+                                }
+                            }
+                        })
+                    },
+                    getHotSingers:function(){
+
+                    },
+                    moreEnterSingers:function () {
+                        
+                    },
+                    toGoSingerHomepage:function () {
+                        
+                    }
+                }
+            });
+
+            bigBox.getEnterSingers();
+
+            $(".recommend").click(function () {
+                bigBox.singerKey= $(this).html();
+            })
+        })
+    </script>
 </head>
 <body>
 <iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
-<div class="mainBody">
+<div class="mainBody" id="bigBox">
     <div class="m-left">
         <h2 class="tit">推荐</h2>
         <ul>
             <li>
-                <a class="recommend" href="#"> ~ 推荐歌手</a>
+                <a class="recommend">推荐歌手</a>
             </li>
             <li class="h-line">
-                <a class="recommend" href="#"> ~ 入驻歌手</a>
+                <a class="recommend">入驻歌手</a>
             </li>
         </ul>
         <h2 class="tit">华语</h2>
         <ul>
             <li>
-                <a class="recommend" href="#"> ~ 华语男歌手</a>
+                <a class="recommend">华语男歌手</a>
             </li>
             <li>
-                <a class="recommend" href="#"> ~ 华语女歌手</a>
+                <a class="recommend">华语女歌手</a>
             </li>
             <li class="h-line">
-                <a class="recommend" href="#"> ~ 华语组合/乐队</a>
+                <a class="recommend">华语组合/乐队</a>
             </li>
         </ul>
     </div>
@@ -36,43 +84,17 @@
 
         <div class="u-title">
             <h2 class="f-w-n f-left">入驻歌手</h2>
-            <a class="f-right more">更多></a>
+            <a class="f-right more" @click="moreEnterSingers">更多></a>
         </div>
         <div style="height: 368px; width: 719px">
             <ul class="sPic">
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
+                <li class="f-left" v-for="(singer,index) in singers">
+                    <img :src="singer.singerPicUrl" height="130px">
                     <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                        <i class="f-right"><img src="images/head.png" height="17px"></i>
+                        <a href="#" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                        <i class="f-right" @click="toGoSingerHomepage"><img src="images/head.png" height="17px"></i>
                     </div>
                 </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                        <i class="f-right"><img src="images/head.png" height="17px"></i>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                        <i class="f-right"><img src="images/head.png" height="17px"></i>
-                    </div>
-                </li>                <li class="f-left">
-                <img src="images/singer.jpg" height="130px">
-                <div>
-                    <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    <i class="f-right"><img src="images/head.png" height="17px"></i>
-                </div>
-            </li>                <li class="f-left">
-                <img src="images/singer.jpg" height="130px">
-                <div>
-                    <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    <i class="f-right"><img src="images/head.png" height="17px"></i>
-                </div>
-            </li>
             </ul>
         </div>
 

@@ -23,6 +23,7 @@ public interface SingerMapper {
 
     //》》》郭书卿》》》
     List<Singer> selectStarByRand();
+    List<Singer> selectEnterSingers(Integer size, Integer check);
     //《《《郭书卿《《《
 
 }

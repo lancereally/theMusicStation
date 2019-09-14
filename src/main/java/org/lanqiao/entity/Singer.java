@@ -1,14 +1,22 @@
 package org.lanqiao.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.solr.core.mapping.Indexed;
+
 public class Singer {
+    @Id
+    @Indexed
     private Integer singerId;
 
+    @Indexed
     private String singerName;
 
     private Integer userId;
 
+    @Indexed
     private String singerDescription;
 
+    @Indexed
     private String singerPicUrl;
 
     //用户账户的用户名

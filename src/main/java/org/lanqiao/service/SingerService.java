@@ -8,4 +8,6 @@ public interface SingerService {
 
     public List<Singer> getStarByRand();
 
+    public List<Singer> getEnterSinger(Integer size, Integer check);
+
 }

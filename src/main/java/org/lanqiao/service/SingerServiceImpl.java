@@ -19,4 +19,8 @@ public class SingerServiceImpl implements SingerService {
         return singerList;
     }
 
+    @Override
+    public List<Singer> getEnterSinger(Integer size, Integer check) {
+        return singerMapper.selectEnterSingers(size,check);
+    }
 }

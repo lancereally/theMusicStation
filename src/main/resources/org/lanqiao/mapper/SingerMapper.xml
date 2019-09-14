@@ -13,6 +13,16 @@
 
   </resultMap>
 
+  <select id="selectEnterSingers" resultMap="SingerResultMap" parameterType="java.lang.Integer">
+    select singer_id, singer_name, singer_pic_url, singer_description from singer
+    <if test="check == 1">
+      s , users u where s.user_id = u.user_id
+    </if>
+      <if test="size > 0">
+      limit 0 , #{size}
+      </if>
+  </select>
+
   <select id="selectStarByRand" resultMap="SingerResultMap">
     select u.user_id, singer_description, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
   </select>

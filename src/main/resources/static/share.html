@@ -28,7 +28,9 @@
                     checkSongId: "",
                     userId: 1,
                     choseSong: "",
-                    choseSinger: ""
+                    choseSinger: "",
+                    shareComment:[],
+                    commentShareId:-1
                 },
                 methods: {
                     //搜索显示动态
@@ -108,7 +110,7 @@
                             alert("转发动态不能再次转发")
                         }
                     },
-                    shareForwardDivShowSon:function(){
+                    shareForwardDivShowSon: function () {
                         var el = event.currentTarget;
                         bigBox.otherShareId = el.lastChild.innerHTML;
                         $("#shareOthersDiv").show();
@@ -188,7 +190,7 @@
                                         singerDescription: starUsers[i].singerDescription,
                                         userName: starUsers[i].userName,
                                         userHeadUrl: starUsers[i].userHeadUrl,
-                                        userId:starUsers[i].userId
+                                        userId: starUsers[i].userId
                                     })
                                 }
                             }
@@ -211,7 +213,7 @@
                                         userName: otherUsers[i].userName,
                                         userText: otherUsers[i].userText,
                                         userHeadUrl: otherUsers[i].userHeadUrl,
-                                        userId:otherUsers[i].userId
+                                        userId: otherUsers[i].userId
                                     })
                                 }
                             }
@@ -234,20 +236,67 @@
                         $("#selectMusicDiv").hide();
                         $("#shareMusicDiv").show();
                     },
-                    becomeOtherFan:function () {
+                    becomeOtherFan: function () {
                         var el = event.currentTarget;
                         $.ajax({
-                            url:"/share/becomeOtherFan",
-                            type:"post",
-                            data:{
-                                userId : 1,
-                                otherId : el.lastChild.innerHTML
+                            url: "/share/becomeOtherFan",
+                            type: "post",
+                            data: {
+                                userId: 1,
+                                otherId: el.lastChild.innerHTML
                             },
-                            datatype:"json",
-                            success:function () {
+                            datatype: "json",
+                            success: function () {
 
                             }
                         })
+                    },
+                    commentShare:function (index) {
+                        bigBox.shareComment = [];
+                        bigBox.commentShareId = bigBox.shares[index].shareId;
+                        $.ajax({
+                            url:"/share/getShareComment",
+                            type:"post",
+                            datatype:"json",
+                            data:{
+                                shareId: bigBox.shares[index].shareId
+                            },
+                            success:function (shareComment) {
+                                if (shareComment.length>0) {
+                                    for (var i =0 ;i < shareComment.length;i++){
+                                        bigBox.shareComment.push({
+                                            userName : shareComment[i].userName,
+                                            userHeadUrl:shareComment[i].userHeadUrl,
+                                            scText : shareComment[i].scText,
+                                            scTime:shareComment[i].scTime,
+                                            scLikes:shareComment[i].scLikes,
+                                            shareCommentList:shareComment[i].shareCommentList
+                                        })
+                                    }
+                                }
+                                $(".commentDiv").show();
+                                editor3.create();
+                            }
+                        });
+                    },
+                    commentToShare:function () {
+                        $.ajax({
+                            url:"share/insertShareComment",
+                            type:"post",
+                            datatype:"post",
+                            data:{
+                                shareId:bigBox.commentShareId,
+                                userId:bigBox.userId,
+                                scText:bigBox.shareCommentText
+                            },
+                            success:function () {
+                                location.reload();
+                            }
+                        })
+                    },
+                    pageChange:function (n) {
+                        bigBox.pageNum = n;
+                        bigBox.toGetShares();
                     }
 
                 }
@@ -294,6 +343,18 @@
             };
             editor2.create();
 
+            var editor3 = new E('#editorCommentEmoji', '#editorCommentText');
+            editor3.customConfig.menus = [
+                'emoticon' // 表情
+
+            ];
+            //监控转发的文字，试试更新到shareText
+            editor3.customConfig.onchange = function (html) {
+                bigBox.shareCommentText = html;
+            };
+            editor3.create();
+
+
             bigBox.toGetShares();
             bigBox.toGetUser();
             bigBox.toGerStar();
@@ -338,8 +399,6 @@
                     }
                 })
             })
-
-
         });
 
         //获取图片地址，获得预览
@@ -480,7 +539,7 @@
     </div>
 
     <!--转发动态-->
-    <div class="popWindow xiaoshi" id="shareOthersDiv">
+    <div class="popWindow" id="shareOthersDiv">
         <div class="popWindow-top">
             <div class="font-14 f-w-b f-c-e">转发动态</div>
             <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareOtherDivHide">X</i></a></div>
@@ -499,10 +558,7 @@
                 <div class=" btn-share btn f-left btn-w" style="font-size: 16px" @click="shareForwardCancel">取消</div>
             </a>
         </div>
-
-
     </div>
-
 
     <!--左侧-动态-->
     <div id="mB-left" class="f-left">
@@ -641,11 +697,48 @@
                                 <span><a class="f-c-gold" @click="shareForwardDivShow(index)">转发(<i>{{sh.shareForwardCount}}</i>)<i
                                         class="xiaoshi">{{sh.shareId}}</i></a></span>
                                 <span class="line f-c-gold">|</span>
-                                <span><a href="#" class="f-c-gold">评论(<i>{{sh.shareCommentCount}}</i>)</a></span>
+                                <span><a class="f-c-gold" @click="commentShare(index)">评论(<i>{{sh.shareCommentCount}}</i>)</a></span>
+                            </div>
+
+                        </div>
+                        <!-- 评论 -->
+                        <div style="margin-top: 10px; background-color: #eee" v-if="sh.shareId == commentShareId" class="commentDiv">
+                            <div class="share-text">
+                                <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt"
+                                     id="editorCommentText"></div>
+                            </div>
+                            <div class="f-tde">
+                                <div style="height: 30px; width: 100%;" id="editorCommentEmoji"
+                                     class="f-left"></div>
+                                <div class="btns">
+                                    <a>
+                                        <div class="btn-share btn f-left" style="font-size: 16px" @click="commentToShare">评论</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div style="clear: both;"></div>
+                            <div class="commentDiv" v-for="com in shareComment">
+                                <div class="userPic">
+                                    <a href="#" style="display:block;" class="f-left">
+                                        <img :src="com.userHeadUrl" height="35">
+                                    </a>
+                                    <div class="type f-left">
+                                        <a href="#" class="font-14">{{com.userName}}</a><i>:</i>
+                                        <div v-html="com.scText"></div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <div class="time font-12">
+                                    <a href="#">{{com.scTime}}</a>
+                                    <span style="margin-left: 250px">
+                                         <span><a class="f-c-gold"><img src="images/thumbs.png" height="14px">(<i>{{com.scLikes}}</i>)</a></span>
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-
                 </li>
 
             </ul>
@@ -655,7 +748,7 @@
                         <a class="pages pages_upAndDown" @click="pageUp">上一页</a>
                     </li>
                     <li v-for="n in pageCount" class="f-left">
-                        <a :class="pageNum === n ? 'pages_act' : 'pages_btn'">{{n}}</a>
+                        <a :class="pageNum === n ? 'pages_act' : 'pages_btn'" @click="pageChange(n)">{{n}}</a>
                     </li>
                     <li class="f-left">
                         <a class="pages pages_upAndDown" @click="pageDown">下一页</a>
@@ -720,7 +813,8 @@
                         <a href="#">{{star.singerDescription}}</a>
                     </div>
                     <div>
-                        <a class="btn awh f-right" @click="becomeOtherFan"><i><img src="images/plus.png" height="12px"></i>关注<i class="xiaoshi becomeFan">{{star.userId}}</i></a>
+                        <a class="btn awh f-right" @click="becomeOtherFan"><i><img src="images/plus.png" height="12px"></i>关注<i
+                                class="xiaoshi becomeFan">{{star.userId}}</i></a>
                     </div>
                 </div>
             </div>
@@ -743,7 +837,8 @@
                         <a href="#">{{user.userText}}</a>
                     </div>
                     <div>
-                        <a @click="becomeOtherFan" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注<i class="xiaoshi becomeFan">{{user.userId}}</i></a>
+                        <a @click="becomeOtherFan" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注<i
+                                class="xiaoshi becomeFan">{{user.userId}}</i></a>
                     </div>
                 </div>
             </div>
