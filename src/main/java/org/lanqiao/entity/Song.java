@@ -34,6 +34,16 @@ public class Song {
     private Integer singerId;
 
     private String singerName;
+    //专辑歌曲是一对多，所以在多的一方添加一的一个实体
+    private Album album;
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
 
     public String getSingerName() {
         return singerName;

@@ -33,7 +33,6 @@
         insert into usersonglist(songlist_id,user_id,us_relation) values (#{songListId},#{userId},#{usRelation})
     </insert>
 
-
     <sql id="Base_Column_List">
     songlist_id, songlist_name, songlist_description, songlist_tag, songlist_count, songlist_create_time, 
     songlist_commet_num, songlist_keep_num, songlist_pic_url

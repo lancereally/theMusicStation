@@ -2,6 +2,7 @@ package org.lanqiao.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.lanqiao.entity.Song;
 import org.lanqiao.entity.SongList;
 import org.springframework.stereotype.Repository;
 
@@ -32,4 +33,5 @@ public interface SongListMapper {
     int selectSongListBySongListName(String songListName);
     //更新歌单用户关系表——郭长达
     int insertUserSongList(@Param("songListId") Integer songListId,@Param("userId") Integer userId,@Param("usRelation") Integer usRelation);
+
 }

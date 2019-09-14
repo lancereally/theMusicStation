@@ -18,11 +18,31 @@
     <result column="song_pic_url" property="songPicUrl" jdbcType="VARCHAR" />
     <result column="singer_id" property="singerId" jdbcType="INTEGER" />
     <result column="singer_name" property="singerName" jdbcType="VARCHAR" />
+    <association property="album" resultMap="AlbumResultMap"></association>
   </resultMap>
-
+  <resultMap id="AlbumResultMap" type="org.lanqiao.entity.Album">
+    <id column="album_id" property="albumId" jdbcType="INTEGER"/>
+    <result column="album_name" property="albumName" jdbcType="VARCHAR"/>
+    <result column="album_description" property="albumDescription" jdbcType="VARCHAR"/>
+    <result column="album_company" property="albumCompany" jdbcType="VARCHAR"/>
+    <result column="album_count" property="albumCount" jdbcType="INTEGER"/>
+    <result column="album_create_time" property="albumCreateTime" jdbcType="TIMESTAMP"/>
+    <result column="album_commet_num" property="albumCommetNum" jdbcType="INTEGER"/>
+    <result column="album_keep_num" property="albumKeepNum" jdbcType="INTEGER"/>
+    <result column="album_pic_url" property="albumPicUrl" jdbcType="VARCHAR"/>
+    <result column="singer_id" property="singerId" jdbcType="INTEGER"/>
+  </resultMap>
   <select id="selectSingerByPK_q" resultMap="SongResultMap" parameterType="java.lang.Integer">
     select song_name, song_url, singer_name from song, singer where song.singer_id = singer.singer_id and song_id = 1
   </select>
+
+
+  <!--查询歌单中歌曲信息-->
+  <select id="selectSongBySongList" parameterType="java.lang.Integer" resultMap="SongResultMap">
+   select so.song_name ,si.singer_name,so.song_duration,a.album_name
+   from album a,singer si,song so,songsonglist sosol where sosol.song_id = so.song_id and si.singer_id = so.singer_id and so.album_id = a.album_id and sosol.songlist_id= #{songListId}
+  </select>
+
 
 
   <sql id="Base_Column_List" >
@@ -31,7 +51,7 @@
     album_id, song_pic_url, singer_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="SongResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from song
     where song_id = #{songId,jdbcType=INTEGER}

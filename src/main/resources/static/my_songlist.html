@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <script src="js/jquery-1.7.2.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/my_songlist.js"></script>
 </head>
 <body>
 
@@ -37,17 +39,11 @@
                 <button type="button" class="btn btn-default btn-sm three_distance">分享</button>
                 <button type="button" class="btn btn-default btn-sm three_distance">下载</button>
                 <button type="button" class="btn btn-default btn-sm three_distance">评论</button>
-                <!--                <a class="three_play thicon">-->
-                <!--                    <i><em class="ply"></em>播放</i>-->
-                <!--                </a>-->
-                <!--                <a class="three_shou thicon">收藏</a>-->
-                <!--                <a class="three_show thicon">分享</a>-->
-                <!--                <a class="three_down thicon">下载</a>-->
-                <!--                <a class="three_talk thicon">评论</a>-->
             </div>
         </div>
     </div>
 </div>
+
 <div class="sl_headtitle">
     <h3>
         <span class="title_size">歌曲列表</span>
@@ -79,130 +75,132 @@
             <div class="wp">专辑</div>
         </th>
         </thead>
-        <tbody >
-        <tr class="even">
+        <tbody id="songVue">
+        <tr class="even" v-for="(song ,index) in songSet">
             <td>
                 <div class="table_head">
-                    <span class="table_num">1</span>
+                    <span class="table_num">{{index+1}}</span>
                     <span class="tb_play"></span>
                 </div>
             </td>
             <td>
                 <div class="tb_name">
-                    <a>星空</a>
+                    <a>{{song.songName}}</a>
                 </div>
             </td>
             <td>
-                <span class="tb_time">04:45</span>
+                <span class="tb_time">{{song.songDuration}}</span>
             </td>
             <td>
                 <div class="tb_text">
                     <span>
-                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
+                        <a>{{song.singerName}}</a>
                     </span>
                 </div>
             </td>
             <td>
                 <div class="tb_text ab_text">
                     <span>
-                        <a>Richard&nbsp;Clayderman</a>
+                        <a>{{song.albumName}}</a>
                     </span>
                 </div>
             </td>
         </tr>
-        <tr >
-            <td>
-                <div class="table_head">
-                    <span class="table_num">1</span>
-                    <span class="tb_play"></span>
-                </div>
-            </td>
-            <td>
-                <div class="tb_name">
-                    <a>星空</a>
-                </div>
-            </td>
-            <td>
-                <span class="tb_time">04:45</span>
-            </td>
-            <td>
-                <div class="tb_text">
-                    <span>
-                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
-                    </span>
-                </div>
-            </td>
-            <td>
-                <div class="tb_text ab_text" >
-                    <span>
-                        <a>Richard&nbsp;Clayderman</a>
-                    </span>
-                </div>
-            </td>
-        </tr>
-        <tr class="even">
-            <td>
-                <div class="table_head">
-                    <span class="table_num">1</span>
-                    <span class="tb_play"></span>
-                </div>
-            </td>
-            <td>
-                <div class="tb_name">
-                    <a>星空</a>
-                </div>
-            </td>
-            <td>
-                <span class="tb_time">04:45</span>
-            </td>
-            <td>
-                <div class="tb_text">
-                    <span>
-                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
-                    </span>
-                </div>
-            </td>
-            <td>
-                <div class="tb_text ab_text">
-                    <span>
-                        <a>Richard&nbsp;Clayderman</a>
-                    </span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="table_head">
-                    <span class="table_num">1</span>
-                    <span class="tb_play"></span>
-                </div>
-            </td>
-            <td>
-                <div class="tb_name">
-                    <a>星空</a>
-                </div>
-            </td>
-            <td>
-                <span class="tb_time">04:45</span>
-            </td>
-            <td>
-                <div class="tb_text">
-                    <span>
-                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>
-                    </span>
-                </div>
-            </td>
-            <td>
-                <div class="tb_text ab_text">
-                    <span>
-                        <a>Richard&nbsp;Clayderman</a>
-                    </span>
-                </div>
-            </td>
-        </tr>
+        <!--            <tr >-->
+        <!--                <td>-->
+        <!--                    <div class="table_head">-->
+        <!--                        <span class="table_num">1</span>-->
+        <!--                        <span class="tb_play"></span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_name">-->
+        <!--                        <a>星空</a>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <span class="tb_time">04:45</span>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_text">-->
+        <!--                    <span>-->
+        <!--                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>-->
+        <!--                    </span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_text ab_text" >-->
+        <!--                    <span>-->
+        <!--                        <a>Richard&nbsp;Clayderman</a>-->
+        <!--                    </span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--            </tr>-->
+        <!--            <tr class="even">-->
+        <!--                <td>-->
+        <!--                    <div class="table_head">-->
+        <!--                        <span class="table_num">1</span>-->
+        <!--                        <span class="tb_play"></span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_name">-->
+        <!--                        <a>星空</a>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <span class="tb_time">04:45</span>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_text">-->
+        <!--                    <span>-->
+        <!--                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>-->
+        <!--                    </span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_text ab_text">-->
+        <!--                    <span>-->
+        <!--                        <a>Richard&nbsp;Clayderman</a>-->
+        <!--                    </span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--            </tr>-->
+        <!--            <tr>-->
+        <!--                <td>-->
+        <!--                    <div class="table_head">-->
+        <!--                        <span class="table_num">1</span>-->
+        <!--                        <span class="tb_play"></span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_name">-->
+        <!--                        <a>星空</a>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <span class="tb_time">04:45</span>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_text">-->
+        <!--                    <span>-->
+        <!--                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>-->
+        <!--                    </span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--                <td>-->
+        <!--                    <div class="tb_text ab_text">-->
+        <!--                    <span>-->
+        <!--                        <a>Richard&nbsp;Clayderman</a>-->
+        <!--                    </span>-->
+        <!--                    </div>-->
+        <!--                </td>-->
+        <!--            </tr>-->
         </tbody>
     </table>
 </div>
+
+
 <div class="sl_msg">
     <div class="msg_headtitle">
         <h3>
