@@ -1,0 +1,108 @@
+body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
+    padding: 0;
+    margin: 0;
+}
+
+.n-srch .head2 {
+    margin-top: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #dadada;
+    line-height: 17px;
+    font-weight: bold;
+}
+
+.m-rdilist {
+    margin: 16px 0 0 -37px;
+}
+
+li, s {
+    list-style: none;
+}
+
+.m-rdilist li {
+    float: left;
+    width: 150px;
+    margin-left: 37px;
+}
+
+.m-rdilist li {
+    margin: 0 0 40px 37px;
+}
+
+.u-cover-rdi2 {
+    width: 150px;
+    height: 150px;
+}
+
+.u-cover {
+    position: relative;
+    display: block;
+}
+
+a, a *, .f-hand, .f-hand * {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.m-rdilist h3 {
+    margin: 13px 0 6px;
+    line-height: 16px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.f-thide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+
+.s-fc4, a.s-fc4:hover {
+    color: #999;
+}
+
+.m-rdilist p {
+    line-height: 18px;
+}
+
+.u-cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.s-fc1 {
+    color: #333;
+}
+
+.u-icn, .u-icn2, .u-icn3 {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.u-icn, .u-title-1 .out .icon {
+    background: url(../images/icon.png) no-repeat 0 9999px;
+}
+
+.f-sep {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+em, i {
+    font-style: normal;
+    text-align: left;
+    font-size: inherit;
+}
+.u-icn-s-01 {
+    width: 14px;
+    height: 15px;
+    background-position: -70px -20px;
+}
+

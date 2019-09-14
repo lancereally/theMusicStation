@@ -2,20 +2,24 @@ package org.lanqiao.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.json.JSONException;
 import org.lanqiao.entity.Share;
 import org.lanqiao.entity.Singer;
 import org.lanqiao.entity.Users;
 import org.lanqiao.service.ShareService;
 import org.lanqiao.service.SingerService;
 import org.lanqiao.service.UsersService;
+import org.lanqiao.util.GetPlaceByIp;
 import org.lanqiao.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -32,6 +36,12 @@ public class ShareController {
     SingerService singerService;
 
 
+//    @RequestMapping("/apiTest")
+//    @ResponseBody
+//    public String test(HttpServletRequest request) throws IOException, JSONException {
+//        String m = new GetPlaceByIp().getPlace(request);
+//        return m;
+//    }
 
 
     @RequestMapping("/getAllShare")

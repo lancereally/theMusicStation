@@ -11,18 +11,21 @@
     <link href="css/wangEditor.css" rel="stylesheet">
     <script>
         $(function () {
+
+
+
             //Vue
             var bigBox = new Vue({
                 el: "#mainBody",
                 data: {
                     shares: [],
-                    otherShareId:0,
-                    shareText:"",
-                    pageCount:0,
-                    pageNum:1,
-                    users:[],
-                    starUsers:[],
-                    otherUsers:[]
+                    otherShareId: 0,
+                    shareText: "",
+                    pageCount: 0,
+                    pageNum: 1,
+                    users: [],
+                    starUsers: [],
+                    otherUsers: []
                 },
                 methods: {
                     //搜索显示动态
@@ -32,8 +35,8 @@
                             url: "/share/getAllShare",
                             datatype: "json",
                             type: "post",
-                            data:{
-                              pageNum:bigBox.pageNum
+                            data: {
+                                pageNum: bigBox.pageNum
                             },
                             success: function (pageInfo) {
                                 var data = pageInfo.list;
@@ -57,7 +60,7 @@
                                         shareText: data[i].shareText,
                                         shareId: data[i].shareId,
                                         shareLikes: data[i].shareLikes,
-                                        shareFromId:data[i].shareFromId
+                                        shareFromId: data[i].shareFromId
                                     })
                             }
                         })
@@ -93,111 +96,132 @@
                             }
                         })
                     },
-                    shareForwardDivShow:function (index) {
+                    shareForwardDivShow: function (index) {
                         if (bigBox.shares[index].shareFromId == null) {
                             var el = event.currentTarget;
                             bigBox.otherShareId = el.lastChild.innerHTML;
                             $("#shareOthersDiv").show();
-                        }else{
+                        } else {
                             alert("转发动态不能再次转发")
                         }
                     },
-                    shareOtherDivHide:function () {
+                    shareOtherDivHide: function () {
                         $("#shareOthersDiv").hide();
                     },
-                    shareForwardBtn:function () {
+                    shareForwardBtn: function () {
                         $.ajax({
-                            url:"share/shareForward",
-                            type:"post",
-                            datatype:"json",
-                            data:{
-                                shareText:bigBox.shareText,
-                                shareFromId:bigBox.otherShareId,
-                                userId:2
+                            url: "share/shareForward",
+                            type: "post",
+                            datatype: "json",
+                            data: {
+                                shareText: bigBox.shareText,
+                                shareFromId: bigBox.otherShareId,
+                                userId: 2
                             },
-                            success:function () {
+                            success: function () {
                                 $("#shareOthersDiv").hide();
                                 location.reload(true);
                             }
                         })
                     },
-                    shareForwardCancel:function () {
+                    shareForwardCancel: function () {
                         $("#shareOthersDiv").hide();
                     },
-                    pageUp:function () {
+                    pageUp: function () {
                         if (bigBox.pageNum > 1) {
                             bigBox.pageNum = bigBox.pageNum - 1;
                             bigBox.toGetShares();
                         }
                     },
-                    pageDown:function () {
+                    pageDown: function () {
                         if (bigBox.pageNum < bigBox.pageCount) {
                             bigBox.pageNum = bigBox.pageNum + 1;
                             bigBox.toGetShares();
                         }
 
                     },
-                    shareMusic:function () {
+                    shareMusicX: function () {
                         $("#shareMusicDiv").hide();
                     },
                     //获取用户
-                    toGetUser:function () {
+                    toGetUser: function () {
                         bigBox.user = [];
                         $.ajax({
-                            url:"share/getUser",
-                            type:"post",
-                            datatype:'json',
-                            data:{
-                                userId:1
+                            url: "share/getUser",
+                            type: "post",
+                            datatype: 'json',
+                            data: {
+                                userId: 1
                             },
-                            success:function (user) {
+                            success: function (user) {
                                 bigBox.users.push({
-                                    userName:user.userName,
-                                    shareCount:user.shareCount == null ? 0 : user.shareCount,
-                                    attention:user.attention == null ? 0 : user.attention,
-                                    fans:user.fans == null ? 0 : user.fans,
-                                    userHeadUrl:user.userHeadUrl
+                                    userName: user.userName,
+                                    shareCount: user.shareCount == null ? 0 : user.shareCount,
+                                    attention: user.attention == null ? 0 : user.attention,
+                                    fans: user.fans == null ? 0 : user.fans,
+                                    userHeadUrl: user.userHeadUrl
                                 })
                             }
                         })
                     },
                     //随机获取明星
-                    toGerStar:function () {
+                    toGerStar: function () {
                         bigBox.starUsers = [];
                         $.ajax({
-                            url:"/share/getStarUsers",
-                            type:"post",
-                            datatype:"json",
-                            success:function (starUsers) {
-                                for (var i = 0 ;i <starUsers.length;i++){
+                            url: "/share/getStarUsers",
+                            type: "post",
+                            datatype: "json",
+                            success: function (starUsers) {
+                                for (var i = 0; i < starUsers.length; i++) {
                                     bigBox.starUsers.push({
-                                        singerDescription:starUsers[i].singerDescription,
-                                        userName:starUsers[i].userName,
-                                        userHeadUrl:starUsers[i].userHeadUrl
+                                        singerDescription: starUsers[i].singerDescription,
+                                        userName: starUsers[i].userName,
+                                        userHeadUrl: starUsers[i].userHeadUrl
                                     })
                                 }
                             }
                         })
                     },
                     //换一批明星
-                    changeStar:function () {
+                    changeStar: function () {
                         bigBox.toGerStar();
                     },
                     //随机获取其他用户
-                    toGetOthers:function () {
+                    toGetOthers: function () {
                         bigBox.otherUsers = [];
                         $.ajax({
-                            url:"share/gerOtherUsers",
-                            type:"post",
-                            datatype:"json",
-                            success:function (otherUsers) {
-                                for (var i = 0; i < otherUsers.length ; i++){
+                            url: "share/gerOtherUsers",
+                            type: "post",
+                            datatype: "json",
+                            success: function (otherUsers) {
+                                for (var i = 0; i < otherUsers.length; i++) {
                                     bigBox.otherUsers.push({
-                                        userName:otherUsers[i].userName,
-                                        userText:otherUsers[i].userText,
-                                        userHeadUrl:otherUsers[i].userHeadUrl
+                                        userName: otherUsers[i].userName,
+                                        userText: otherUsers[i].userText,
+                                        userHeadUrl: otherUsers[i].userHeadUrl
                                     })
                                 }
+                            }
+                        })
+                    },
+                    //发布音乐动态
+                    toShareMusic:function () {
+                        $.ajax({
+                            url:"/share/music",
+                            data:{
+                                userId:1,
+
+                            }
+
+
+                        })
+                    },
+                    //搜索音乐
+                    toSelectMusic:function() {
+                        $.ajax({
+                            url:"share/getSongsBySolr",
+                            data:{
+
                             }
                         })
                     }
@@ -216,7 +240,6 @@
             editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
             editor.customConfig.menus = [
                 'emoticon' // 表情
-
             ];
             editor.customConfig.onchange = function (html) {
                 // // 监控变化，同步更新到 textarea
@@ -231,11 +254,9 @@
                 'emoticon' // 表情
 
             ];
+            //监控转发的文字，试试更新到shareText
             editor1.customConfig.onchange = function (html) {
-                bigBox.shareText = html ;
-                // // 监控变化，同步更新到 textarea
-                // $("#show_box").html(html);
-                // $("textarea").val(html);
+                bigBox.shareText = html;
             };
             editor1.create();
 
@@ -244,6 +265,18 @@
             bigBox.toGerStar();
             bigBox.toGetOthers();
 
+
+            // $('#fileupload').show();
+
+            $('#fileupload').change(function () {
+                var url = getUrl(this.files[0]);
+                var $img = $("<img>").attr("src", url).css("width","50px");
+                $("#img").children(1).remove();
+                $("#img").append($img);
+            });
+
+
+
             $(".popWindow").hide();
 
             $("#shareMusicBtn").click(function () {
@@ -251,7 +284,23 @@
             });
 
 
-        })
+
+
+
+        });
+
+        //获取图片地址，获得预览
+        function getUrl(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) {
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
 
 
     </script>
@@ -259,17 +308,15 @@
 <body>
 
 
-
 <iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
 <div id="mainBody">
-
 
 
     <!--发布音乐动态-->
     <div class="popWindow" id="shareMusicDiv">
         <div class="popWindow-top">
             <div class="font-14 f-w-b f-c-e">分享</div>
-            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareMusic">X</i></a></div>
+            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareMusicX">X</i></a></div>
         </div>
         <div class="share-text">
             <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt" id="editorText">
@@ -286,19 +333,18 @@
 
         <div class="f-tde">
             <div style="height: 30px; width: 40px;" id="editorPic" class="f-left"></div>
-            <a href="#" style="display: block;padding: 5px 10px;" class="f-left">
-                <i class="f-left">
-                    <img src="images/Picture.png" height="15px">
-                </i>
+            <a href="#" style="display: block;padding: 5px 10px;" class="f-left"><span class="f-left fileinput-button">
+            <img src="images/Picture.png" height="15px">
+            <input type="file" id="fileupload">
+            </span>
             </a>
         </div>
-
-        <div style="padding-left: 40px"><img src="images/yuefu.png" height="100px"></div>
+        <div style="padding-left: 40px; line-height: 30px" id="img">预览</div>
 
         <div class="btns">
-            <a href="#">
+            <a>
                 <div class="btn-share btn f-left" style="font-size: 16px">分享</div>
-                <div class=" btn-share btn f-left btn-w" style="font-size: 16px">取消</div>
+                <div class=" btn-share btn f-left btn-w" style="font-size: 16px" @click="shareMusicX">取消</div>
             </a>
         </div>
 
@@ -335,9 +381,9 @@
         <div id="left-top">
             <h3 class="f-left">动态</h3>
             <span class="f-right btn" id="shareVideoBtn"><a href="#" class="font-12"><img src="images/seX.png"
-                                                                       height="16px">发布视频</a></span>
-            <span class="f-right btn" id="shareMusicBtn"><a class="font-12" ><img src="images/dTai.png"
-                                                                       height="16px">发动态</a></span>
+                                                                                          height="16px">发布视频</a></span>
+            <span class="f-right btn" id="shareMusicBtn"><a class="font-12"><img src="images/dTai.png"
+                                                                                 height="16px">发动态</a></span>
         </div>
         <div id="left-body">
             <ul>
@@ -422,7 +468,7 @@
 
                                 <!--音频动态-->
                                 <div v-if="shSon.songName != null">
-                                    <div class="s-music" >
+                                    <div class="s-music">
                                         <div class="f-left">
                                             <a href="#">
                                                 <img src="images/userPic.jpg" height="45">
@@ -446,7 +492,8 @@
                                         height="14px">(<i>{{shSon.shareLikes}}</i>)</a></span>
                                         <span class="line f-c-gold">|</span>
                                         <span><a
-                                                 class="f-c-gold" @click="shareForwardDivShow">转发(<i>{{shSon.shareForwardCount}}</i>)<i class="xiaoshi">{{shSon.shareId}}</i></a></span>
+                                                class="f-c-gold" @click="shareForwardDivShow">转发(<i>{{shSon.shareForwardCount}}</i>)<i
+                                                class="xiaoshi">{{shSon.shareId}}</i></a></span>
                                         <span class="line f-c-gold">|</span>
                                         <span><a href="#"
                                                  class="f-c-gold">评论(<i>{{shSon.shareCommentCount}}</i>)</a></span>
@@ -464,7 +511,8 @@
                                 <span><a class="f-c-gold" @click="addLikes(index)"><img src="images/thumbs.png"
                                                                                         height="14px">(<i>{{sh.shareLikes}}</i>)</a></span>
                                 <span class="line f-c-gold shareOtherBtn">|</span>
-                                <span><a class="f-c-gold" @click="shareForwardDivShow(index)">转发(<i>{{sh.shareForwardCount}}</i>)<i class="xiaoshi">{{sh.shareId}}</i></a></span>
+                                <span><a class="f-c-gold" @click="shareForwardDivShow(index)">转发(<i>{{sh.shareForwardCount}}</i>)<i
+                                        class="xiaoshi">{{sh.shareId}}</i></a></span>
                                 <span class="line f-c-gold">|</span>
                                 <span><a href="#" class="f-c-gold">评论(<i>{{sh.shareCommentCount}}</i>)</a></span>
                             </div>
@@ -477,7 +525,7 @@
             <div style="width: 500px;margin: auto">
                 <ul>
                     <li class="f-left">
-                        <a class="pages pages_upAndDown" @click="pageUp" >上一页</a>
+                        <a class="pages pages_upAndDown" @click="pageUp">上一页</a>
                     </li>
                     <li v-for="n in pageCount" class="f-left">
                         <a :class="pageNum === n ? 'pages_act' : 'pages_btn'">{{n}}</a>
@@ -492,7 +540,7 @@
     </div>
 
     <!--右侧-用户-->
-    <div id="mB-right" class="f-right" >
+    <div id="mB-right" class="f-right">
         <!--用户-->
         <div class="user" v-for="user in users">
             <div class="userPic">
@@ -528,7 +576,8 @@
         <!--其他用户-->
         <div class="otherUser">
             <div class="starUser"><i class="font-12 f-w-b">明星用户</i><i class="f-right"><a class="font-12"
-                                                                                         href="#" @click="changeStar">换一批</a></i></div>
+                                                                                         href="#" @click="changeStar">换一批</a></i>
+            </div>
             <div class="otherUser-div" v-for="star in starUsers">
                 <div class="userPic f-left">
                     <a href="#">
@@ -550,7 +599,8 @@
             </div>
 
 
-            <div class="starUser"><i class="font-12 f-w-b">感兴趣的人</i><i class="f-right"><a class="font-12" href="#">换一批</a></i></div>
+            <div class="starUser"><i class="font-12 f-w-b">感兴趣的人</i><i class="f-right"><a class="font-12"
+                                                                                          href="#">换一批</a></i></div>
             <div class="otherUser-div" v-for="user in otherUsers">
                 <div class="userPic f-left">
                     <a href="#">

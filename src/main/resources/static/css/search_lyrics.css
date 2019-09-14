@@ -1,0 +1,29 @@
+.n-srchrst .srchsongst .lyric {
+    margin: 10px 0 18px 52px;
+    color: #666;
+    line-height: 23px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.f-hide, .js-hide {
+    display: none !important;
+}
+
+.n-srchrst .srchsongst .lyric .crl {
+    margin-top: 5px;
+}
+
+.s-fc3, a.s-fc3:hover {
+    color: #666;
+}
+
+.u-icn-69, .u-icn-70 {
+    width: 11px;
+    height: 8px;
+    background-position: -65px -520px;
+}
+
+.n-srchrst .srchsongst .lyric .u-icn {
+    margin-left: 5px;
+}

@@ -1,0 +1,81 @@
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+.m-table .txt {
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding-right: 25px;
+    margin-right: -25px;
+    max-width: 99%;
+    height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.f-fs1 {
+    font-size: 14px;
+}
+
+.u-icn-s-02 {
+    width: 14px;
+    height: 15px;
+    background-position: -70px 0;
+}
+
+.u-icn-s-02 {
+    width: 14px;
+    height: 15px;
+    background-position: -70px 0;
+}
+
+.m-table .icnfix {
+    top: 2px;
+    _top: 0;
+    right: auto;
+    margin-left: 5px;
+    z-index: 10;
+}
+
+.m-table .w9 {
+    width: 96px;
+}
+
+.m-table-2 tr td.last {
+    border-right: 1px solid #fff;
+}
+
+.u-btn-3 {
+    width: 64px;
+    height: 27px;
+    background-position: 0 -990px;
+    line-height: 27px;
+}
+
+.u-btn-3 i {
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    padding-left: 26px;
+    color: #5d5d5d;
+    cursor: pointer;
+}
+
+.u-btn, div.u-page a, div.u-page a.js-selected, div.u-page a.znxt.js-disabled, div.u-page a.zprv.js-disabled {
+    background: url(../images/button.png) no-repeat 0 9999px;
+}
+
+.u-btn {
+    display: inline-block;
+}
+
+.u-btn-3 {
+    width: 64px;
+    height: 27px;
+    background-position: 0 -990px;
+    line-height: 27px;
+}
