@@ -14,7 +14,7 @@
   </resultMap>
 
   <select id="selectStarByRand" resultMap="SingerResultMap">
-    select  singer_description, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
+    select u.user_id, singer_description, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
   </select>
 
 

@@ -26,6 +26,8 @@ public interface UsersMapper {
     Users selectFansByPk_q(Integer userId);
     Users selectAttentionByPK_q(Integer userId);
     List<Users> selectOtherUsersByRand();
+    Integer insertFan(Integer userId, Integer otherId);
+    Users checkFan(Integer userId, Integer otherId);
     //《《《郭书卿《《《
 
 

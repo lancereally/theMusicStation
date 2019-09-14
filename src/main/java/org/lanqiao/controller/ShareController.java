@@ -51,15 +51,6 @@ public class ShareController {
     @Autowired
     private SolrTemplate solrTemplate;
 
-
-//    @RequestMapping("/apiTest")
-//    @ResponseBody
-//    public String test(HttpServletRequest request) throws IOException, JSONException {
-//        String m = new GetPlaceByIp().getPlace(request);
-//        return m;
-//    }
-
-
     @RequestMapping("/getAllShare")
     public PageInfo get(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
 
@@ -79,7 +70,7 @@ public class ShareController {
 
     @RequestMapping("/shareForward")
     public void insertShareForward(Share share, HttpServletRequest request, HttpServletResponse response)throws IOException {
-        share.setShareLocation(new GetPlaceByIp().getPlace(request));
+        share.setShareLocation(GetPlaceByIp.getPlace(request));
         shareService.insertShareForward(share);
         response.sendRedirect("/share.html");
     }
@@ -140,16 +131,20 @@ public class ShareController {
         return songsList;
     }
 
-    @RequestMapping("/shareMusic")
+    @RequestMapping("/shareMusicOrVideo")
     public void insertShareMusic(Share share , MultipartFile file, HttpServletResponse response, HttpServletRequest request) throws IOException {
         if(file.getSize() != 0){
             share.setShareAnnexUrl(new FileUploadGsq().uploadToDisk(file));
         }
-        share.setShareLocation(new GetPlaceByIp().getPlace(request));
+        share.setShareLocation(GetPlaceByIp.getPlace(request));
         shareService.insertShareForward(share);
         response.sendRedirect("/share.html");
     }
 
+    @RequestMapping("becomeOtherFan")
+    public Integer becomeOtherFan(Integer userId, Integer otherId){
+        return usersService.becomeOtherFan(userId,otherId);
+    }
 
 
 }
