@@ -5,7 +5,8 @@ $(function () {
         data:{
             likeSongList:[],
             shouSongList:[],
-            url:""
+            url:"",
+            eurl:""
         },
         methods:{
             getLikeSongList:function () {
@@ -56,7 +57,10 @@ $(function () {
             },
             goTo:function (slId) {
                 song.url= 'my_songlist.html' + '?songListId=' + escape(slId);
-                // alert(url)
+            },
+            goToE:function (songListId) {
+                song.eurl= 'MyMusic_edit.html' + '?songListId=' + escape(songListId);
+                // alert(song.eurl)
             }
         }
     });
@@ -169,7 +173,5 @@ $(function () {
                 }
             }
         })
-
-
     });
 });

@@ -333,7 +333,7 @@ ul{
 }
 .aw_msg{
     padding: 15px 0;
-    border-top: 1px dotted #ccc;
+        border-top: 1px dotted #ccc;
 }
 .msg_userpic img{
     float: left;

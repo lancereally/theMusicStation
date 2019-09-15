@@ -25,7 +25,7 @@
                 <i class="one_tag">
                     <!--                    <span class="one_top"></span>-->
                 </i>
-                <a class="one_edit" href="MyMusic_edit.html">编辑</a>
+                <a class="one_edit" v-if="songlistId>1" :href="url" @click="goToEdit(songlistId)">编辑</a>
                 <h2 class="one_title">{{songlistName}}</h2>
             </div>
             <div class="det_two">
@@ -185,26 +185,6 @@
                     </div>
                 </div>
             </div>
-            <!--            <div class="aw_msg">-->
-            <!--                <div class="msg_userpic">-->
-            <!--                    <a><img src="images/MyMusic/facepic.jpg"></a>-->
-            <!--                </div>-->
-            <!--                <div class="msg_userinfo">-->
-            <!--                    <div class="msg_pl">-->
-            <!--                        <a>okc!up</a>-->
-            <!--                        <img>-->
-            <!--                        ：孟子坤《π》-->
-            <!--                    </div>-->
-            <!--                    <div class="pl_bar">-->
-            <!--                        <div class="pl_time">9月6日&nbsp;13:00</div>-->
-            <!--                        <a>-->
-            <!--                            <i class="zan"></i>(22)-->
-            <!--                        </a>-->
-            <!--                        <span class="pl_jg">|</span>-->
-            <!--                        <a class="replay">回复</a>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </div>
         <div class="msg_page">
             <div class="page_bar">
