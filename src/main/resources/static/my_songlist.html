@@ -44,16 +44,16 @@
     </div>
 </div>
 
-<div class="sl_headtitle">
+<div class="sl_headtitle" id="songInfo">
     <h3>
         <span class="title_size">歌曲列表</span>
     </h3>
     <span class="songlist_num">
-            <span class="list_size"></span>
+            <span class="list_size">{{songCount}}</span>
             首歌
         </span>
     <div class="play_num">
-        播放：<strong id="playcount">2</strong>次
+        播放：<strong id="playcount">{{songPlayCount}}</strong>次
     </div>
 </div>
 <div class="sl_body">
@@ -76,7 +76,7 @@
         </th>
         </thead>
         <tbody id="songVue">
-        <tr class="even" v-for="(song ,index) in songSet">
+        <tr :class="{even:index%2==0}" v-for="(song ,index) in songSet">
             <td>
                 <div class="table_head">
                     <span class="table_num">{{index+1}}</span>

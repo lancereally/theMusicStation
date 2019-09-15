@@ -25,4 +25,7 @@ public interface SongMapper {
     Song selectSingerByPK_q(Integer songId);
     //查询歌单的歌曲-郭长达
     List<Song> selectSongBySongList(Integer songListId);
+    //查询歌单中歌曲数和播放次数
+//    int selectSongPlayCount(Integer songListId);
+//    int selectSongCount(Integer songListId);
 }

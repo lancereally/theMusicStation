@@ -16,4 +16,26 @@ public class SongServiceImpl implements SongService{
     public List<Song> selectSongBySongListName(Integer songListId) {
         return songMapper.selectSongBySongList(songListId);
     }
+
+    @Override
+    public int selectSongCount(Integer songListId) {
+//        List<Integer> list = null;
+//        int count=0;
+//        list.add(songMapper.selectSongBySongList(songListId).size());
+//        for (Song s: songMapper.selectSongBySongList(songListId)) {
+//           count= count+ s.getSongPlayTimes();
+//        }
+//        list.add(count);
+
+        return songMapper.selectSongBySongList(songListId).size();
+    }
+
+    @Override
+    public int selectSongPlayCount(Integer songListId) {
+        int count = 0;
+        for (Song s : songMapper.selectSongBySongList(songListId)) {
+            count += s.getSongPlayTimes();
+        }
+        return count;
+    }
 }

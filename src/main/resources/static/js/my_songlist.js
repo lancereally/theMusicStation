@@ -21,7 +21,7 @@ $(function () {
                                     songName:data[i].songName,
                                     songDuration:data[i].songDuration,
                                     singerName:data[i].singerName,
-                                    albumName:data[i].albumName
+                                    albumName:data[i].album.albumName
                                 });
                             }
                         } else {
@@ -32,6 +32,40 @@ $(function () {
             }
         }
     });
+    var sinfo = new Vue({
+        el: "#songInfo",
+        data: {
+            songCount:"",
+            songPlayCount:""
+        },
+        methods:{
+            getSongCount:function() {
+                sinfo.songCount;
+                $.ajax({
+                    url:"/MyMusic/songlist/countshow",
+                    type:"post",
+                    data:{songListId:1},
+                    dataType:"json",
+                    success:function (data) {
+                        songCount=data;
+                    }
+                })
+            },
+            getSongPlayCount:function () {
+                sinfo.songPlayCount;
+                $.ajax({
+                    url:"/MyMusic/songlist/playcountshow",
+                    type:"post",
+                    data:{songListId:1},
+                    dataType:"json",
+                    success:function (data) {
+                        songPlayCount=data;
+                    }
+                })
+            }
+        }
+    });
     ss.getSongSet();
-
+    sinfo.getSongCount();
+    sinfo.getSongPlayCount();
 });
