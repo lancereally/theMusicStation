@@ -16,4 +16,6 @@ public interface SongListService {
     int selectSongListIdByName(String songListName);
     //更新歌单用户关系表——郭长达
     int insertUserSongList(Integer songListId,Integer userId,Integer usRelation);
+    //查询歌单信息-郭长达
+    SongList getSongListInfo(Integer songListId,Integer userId);
 }
