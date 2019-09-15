@@ -22,6 +22,16 @@ public class Album {
     private String albumPicUrl;
 
     private Integer singerId;
+    //一对多关系，在一的一方添加一个多的实体
+    private Singer singer;
+
+    public Singer getSinger() {
+        return singer;
+    }
+
+    public void setSinger(Singer singer) {
+        this.singer = singer;
+    }
 
     public Integer getAlbumId() {
         return albumId;

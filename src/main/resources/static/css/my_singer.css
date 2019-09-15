@@ -1,3 +1,10 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style:none
+}
 .my_singer{
     padding: 40px;
 }
@@ -16,6 +23,12 @@
     border-bottom: 1px solid #999999;
 }
 .singer_pic{
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: -95px;
+}
+.singer_pic img{
     float: left;
     width: 80px;
     height: 80px;

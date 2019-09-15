@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <title>网易云音乐</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
     <script type="text/javascript" src="js/MyMusic.js"></script>
+<!--        <link rel="stylesheet" href="css/bootstrap.css">-->
+<!--        <script src="js/jquery-1.7.2.js"></script>-->
+<!--        <script src="js/bootstrap.js"></script>-->
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/MyMusic.css">
+
 
 </head>
 <body>
@@ -94,169 +101,98 @@
 <div class="mymusic_body">
     <div class="mymusic_main">
         <div class="mymusic_side">
-            <div class="l_neirong">
-                <h2><a class="side_nav" id="singer" href="MyMusic_singer.html" target="toIframe">我的歌手</a></h2>
+            <div class="l_neirong" id="songList">
+                <h2><a class="side_nav" hidefocus="true" id="singer" href="MyMusic_singer.html"
+                       target="toIframe">我的歌手</a></h2>
                 <h2><a class="side_nav" id="radio" href="MyMusic_radio.html" target="toIframe">我的电台</a></h2>
-                <div class="mineList">
+                <div class="mineList" >
                     <h2>
                         <a class="create_btn">
                             <span>新建</span>
                         </a>
                         <span class="create_list" name="create">
-                        <i class="list_tag" name="l1"></i>创建的歌单<span class="top_icon"></span><span class="t_icon"></span>(<span></span>)
+                        <i class="list_tag" name="l1"></i>创建的歌单<span class="top_icon"></span><span
+                                class="t_icon"></span>(<span></span>)
                     </span>
                     </h2>
                     <ul class="list_info" id="f_list">
-                        <li class="list_det">
+                        <li class="list_det" v-for="(songItem,index) in  likeSongList">
                             <div class="list_item">
                                 <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
+                                    <img :src="songItem.songlistPicUrl">
                                 </div>
                                 <p class="item_name">
-                                    <a>我喜欢的音乐</a>
+                                    <a  :href="url" target="toIframe" @click="goTo(songItem.songlistId)" >{{songItem.songlistName}}</a>
                                 </p>
-                                <p class="song_num">88首</p>
-                            </div>
-                        </li>
-                        <li class="list_det">
-                            <div class="list_item">
-                                <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
-                                </div>
-                                <p class="item_name">
-                                    <a>我喜欢的音乐</a>
-                                </p>
-                                <p class="song_num">88首</p>
-                                <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
-                            </div>
-                        </li>
-                        <li class="list_det">
-                            <div class="list_item">
-                                <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
-                                </div>
-                                <p class="item_name">
-                                    <a>我喜欢的音乐</a>
-                                </p>
-                                <p class="song_num">88首</p>
-                                <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
-                            </div>
-                        </li>
-                        <li class="list_det">
-                            <div class="list_item">
-                                <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
-                                </div>
-                                <p class="item_name">
-                                    <a>我喜欢的音乐</a>
-                                </p>
-                                <p class="song_num">88首</p>
-                                <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
-                            </div>
-                        </li>
-                        <li class="list_det">
-                            <div class="list_item">
-                                <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
-                                </div>
-                                <p class="item_name">
-                                    <a>我喜欢的音乐</a>
-                                </p>
-                                <p class="song_num">88首</p>
-                                <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
-                            </div>
-                        </li>
-                        <li class="list_det">
-                            <div class="list_item">
-                                <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
-                                </div>
-                                <p class="item_name">
-                                    <a>我喜欢的音乐</a>
-                                </p>
-                                <p class="song_num">88首</p>
-                                <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
+                                <p class="song_num">{{songItem.songlistCount}}首</p>
+                                <span class="item_xiugai" v-if="index>0">
+                                    <a class="item_edit" href="MyMusic_edit.html"></a>
+                                    <a class="item_del"></a>
+                                </span>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="mineList">
+                <div class="mineList" >
                     <h2>
                     <span class="create_list" name="shoucang">
-                        <i class="list_tag1" name="l2"></i>收藏的歌单<span class="top_icon"></span><span class="t_icon"></span>(<span></span>)
+                        <i class="list_tag1" name="l2"></i>收藏的歌单<span class="top_icon"></span><span
+                            class="t_icon"></span>(<span></span>)
                     </span>
                     </h2>
-                    <ul class="list_info" id="s_list">
-                        <li class="list_det">
+                    <ul class="list_info" id="s_list" >
+                        <li class="list_det" v-for="(songItems,index) in  shouSongList">
                             <div class="list_item">
                                 <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
+                                    <img :src="songItems.songlistPicUrl">
                                 </div>
                                 <p class="item_name">
-                                    <a>我喜欢的音乐</a>
+                                    <a :href="url" target="toIframe" @click="goTo(songItems.songlistId)">{{songItems.songlistName}}</a>
                                 </p>
-                                <p class="song_num">88首</p>
+                                <p class="song_num">{{songItems.songlistCount}}首</p>
                                 <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
+                                    <a class="item_edit" href="MyMusic_edit.html"></a>
+                                    <a class="item_del"></a>
+                                </span>
                             </div>
                         </li>
-                        <li class="list_det">
-                            <div class="list_item">
-                                <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
-                                </div>
-                                <p class="item_name">
-                                    <a>我喜欢的音乐</a>
-                                </p>
-                                <p class="song_num">88首</p>
-                                <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
-                            </div>
-                        </li>
-                        <li class="list_det">
-                            <div class="list_item">
-                                <div class="left_pic">
-                                    <img src="images/MyMusic/likePic.jpg">
-                                </div>
-                                <p class="item_name">
-                                    <a>我喜欢的音乐</a>
-                                </p>
-                                <p class="song_num">88首</p>
-                                <span class="item_xiugai">
-                                <a class="item_edit"></a>
-                                <a class="item_del"></a>
-                            </span>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
             </div>
         </div>
         <div class="mymusic_show">
-            <iframe name="toIframe" class="show_frame" scrolling="auto" frameborder="0" width="100%" height="642px" src="my_songlist.html">
+            <iframe name="toIframe" class="show_frame" scrolling="auto" frameborder="0" width="100%" height="642px"
+                    src="my_songlist.html?songListId=1">
 
             </iframe>
         </div>
     </div>
 </div>
+
+<div class="mymusic_create">
+    <div class="cre_hd">
+        <div class="hd_title">
+            新建歌单
+        </div>
+    </div>
+    <div class="cre_body">
+        <div class="cre_kuangjia">
+            <p>
+                歌单名：<input type="text" class="cre_text">
+            </p>
+            <div class="cre_err">
+                <i class="err_img"></i>
+            </div>
+            <p class="cre_tip">可通过“收藏”将音乐添加到新歌单中</p>
+            <div class="cre_button">
+                <button type="button" class="btnCre btnCre_bcolor three_distance" name="nbtn">创建</button>
+                <button type="button" class="btnCre three_distance" name="dbtn">取消</button>
+            </div>
+        </div>
+    </div>
+    <span class="cre_close" title="关闭窗口">×</span>
+</div>
+<div class="control">&nbsp;</div>
 </body>
 </html>
