@@ -2,6 +2,12 @@ package org.lanqiao.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.json.JSONException;
 import org.lanqiao.entity.*;
 import org.lanqiao.service.ShareService;
@@ -33,7 +39,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-public class ShareController {
+public class ShareAndSingersController {
 
     @Autowired
     ShareService shareService;
@@ -143,10 +149,6 @@ public class ShareController {
         return usersService.becomeOtherFan(userId,otherId);
     }
 
-    @RequestMapping("/singer/getEnterSingers/first")
-    public List<Singer> getEnterSingers(){
-        return singerService.getEnterSinger(10,1);
-    }
 
     @RequestMapping("/share/getShareComment")
     public List<ShareComment> getShareComments(Integer shareId){
@@ -158,4 +160,83 @@ public class ShareController {
         return shareService.insertShareComment(shareComment);
     }
 
+    @RequestMapping("/singer/getEnterSingers/first")
+    public List<Singer> getEnterSingers(){
+        return singerService.getEnterSinger(10);
+    }
+
+    @RequestMapping("/singer/getEnterSingers/second")
+    public List<Singer> getEnterSingersSecond(){
+        return singerService.getEnterSinger(0);
+    }
+
+    @RequestMapping("/singer/getHotSingers/second")
+    public List<Singer> getHotSingersSecond(){
+        return singerService.getHotSigner(0);
+    }
+
+    @RequestMapping("/singer/getHotSingers/first")
+    public List<Singer> getHotSingersFirst(){
+        return singerService.getHotSigner(10);
+    }
+
+    @RequestMapping("/singer/selectSingerByKeyWord")
+    public List<Singer> getSingerBySolrWithKey(String singerKeyWord,String singerNameKeyWord){
+        // 查询所有
+        Query query = new SimpleQuery();
+
+        //设置分页
+        query.setOffset(0l); //开始索引(默认0)
+        query.setRows(10);  //每页记录数(默认10)
+
+
+        //设置排序规则
+        Sort sort = new Sort(Sort.Direction.ASC, "singerId");
+        query.addSort(sort);
+
+        Criteria criteria = new Criteria("singerDescription").is(singerKeyWord);
+        query.addCriteria(criteria);
+        if (singerNameKeyWord.length() > 0){
+            Criteria criteria1 = new Criteria("singerName").is(singerNameKeyWord.toLowerCase());
+            query.addCriteria(criteria1);
+        }
+        //查询1
+        ScoredPage<Singer> pages = solrTemplate.queryForPage("singers", query, Singer.class);
+
+        return pages.getContent();
+    }
+
+
+
+
+
+
+
+
+
+//    private static final String solrUrl = "http://localhost:8983/solr/singers";
+
+//    @RequestMapping("/singer/selectSingerByKeyWord")
+//    public SolrDocumentList getSingerSolrWithKey(String singerKeyWord,String singerNameKeyWord) throws IOException, SolrServerException {
+////        HttpSolrClient solrClient = new HttpSolrClient.Builder(solrUrl)
+////                .withConnectionTimeout(10000)
+////                .withSocketTimeout(60000)
+////                .build();
+////        SolrQuery query = new SolrQuery();
+////        query.set("q", "singerDescription:华语女歌手");
+////        query.set("mm", "100%");
+////        // 调用server的查询方法，查询索引库
+////        QueryResponse response = solrClient.query(query);
+////        // 查询结果
+////        SolrDocumentList results = response.getResults();
+////        // 查询结果总数
+////        long cnt = results.getNumFound();
+////        System.out.println("查询结果总数:" + cnt);
+////        for (SolrDocument solrDocument : results) {
+////            System.out.println(solrDocument.get("id"));
+////            System.out.println(solrDocument.get("title"));
+////        }
+//
+//        return null;
+//    }
 }
