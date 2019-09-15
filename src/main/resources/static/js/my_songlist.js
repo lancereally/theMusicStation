@@ -65,7 +65,42 @@ $(function () {
             }
         }
     });
+    var comment = new Vue({
+        el:"#songComment",
+        data:{
+            commentList:[]
+        },
+        methods:{
+            getComment:function () {
+                comment.commentList=[];
+                $.ajax({
+                    url:"/MyMusic/songlist/showComment",
+                    type:"post",
+                    data:{
+                        songListId:1
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if (data.length > 0) {
+                            for (var i = 0; i < data.length; i++) {
+                                comment.commentList.push({
+                                    songlcText:data[i].songlcText,
+                                    songlcTime:data[i].songlcTime,
+                                    songlcLikes:data[i].songlcLikes,
+                                    userName:data[i].user.userName,
+                                    userHeadUrl:data[i].user.userHeadUrl
+                                });
+                            }
+                        } else {
+                            alert("表中无记录");
+                        }
+                    }
+                })
+            }
+        }
+    });
     ss.getSongSet();
     sinfo.getSongCount();
     sinfo.getSongPlayCount();
+    comment.getComment();
 });

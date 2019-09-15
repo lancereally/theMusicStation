@@ -3,7 +3,9 @@
     padding: 0;
     font-size: 12px;
 }
-
+ul{
+    list-style:none
+}
 .sl_head {
     padding: 40px;
     display: block;

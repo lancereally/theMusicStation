@@ -228,7 +228,7 @@
                 <span class="info_num">140</span>
             </div>
         </div>
-        <div class="msg_show">
+        <div class="msg_show" id="songComment">
             <h3 class="m_hd">精彩评论</h3>
             <div class="aw_msg">
                 <div class="msg_userpic">
@@ -251,46 +251,46 @@
                 </div>
             </div>
             <h3 class="m_hd">最新评论</h3>
-            <div class="aw_msg">
+            <div class="aw_msg" v-for="comments in commentList">
                 <div class="msg_userpic">
-                    <a><img src="images/MyMusic/facepic.jpg"></a>
+                    <a><img :src="comments.userHeadUrl"></a>
                 </div>
                 <div class="msg_userinfo">
                     <div class="msg_pl">
-                        <a>okc!up</a>
+                        <a>{{comments.userName}}</a>
                         <img>
-                        ：孟子坤《π》
+                        ：<span>{{comments.songlcText}}</span>
                     </div>
                     <div class="pl_bar">
-                        <div class="pl_time">9月6日&nbsp;13:00</div>
+                        <div class="pl_time">{{comments.songlcTime}}</div>
                         <a>
-                            <i class="zan"></i>(22)
+                            <i class="zan"></i>(<span>{{comments.songlcLikes}}</span>)
                         </a>
                         <span class="pl_jg">|</span>
                         <a class="replay">回复</a>
                     </div>
                 </div>
             </div>
-            <div class="aw_msg">
-                <div class="msg_userpic">
-                    <a><img src="images/MyMusic/facepic.jpg"></a>
-                </div>
-                <div class="msg_userinfo">
-                    <div class="msg_pl">
-                        <a>okc!up</a>
-                        <img>
-                        ：孟子坤《π》
-                    </div>
-                    <div class="pl_bar">
-                        <div class="pl_time">9月6日&nbsp;13:00</div>
-                        <a>
-                            <i class="zan"></i>(22)
-                        </a>
-                        <span class="pl_jg">|</span>
-                        <a class="replay">回复</a>
-                    </div>
-                </div>
-            </div>
+            <!--            <div class="aw_msg">-->
+            <!--                <div class="msg_userpic">-->
+            <!--                    <a><img src="images/MyMusic/facepic.jpg"></a>-->
+            <!--                </div>-->
+            <!--                <div class="msg_userinfo">-->
+            <!--                    <div class="msg_pl">-->
+            <!--                        <a>okc!up</a>-->
+            <!--                        <img>-->
+            <!--                        ：孟子坤《π》-->
+            <!--                    </div>-->
+            <!--                    <div class="pl_bar">-->
+            <!--                        <div class="pl_time">9月6日&nbsp;13:00</div>-->
+            <!--                        <a>-->
+            <!--                            <i class="zan"></i>(22)-->
+            <!--                        </a>-->
+            <!--                        <span class="pl_jg">|</span>-->
+            <!--                        <a class="replay">回复</a>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
         <div class="msg_page">
             <div class="page_bar">
