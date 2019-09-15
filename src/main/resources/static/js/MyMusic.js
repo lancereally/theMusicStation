@@ -4,7 +4,8 @@ $(function () {
         el:"#songList",
         data:{
             likeSongList:[],
-            shouSongList:[]
+            shouSongList:[],
+            url:""
         },
         methods:{
             getLikeSongList:function () {
@@ -18,6 +19,7 @@ $(function () {
                         if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
                                 song.likeSongList.push({
+                                    songlistId:data[i].songlistId,
                                     songlistName:data[i].songlistName,
                                     songlistCount:data[i].songlistCount,
                                     songlistPicUrl:data[i].songlistPicUrl
@@ -40,6 +42,7 @@ $(function () {
                         if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
                                 song.shouSongList.push({
+                                    songlistId:data[i].songlistId,
                                     songlistName:data[i].songlistName,
                                     songlistCount:data[i].songlistCount,
                                     songlistPicUrl:data[i].songlistPicUrl
@@ -50,6 +53,10 @@ $(function () {
                         }
                     }
                 })
+            },
+            goTo:function (slId) {
+                song.url= 'my_songlist.html' + '?songListId=' + escape(slId);
+                // alert(url)
             }
         }
     });

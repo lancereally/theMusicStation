@@ -1,4 +1,19 @@
 $(function () {
+    //获取url值
+    var url = location.search,
+        songListId = {};
+    //如果url有id
+    if(url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for(var i = 0; i < strs.length; i++) {
+            songListId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+
+    }
+    //
+    // console.log('传过来的参数是:', songListId.songListId);
+    // alert( songListId.songListId);
     var ss = new Vue({
         el: "#songVue",
         data: {
@@ -11,7 +26,7 @@ $(function () {
                     url: "/MyMusic/songlist/songshow",
                     type: "post",
                     data: {
-                        songListId: 1
+                        songListId: songListId.songListId
                     },
                     dataType: "json",
                     success: function (data) {
@@ -25,7 +40,7 @@ $(function () {
                                 });
                             }
                         } else {
-                            alert("表中无记录");
+                            // alert("表中无记录");
                         }
                     }
                 });
@@ -44,7 +59,7 @@ $(function () {
                 $.ajax({
                     url: "/MyMusic/songlist/countshow",
                     type: "post",
-                    data: {songListId: 1},
+                    data: {songListId: songListId.songListId},
                     dataType: "json",
                     success: function (data) {
                         songCount = data;
@@ -56,7 +71,7 @@ $(function () {
                 $.ajax({
                     url: "/MyMusic/songlist/playcountshow",
                     type: "post",
-                    data: {songListId: 1},
+                    data: {songListId: songListId.songListId},
                     dataType: "json",
                     success: function (data) {
                         songPlayCount = data;
@@ -77,7 +92,7 @@ $(function () {
                     url: "/MyMusic/songlist/showComment",
                     type: "post",
                     data: {
-                        songListId: 1
+                        songListId: songListId.songListId
                     },
                     dataType: "json",
                     success: function (data) {
@@ -92,7 +107,7 @@ $(function () {
                                 });
                             }
                         } else {
-                            alert("表中无记录");
+                            // alert("表中无记录");
                         }
                     }
                 })
@@ -116,7 +131,7 @@ $(function () {
                     url: "/MyMusic/showSonglistInfo",
                     type: "post",
                     data: {
-                        songListId: 1,
+                        songListId: songListId.songListId,
                         userId: 5
                     },
                     dataType: "json",
