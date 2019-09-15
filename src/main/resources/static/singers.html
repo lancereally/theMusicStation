@@ -34,7 +34,9 @@
                                     bigBox.enterSingers.push({
                                         singerName: singers[i].singerName,
                                         singerPicUrl: singers[i].singerPicUrl,
-                                        singerId: singers[i].singerId
+                                        singerId: singers[i].singerId,
+                                        userId:singers[i].userId
+
                                     })
                                 }
                                 bigBox.getEnterSingerTimes = "first"
@@ -52,7 +54,9 @@
                                     bigBox.hotSingers.push({
                                         singerName: singers[i].singerName,
                                         singerPicUrl: singers[i].singerPicUrl,
-                                        singerId: singers[i].singerId
+                                        singerId: singers[i].singerId,
+                                        userId:singers[i].userId
+
                                     })
                                 }
                                 bigBox.getHotSingerTimes = "first";
@@ -89,7 +93,8 @@
                                     bigBox.keySingers.push({
                                         singerName: singers[i].singerName,
                                         singerPicUrl: singers[i].singerPicUrl,
-                                        singerId: singers[i].singerId
+                                        singerId: singers[i].singerId,
+                                        userId:singers[i].userId
                                     })
                                 }
                             }
@@ -170,7 +175,7 @@
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
                             <a href="#" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
-                            <i class="f-right" @click="toGoSingerHomepage"><img src="images/head.png" height="17px"></i>
+                            <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
                 </ul>
@@ -188,7 +193,7 @@
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
                             <a href="#" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
-                            <i class="f-right" @click="toGoSingerHomepage"><img src="images/head.png" height="17px"></i>
+                            <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
                 </ul>
@@ -237,7 +242,7 @@
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
                             <a href="#" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
-                            <i class="f-right" @click="toGoSingerHomepage"><img src="images/head.png" height="17px"></i>
+                            <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
                 </ul>

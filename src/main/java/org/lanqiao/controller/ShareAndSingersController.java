@@ -2,20 +2,12 @@ package org.lanqiao.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocument;
-import org.apache.solr.common.SolrDocumentList;
-import org.json.JSONException;
 import org.lanqiao.entity.*;
 import org.lanqiao.service.ShareService;
 import org.lanqiao.service.SingerService;
 import org.lanqiao.service.UsersService;
 import org.lanqiao.util.FileUploadGsq;
 import org.lanqiao.util.GetPlaceByIp;
-import org.lanqiao.util.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.solr.core.SolrTemplate;
@@ -23,13 +15,10 @@ import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.Query;
 import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.data.solr.core.query.result.ScoredPage;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -206,7 +195,32 @@ public class ShareAndSingersController {
         return pages.getContent();
     }
 
+    @RequestMapping("/singer/getSinger")
+    public Singer selectSingerByPK(Integer singerId){
+        return singerService.selectSingerByPk(singerId);
+    }
 
+    @RequestMapping("/singer/getSongs")
+    public List<Songs> getSongsByAndSingerId(Integer singerId){
+        // 查询所有
+        Query query = new SimpleQuery();
+        //设置分页
+        query.setOffset(0l); //开始索引(默认0)
+        query.setRows(10);  //每页记录数(默认10)
+
+        //设置排序规则
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        query.addSort(sort);
+
+        // 设置条件1 歌名为zhoujielun
+        Criteria criteria = new Criteria("singerId").is(singerId);
+
+        query.addCriteria(criteria);
+        //查询1
+        ScoredPage<Songs> pages = solrTemplate.queryForPage("songs", query, Songs.class);
+
+        return pages.getContent();
+    }
 
 
 

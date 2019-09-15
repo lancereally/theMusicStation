@@ -24,11 +24,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.solr</groupId>-->
-<!--            <artifactId>solr-solrj</artifactId>-->
-<!--            <version>8.2.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.solr</groupId>-->
+        <!--            <artifactId>solr-solrj</artifactId>-->
+        <!--            <version>8.2.0</version>-->
+        <!--        </dependency>-->
 
         <!-- 热部署模块 -->
         <dependency>

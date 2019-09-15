@@ -11,5 +11,6 @@ public interface SingerService {
     public List<Singer> getEnterSinger(Integer size);
 
     public List<Singer> getHotSigner(Integer size);
+    public Singer selectSingerByPk(Integer singerId);
 
 }

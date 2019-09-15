@@ -28,4 +28,9 @@ public class SingerServiceImpl implements SingerService {
     public List<Singer> getHotSigner(Integer size) {
         return singerMapper.selectHotSingers(size);
     }
+
+    @Override
+    public Singer selectSingerByPk(Integer singerId) {
+        return singerMapper.selectByPrimaryKey(singerId);
+    }
 }

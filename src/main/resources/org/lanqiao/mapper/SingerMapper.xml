@@ -15,14 +15,14 @@
 
 
   <select id="selectHotSingers" resultMap="SingerResultMap" parameterType="java.lang.Integer">
-    select singer_id, singer_name, singer_pic_url, singer_description from singer  order by rand()
+    select singer_id, singer_name, singer_pic_url, singer_description,user_id from singer  order by rand()
     <if test="_parameter > 0">
     limit #{_parameter}
     </if>
   </select>
 
   <select id="selectEnterSingers" resultMap="SingerResultMap" parameterType="java.lang.Integer">
-    select singer_id, singer_name, singer_pic_url, singer_description from singer s , users u where s.user_id = u.user_id
+    select singer_id, singer_name, singer_pic_url, singer_description,s.user_id from singer s , users u where s.user_id = u.user_id
       <if test="_parameter > 0">
       limit 0 , #{_parameter}
       </if>
