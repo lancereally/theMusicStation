@@ -26,4 +26,9 @@ public class SingerServiceImpl implements SingerService {
         return singerList;
     }
 
+
+    // Lzc : search singer
+    public List<Singer> selectSingerByInput(String input){
+        return singerMapper.selectSingerByInput(input);
+    }
 }

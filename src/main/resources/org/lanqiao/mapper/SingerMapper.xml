@@ -35,6 +35,10 @@
 
     </select>
 
+    <!-- Lzc -->
+    <select id="selectSingerByInput" resultMap="SingerResultMap" resultType="java.lang.String">
+        select singer_id,singer_name,singer_pic_url from singer where singer_name like concat('%',#{input},'%')
+    </select>
 
     <sql id="Base_Column_List">
     singer_id, singer_name, user_id, singer_description, singer_pic_url

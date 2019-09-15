@@ -12,8 +12,13 @@
             $("li a").click(function () {
                 $("li a").removeClass("z-slt");
                 $(this).addClass("z-slt");
-            })
+            });
+            // 搜索按钮触发相关查询
+            $("#searchBtn").click(function () {
+               $(".fst").find("a").trigger("click");
+            });
         })
+
     </script>
 </head>
 <body>
@@ -23,11 +28,10 @@
         <div class="pgsrch f-pr j-suggest" id="auto-id-yRB0Bv3Qb0dtVCdb">
             <input id="m-search-input" type="text" class="srch j-flag" value="" style="opacity: 1;">
             <span class="j-flag" style="" id="auto-id-4x3XgnISmgruGPPr">&nbsp;</span>
-            <a hidefocus="true" href="javascript:void(0)" class="btn j-flag" title="搜索"
-               id="auto-id-O6o5qEaLNEpRMkQt">搜索</a>
+            <a hidefocus="true" class="btn j-flag" title="搜索" id="searchBtn">搜索</a>
         </div>
         <div id="m-search">
-            <div class="snote s-fc4 ztag">找到 <em class="s-fc6"> </em> 首单曲</div>
+            <div class="snote s-fc4 ztag">找到 <em class="s-fc6"></em> 条记录</div>
             <ul class="m-tabs m-tabs-srch f-cb ztag" data-xname="" id="auto-id-bqU4tSftUukBaMbA"
                 style="margin-bottom: auto;">
                 <li class="fst"><a data-type="1" href="search_music.html" target="resultFrame" class="z-slt"><em>单曲</em></a></li>

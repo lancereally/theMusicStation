@@ -17,4 +17,10 @@ public class SingerController {
     public List<Singer> getSingerListOnMyMusic(Integer userId){
         return singerService.selectByUserId(userId);
     }
+
+    // Lzc : search singer
+    @RequestMapping("/search/selectSingerByInput")
+    public List<Singer> selectSingerByInput(String input){
+        return singerService.selectSingerByInput(input);
+    }
 }
