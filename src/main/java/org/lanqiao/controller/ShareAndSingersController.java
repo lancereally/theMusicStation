@@ -3,6 +3,7 @@ package org.lanqiao.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.lanqiao.entity.*;
+import org.lanqiao.service.AlbumService;
 import org.lanqiao.service.ShareService;
 import org.lanqiao.service.SingerService;
 import org.lanqiao.service.UsersService;
@@ -42,6 +43,9 @@ public class ShareAndSingersController {
     @Autowired
     private SolrTemplate solrTemplate;
 
+    @Autowired
+    AlbumService albumService;
+
 
     @RequestMapping("/share/getAllShare")
     public PageInfo get(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
@@ -75,8 +79,7 @@ public class ShareAndSingersController {
 
     @RequestMapping("/share/getStarUsers")
     public List<Singer> getStarUsers(){
-        List<Singer> singerList = singerService.getStarByRand();
-        return  singerList;
+        return   singerService.getStarByRand();
     }
 
     @RequestMapping("/share/gerOtherUsers")
@@ -220,6 +223,16 @@ public class ShareAndSingersController {
         ScoredPage<Songs> pages = solrTemplate.queryForPage("songs", query, Songs.class);
 
         return pages.getContent();
+    }
+
+    @RequestMapping("/singer/getAlbum")
+    public List<Album> gerAlbumBySingerId(Integer singerId){
+        return albumService.seelctBySingerId(singerId);
+    }
+
+    @RequestMapping("/singer/getOtherSinger")
+    public List<Singer> getOtherSingersFirst(){
+        return singerService.getHotSigner(6);
     }
 
 

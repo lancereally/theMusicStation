@@ -15,8 +15,7 @@ public class SingerServiceImpl implements SingerService {
 
     @Override
     public List<Singer> getStarByRand() {
-        List<Singer> singerList = singerMapper.selectStarByRand();
-        return singerList;
+        return singerMapper.selectStarByRand();
     }
 
     @Override

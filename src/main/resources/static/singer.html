@@ -5,6 +5,8 @@
     <title>singer</title>
     <link href="css/singer.css" rel="stylesheet">
     <link href="css/main-gsq.css" rel="stylesheet">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/vue.min.js"></script>
     <style>
         .starUser{
             margin: 5px 0;
@@ -25,53 +27,53 @@
             width: 50px;
             height: 40px;
         }
+        .singername{
+            display: block;
+            width: 55px;
+            height: 20px;
+            text-align: center;
+        }
 
     </style>
+    <script>
+        $(function () {
+            var bigBox = new Vue({
+                el:"#bigBox",
+                data:{
+                    singers:[]
+                },
+                methods: {
+                    getOtherSingers:function () {
+                        bigBox.singers = [];
+                        $.ajax({
+                            url:"/singer/getOtherSinger",
+                            datatype:"json",
+                            type:"json",
+                            success:function (singers) {
+                                bigBox.singers = singers;
+                            }
+                        })
+                    }
+                }
+            });
+            bigBox.getOtherSingers();
+        })
+    </script>
 </head>
 <body>
 <iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
-<div class="mainBody">
+<div class="mainBody" id="bigBox">
     <div class="m-left f-left">
         <iframe src="works.html" frameborder="0" width="640px" height="1000px"></iframe>
         </div>
     <div class="m-right f-right">
         <div class="starUser"><i class="font-12 f-w-b">相似歌手</i></div>
         <ul>
-            <li>
+            <li v-for="singer in singers">
                 <a href="#">
-                    <img src="images/userPic.jpg" height="50">
+                    <img :src="singer.singerPicUrl" height="55px" width="55px">
                 </a><br>
-                <a class="font-12">歌手名</a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="images/userPic.jpg" height="50">
-                </a><br>
-                <a class="font-12">歌手名</a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="images/userPic.jpg" height="50">
-                </a><br>
-                <a class="font-12">歌手名</a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="images/userPic.jpg" height="50">
-                </a><br>
-                <a class="font-12">歌手名</a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="images/userPic.jpg" height="50">
-                </a><br>
-                <a class="font-12">歌手名</a>
-            </li>
-            <li>
-                <a href="#">
-                    <img src="images/userPic.jpg" height="50">
-                </a><br>
-                <a class="font-12">歌手名</a>
+                    <a class="font-12 singername">{{singer.singerName}}</a>
             </li>
         </ul>
         <div class="starUser"><i class="font-12 f-w-b">网易云音乐多端下载</i></div>

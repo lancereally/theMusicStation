@@ -51,7 +51,8 @@
                     singer:"",
                     songs:[],
                     singerId:1,
-                    songCount:""
+                    songCount:"",
+                    albums:[]
 
                 },
                 methods:{
@@ -81,22 +82,27 @@
                         $("#songs").show();
                         $("#album").hide();
                         $("#MV").hide();
+                        $("#description").hide();
                         bigBox.getSongs();
                     },
                     showAlbum:function () {
                         $("#songs").hide();
                         $("#album").show();
                         $("#MV").hide();
+                        $("#description").hide();
+                        bigBox.getAlbum();
                     },
                     showMV:function () {
                         $("#songs").hide();
                         $("#album").hide();
                         $("#MV").show();
+                        $("#description").hide()
                     },
-                    show:function () {
+                    showDescription:function () {
                         $("#songs").hide();
                         $("#album").hide();
                         $("#MV").hide();
+                        $("#description").show()
                     },
                     getSinger:function () {
                         $.ajax({
@@ -108,6 +114,20 @@
                             datatype:"json",
                             success:function (singer) {
                                 bigBox.singer = singer
+                            }
+                        })
+                    },
+                    getAlbum:function () {
+                        bigBox.album = [];
+                        $.ajax({
+                            url:"/singer/getAlbum",
+                            datatype:"json",
+                            data:{
+                                singerId : bigBox.singerId
+                            },
+                            type:"post",
+                            success:function (album) {
+                                bigBox.albums = album;
                             }
                         })
                     }
@@ -142,7 +162,7 @@
         <li  class="active" @click="showSongs"><a data-toggle="tab">热门作品</a></li>
         <li @click="showAlbum"><a data-toggle="tab">所有专辑</a></li>
         <li @click="showMV"><a data-toggle="tab">相关MV</a></li>
-        <li @click="show"><a data-toggle="tab">艺人介绍</a></li>
+        <li @click="showDescription"><a data-toggle="tab">艺人介绍</a></li>
     </ul>
 
     <!--音乐-->
@@ -188,10 +208,24 @@
     <div id="album">
         <div style="height: 368px; width: 719px">
             <ul class="sPic album-1 pad-0">
-                <li class="f-left">
+                <li class="f-left" v-for="album in albums">
+                    <img :src="album.albumPicUrl" height="130px" width="130px">
+                    <div>
+                        <a href="#" class="singerName font-12 f-left f-c-3">{{album.albumName}}</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--MV-->
+    <div id="MV">
+        <div style="height: 368px; width: 719px">
+            <ul class="sPic  album-1 pad-0">
+                <li class="f-left" v-for="mv in MV">
                     <img src="images/singer.jpg" height="130px">
                     <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
+                        <a href="#" class="singerName font-12 f-left f-c-3">{{mv}}</a>
                     </div>
                 </li>
                 <li class="f-left">
@@ -222,41 +256,9 @@
         </div>
     </div>
 
-    <!--MV-->
-    <div id="MV">
-        <div style="height: 368px; width: 719px">
-            <ul class="sPic  album-1 pad-0">
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-            </ul>
+    <div id="description">
+        <div>
+            {{singer.singerDescription}}
         </div>
     </div>
 
