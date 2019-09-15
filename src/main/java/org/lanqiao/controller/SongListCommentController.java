@@ -17,4 +17,9 @@ public class SongListCommentController {
     public List<SongListComment> getAllCommentOnSongList(Integer songListId){
         return commentService.selectCommentBySongListId(songListId);
     }
+    //添加歌单评论-郭长达
+    @RequestMapping("/MyMusic/songlist/insert")
+    public int insertSongListComment(SongListComment songListComment){
+        return commentService.insertSongListComment(songListComment);
+    }
 }

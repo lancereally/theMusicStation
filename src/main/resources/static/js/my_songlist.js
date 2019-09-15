@@ -83,7 +83,8 @@ $(function () {
     var comment = new Vue({
         el: "#songComment",
         data: {
-            commentList: []
+            commentList: [],
+            userHeadUrl1:""
         },
         methods: {
             getComment: function () {
@@ -109,6 +110,20 @@ $(function () {
                         } else {
                             // alert("表中无记录");
                         }
+                    }
+                })
+            },
+            getPic:function () {
+                $.ajax({
+                    url:"/MyMusic/showSonglistInfo",
+                    type:"post",
+                    data:{
+                        songListId: songListId.songListId,
+                        userId:5
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        comment.userHeadUrl1=data.usersSet[0].userHeadUrl;
                     }
                 })
             }
@@ -151,5 +166,27 @@ $(function () {
     sinfo.getSongCount();
     sinfo.getSongPlayCount();
     comment.getComment();
+    comment.getPic();
     songList.getListInfo();
+    $("#msg_send").click(function () {
+       $.ajax({
+           url:"/MyMusic/songlist/insert",
+           type:"post",
+           data:{
+               songlistId: songListId.songListId,
+               songlcText:$("textarea[class='msg_info']").val(),
+               userId:5
+           },
+           dataType:"json",
+           success:function (data) {
+               if(data==1){
+                   layui.use('layer', function () {
+                       var layer = layui.layer;
+                       layer.msg('评论成功！');
+                   });
+                   setTimeout("window.location.reload()","1000");
+               }
+           }
+       })
+    });
 });
