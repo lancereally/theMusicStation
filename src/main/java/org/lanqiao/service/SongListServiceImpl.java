@@ -37,10 +37,15 @@ public class SongListServiceImpl implements SongListService{
     public int insertUserSongList(Integer songListId,Integer userId,  Integer usRelation) {
         return songListMapper.insertUserSongList(songListId,userId,usRelation);
     }
-
+    //得到歌单信息-郭长达
     @Override
     public SongList getSongListInfo(Integer songListId, Integer userId) {
         return songListMapper.selectBySongListId(songListId,userId);
+    }
+    //编辑歌单信息-郭长达
+    @Override
+    public int updateSongListInfo(SongList songList) {
+        return songListMapper.updateSongListInfo(songList);
     }
 
 

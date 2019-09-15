@@ -43,4 +43,9 @@ public class SongListController {
     public SongList getSongListInfo(Integer songListId,Integer userId){
         return songListService.getSongListInfo(songListId,userId);
     }
+    //编辑歌单信息
+    @RequestMapping("/MyMusic/editSonglist")
+    public int editSongListInfo(SongList songList){
+        return songListService.updateSongListInfo(songList);
+    }
 }

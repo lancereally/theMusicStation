@@ -8,6 +8,8 @@
     <script src="js/bootstrap.js"></script>
     <link rel="stylesheet" href="css/my_edit.css">
     <script src="js/vue.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
     <script src="js/my_edit.js"></script>
 </head>
 <body>
@@ -39,13 +41,12 @@
                     <div class="itm">
                         <label class="lab">介绍：</label>
                         <div class="body_text">
-                            <textarea class="text_info"></textarea>
+                            <textarea class="text_info">{{songlistDescription}}</textarea>
                             <span class="text_num">998</span>
                         </div>
                     </div>
                     <div class="itm body_btn">
-<!--                        <a class="btn1">保存</a>-->
-                        <button type="button" class="btn btn-default btn-sm three_distance">保存</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="savabtn">保存</button>
                         <button type="button" class="btn btn-default btn-sm three_distance">取消</button>
                     </div>
                 </div>

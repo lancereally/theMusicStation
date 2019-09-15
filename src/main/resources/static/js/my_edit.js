@@ -37,5 +37,26 @@ $(function () {
         }
     });
     editInfo.getSongListInfo();
-
+    $("#savabtn").click(function () {
+        $.ajax({
+            url:"/MyMusic/editSonglist",
+            type:"post",
+            data:{
+                songlistId:songListId.songListId,
+                songlistName:$("input[class='name_text']").val(),
+                songlistPicUrl:"",
+                songlistDescription:$("textarea[class='text_info']").val()
+            },
+            dataType:"json",
+            success:function (data) {
+                if(data==1){
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('编辑成功！');
+                    });
+                    setTimeout("window.location.reload()","1000");
+                }
+            }
+        })
+    })
 });

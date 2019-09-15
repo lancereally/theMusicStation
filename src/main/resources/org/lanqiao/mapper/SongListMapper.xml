@@ -59,6 +59,13 @@
     <insert id="insertUserSongList" parameterType="java.lang.Integer">
         insert into usersonglist(songlist_id,user_id,us_relation) values (#{songListId},#{userId},#{usRelation})
     </insert>
+    <!--编辑歌单信息-郭长达-->
+    <update id="updateSongListInfo" parameterType="org.lanqiao.entity.SongList">
+        update songlist set songlist_name = #{songlistName},songlist_pic_url= #{songlistPicUrl},songlist_description= #{songlistDescription} where songlist_id = #{songlistId}
+    </update>
+
+
+
 
     <sql id="Base_Column_List">
     songlist_id, songlist_name, songlist_description, songlist_tag, songlist_count, songlist_create_time, 

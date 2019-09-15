@@ -18,4 +18,6 @@ public interface SongListService {
     int insertUserSongList(Integer songListId,Integer userId,Integer usRelation);
     //查询歌单信息-郭长达
     SongList getSongListInfo(Integer songListId,Integer userId);
+    //编辑歌单信息-郭长达
+    int updateSongListInfo(SongList songList);
 }
