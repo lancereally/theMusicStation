@@ -14,8 +14,7 @@ ul li {
   width: 100%;
   bottom: 0;
   left: 0;
-  background-color: #000;
-  background-color: rgba(0, 0, 0, 1);
+  background-color: #242424;
   color: #fff;
 }
 .audio-container {
