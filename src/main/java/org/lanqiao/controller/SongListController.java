@@ -48,4 +48,9 @@ public class SongListController {
     public int editSongListInfo(SongList songList){
         return songListService.updateSongListInfo(songList);
     }
+    //删除歌单-郭长达
+    @RequestMapping("/MyMusic/deleteSonglist")
+    public int deleteBySongListId(Integer songListId){
+        return songListService.deleteBySongListId(songListId);
+    }
 }

@@ -47,6 +47,11 @@ public class SongListServiceImpl implements SongListService{
     public int updateSongListInfo(SongList songList) {
         return songListMapper.updateSongListInfo(songList);
     }
+    //删除歌单-郭长达
+    @Override
+    public int deleteBySongListId(Integer songListId) {
+        return songListMapper.deleteByPrimaryKey(songListId);
+    }
 
 
 }

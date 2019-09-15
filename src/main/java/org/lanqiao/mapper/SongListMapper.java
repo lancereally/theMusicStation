@@ -11,7 +11,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface SongListMapper {
-    int deleteByPrimaryKey(Integer songlistId);
 
     int insert(SongList record);
 
@@ -36,4 +35,6 @@ public interface SongListMapper {
     int insertUserSongList(@Param("songListId") Integer songListId,@Param("userId") Integer userId,@Param("usRelation") Integer usRelation);
     //编辑歌单信息-郭长达
     int updateSongListInfo(SongList songList);
+    //删除歌单-gcd
+    int deleteByPrimaryKey(Integer songlistId);
 }

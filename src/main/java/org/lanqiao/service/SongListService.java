@@ -20,4 +20,6 @@ public interface SongListService {
     SongList getSongListInfo(Integer songListId,Integer userId);
     //编辑歌单信息-郭长达
     int updateSongListInfo(SongList songList);
+    //删除歌单-郭长达
+    int deleteBySongListId(Integer songListId);
 }

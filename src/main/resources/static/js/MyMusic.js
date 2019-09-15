@@ -1,5 +1,6 @@
 //我的音乐js文件
 $(function () {
+    //vue使用
     var song = new Vue({
         el:"#songList",
         data:{
@@ -104,27 +105,30 @@ $(function () {
             })
         }
     });
-// //   layui引用
-//     $("a[class='create_btn']").click(function () {
-//
-//         console.log("ssss0");
-//         layui.use('layer', function(){
-//             var layer = layui.layer;
-//
-//             layer.msg('hello');
-//         });
-//     });
     //创建按钮使用
     $("a[class='create_btn']").click(function () {
         $("div[class='mymusic_create']").css("display", "inline");
         $("div[class='control']").css("display", "inline")
     });
-    $("span[class='cre_close']").click(function () {
+    $("span[name='cre_end']").click(function () {
         $("div[class='mymusic_create']").css("display", "none");
         $("div[class='control']").css("display", "none")
     });
     $("button[name='dbtn']").click(function () {
         $("div[class='mymusic_create']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    //删除按钮使用
+    $("a[class='item_del']").click(function () {
+        $("div[class='mymusic_del']").css("display", "inline");
+        $("div[class='control']").css("display", "inline")
+    });
+    $("span[name='del_end']").click(function () {
+        $("div[class='mymusic_del']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    $("button[name='del_btn']").click(function () {
+        $("div[class='mymusic_del']").css("display", "none");
         $("div[class='control']").css("display", "none")
     });
     //新建歌单

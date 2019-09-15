@@ -63,6 +63,11 @@
     <update id="updateSongListInfo" parameterType="org.lanqiao.entity.SongList">
         update songlist set songlist_name = #{songlistName},songlist_pic_url= #{songlistPicUrl},songlist_description= #{songlistDescription} where songlist_id = #{songlistId}
     </update>
+    <!--删除歌单-郭长达-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from songlist where songlist_id = #{songListId,jdbcType=INTEGER}
+    </delete>
+
 
 
 
@@ -77,10 +82,7 @@
         from songlist
         where songlist_id = #{songlistId,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from songlist
-    where songlist_id = #{songlistId,jdbcType=INTEGER}
-  </delete>
+
     <insert id="insert" parameterType="org.lanqiao.entity.SongList">
     insert into songlist (songlist_id, songlist_name, songlist_description, 
       songlist_tag, songlist_count, songlist_create_time, 
