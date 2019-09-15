@@ -38,5 +38,10 @@ public class SongListServiceImpl implements SongListService{
         return songListMapper.insertUserSongList(songListId,userId,usRelation);
     }
 
+    @Override
+    public SongList getSongListInfo(Integer songListId, Integer userId) {
+        return songListMapper.selectBySongListId(songListId,userId);
+    }
+
 
 }

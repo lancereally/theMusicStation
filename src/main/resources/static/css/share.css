@@ -35,7 +35,7 @@
 }
 
 #left-body ul li {
-    padding: 20px 0;
+    padding: 10px 0;
 
 }
 
@@ -289,7 +289,6 @@
 
 .btn-share {
     width: 80px;
-    height: 20px;
     background-color: rgba(141, 188, 247, 0.81);
 }
 
@@ -379,4 +378,31 @@
     top: 0;
     opacity: 0;
     -ms-filter: 'alpha(opacity=0)';
+}
+.songsGet{
+    margin: 0 10px;
+    border-top: 1px #9b9b9b solid;
+    width: 426px;
+    height: 180px;
+    overflow: auto;
+    line-height: 20px;
+}
+.songsGet ul li{
+    display: block;
+    padding: 5px 10px 5px 20px;
+    background-color: #dddddd;
+}
+.songsGet ul li:hover{
+    background-color: #9b9b9b;
+}
+.margin-r-100{
+    margin-right: 100px;
+    width: 180px;
+    height: 30px;
+    display: block;
+    float: left;
+}
+.commentDiv{
+    padding: 15px 20px;
+    border-top: 1px dotted #ccc;
 }

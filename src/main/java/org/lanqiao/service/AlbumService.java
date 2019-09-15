@@ -7,4 +7,6 @@ import java.util.List;
 public interface AlbumService {
     // Lzc - search
     public List<Album> selectAlbumByInput(String input);
+
+    public List<Album> seelctBySingerId(Integer singerId);
 }

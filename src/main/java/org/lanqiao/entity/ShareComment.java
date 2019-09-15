@@ -1,6 +1,7 @@
 package org.lanqiao.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class ShareComment {
     private Integer scId;
@@ -16,6 +17,36 @@ public class ShareComment {
     private Integer scToId;
 
     private Date scTime;
+
+    private String userName;
+
+    private String userHeadUrl;
+
+    private List<ShareComment> shareCommentList;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserHeadUrl() {
+        return userHeadUrl;
+    }
+
+    public void setUserHeadUrl(String userHeadUrl) {
+        this.userHeadUrl = userHeadUrl;
+    }
+
+    public List<ShareComment> getShareCommentList() {
+        return shareCommentList;
+    }
+
+    public void setShareCommentList(List<ShareComment> shareCommentList) {
+        this.shareCommentList = shareCommentList;
+    }
 
     public Integer getScId() {
         return scId;

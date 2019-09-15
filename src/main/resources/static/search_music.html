@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>search_music</title>
@@ -81,14 +81,14 @@
         <div class="item f-cb h-flag" v-for="(song,index) in songList">
             <div class="td">
                 <div class="hd">
-                    <a id="song_1384464205" class="ply " title="播放" data-res-copyright="1"
+                    <a v-bind:id="song.id" class="ply " title="播放" data-res-copyright="1"
                        data-res-type="18" data-res-id="1384464205" data-res-action="play"
                        data-res-from="32" data-res-data="j"></a>
                 </div>
             </div>
             <div class="td w0">
                 <div class="sn">
-                    <div class="text"><a href=""><b title=""><span
+                    <div class="text"><a v-bind:href="'/song?id='+song.id"><b title=""><span
                             class="s-fc7">{{song.songName}}</span></b></a></div>
                 </div>
             </div>
@@ -107,10 +107,10 @@
                         class="icn icn-dl" title="下载"></span></div>
             </div>
             <div class="td w1">
-                <div class="text"><a href=""><span class="s-fc7">{{song.singerName}}</span></a></div>
+                <div class="text"><a v-bind:href="'/song?id='+song.singerName"><span class="s-fc7">{{song.singerName}}</span></a></div>
             </div>
             <div class="td w2">
-                <div class="text"><a class="s-fc3" href="" title="">《<span
+                <div class="text"><a class="s-fc3" v-bind:href="'/song?id='+song.albumName" title="song.albumName">《<span
                         class="s-fc7">{{song.albumName}}</span>》</a></div>
             </div>
             <div class="td">{{song.songDuration}}</div>

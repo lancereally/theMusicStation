@@ -10,6 +10,8 @@ public interface UsersService {
     public Users getShareUser_q(Integer userId);
 
     public List<Users> getOtherUsersByRand();
+
+    public Integer becomeOtherFan(Integer userId,Integer otherId);
     //《《《郭书卿《《《
 
 }

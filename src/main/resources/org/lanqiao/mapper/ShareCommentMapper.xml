@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.ShareCommentMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.ShareComment" >
+  <resultMap id="ShareCommentResultMap" type="org.lanqiao.entity.ShareComment" >
     <id column="sc_id" property="scId" jdbcType="INTEGER" />
     <result column="share_id" property="shareId" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
@@ -9,11 +9,23 @@
     <result column="sc_likes" property="scLikes" jdbcType="INTEGER" />
     <result column="sc_to_id" property="scToId" jdbcType="INTEGER" />
     <result column="sc_time" property="scTime" jdbcType="TIMESTAMP" />
+
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR" />
+
+
   </resultMap>
+
+  <select id="selectByShareId" parameterType="java.lang.Integer" resultMap="ShareCommentResultMap">
+    select s.sc_id, s.sc_likes,s.sc_text,s.sc_time,s.sc_to_id,u.user_name,u.user_head_url from
+    sharecomment s, users u where s.user_id = u.user_id and s.share_id = #{share_id} order by s.sc_time desc
+  </select>
+
+
   <sql id="Base_Column_List" >
     sc_id, share_id, user_id, sc_text, sc_likes, sc_to_id, sc_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ShareCommentResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from sharecomment

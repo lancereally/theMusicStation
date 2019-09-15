@@ -16,4 +16,8 @@ public class AlbumServiceImpl implements AlbumService{
     public List<Album> selectAlbumByInput(String input) {
         return albumMapper.selectAlbumByInput(input);
     }
+
+    public List<Album> seelctBySingerId(Integer singerId) {
+        return albumMapper.selectBySingerId(singerId);
+    }
 }

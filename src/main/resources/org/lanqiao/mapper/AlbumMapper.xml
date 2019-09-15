@@ -23,6 +23,14 @@
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <select id="selectBySingerId" resultMap="AlbumResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Album_Column_List" />
+        from album
+        where singer_id = #{singerId,jdbcType=INTEGER}
+    </select>
+
     <sql id="Album_Column_List">
         album_id, album_name, album_description, album_company, album_count, album_create_time,
         album_commet_num, album_keep_num, album_pic_url, singer_id

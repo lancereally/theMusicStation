@@ -1,16 +1,26 @@
 package org.lanqiao.entity;
 
-import java.util.Set;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.solr.core.mapping.Indexed;
+import org.springframework.data.solr.core.mapping.SolrDocument;
 
+
+import java.util.Set;
+@SolrDocument(solrCoreName = "singers")
 public class Singer {
+    @Id
+    @Indexed
     private Integer singerId;
 
+    @Indexed
     private String singerName;
 
     private Integer userId;
 
+    @Indexed
     private String singerDescription;
 
+    @Indexed
     private String singerPicUrl;
     //一对多关系。在多的一方添加一的set
     private Set<Album> albumSet;

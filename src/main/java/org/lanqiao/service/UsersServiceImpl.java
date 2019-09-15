@@ -28,4 +28,13 @@ public class UsersServiceImpl implements UsersService {
     public List<Users> getOtherUsersByRand() {
         return usersMapper.selectOtherUsersByRand();
     }
+
+    @Override
+    public Integer becomeOtherFan(Integer userId, Integer otherId) {
+        if (usersMapper.checkFan(userId,otherId).getFans() > 0){
+            return null;
+        }else {
+            return usersMapper.insertFan(userId,otherId);
+        }
+    }
 }

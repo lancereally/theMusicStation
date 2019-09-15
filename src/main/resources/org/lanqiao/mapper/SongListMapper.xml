@@ -11,7 +11,34 @@
         <result column="songlist_commet_num" property="songlistCommetNum" jdbcType="INTEGER"/>
         <result column="songlist_keep_num" property="songlistKeepNum" jdbcType="INTEGER"/>
         <result column="songlist_pic_url" property="songlistPicUrl" jdbcType="VARCHAR"/>
+        <collection property="usersSet" resultMap="UsersResultMap"></collection>
     </resultMap>
+    <resultMap id="UsersResultMap" type="org.lanqiao.entity.Users" >
+        <id column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="user_account" property="userAccount" jdbcType="INTEGER" />
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+        <result column="user_text" property="userText" jdbcType="VARCHAR" />
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR" />
+        <result column="user_birthday" property="userBirthday" jdbcType="VARCHAR" />
+        <result column="user_location" property="userLocation" jdbcType="VARCHAR" />
+        <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR" />
+        <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+        <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+        <result column="user_phone_activation" property="userPhoneActivation" jdbcType="INTEGER" />
+        <result column="user_phone" property="userPhone" jdbcType="INTEGER" />
+        <result column="user_qq" property="userQq" jdbcType="INTEGER" />
+        <result column="user_id_card" property="userIdCard" jdbcType="VARCHAR" />
+        <result column="user_vip_state" property="userVipState" jdbcType="INTEGER" />
+        <result column="attention" property="attention" jdbcType="INTEGER" />
+        <result column="fans" property="fans" jdbcType="INTEGER" />
+        <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
+    </resultMap>
+    <!--查询歌单信息-->
+    <select id="selectBySongListId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
+        select u.user_head_url,u.user_name,sl.songlist_name,sl.songlist_pic_url,sl.songlist_create_time from users u,songlist sl,usersonglist usl
+        where sl.songlist_id = usl.songlist_id and usl.user_id = u.user_id and u.user_id = #{userId} and sl.songlist_id = #{songListId}
+    </select>
     <!--    查询创建的歌单-gcd-->
     <select id="selectLikeByUserId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
         select sl.*  from songlist sl, usersonglist usl where sl.songlist_id = usl.songlist_id and usl.us_relation=1 and usl.user_id = #{userId}

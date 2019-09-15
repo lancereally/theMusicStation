@@ -17,4 +17,14 @@ public class SongController {
     public List<Song> getSongBySongListName(Integer songListId){
         return songService.selectSongBySongListName(songListId);
     }
+    //查询歌单歌曲总数
+    @RequestMapping("/MyMusic/songlist/countshow")
+    public int getSongCountInfo(Integer songListId){
+        return songService.selectSongCount(songListId);
+    }
+    //查询歌单歌曲播放总数
+    @RequestMapping("/MyMusic/songlist/playcountshow")
+    public int getSongPlayCount(Integer songListId){
+        return songService.selectSongPlayCount(songListId);
+    }
 }

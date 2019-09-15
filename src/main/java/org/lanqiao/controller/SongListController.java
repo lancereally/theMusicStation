@@ -38,4 +38,9 @@ public class SongListController {
     public int insertUserSongList(int songListId,int userId,int usRelation){
         return songListService.insertUserSongList(songListId,userId,usRelation);
     }
+    //查询某个歌单信息
+    @RequestMapping("/MyMusic/showSonglistInfo")
+    public SongList getSongListInfo(Integer songListId,Integer userId){
+        return songListService.getSongListInfo(songListId,userId);
+    }
 }

@@ -39,7 +39,15 @@
   </select>
 
   <select id="selectOtherUsersByRand" resultMap="UsersResultMap">
-    select  user_text, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
+    select  user_id, user_text, user_name, user_head_url  from users order by rand() limit 3
+  </select>
+
+  <insert id="insertFan" parameterType="java.lang.Integer">
+    insert into userfan(usera_id, userb_id) values(#{userId}, #{otherId})
+  </insert>
+
+  <select id="checkFan" parameterType="java.lang.Integer" resultMap="UsersResultMap">
+    select count(*) as fans from  userfan where usera_id = #{userId} and userb_id =#{otherId}
   </select>
 
   <!--《《《郭书卿《《《-->

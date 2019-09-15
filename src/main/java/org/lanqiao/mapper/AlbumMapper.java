@@ -21,6 +21,8 @@ public interface AlbumMapper {
 
     int updateByPrimaryKey(Album record);
 
+    List<Album> selectBySingerId(Integer singerId);
+
     // Lzc : search album
     List<Album> selectAlbumByInput(String input);
 }

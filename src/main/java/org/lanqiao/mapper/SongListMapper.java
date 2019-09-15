@@ -22,7 +22,8 @@ public interface SongListMapper {
     int updateByPrimaryKeySelective(SongList record);
 
     int updateByPrimaryKey(SongList record);
-
+    //查询歌单的信息-郭长达
+    SongList selectBySongListId(@Param("songListId") Integer songListId,@Param("userId")Integer userId);
     //查询创建的歌单-郭长达
     List<SongList> selectLikeByUserId(Integer userId);
     //查询收藏的歌单-郭长达
