@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <link rel="stylesheet" href="css/MyOption.css">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/Login.css"/>
+    <link rel="stylesheet" href="css/LoginAccount.css"/>
+    <link rel="stylesheet" href="css/songList.css">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/vue.js"></script>
+    <script>
+        $(function () {
+            var bigBox = new Vue({
+                el:"#bigBox",
+                data:{
+                    keyWord:"",
+                    songList:[]
+                },
+                methods:{
+                    allChoseDiv:function () {
+                        $("#choseDiv").show();
+                    },
+                    getSongList:function () {
+                        bigBox.songList = [];
+                        $.ajax({
+                            url:"/songList/getSongList",
+                            data:{
+                                keyWord:bigBox.keyWord
+                            },
+                            dataType:"json",
+                            type:"post",
+                            success:function (songList) {
+                                bigBox.songList = songList;
+                            }
+                        })
+                    }
+                }
+            });
+            $("#choseDiv").hide();
+            bigBox.getSongList();
+            $(".choseClassFont2").click(function () {
+                bigBox.keyWord = $(this).html();
+                $("#choseDiv").hide();
+                bigBox.getSongList();
+            });
+            $(".allChose").click(function () {
+                location.reload();
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="mainBody mainSongList" id="bigBox">
+
+    <div class="u-title">
+        <h2 class="f-w-n f-left" style="font-size: 20px; font-weight: bold">全部   -</h2>
+        <button class="btn" @click="allChoseDiv">选择分类</button>
+        <a class="f-right" >更多></a>
+    </div>
+
+    <div class="choseDiv" id="choseDiv">
+        <div class="choseDivTop">
+            <button class="allChose">全部分类</button>
+        </div>
+        <div class="choseDivLeft">
+            <span class="choseClass choseClassFont1">语种</span>
+            <span class="choseClass choseClassFont2">华语</span>
+            <span class="choseClass choseClassFont2">欧美</span>
+            <span class="choseClass choseClassFont2">日语</span>
+            <span class="choseClass choseClassFont2">汉语</span>
+        </div>
+        <div class="choseDivLeft">
+            <span class="choseClass choseClassFont1">风格</span>
+            <span class="choseClass choseClassFont2">流行</span>
+            <span class="choseClass choseClassFont2">摇滚</span>
+            <span class="choseClass choseClassFont2">民谣</span>
+            <span class="choseClass choseClassFont2">电子</span>
+        </div>
+        <div class="choseDivLeft">
+            <span class="choseClass choseClassFont1">场景</span>
+            <span class="choseClass choseClassFont2">清晨</span>
+            <span class="choseClass choseClassFont2">夜晚</span>
+            <span class="choseClass choseClassFont2">学习</span>
+            <span class="choseClass choseClassFont2">工作</span>
+        </div>
+        <div class="choseDivLeft">
+            <span class="choseClass choseClassFont1">主题</span>
+            <span class="choseClass choseClassFont2">景点</span>
+            <span class="choseClass choseClassFont2">翻唱</span>
+            <span class="choseClass choseClassFont2">儿童</span>
+            <span class="choseClass choseClassFont2">校园</span>
+        </div>
+    </div>
+
+    <ul class="cvrlist" style="padding: 50px">
+        <li v-for="sl in songList">
+            <div class="u-cover u-cover-1">
+                <img :src="sl.songlistPicUrl" height="140px" width="140px"/>
+                <a href="" class="msk"> </a>
+                <div class="bottom">
+                    <a class="icon-play"></a>
+                    <span class="icon-headset"></span>
+                    <span class="nb">1926万</span>
+                </div>
+            </div>
+            <div class="songListType">
+                <a href="#" class="songListName font-16  f-c-3">{{sl.songlistName}}</a>
+                <a href="#" class="userName font-12  f-c-3" v-for="user in sl.usersSet"><i class="f-c-d">    -by  </i>{{user.userName}}</a>
+            </div>
+        </li>
+    </ul>
+
+
+
+
+</div>
+
+</body>
+</html>

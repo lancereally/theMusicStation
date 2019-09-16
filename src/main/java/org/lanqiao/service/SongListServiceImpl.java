@@ -43,5 +43,8 @@ public class SongListServiceImpl implements SongListService{
         return songListMapper.selectBySongListId(songListId,userId);
     }
 
-
+    @Override
+    public List<SongList> selectByKeyWord(String keyWord) {
+        return songListMapper.selectSongList(keyWord);
+    }
 }

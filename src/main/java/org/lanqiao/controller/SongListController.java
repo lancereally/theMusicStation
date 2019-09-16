@@ -43,4 +43,9 @@ public class SongListController {
     public SongList getSongListInfo(Integer songListId,Integer userId){
         return songListService.getSongListInfo(songListId,userId);
     }
+
+    @RequestMapping("/songList/getSongList")
+    public List<SongList> getSongList(String keyWord){
+        return songListService.selectByKeyWord(keyWord);
+    }
 }

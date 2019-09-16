@@ -35,4 +35,5 @@ public interface SongListMapper {
     //更新歌单用户关系表——郭长达
     int insertUserSongList(@Param("songListId") Integer songListId,@Param("userId") Integer userId,@Param("usRelation") Integer usRelation);
 
+    List<SongList> selectSongList(String keyWord);
 }

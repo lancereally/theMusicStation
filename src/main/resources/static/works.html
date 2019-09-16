@@ -45,12 +45,25 @@
     </style>
     <script>
         $(function () {
+
+            var url = location.search,
+                singerId = {};
+
+            if(url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i++) {
+                    singerId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+
+            }
+
             var bigBox = new Vue({
                 el:"#bigBox",
                 data:{
                     singer:"",
                     songs:[],
-                    singerId:1,
+                    singerId:singerId.singerId,
                     songCount:"",
                     albums:[]
 
@@ -192,7 +205,7 @@
 
                 <tbody>
                 <tr v-for="(song,index) in songs">
-                    <td>{{index}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i><img
+                    <td>{{index+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i><img
                             src="images/play.png" height="15px"></i></a></td>
                     <td>{{song.songName}}</td>
                     <td><a href="#">{{song.songDuration}}</a></td>

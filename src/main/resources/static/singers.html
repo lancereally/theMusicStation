@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>singer</title>
@@ -174,7 +174,7 @@
                     <li class="f-left" v-for="(singer,index) in enterSingers">
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
-                            <a href="#" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
                             <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
@@ -192,7 +192,7 @@
                     <li class="f-left" v-for="(singer,index) in hotSingers">
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
-                            <a href="#" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
                             <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
@@ -241,7 +241,7 @@
                     <li class="f-left" v-for="(singer,index) in keySingers">
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
-                            <a href="#" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
                             <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
