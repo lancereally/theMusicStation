@@ -223,7 +223,7 @@ public class ShareAndSingersController {
 
     @RequestMapping("/singer/getAlbum")
     public List<Album> gerAlbumBySingerId(Integer singerId) {
-        return albumService.seelctBySingerId(singerId);
+        return albumService.selectBySingerId(singerId);
     }
 
     @RequestMapping("/singer/getOtherSinger")

@@ -14,7 +14,7 @@ public class AlbumServiceImpl implements AlbumService{
     AlbumMapper albumMapper;
 
     @Override
-    public List<Album> seelctBySingerId(Integer singerId) {
+    public List<Album> selectBySingerId(Integer singerId) {
         return albumMapper.selectBySingerId(singerId);
     }
 }
