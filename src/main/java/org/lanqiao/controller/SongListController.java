@@ -43,4 +43,10 @@ public class SongListController {
     public SongList getSongListInfo(Integer songListId,Integer userId){
         return songListService.getSongListInfo(songListId,userId);
     }
+
+    // Lzc : search song list
+    @RequestMapping("/search/selectSongListByInput")
+    public List<SongList> selectSongListByInput(String input){
+        return songListService.selectSongListByInput(input);
+    }
 }

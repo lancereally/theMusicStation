@@ -43,5 +43,9 @@ public class SongListServiceImpl implements SongListService{
         return songListMapper.selectBySongListId(songListId,userId);
     }
 
-
+    // Lzc : search song list
+    @Override
+    public List<SongList> selectSongListByInput(String input) {
+        return songListMapper.selectSongListByInput(input);
+    }
 }

@@ -60,6 +60,12 @@
         insert into usersonglist(songlist_id,user_id,us_relation) values (#{songListId},#{userId},#{usRelation})
     </insert>
 
+
+    <!-- Lzc : selectSongListByInput -->
+    <select id="selectSongListByInput" resultMap="SonglistResultMap" parameterType="java.lang.String">
+        select sl.songlist_id,sl.songlist_pic_url,sl.songlist_name,sl.songlist_count,u.user_name,sl.songlist_keep_num,sl.songlist_commet_num from songlist sl,users u,usersonglist usl where ((sl.songlist_name like concat('%',#{input},'%')) or (u.user_name like concat('%',#{input},'%'))) and sl.songlist_id = usl.songlist_id and usl.user_id = u.user_id
+    </select>
+
     <sql id="Base_Column_List">
     songlist_id, songlist_name, songlist_description, songlist_tag, songlist_count, songlist_create_time, 
     songlist_commet_num, songlist_keep_num, songlist_pic_url

@@ -18,4 +18,6 @@ public interface SongListService {
     int insertUserSongList(Integer songListId,Integer userId,Integer usRelation);
     //查询歌单信息-郭长达
     SongList getSongListInfo(Integer songListId,Integer userId);
+    // Lzc : search song list
+    List<SongList> selectSongListByInput(String input);
 }

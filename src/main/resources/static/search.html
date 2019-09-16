@@ -16,6 +16,7 @@
             // 搜索按钮触发相关查询
             $("#searchBtn").click(function () {
                $(".fst").find("a").trigger("click");
+               $('iframe[name="resultFrame"]').attr('src', $('iframe[name="resultFrame"]').attr('src'));
             });
         })
 
@@ -37,9 +38,8 @@
                 <li class="fst"><a data-type="1" href="search_music.html" target="resultFrame" class="z-slt"><em>单曲</em></a></li>
                 <li><a hidefocus="true" data-type="100" href="search_singer.html" target="resultFrame" class=""><em>歌手</em></a></li>
                 <li><a hidefocus="true" data-type="10" href="search_album.html" target="resultFrame" class=""><em>专辑</em></a></li>
-                <li><a hidefocus="true" data-type="1014" href="search_video.html" target="resultFrame" class=""><em>视频</em></a></li>
                 <li><a hidefocus="true" data-type="1006" href="search_lyrics.html" target="resultFrame" class=""><em>歌词</em></a></li>
-                <li><a hidefocus="true" data-type="1000" href="search_musicList.html" target="resultFrame" class=""><em>歌单</em></a></li>
+                <li><a hidefocus="true" data-type="1000" href="search_songList.html" target="resultFrame" class=""><em>歌单</em></a></li>
                 <li><a hidefocus="true" data-type="1009" href="search_radio.html" target="resultFrame" class=""><em>主播电台</em></a></li>
                 <li><a hidefocus="true" data-type="1002" href="search_user.html" target="resultFrame" class=""><em>用户</em></a></li>
             </ul>
