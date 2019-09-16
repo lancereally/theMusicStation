@@ -140,7 +140,7 @@ div{
     display: inline-block;
     width: 10px;
 }
-.list_info *{
+.list_info a{
     cursor: pointer;
     vertical-align: middle;
 }
@@ -335,7 +335,7 @@ div{
 /*删除窗体*/
 .mymusic_del{
     display: none;
-    top: 297.5px;
+    top: 260px;
     left: 528px;
     width: 480px;
     position: absolute;

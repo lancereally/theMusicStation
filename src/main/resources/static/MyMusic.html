@@ -127,7 +127,7 @@
                                 <p class="song_num">{{songItem.songlistCount}}首</p>
                                 <span class="item_xiugai" v-if="index>0">
                                     <a class="item_edit"  :href="eurl" target="toIframe" @click="goToE(songItem.songlistId)"></a>
-                                    <a class="item_del"></a>
+                                    <a class="item_del" name="del_sl" @click="getSongListId(songItem.songlistId)"></a>
                                 </span>
                             </div>
                         </li>
