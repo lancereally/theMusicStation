@@ -1,7 +1,9 @@
 package org.lanqiao.service;
 
 import org.lanqiao.entity.Share;
+import org.lanqiao.entity.ShareComment;
 import org.lanqiao.entity.Song;
+import org.lanqiao.mapper.ShareCommentMapper;
 import org.lanqiao.mapper.ShareMapper;
 import org.lanqiao.mapper.SongMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,17 @@ public class ShareServiceImpl implements ShareService{
     @Autowired
     SongMapper songMapper;
 
+    @Autowired
+    ShareCommentMapper shareCommentMapper;
+
+    @Override
+    public int insertShareForward(Share share) {
+        return shareMapper.insertSelective(share);
+    }
+
     @Override
     public List<Share> getAllShare() {
         List<Share> shareList = shareMapper.getAllShare_q();
-        System.out.println("n");
         for (Share s: shareList) {
             s.setShareCommentCount(shareMapper.getShareCommentCount_q(s.getShareId()).getShareCommentCount());
             s.setShareForwardCount(shareMapper.getShareForwardCount_q(s.getShareId()).getShareForwardCount());
@@ -54,9 +63,21 @@ public class ShareServiceImpl implements ShareService{
     }
 
     @Override
+    public List<ShareComment> selectByShareId(Integer shareId) {
+        List<ShareComment> shareCommentList = shareCommentMapper.selectByShareId(shareId);
+        for (ShareComment s : shareCommentList) {
+            if (s.getScToId() != null){
+                s.setShareCommentList(shareCommentMapper.selectByShareId(s.getScToId()));
+            }
+        }
+        return shareCommentList;
+    }
+
+    @Override
     public int updateShareLikesByPK(Integer shareId) {
         return shareMapper.updateShareLikesByPK_q(shareId);
     }
+
 
     @Override
     //    徐东方
@@ -64,4 +85,11 @@ public class ShareServiceImpl implements ShareService{
         return shareMapper.getEventCount(userId);
     }
 //    徐东方
+
+
+    @Override
+    public Integer insertShareComment(ShareComment shareComment) {
+        return shareCommentMapper.insertSelective(shareComment);
+    }
+
 }

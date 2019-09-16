@@ -7,22 +7,45 @@
     <link href="css/share.css" rel="stylesheet">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.min.js"></script>
+    <script src="js/wangEditor.min.js"></script>
+    <link href="css/wangEditor.css" rel="stylesheet">
     <script>
         $(function () {
-
+            //Vue
             var bigBox = new Vue({
                 el: "#mainBody",
                 data: {
-                    shares: []
+                    shares: [],
+                    otherShareId: 0,
+                    shareText: "",
+                    pageCount: 0,
+                    pageNum: 1,
+                    users: [],
+                    starUsers: [],
+                    otherUsers: [],
+                    songKey: "",
+                    songs: [],
+                    checkSongId: "",
+                    userId: 1,
+                    choseSong: "",
+                    choseSinger: "",
+                    shareComment:[],
+                    commentShareId:-1
                 },
                 methods: {
                     //搜索显示动态
                     toGetShares: function () {
+                        bigBox.shares = [];
                         $.ajax({
                             url: "/share/getAllShare",
                             datatype: "json",
                             type: "post",
-                            success: function (data) {
+                            data: {
+                                pageNum: bigBox.pageNum
+                            },
+                            success: function (pageInfo) {
+                                var data = pageInfo.list;
+                                bigBox.pageCount = pageInfo.pages;
                                 for (var i = 0; i < data.length; i++)
                                     bigBox.shares.push({
                                         userName: data[i].userName,
@@ -32,7 +55,6 @@
                                         singerName: data[i].singerName,
                                         shareTime: data[i].shareTime,
                                         shareTitle: data[i].shareTitle,
-                                        videoLength: data[i].shareVideoTimes,
                                         shareVideoTimes: data[i].shareVideoTimes,
                                         shareAnnexUrl: data[i].shareAnnexUrl,
                                         shareLocation: data[i].shareLocation,
@@ -42,7 +64,8 @@
                                         userHeadUrl: data[i].userHeadUrl,
                                         shareText: data[i].shareText,
                                         shareId: data[i].shareId,
-                                        shareLikes: data[i].shareLikes
+                                        shareLikes: data[i].shareLikes,
+                                        shareFromId: data[i].shareFromId
                                     })
                             }
                         })
@@ -64,7 +87,7 @@
                         })
                         // alert(11)
                     },
-                    addSonLikes:function (index, indexSon) {
+                    addSonLikes: function (index, indexSon) {
                         $.ajax({
                             url: "/share/addLikes",
                             datatype: "json",
@@ -75,75 +98,476 @@
                                 alert("dianzan")
                             },
                             error: function (data) {
-                                // alert("dsa")
                             }
                         })
+                    },
+                    shareForwardDivShow: function (index) {
+                        if (bigBox.shares[index].shareFromId == null) {
+                            var el = event.currentTarget;
+                            bigBox.otherShareId = el.lastChild.innerHTML;
+                            $("#shareOthersDiv").show();
+                        } else {
+                            alert("转发动态不能再次转发")
+                        }
+                    },
+                    shareForwardDivShowSon: function () {
+                        var el = event.currentTarget;
+                        bigBox.otherShareId = el.lastChild.innerHTML;
+                        $("#shareOthersDiv").show();
+                    },
+                    shareOtherDivHide: function () {
+                        $("#shareOthersDiv").hide();
+                    },
+                    shareForwardBtn: function () {
+                        $.ajax({
+                            url: "share/shareForward",
+                            type: "post",
+                            datatype: "json",
+                            data: {
+                                shareText: bigBox.shareText,
+                                shareFromId: bigBox.otherShareId,
+                                userId: 2
+                            },
+                            success: function () {
+                                $("#shareOthersDiv").hide();
+                                location.reload(true);
+                            }
+                        })
+                    },
+                    shareForwardCancel: function () {
+                        $("#shareOthersDiv").hide();
+                    },
+                    pageUp: function () {
+                        if (bigBox.pageNum > 1) {
+                            bigBox.pageNum = bigBox.pageNum - 1;
+                            bigBox.toGetShares();
+                        }
+                    },
+                    pageDown: function () {
+                        if (bigBox.pageNum < bigBox.pageCount) {
+                            bigBox.pageNum = bigBox.pageNum + 1;
+                            bigBox.toGetShares();
+                        }
+
+                    },
+                    shareMusicX: function () {
+                        $("#shareMusicDiv").hide();
+                    },
+                    shareVideoX: function () {
+                        $("#shareVideoDiv").hide();
+                    },
+                    //获取用户
+                    toGetUser: function () {
+                        bigBox.user = [];
+                        $.ajax({
+                            url: "share/getUser",
+                            type: "post",
+                            datatype: 'json',
+                            data: {
+                                userId: 1
+                            },
+                            success: function (user) {
+                                bigBox.users.push({
+                                    userName: user.userName,
+                                    shareCount: user.shareCount == null ? 0 : user.shareCount,
+                                    attention: user.attention == null ? 0 : user.attention,
+                                    fans: user.fans == null ? 0 : user.fans,
+                                    userHeadUrl: user.userHeadUrl
+                                })
+                            }
+                        })
+                    },
+                    //随机获取明星
+                    toGerStar: function () {
+                        bigBox.starUsers = [];
+                        $.ajax({
+                            url: "/share/getStarUsers",
+                            type: "post",
+                            datatype: "json",
+                            success: function (starUsers) {
+                                for (var i = 0; i < starUsers.length; i++) {
+                                    bigBox.starUsers.push({
+                                        singerDescription: starUsers[i].singerDescription,
+                                        userName: starUsers[i].userName,
+                                        userHeadUrl: starUsers[i].userHeadUrl,
+                                        userId: starUsers[i].userId
+                                    })
+                                }
+                            }
+                        })
+                    },
+                    //换一批明星
+                    changeStar: function () {
+                        bigBox.toGerStar();
+                    },
+                    //随机获取其他用户
+                    toGetOthers: function () {
+                        bigBox.otherUsers = [];
+                        $.ajax({
+                            url: "share/gerOtherUsers",
+                            type: "post",
+                            datatype: "json",
+                            success: function (otherUsers) {
+                                for (var i = 0; i < otherUsers.length; i++) {
+                                    bigBox.otherUsers.push({
+                                        userName: otherUsers[i].userName,
+                                        userText: otherUsers[i].userText,
+                                        userHeadUrl: otherUsers[i].userHeadUrl,
+                                        userId: otherUsers[i].userId
+                                    })
+                                }
+                            }
+                        })
+                    },
+                    checkSong: function (index) {
+                        bigBox.checkSongId = bigBox.songs[index].songId;
+                        $("#selectMusicDiv").hide();
+                        $("#shareMusicDiv").show();
+                        $("#beforeChoseMusic").hide();
+                        bigBox.choseSong = bigBox.songs[index].songName;
+                        bigBox.choseSinger = bigBox.songs[index].singerName;
+                        $("#afterChoseMusic").show();
+                    },
+                    showSelectMusicDiv: function () {
+                        $("#selectMusicDiv").show();
+                        $("#shareMusicDiv").hide();
+                    },
+                    backToShareText: function () {
+                        $("#selectMusicDiv").hide();
+                        $("#shareMusicDiv").show();
+                    },
+                    becomeOtherFan: function () {
+                        var el = event.currentTarget;
+                        $.ajax({
+                            url: "/share/becomeOtherFan",
+                            type: "post",
+                            data: {
+                                userId: 1,
+                                otherId: el.lastChild.innerHTML
+                            },
+                            datatype: "json",
+                            success: function () {
+
+                            }
+                        })
+                    },
+                    commentShare:function (index) {
+                        bigBox.shareComment = [];
+                        bigBox.commentShareId = bigBox.shares[index].shareId;
+                        $.ajax({
+                            url:"/share/getShareComment",
+                            type:"post",
+                            datatype:"json",
+                            data:{
+                                shareId: bigBox.shares[index].shareId
+                            },
+                            success:function (shareComment) {
+                                if (shareComment.length>0) {
+                                    for (var i =0 ;i < shareComment.length;i++){
+                                        bigBox.shareComment.push({
+                                            userName : shareComment[i].userName,
+                                            userHeadUrl:shareComment[i].userHeadUrl,
+                                            scText : shareComment[i].scText,
+                                            scTime:shareComment[i].scTime,
+                                            scLikes:shareComment[i].scLikes,
+                                            shareCommentList:shareComment[i].shareCommentList
+                                        })
+                                    }
+                                }
+                                $(".commentDiv").show();
+                                editor3.create();
+                            }
+                        });
+                    },
+                    commentToShare:function () {
+                        $.ajax({
+                            url:"share/insertShareComment",
+                            type:"post",
+                            datatype:"post",
+                            data:{
+                                shareId:bigBox.commentShareId,
+                                userId:bigBox.userId,
+                                scText:bigBox.shareCommentText
+                            },
+                            success:function () {
+                                location.reload();
+                            }
+                        })
+                    },
+                    pageChange:function (n) {
+                        bigBox.pageNum = n;
+                        bigBox.toGetShares();
                     }
 
                 }
             });
 
+            //wangEditor富文本编辑器
+            var E = window.wangEditor;
+            //这里的id为<div id="editor">中的id.
+            var editor = new E('#editorPic', '#editorText');
+            // var editor1 = new E('#div1', '#div2')  // 两个参数也可以传入 elem 对象，class 选择器
+            // 配置服务器端地址,也就是servlet的请求路径，不带项目路径，前面没有/
+            // editor.customConfig.uploadImgServer = 'uploadFile';
+            editor.customConfig.uploadImgShowBase64 = true;
+            editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+            editor.customConfig.menus = [
+                'emoticon' // 表情
+            ];
+            //监控音乐的文字，实时更新到shareText
+            editor.customConfig.onchange = function (html) {
+                bigBox.shareText = html;
+            };
+            //创建编辑器
+            editor.create();
+
+            var editor1 = new E('#editorForwardEmoji', '#editorForwardText');
+            editor1.customConfig.menus = [
+                'emoticon' // 表情
+
+            ];
+            //监控转发的文字，试试更新到shareText
+            editor1.customConfig.onchange = function (html) {
+                bigBox.shareText = html;
+            };
+            editor1.create();
+
+            var editor2 = new E('#editorVideoPic', '#editorVideoText');
+            editor2.customConfig.menus = [
+                'emoticon' // 表情
+
+            ];
+            //监控转发的文字，试试更新到shareText
+            editor2.customConfig.onchange = function (html) {
+                bigBox.shareText = html;
+            };
+            editor2.create();
+
+            var editor3 = new E('#editorCommentEmoji', '#editorCommentText');
+            editor3.customConfig.menus = [
+                'emoticon' // 表情
+
+            ];
+            //监控转发的文字，试试更新到shareText
+            editor3.customConfig.onchange = function (html) {
+                bigBox.shareCommentText = html;
+            };
+            editor3.create();
+
 
             bigBox.toGetShares();
+            bigBox.toGetUser();
+            bigBox.toGerStar();
+            bigBox.toGetOthers();
 
-        })
+            $('#fileupload').change(function () {
+                var url = getUrl(this.files[0]);
+                var $img = $("<img>").attr("src", url).css("width", "50px");
+                $("#img").children(1).remove();
+                $("#img").append($img);
+            });
+
+            $(".popWindow").hide();
+            $("#afterChoseMusic").hide();
+
+            $("#shareMusicBtn").click(function () {
+                $("#shareMusicDiv").show();
+            });
+
+            $("#shareVideoBtn").click(function () {
+                $("#shareVideoDiv").show();
+            });
+
+
+            $("#songsKeyInput").change(function () {
+                $.ajax({
+                    url: "share/getSongsBySolr",
+                    data: {
+                        songKey: bigBox.songKey
+                    },
+                    type: "post",
+                    datatype: "json",
+                    success: function (songs) {
+                        bigBox.songs = [];
+                        for (var i = 0; i < songs.length; i++) {
+                            bigBox.songs.push({
+                                songName: songs[i].songName,
+                                singerName: songs[i].singerName,
+                                songId: songs[i].id
+                            })
+                        }
+                    }
+                })
+            })
+        });
+
+        //获取图片地址，获得预览
+        function getUrl(file) {
+            var url = null;
+            if (window.createObjectURL != undefined) {
+                url = window.createObjectURL(file);
+            } else if (window.URL != undefined) {
+                url = window.URL.createObjectURL(file);
+            } else if (window.webkitURL != undefined) {
+                url = window.webkitURL.createObjectURL(file);
+            }
+            return url;
+        }
 
 
     </script>
 </head>
 <body>
+
+
 <iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
 <div id="mainBody">
-    <div class="popWindow" style="display: none">
+
+
+    <!--发布音乐动态-->
+    <div class="popWindow" id="shareMusicDiv">
+        <form action="/share/shareMusicOrVideo" method="post" enctype="multipart/form-data" class="xiaoshi"
+              id="shareMusicForm">
+            <input class="xiaoshi" v-model="shareText" type="text" name="shareText">
+            <input class="xiaoshi" v-model="checkSongId" type="text" name="songId">
+            <input class="xiaoshi" name="userId" type="text" v-model="userId">
+        </form>
         <div class="popWindow-top">
             <div class="font-14 f-w-b f-c-e">分享</div>
-            <div class="f-right"><a><i class="font-14 f-c-gold XXX">X</i></a></div>
+            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareMusicX">X</i></a></div>
         </div>
         <div class="share-text">
-            <textarea class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt"
-                      id="auto-id-pWQ0eHFeZTtaJZnh"></textarea>
+            <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt" id="editorText">
+
+            </div>
             <div class="f-thide">
-                <a>
-                    <i style="padding: 5px 5px; display: block" class="f-left">
-                        <img src="images/yuefu.png" height="30px"></i>
-                    <span class="f-fs1 f-fl">给动态配上音乐</span>
+                <a @click="showSelectMusicDiv">
+                    <div id="beforeChoseMusic">
+                        <i style="padding: 5px 5px; display: block" class="f-left">
+                            <img src="images/yuefu.png" height="30px"></i>
+                        <span class="f-fs1 f-fl">给动态配上音乐</span>
+                    </div>
+                    <div id="afterChoseMusic">
+                        <span class="f-fs1 f-fl">单曲 - <i>{{choseSong}}</i> - <i>{{choseSinger}}</i></span>
+                    </div>
                 </a>
             </div>
         </div>
 
         <div class="f-tde">
-            <a href="#">
-                <i class="f-left" style="margin-right: 10px">
-                    <img src="images/smiley.png" height="25px">
-                </i>
-                <i class="f-left">
-                    <img src="images/Picture.png" height="25px">
-                </i>
+            <div style="height: 30px; width: 40px;" id="editorPic" class="f-left"></div>
+            <a href="#" style="display: block;padding: 5px 10px;" class="f-left"><span class="f-left fileinput-button">
+            <img src="images/Picture.png" height="15px">
+            <input type="file" id="fileupload" name="file" form="shareMusicForm">
+            </span>
             </a>
-
-            <i class="f-right f-c-6">140</i>
         </div>
-
-        <div style="padding-left: 40px">图片预览</div>
+        <div style="padding-left: 40px; line-height: 30px" id="img">预览</div>
 
         <div class="btns">
-            <a href="#">
-                <div class="btn-share btn f-left" style="font-size: 16px">分享</div>
-                <div class=" btn-share btn f-left btn-w" style="font-size: 16px">取消</div>
+            <a>
+                <button class="btn-share btn f-left" style="font-size: 16px" type="submit" form="shareMusicForm">分享
+                </button>
+                <div class=" btn-share btn f-left btn-w" style="font-size: 16px" @click="shareMusicX">取消</div>
             </a>
         </div>
 
 
     </div>
 
+    <div class="popWindow" id="selectMusicDiv">
+        <div class="popWindow-top">
+            <div class="font-14 f-w-b f-c-e">分享</div>
+        </div>
+        <div class="share-text">
+            <input type="text" v-model="songKey" id="songsKeyInput"
+                   style="width: 425px; height: 20px; margin-left: 10px">
+            <div class="songsGet" v-if="songs != null">
+                <ul v-for="(song,index) in songs">
+                    <li @click="checkSong(index)">
+                        <div><span class="margin-r-100">{{song.songName}}</span><span>{{song.singerName}}</span></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="btns">
+            <a>
+                <div class="btn-share btn f-left" style="font-size: 16px" @click="backToShareText">返回</div>
+            </a>
+        </div>
 
+
+    </div>
+
+    <!--发布视频动态-->
+    <div class="popWindow" id="shareVideoDiv">
+        <form action="/share/shareMusicOrVideo" method="post" enctype="multipart/form-data" class="xiaoshi"
+              id="shareVideoForm">
+            <input class="xiaoshi" v-model="shareText" type="text" name="shareText">
+            <input class="xiaoshi" name="userId" type="text" v-model="userId">
+        </form>
+        <div class="popWindow-top">
+            <div class="font-14 f-w-b f-c-e">分享</div>
+            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareVideoX">X</i></a></div>
+        </div>
+        <div class="share-text">
+            <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt" id="editorVideoText">
+
+            </div>
+            <div class="f-thide">
+                视频标题：<input type="text" name="shareTitle" form="shareVideoForm">
+            </div>
+        </div>
+
+        <div class="f-tde">
+            <div style="height: 30px; width: 40px;" id="editorVideoPic" class="f-left"></div>
+            <a href="#" style="display: block;padding: 5px 10px;" class="f-left"><span class="f-left fileinput-button">
+            <img src="images/Picture.png" height="15px">
+            <input type="file" id="fileVideoUpload" name="file" form="shareVideoForm">
+            </span>
+            </a>
+        </div>
+        <div class="btns">
+            <a>
+                <button class="btn-share btn f-left" style="font-size: 16px" type="submit" form="shareVideoForm">分享
+                </button>
+                <div class=" btn-share btn f-left btn-w" style="font-size: 16px" @click="shareVideoX">取消</div>
+            </a>
+        </div>
+
+
+    </div>
+
+    <!--转发动态-->
+    <div class="popWindow" id="shareOthersDiv">
+        <div class="popWindow-top">
+            <div class="font-14 f-w-b f-c-e">转发动态</div>
+            <div class="f-right"><a><i class="font-14 f-c-gold XXX" @click="shareOtherDivHide">X</i></a></div>
+        </div>
+        <div class="share-text">
+            <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt" id="editorForwardText"></div>
+        </div>
+
+        <div class="f-tde">
+            <div style="height: 30px; width: 40px;" id="editorForwardEmoji" class="f-left"></div>
+        </div>
+
+        <div class="btns">
+            <a href="#">
+                <div class="btn-share btn f-left" style="font-size: 16px" @click="shareForwardBtn">转发</div>
+                <div class=" btn-share btn f-left btn-w" style="font-size: 16px" @click="shareForwardCancel">取消</div>
+            </a>
+        </div>
+    </div>
+
+    <!--左侧-动态-->
     <div id="mB-left" class="f-left">
         <div id="left-top">
             <h3 class="f-left">动态</h3>
-            <span class="f-right btn"><a href="#" class="font-12"><img src="images/seX.png"
-                                                                       height="16px">发布视频</a></span>
-            <span class="f-right btn"><a href="#" class="font-12"><img src="images/dTai.png"
-                                                                       height="16px">发动态</a></span>
+            <span class="f-right btn" id="shareVideoBtn"><a href="#" class="font-12"><img src="images/seX.png"
+                                                                                          height="16px">发布视频</a></span>
+            <span class="f-right btn" id="shareMusicBtn"><a class="font-12"><img src="images/dTai.png"
+                                                                                 height="16px">发动态</a></span>
         </div>
         <div id="left-body">
             <ul>
@@ -163,22 +587,18 @@
                         <div class="time font-12">
                             <a href="#">{{sh.shareTime}}</a>
                         </div>
-                        <div class="font-14 f-c-3 text">{{sh.shareText}}</div>
+                        <div class="font-14 f-c-3 text" v-html="sh.shareText"></div>
 
 
                         <!--视频动态---播放视频时-->
                         <div class="video" v-if="sh.shareTitle != null">
-
                             <div>
-                                <span><i><img src="images/up.png" height="13px"></i><a href="#"
-                                                                                       class="font-12">收起</a></span>
-                                <span class="line">|</span>
-                                <span><i><img src="images/share.png" height="10px"></i><a
-                                        href="#">  {{sh.shareTitle}}</a><a href="#"
-                                                                           class="font-12"
-                                                                           style="color:#aaa;">  {{sh.userName}}</a></span>
+                                <span style="padding-left: 150px;"><i><img src="images/share.png" height="10px"></i><a
+                                        href="#">{{sh.shareTitle}}</a><a href="#"
+                                                                         class="font-12"
+                                                                         style="color:#aaa;"> - by {{sh.userName}}</a></span>
                             </div>
-                            <video width="450" height="250" controls="controls" autoplay="autoplay">
+                            <video width="450" height="230" controls="controls" autoplay="autoplay">
                                 <source :src="sh.shareAnnexUrl" type="video/mp4">
                             </video>
                         </div>
@@ -215,18 +635,15 @@
                                 <div class="time font-12">
                                     <a href="#">{{shSon.shareTime}}</a>
                                 </div>
-                                <div class="font-14 f-c-3 text">{{shSon.shareText}}</div>
+                                <div class="font-14 f-c-3 text" v-html="shSon.shareText"></div>
 
                                 <!--视频动态---播放视频时-->
-                                <div class="video xiaoshi" v-if="shSon.shareAnnexUrl != null">
+                                <div class="video" v-if="shSon.shareTitle != null">
                                     <div>
-                                <span><i><img src="images/up.png" height="13px"></i><a href="#"
-                                                                                       class="font-12">收起</a></span>
-                                        <span class="line">|</span>
-                                        <span><i><img src="images/share.png" height="10px"></i><a href="#">  {{shSon.shareTitle}}</a><a
-                                                href="#"
-                                                class="font-12"
-                                                style="color:#aaa;">  {{shSon.userName}}</a></span>
+                                <span style="padding-left: 150px;"><i><img src="images/share.png" height="10px"></i><a
+                                        href="#">{{shSon.shareTitle}}</a><a href="#"
+                                                                            class="font-12"
+                                                                            style="color:#aaa;"> - by {{shSon.userName}}</a></span>
                                     </div>
                                     <video width="450" height="250" controls="controls" autoplay="autoplay">
                                         <source :src="shSon.shareAnnexUrl" type="video/mp4">
@@ -234,8 +651,8 @@
                                 </div>
 
                                 <!--音频动态-->
-                                <div>
-                                    <div class="s-music" v-if="shSon.songName != null">
+                                <div v-if="shSon.songName != null">
+                                    <div class="s-music">
                                         <div class="f-left">
                                             <a href="#">
                                                 <img src="images/userPic.jpg" height="45">
@@ -246,7 +663,7 @@
                                         <div><a href="#"><h4 class="">{{shSon.singerName}}</h4></a></div>
 
                                     </div>
-                                    <div class=" z-0"><img src="images/mvPic.jpg" height="189"></div>
+                                    <div class=" z-0"><img :src="shSon.shareAnnexUrl" height="189"></div>
                                 </div>
 
                                 <div class="s-foot">
@@ -254,12 +671,15 @@
                                         <span><img src="images/location.png" height="14px"><i class="f-c-d">{{shSon.shareLocation}}</i></span>
                                     </div>
                                     <div class="f-right">
-                                <span><a class="f-c-gold" @click="addSonLikes(index, indexSon)"><img src="images/thumbs.png"
-                                                                        height="14px">(<i>{{shSon.shareLikes}}</i>)</a></span>
+                                <span><a class="f-c-gold" @click="addSonLikes(index, indexSon)"><img
+                                        src="images/thumbs.png"
+                                        height="14px">(<i>{{shSon.shareLikes}}</i>)</a></span>
                                         <span class="line f-c-gold">|</span>
-                                        <span><a href="#" class="f-c-gold">转发(<i>{{shSon.shareForwardCount}}</i>)</a></span>
+                                        <span><a class="f-c-gold" @click="shareForwardDivShowSon">转发(<i>{{shSon.shareForwardCount}}</i>)<i
+                                                class="xiaoshi">{{shSon.shareId}}</i></a></span>
                                         <span class="line f-c-gold">|</span>
-                                        <span><a href="#" class="f-c-gold">评论(<i>{{shSon.shareCommentCount}}</i>)</a></span>
+                                        <span><a href="#"
+                                                 class="f-c-gold">评论(<i>{{shSon.shareCommentCount}}</i>)</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -273,44 +693,98 @@
                             <div class="f-right">
                                 <span><a class="f-c-gold" @click="addLikes(index)"><img src="images/thumbs.png"
                                                                                         height="14px">(<i>{{sh.shareLikes}}</i>)</a></span>
+                                <span class="line f-c-gold shareOtherBtn">|</span>
+                                <span><a class="f-c-gold" @click="shareForwardDivShow(index)">转发(<i>{{sh.shareForwardCount}}</i>)<i
+                                        class="xiaoshi">{{sh.shareId}}</i></a></span>
                                 <span class="line f-c-gold">|</span>
-                                <span><a href="#" class="f-c-gold">转发(<i>{{sh.shareForwardCount}}</i>)</a></span>
-                                <span class="line f-c-gold">|</span>
-                                <span><a href="#" class="f-c-gold">评论(<i>{{sh.shareCommentCount}}</i>)</a></span>
+                                <span><a class="f-c-gold" @click="commentShare(index)">评论(<i>{{sh.shareCommentCount}}</i>)</a></span>
+                            </div>
+
+                        </div>
+                        <!-- 评论 -->
+                        <div style="margin-top: 10px; background-color: #eee" v-if="sh.shareId == commentShareId" class="commentDiv">
+                            <div class="share-text">
+                                <div class="u-txt area j-flag" placeholder="一起聊聊吧~" data-action="txt"
+                                     id="editorCommentText"></div>
+                            </div>
+                            <div class="f-tde">
+                                <div style="height: 30px; width: 100%;" id="editorCommentEmoji"
+                                     class="f-left"></div>
+                                <div class="btns">
+                                    <a>
+                                        <div class="btn-share btn f-left" style="font-size: 16px" @click="commentToShare">评论</div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div style="clear: both;"></div>
+                            <div class="commentDiv" v-for="com in shareComment">
+                                <div class="userPic">
+                                    <a href="#" style="display:block;" class="f-left">
+                                        <img :src="com.userHeadUrl" height="35">
+                                    </a>
+                                    <div class="type f-left">
+                                        <a href="#" class="font-14">{{com.userName}}</a><i>:</i>
+                                        <div v-html="com.scText"></div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <div class="time font-12">
+                                    <a href="#">{{com.scTime}}</a>
+                                    <span style="margin-left: 250px">
+                                         <span><a class="f-c-gold"><img src="images/thumbs.png" height="14px">(<i>{{com.scLikes}}</i>)</a></span>
+                                    </span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-
                 </li>
 
             </ul>
+            <div style="width: 500px;margin: auto">
+                <ul>
+                    <li class="f-left">
+                        <a class="pages pages_upAndDown" @click="pageUp">上一页</a>
+                    </li>
+                    <li v-for="n in pageCount" class="f-left">
+                        <a :class="pageNum === n ? 'pages_act' : 'pages_btn'" @click="pageChange(n)">{{n}}</a>
+                    </li>
+                    <li class="f-left">
+                        <a class="pages pages_upAndDown" @click="pageDown">下一页</a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
+
+    <!--右侧-用户-->
     <div id="mB-right" class="f-right">
         <!--用户-->
-        <div class="user">
+        <div class="user" v-for="user in users">
             <div class="userPic">
                 <a href="#" id="face">
-                    <img src="images/userPic.jpg" height="70">
+                    <img :src="user.userHeadUrl" height="70">
                 </a>
-                <a class="font-14 userName">用户名</a>
+                <a class="font-14 userName">{{user.userName}}</a>
             </div>
             <ul class="u-fans">
                 <li class="f-left">
                     <a href="#">
-                        <em>1</em>
+                        <em>{{user.shareCount}}</em>
                         <i>动态</i>
                     </a>
                 </li>
                 <li class="f-left">
                     <a href="#">
-                        <em>1</em>
+                        <em>{{user.attention}}</em>
                         <i>关注</i>
                     </a>
                 </li>
                 <li class="f-left">
                     <a href="#">
-                        <em>1</em>
+                        <em>{{user.fans}}</em>
                         <i>粉丝</i>
                     </a>
                 </li>
@@ -322,127 +796,53 @@
         <!--其他用户-->
         <div class="otherUser">
             <div class="starUser"><i class="font-12 f-w-b">明星用户</i><i class="f-right"><a class="font-12"
-                                                                                         href="#">换一批</a></i></div>
-            <div class="otherUser-div">
+                                                                                         href="#" @click="changeStar">换一批</a></i>
+            </div>
+            <div class="otherUser-div" v-for="star in starUsers">
                 <div class="userPic f-left">
                     <a href="#">
-                        <img src="images/userPic.jpg" height="45">
+                        <img :src="star.userHeadUrl" height="45">
                     </a>
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
+                        <a href="#" class="font-14" style="color: black">{{star.userName}}</a>
                         <img src="images/V.png" height="11">
                     </div>
                     <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
+                        <a href="#">{{star.singerDescription}}</a>
                     </div>
                     <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
+                        <a class="btn awh f-right" @click="becomeOtherFan"><i><img src="images/plus.png" height="12px"></i>关注<i
+                                class="xiaoshi becomeFan">{{star.userId}}</i></a>
                     </div>
                 </div>
             </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
 
-            </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
 
-            </div>
             <div class="starUser"><i class="font-12 f-w-b">感兴趣的人</i><i class="f-right"><a class="font-12"
                                                                                           href="#">换一批</a></i></div>
-            <div class="otherUser-div">
+            <div class="otherUser-div" v-for="user in otherUsers">
                 <div class="userPic f-left">
                     <a href="#">
-                        <img src="images/userPic.jpg" height="45">
+                        <img :src="user.userHeadUrl" height="45">
                     </a>
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
+                        <a href="#" class="font-14" style="color: black">{{user.userName}}</a>
                         <img src="images/V.png" height="11">
                     </div>
                     <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
+                        <a href="#">{{user.userText}}</a>
                     </div>
                     <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
+                        <a @click="becomeOtherFan" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注<i
+                                class="xiaoshi becomeFan">{{user.userId}}</i></a>
                     </div>
                 </div>
+            </div>
 
-            </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
-
-            </div>
-            <div class="otherUser-div">
-                <div class="userPic f-left">
-                    <a href="#">
-                        <img src="images/userPic.jpg" height="45">
-                    </a>
-                </div>
-                <div class=" f-left font-14 f-c-6 otherUsername">
-                    <div class="type">
-                        <a href="#" class="font-14" style="color: black">用户名</a>
-                        <img src="images/V.png" height="11">
-                    </div>
-                    <div class="time font-12 ">
-                        <a href="#">唱作歌手</a>
-                    </div>
-                    <div>
-                        <a href="#" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注</a>
-                    </div>
-                </div>
-            </div>
             <div><i class="font-12 f-w-b">添加微博好友，和他们分享音乐</i></div>
             <div>
                 <i><img src="images/Weibo.png" height="20px" class="weibo"></i>

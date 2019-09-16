@@ -1,8 +1,12 @@
 package org.lanqiao.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.lanqiao.entity.Singer;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Mapper
 @Repository
 public interface SingerMapper {
     int deleteByPrimaryKey(Integer singerId);
@@ -17,4 +21,12 @@ public interface SingerMapper {
 
     int updateByPrimaryKey(Singer record);
 
+    //》》》郭书卿》》》
+    List<Singer> selectStarByRand();
+    List<Singer> selectEnterSingers(Integer size);
+    List<Singer> selectHotSingers(Integer size);
+    List<Singer> selectSingerByKeyWord(String keyWord);
+    //《《《郭书卿《《《
+    //郭长达
+    List<Singer> selectByUserId(Integer userId);
 }

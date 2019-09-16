@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.main_det {
+    padding: 40px;
+}
+
+.main_hd {
+    height: 27px;
+    border-bottom: 1px solid #cbcbcb;
+    font-family: simsun, \5b8b\4f53;
+}
+
+.main_hd a {
+    color: #0c73c2;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hd_to {
+    margin: 0 6px 0 8px;
+    color: #999999;
+}
+
+.hd_target {
+    font-weight: bold;
+}
+
+.main_body {
+    margin-top: 30px;
+}
+
+.body_form {
+    width: 364px;
+    float: left;
+    margin-right: 30px;
+}
+.itm{
+    position: relative;
+    zoom: 1;
+    min-height: 32px;
+    margin-bottom: 10px;
+    padding-left: 62px;
+}
+.imp_tag{
+    position: absolute;
+    left: 0;
+    top: 11px;
+    color:#c20c0c;
+}
+.lab{
+    width: 62px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 32px;
+    text-align: right;
+}
+.name_text{
+    height: 29px;
+    margin: 0;
+    padding: 5px 6px 6px;
+    border: 1px solid #cdcdcd;
+    border-radius: 2px;
+    line-height: 29px;
+    width: 292px;
+    font-size: 12px;
+    color: #333;
+}
+.tag_info{
+    padding-top: 5px;
+}
+.sel_tag{
+    color: #0c73c2;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 23px;
+}
+.tag_tip{
+    margin-top: 8px;
+    color: #999;
+}
+.body_text{
+    padding-right: 14px;
+    position: relative;
+    zoom: 1;
+}
+.text_info{
+    height: 122px;
+    width: 292px;
+    margin-right: -20px;
+    padding: 5px 6px 6px;
+    border: 1px solid #cdcdcd;
+    border-radius: 2px;
+    line-height: 19px;
+    resize: none;
+    overflow: auto;
+}
+.text_num{
+    position: absolute;
+    bottom: 8px;
+    right: 15px;
+    color: #D0D0D0;
+}
+.body_btn{
+    margin-top: 40px;
+}
+.body_pic{
+    float: left;
+    width: 140px;
+    height: 140px;
+    position: relative;
+    zoom: 1;
+}
+.body_pic img{
+    float: left;
+    width: 140px;
+    height: 140px;
+}
+.btm{
+    background: #8e8e8e;
+    opacity: 0.8;
+    display: block;
+    position: absolute;
+    width: 140px;
+    height: 26px;
+    left: 0;
+    bottom: 0;
+}
+.body_upload{
+    color: #fff;
+    text-align: center;
+    line-height: 26px;
+    display: block;
+    position: absolute;
+    width: 140px;
+    height: 26px;
+    left: 0;
+    bottom: 0;
+
+    cursor: pointer;
+    text-decoration: none;
+}
+.three_distance{
+    margin-left: 20px;
+}
+.btn1{
+    /*margin-right: 20px;*/
+    /*color: #bebebe;*/
+    /*background-position:*/
+    /*cursor: default;*/
+    /*text-decoration: none;*/
+    /*padding: 0 5px 0 0;*/
+    /*white-space: nowrap;*/
+    /*display: inline-block;*/
+    /*height: 31px;*/
+    /*line-height: 31px;*/
+    /*overflow: hidden;*/
+    /*vertical-align: top;*/
+    /*text-align: center;*/
+    /*background: url("../images/MyMusic/button2.png") no-repeat right -346px;*/
+    /*outline: none;*/
+}

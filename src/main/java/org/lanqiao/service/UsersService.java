@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface UsersService {
 
+<<<<<<< HEAD
     public Users getLittleInfo (Integer userId);
 
     public List<Users> getFollowCount(Integer userId);
@@ -57,4 +58,14 @@ public interface UsersService {
     public int selectCodeByPhone(String phoneNumber);
     public String getUserPhone(Integer userId);
     public List<Users> checkPhone(String phoneNumber);
+=======
+    //》》》郭书卿》》》
+    public Users getShareUser_q(Integer userId);
+
+    public List<Users> getOtherUsersByRand();
+
+    public Integer becomeOtherFan(Integer userId,Integer otherId);
+    //《《《郭书卿《《《
+
+>>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
 }

@@ -1,88 +1,132 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.SingerMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Singer" >
+  <resultMap id="SingerResultMap" type="org.lanqiao.entity.Singer" >
     <id column="singer_id" property="singerId" jdbcType="INTEGER" />
     <result column="singer_name" property="singerName" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="singer_description" property="singerDescription" jdbcType="VARCHAR" />
     <result column="singer_pic_url" property="singerPicUrl" jdbcType="VARCHAR" />
+
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR" />
+      <collection property="albumSet" resultMap="AlbumResultMap"></collection>
+
   </resultMap>
-  <sql id="Base_Column_List" >
+
+    <resultMap id="AlbumResultMap" type="org.lanqiao.entity.Album" >
+        <id column="album_id" property="albumId" jdbcType="INTEGER" />
+        <result column="album_name" property="albumName" jdbcType="VARCHAR" />
+        <result column="album_description" property="albumDescription" jdbcType="VARCHAR" />
+        <result column="album_company" property="albumCompany" jdbcType="VARCHAR" />
+        <result column="album_count" property="albumCount" jdbcType="INTEGER" />
+        <result column="album_create_time" property="albumCreateTime" jdbcType="TIMESTAMP" />
+        <result column="album_commet_num" property="albumCommetNum" jdbcType="INTEGER" />
+        <result column="album_keep_num" property="albumKeepNum" jdbcType="INTEGER" />
+        <result column="album_pic_url" property="albumPicUrl" jdbcType="VARCHAR" />
+        <result column="singer_id" property="singerId" jdbcType="INTEGER" />
+    </resultMap>
+
+
+
+    <select id="selectHotSingers" resultMap="SingerResultMap" parameterType="java.lang.Integer">
+        select singer_id, singer_name, singer_pic_url, singer_description,user_id from singer  order by rand()
+        <if test="_parameter > 0">
+            limit #{_parameter}
+        </if>
+    </select>
+
+    <select id="selectEnterSingers" resultMap="SingerResultMap" parameterType="java.lang.Integer">
+        select singer_id, singer_name, singer_pic_url, singer_description,s.user_id from singer s , users u where s.user_id = u.user_id
+        <if test="_parameter > 0">
+            limit 0 , #{_parameter}
+        </if>
+    </select>
+
+    <select id="selectStarByRand" resultMap="SingerResultMap">
+    select u.user_id, singer_description, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
+  </select>
+
+    <!--郭长达-->
+    <select id="selectByUserId" resultMap="SingerResultMap" parameterType="java.lang.Integer">
+        select s.singer_name,s.singer_pic_url ,a.* from album a, singer s, usersingers us,users u where a.singer_id = s.singer_id and  us.singer_id = s.singer_id and us.user_id = u.user_id and u.user_id =#{userId}
+    </select>
+
+    <sql id="Base_Column_List">
     singer_id, singer_name, user_id, singer_description, singer_pic_url
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from singer
-    where singer_id = #{singerId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="SingerResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from singer
+        where singer_id = #{singerId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from singer
     where singer_id = #{singerId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Singer" >
+    <insert id="insert" parameterType="org.lanqiao.entity.Singer">
     insert into singer (singer_id, singer_name, user_id, 
       singer_description, singer_pic_url)
     values (#{singerId,jdbcType=INTEGER}, #{singerName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
       #{singerDescription,jdbcType=VARCHAR}, #{singerPicUrl,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Singer" >
-    insert into singer
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="singerId != null" >
-        singer_id,
-      </if>
-      <if test="singerName != null" >
-        singer_name,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="singerDescription != null" >
-        singer_description,
-      </if>
-      <if test="singerPicUrl != null" >
-        singer_pic_url,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="singerId != null" >
-        #{singerId,jdbcType=INTEGER},
-      </if>
-      <if test="singerName != null" >
-        #{singerName,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="singerDescription != null" >
-        #{singerDescription,jdbcType=VARCHAR},
-      </if>
-      <if test="singerPicUrl != null" >
-        #{singerPicUrl,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Singer" >
-    update singer
-    <set >
-      <if test="singerName != null" >
-        singer_name = #{singerName,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="singerDescription != null" >
-        singer_description = #{singerDescription,jdbcType=VARCHAR},
-      </if>
-      <if test="singerPicUrl != null" >
-        singer_pic_url = #{singerPicUrl,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where singer_id = #{singerId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Singer" >
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.Singer">
+        insert into singer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="singerId != null">
+                singer_id,
+            </if>
+            <if test="singerName != null">
+                singer_name,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="singerDescription != null">
+                singer_description,
+            </if>
+            <if test="singerPicUrl != null">
+                singer_pic_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="singerId != null">
+                #{singerId,jdbcType=INTEGER},
+            </if>
+            <if test="singerName != null">
+                #{singerName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="singerDescription != null">
+                #{singerDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="singerPicUrl != null">
+                #{singerPicUrl,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Singer">
+        update singer
+        <set>
+            <if test="singerName != null">
+                singer_name = #{singerName,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="singerDescription != null">
+                singer_description = #{singerDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="singerPicUrl != null">
+                singer_pic_url = #{singerPicUrl,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where singer_id = #{singerId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Singer">
     update singer
     set singer_name = #{singerName,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=INTEGER},

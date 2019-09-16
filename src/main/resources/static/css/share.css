@@ -35,7 +35,7 @@
 }
 
 #left-body ul li {
-    padding: 20px 0;
+    padding: 10px 0;
 
 }
 
@@ -94,6 +94,7 @@
 .video {
     width: 450px;
     height: 270px;
+    border: 1px #dddddd solid;
 }
 
 .line {
@@ -201,6 +202,7 @@
     height: 30px;
     padding-left: 10px;
 }
+
 .awh {
     width: 50px;
     height: 18px;
@@ -277,7 +279,6 @@
 
 .f-tde {
     width: 450px;
-    height: 30px;
     margin: 0 40px;
 }
 
@@ -288,7 +289,6 @@
 
 .btn-share {
     width: 80px;
-    height: 20px;
     background-color: rgba(141, 188, 247, 0.81);
 }
 
@@ -320,3 +320,89 @@
     padding-top: 4px;
 }
 
+.pages {
+    text-align: center;
+    display: block;
+    padding: 6px;
+    background-color: #ffd700;
+    border: 1px #ddd solid;
+    color: black;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 1px #747474;
+}
+.pages_btn{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    display: block;
+    padding: 6px;
+    background-color: #ffd700;
+    border: 1px #ddd solid;
+    color: black;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 1px #747474;
+}
+.pages_act{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    display: block;
+    padding: 6px;
+    background-color: #dddddd;
+    border: 1px #ddd solid;
+    color: black;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 1px #747474;
+}
+
+
+.pages_upAndDown{
+    width: 60px;
+    height: 20px;
+}
+.pages:hover{
+    text-decoration: none;
+}
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.fileinput-button input{
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+}
+.songsGet{
+    margin: 0 10px;
+    border-top: 1px #9b9b9b solid;
+    width: 426px;
+    height: 180px;
+    overflow: auto;
+    line-height: 20px;
+}
+.songsGet ul li{
+    display: block;
+    padding: 5px 10px 5px 20px;
+    background-color: #dddddd;
+}
+.songsGet ul li:hover{
+    background-color: #9b9b9b;
+}
+.margin-r-100{
+    margin-right: 100px;
+    width: 180px;
+    height: 30px;
+    display: block;
+    float: left;
+}
+.commentDiv{
+    padding: 15px 20px;
+    border-top: 1px dotted #ccc;
+}

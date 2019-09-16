@@ -21,6 +21,18 @@ public interface UsersMapper {
 
     int updateByPrimaryKey(Users record);
 
+<<<<<<< HEAD
+=======
+    //》》》郭书卿》》》
+    Users selectShareCountByPK_q(Integer userId);
+    Users selectFansByPk_q(Integer userId);
+    Users selectAttentionByPK_q(Integer userId);
+    List<Users> selectOtherUsersByRand();
+    Integer insertFan(Integer userId, Integer otherId);
+    Users checkFan(Integer userId, Integer otherId);
+    //《《《郭书卿《《《
+
+>>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
 
 //    徐东方
     Users getLittleInfo(Integer userId);

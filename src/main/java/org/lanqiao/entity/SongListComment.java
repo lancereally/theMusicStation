@@ -1,5 +1,6 @@
 package org.lanqiao.entity;
 
+import org.apache.catalina.User;
 import java.util.Date;
 
 public class SongListComment {
@@ -16,6 +17,16 @@ public class SongListComment {
     private Integer songlcToId;
 
     private Date songlcTime;
+    //用户和评论是一对多，所以在多的一方添加一的一个实体
+    private Users user;
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
     public Integer getSonglcId() {
         return songlcId;

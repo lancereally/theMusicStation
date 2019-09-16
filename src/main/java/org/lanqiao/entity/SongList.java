@@ -1,9 +1,11 @@
 package org.lanqiao.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 public class SongList {
-    private Integer songlistId;
+        private Integer songlistId;
+
 
     private String songlistName;
 
@@ -20,6 +22,16 @@ public class SongList {
     private Integer songlistKeepNum;
 
     private String songlistPicUrl;
+
+    private Set<Users> usersSet;
+
+    public Set<Users> getUsersSet() {
+        return usersSet;
+    }
+
+    public void setUsersSet(Set<Users> usersSet) {
+        this.usersSet = usersSet;
+    }
 
     public Integer getSonglistId() {
         return songlistId;

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <link rel="stylesheet" href="css/search.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        // Document.ready
+        $(function () {
+            // 需求查询按钮特效
+            $("li a").click(function () {
+                $("li a").removeClass("z-slt");
+                $(this).addClass("z-slt");
+            })
+        })
+    </script>
+</head>
+<body>
+<iframe id="headerFrame" src="head.html" height="105px" width="100%" frameborder="0"></iframe>
+<div class="g-bd">
+    <div class="g-wrap n-srch">
+        <div class="pgsrch f-pr j-suggest" id="auto-id-yRB0Bv3Qb0dtVCdb">
+            <input id="m-search-input" type="text" class="srch j-flag" value="" style="opacity: 1;">
+            <span class="j-flag" style="" id="auto-id-4x3XgnISmgruGPPr">&nbsp;</span>
+            <a hidefocus="true" href="javascript:void(0)" class="btn j-flag" title="搜索"
+               id="auto-id-O6o5qEaLNEpRMkQt">搜索</a>
+        </div>
+        <div id="m-search">
+            <div class="snote s-fc4 ztag">找到 <em class="s-fc6"> </em> 首单曲</div>
+            <ul class="m-tabs m-tabs-srch f-cb ztag" data-xname="" id="auto-id-bqU4tSftUukBaMbA"
+                style="margin-bottom: auto;">
+                <li class="fst"><a data-type="1" href="search_music.html" target="resultFrame" class="z-slt"><em>单曲</em></a></li>
+                <li><a hidefocus="true" data-type="100" href="search_singer.html" target="resultFrame" class=""><em>歌手</em></a></li>
+                <li><a hidefocus="true" data-type="10" href="search_album.html" target="resultFrame" class=""><em>专辑</em></a></li>
+                <li><a hidefocus="true" data-type="1014" href="search_video.html" target="resultFrame" class=""><em>视频</em></a></li>
+                <li><a hidefocus="true" data-type="1006" href="search_lyrics.html" target="resultFrame" class=""><em>歌词</em></a></li>
+                <li><a hidefocus="true" data-type="1000" href="search_musicList.html" target="resultFrame" class=""><em>歌单</em></a></li>
+                <li><a hidefocus="true" data-type="1009" href="search_radio.html" target="resultFrame" class=""><em>主播电台</em></a></li>
+                <li><a hidefocus="true" data-type="1002" href="search_user.html" target="resultFrame" class=""><em>用户</em></a></li>
+            </ul>
+        </div>
+        <iframe name="resultFrame" src="search_music.html" width="900px" height="1290px" frameborder="0" scrolling="no"></iframe>
+    </div>
+</div>
+</body>
+</html>

@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
 @Service
 public class UsersServiceImpl implements UsersService {
 
@@ -14,6 +18,7 @@ public class UsersServiceImpl implements UsersService {
     UsersMapper usersMapper;
 
     @Override
+<<<<<<< HEAD
     public Users getLittleInfo (Integer userId){
         return usersMapper.selectByPrimaryKey(userId);
     }
@@ -133,5 +138,28 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public List<Users> checkPhone(String phoneNumber)  {
         return usersMapper.checkPhone(phoneNumber);
+=======
+    public Users getShareUser_q(Integer userId) {
+        Users users = new Users();
+        users = usersMapper.selectByPrimaryKey(userId);
+        users.setShareCount(usersMapper.selectShareCountByPK_q(userId).getShareCount());
+        users.setAttention(usersMapper.selectAttentionByPK_q(userId).getAttention());
+        users.setFans(usersMapper.selectFansByPk_q(userId).getFans());
+        return users;
+    }
+
+    @Override
+    public List<Users> getOtherUsersByRand() {
+        return usersMapper.selectOtherUsersByRand();
+    }
+
+    @Override
+    public Integer becomeOtherFan(Integer userId, Integer otherId) {
+        if (usersMapper.checkFan(userId,otherId).getFans() > 0){
+            return null;
+        }else {
+            return usersMapper.insertFan(userId,otherId);
+        }
+>>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
     }
 }

@@ -55,7 +55,7 @@
       s.share_text,s.share_title, s.share_annex_url, s.share_location, s.share_likes,
         s.share_from_id, s.share_time, s.share_video_times
         from share s ,users u
-         where s.user_id = u.user_id
+         where s.user_id = u.user_id  order by share_time desc
   </select>
 
 

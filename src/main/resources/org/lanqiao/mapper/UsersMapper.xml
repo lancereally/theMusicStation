@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.UsersMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Users" >
+  <resultMap id="UsersResultMap" type="org.lanqiao.entity.Users" >
     <id column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="slCount" property="slCount" jdbcType="VARCHAR" />
@@ -20,6 +20,10 @@
     <result column="user_qq" property="userQq" jdbcType="INTEGER" />
     <result column="user_id_card" property="userIdCard" jdbcType="VARCHAR" />
     <result column="user_vip_state" property="userVipState" jdbcType="INTEGER" />
+    <result column="attention" property="attention" jdbcType="INTEGER" />
+    <result column="fans" property="fans" jdbcType="INTEGER" />
+    <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
+
 <!--用户粉丝关注-->
     <result column="usera_id" property="useraId" jdbcType="VARCHAR" />
     <result column="userb_id" property="userbId" jdbcType="INTEGER" />
@@ -92,13 +96,45 @@
       <result column="songlist_keep_num" property="songlistKeepNum" jdbcType="INTEGER" />
       <result column="songlist_pic_url" property="songlistPicUrl" jdbcType="VARCHAR" />
     </association>
-  </resultMap>
+  </resultMap>>
 
+
+  <!--》》》郭书卿》》》-->
+  <select id="selectFansByPk_q" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select count(uf_id) as fans from userfan where userb_id = #{userId}
+  </select>
+
+  <select id="selectAttentionByPK_q" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select count(uf_id) as attention from userfan where usera_id  = #{userId}
+  </select>
+
+  <select id="selectShareCountByPK_q" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select count(user_id) as shareCount from share where user_id =#{userId}
+  </select>
+
+  <select id="selectOtherUsersByRand" resultMap="UsersResultMap">
+    select  user_id, user_text, user_name, user_head_url  from users order by rand() limit 3
+  </select>
+
+  <insert id="insertFan" parameterType="java.lang.Integer">
+    insert into userfan(usera_id, userb_id) values(#{userId}, #{otherId})
+  </insert>
+
+  <select id="checkFan" parameterType="java.lang.Integer" resultMap="UsersResultMap">
+    select count(*) as fans from  userfan where usera_id = #{userId} and userb_id =#{otherId}
+  </select>
+
+  <!--《《《郭书卿《《《-->
+
+
+
+>>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
   <sql id="Base_Column_List" >
     user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, 
     user_location, user_head_url, user_real_name, user_email, user_phone_activation, 
     user_phone, user_qq, user_id_card, user_vip_state
   </sql>
+
 <!--徐东方-->
   <select id="getLittleInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
@@ -304,6 +340,9 @@ and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
 <!--徐东方-->
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+=======
+  <select id="selectByPrimaryKey" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+>>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
     select 
     <include refid="Base_Column_List" />
     from users

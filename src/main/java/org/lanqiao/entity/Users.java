@@ -33,6 +33,7 @@ public class Users {
 
     private Integer userVipState;
 
+<<<<<<< HEAD
     private UserSong userSong;
 
     private UserSongList userSongList;
@@ -141,6 +142,39 @@ public class Users {
 
     public void setUserbId(Integer userBId) {
         this.userbId = userBId;
+=======
+    //粉丝数
+    private Integer fans;
+
+    //关注数
+    private Integer attention;
+
+    //动态数量
+    private Integer shareCount;
+
+    public Integer getFans() {
+        return fans;
+    }
+
+    public void setFans(Integer fans) {
+        this.fans = fans;
+    }
+
+    public Integer getAttention() {
+        return attention;
+    }
+
+    public void setAttention(Integer attention) {
+        this.attention = attention;
+    }
+
+    public Integer getShareCount() {
+        return shareCount;
+    }
+
+    public void setShareCount(Integer shareCount) {
+        this.shareCount = shareCount;
+>>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
     }
 
     public Integer getUserId() {
