@@ -82,6 +82,7 @@ $(function () {
     var comment = new Vue({
         el: "#songComment",
         data: {
+            awComment:[],
             commentList: [],
             userHeadUrl1:""
         },
@@ -97,21 +98,14 @@ $(function () {
                     dataType: "json",
                     success: function (data) {
                         if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
-                                comment.commentList.push({
-                                    songlcText: data[i].songlcText,
-                                    songlcTime: data[i].songlcTime,
-                                    songlcLikes: data[i].songlcLikes,
-                                    userName: data[i].user.userName,
-                                    userHeadUrl: data[i].user.userHeadUrl
-                                });
-                            }
+                            comment.commentList = data;
                         } else {
                             // alert("表中无记录");
                         }
                     }
                 })
             },
+            //查询当前登录用户的头像
             getPic:function () {
                 $.ajax({
                     url:"/MyMusic/showSonglistInfo",
@@ -123,6 +117,23 @@ $(function () {
                     dataType:"json",
                     success:function (data) {
                         comment.userHeadUrl1=data.usersSet[0].userHeadUrl;
+                    }
+                })
+            },
+            getAwComment:function () {
+                comment.awComment = [];
+                $.ajax({
+                    url:"/MyMusic/songlist/awComment",
+                    type:"post",
+                    data:{
+                        songListId: songListId.songListId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if (data.length > 0) {
+                            comment.awComment = data;
+                        } else {
+                        }
                     }
                 })
             }
@@ -172,6 +183,7 @@ $(function () {
     sinfo.getSongPlayCount();
     comment.getComment();
     comment.getPic();
+    comment.getAwComment();
     songList.getListInfo();
     $("#msg_send").click(function () {
        $.ajax({

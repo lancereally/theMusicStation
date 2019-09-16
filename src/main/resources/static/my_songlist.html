@@ -144,20 +144,20 @@
         <div class="msg_show" >
             <div style="margin-bottom: 20px">
                 <h3 class="m_hd">精彩评论</h3>
-                <div class="aw_msg">
+                <div class="aw_msg" v-for="comment in awComment">
                     <div class="msg_userpic">
-                        <a><img src="images/MyMusic/facepic.jpg"></a>
+                        <a><img :src="comment.user.userHeadUrl"></a>
                     </div>
                     <div class="msg_userinfo">
                         <div class="msg_pl">
-                            <a>okc!up</a>
+                            <a>{{comment.userName}}</a>
                             <img>
-                            ：孟子坤《π》
+                            :<span>{{comment.songlcText}}</span>
                         </div>
                         <div class="pl_bar">
-                            <div class="pl_time">9月6日&nbsp;13:00</div>
+                            <div class="pl_time">{{comment.songlcTime}}</div>
                             <a>
-                                <i class="zan"></i>(22)
+                                <i class="zan"></i>(<span>{{comment.songlcLikes}}</span>)
                             </a>
                             <span class="pl_jg">|</span>
                             <a class="replay">回复</a>
@@ -168,7 +168,7 @@
             <h3 class="m_hd">最新评论</h3>
             <div class="aw_msg" v-for="comments in commentList">
                 <div class="msg_userpic">
-                    <a><img :src="comments.userHeadUrl"></a>
+                    <a><img :src="comments.user.userHeadUrl"></a>
                 </div>
                 <div class="msg_userinfo">
                     <div class="msg_pl">
