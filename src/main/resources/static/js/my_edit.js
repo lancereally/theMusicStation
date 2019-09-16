@@ -37,6 +37,16 @@ $(function () {
         }
     });
     editInfo.getSongListInfo();
+    //标签选择
+    $("a[class='sel_tag']").click(function () {
+        $("div[class='edit_tag']").css("display","inline");
+        // parent.window.showControl();
+    });
+    $("span[class='tag_close']").click(function () {
+        $("div[class='edit_tag']").css("display","none");
+        // parent.window.closeControl();
+    });
+    //保存修改按钮
     $("#savabtn").click(function () {
         $.ajax({
             url:"/MyMusic/editSonglist",

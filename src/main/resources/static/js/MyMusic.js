@@ -251,3 +251,9 @@ $(function () {
         })
     })
 });
+function showControl() {
+    $("div[class='control']").css("display", "inline");
+}
+function closeControl() {
+    $("div[class='control']").css("display", "none")
+}

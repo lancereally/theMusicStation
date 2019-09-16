@@ -148,20 +148,153 @@
 .three_distance{
     margin-left: 20px;
 }
-.btn1{
-    /*margin-right: 20px;*/
-    /*color: #bebebe;*/
-    /*background-position:*/
-    /*cursor: default;*/
-    /*text-decoration: none;*/
-    /*padding: 0 5px 0 0;*/
-    /*white-space: nowrap;*/
-    /*display: inline-block;*/
-    /*height: 31px;*/
-    /*line-height: 31px;*/
-    /*overflow: hidden;*/
-    /*vertical-align: top;*/
-    /*text-align: center;*/
-    /*background: url("../images/MyMusic/button2.png") no-repeat right -346px;*/
-    /*outline: none;*/
+.edit_tag{
+    display: none;
+    top: 170px;
+    left: 100px;
+    position: absolute;
+    z-index: 9998;
+    width: 530px;
+    border-radius: 4px;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.8);
+    border: none;
+}
+.tag_hd{
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid #191919;
+    border-radius: 4px 4px 0 0;
+    background: #2d2d2d;
+}
+.tag_title{
+    padding-right: 45px;
+    margin: 0;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 18px;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    background-position: 50% 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.tag_body{
+    padding: 0;
+    border: 1px solid #878787;
+    border-width: 0 1px 1px;
+    border-radius: 0 0 4px 4px;
+    background: #fff;
+}
+.tag_select{
+    position: relative;
+    zoom: 1;
+}
+.sel_kj{
+    position: relative;
+    zoom: 1;
+    padding: 0 0 0 20px;
+    height: 315px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.sel_kj h4{
+    padding: 15px 0 0;
+    color: #999;
+    font-weight: normal;
+}
+.sel_content{
+    padding: 15px 0;
+    display: block;
+}
+.sel_content::after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.sel_content h5{
+    float: left;
+    width: 50px;
+    margin-right: -50px;
+    line-height: 30px;
+    font-weight: bold;
+}
+.tag_list{
+    float: right;
+    width: 100%;
+}
+.tag_list ul{
+    margin: -10px 0 0 30px;
+}
+.tag_list li{
+    position: relative;
+    float: left;
+    display: inline;
+    width: 70px;
+    height: 31px;
+    margin: 10px 0 0 20px;
+}
+.btn_icon{
+    padding: 0 5px 0 0;
+    white-space: nowrap;
+    position: absolute;
+    width: 65px;
+    display: block;
+    color: #666;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+    background: url("../images/MyMusic/button2.png") no-repeat right -100px;
+}
+.btn_icon span{
+    display: block;
+    color: #666;
+    padding: 0 0 0 5px;
+    background: url("../images/MyMusic/button2.png") no-repeat  0 -59px;
+}
+.sel_icon{
+    display: inline;
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    vertical-align: middle;
+    background: url("../images/MyMusic/icon.png") no-repeat -25px -430px;
+}
+.tag_save{
+    border-top: 1px solid #c6c6c6
+}
+.save_kj{
+    height: 52px;
+    line-height: 32px;
+    padding: 8px 20px;
+    border: 1px solid #fff;
+    border-radius: 0 0 4px 4px;
+    text-align: center;
+    background: #f7f7f7;
+}
+.btn_long{
+    width: 80px;
+}
+.tag_close{
+    position: absolute;
+    z-index: 20;
+    top: 16px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    overflow: hidden;
+    text-indent: -9999px;
+    cursor: pointer;
+    background: url("../images/MyMusic/layer.png") no-repeat 0 -95px;
 }
