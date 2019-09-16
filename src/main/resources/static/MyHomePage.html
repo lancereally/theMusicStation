@@ -3,40 +3,43 @@
 <head>
     <link rel="stylesheet" href="css/MyHomePage.css">
     <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/MyOption.css"/>
 <!--    <link rel="stylesheet" href="css/MyOption.css">-->
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
-<!--    <script type="text/javascript" src="js/jquery.cookie.js"></script>-->
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+
     <meta charset="UTF-8">
     <title>MyHomePage</title>
 </head>
 <script>
-//用户选择控制
-$(".j-uflag").mouseleave(function () {
-$(".j-uflag").css("display","none");
-});
-$(".login-button").mouseenter(function () {
-$(".j-uflag").css("display","block");
-});
-$(".login-button").mouseleave(function () {
-$(".j-uflag").css("display","none");
-});
-$(".j-uflag").mouseenter(function () {
-$(".j-uflag").css("display","block");
-});
-    // //cookie
-    // var userId = $.cookie('userId');
-    // if (userId === undefined) {
-    //     location.href = "";
-    // }
+    //cookie
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
+
     $(function () {
+        //用户选择控制
+        $(".j-uflag").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".login-button").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        $(".login-button").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".j-uflag").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
         //获取用户基本信息
         $.ajax({
             // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
             url: "/user/getUserInfo",
             type: "post",
             datatype: "json",
-            data :{"userId" : "1"},
+            data :{"userId" : parseInt(userId)},
             success: function (data) {
                 $(".userName").text(data.userName);
                 $(".userHead").attr("src",data.userHeadUrl);
@@ -49,7 +52,7 @@ $(".j-uflag").css("display","block");
             type: "post",
             datatype: "json",
             //未登陆，暂且手动输入数字模拟
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 $("#event_count").text(data.length);
             }
@@ -60,7 +63,7 @@ $(".j-uflag").css("display","block");
             type: "post",
             datatype: "json",
             //未登陆，暂且手动输入数字模拟
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 $("#follow_count").text(data.length);
             }
@@ -71,7 +74,7 @@ $(".j-uflag").css("display","block");
             type: "post",
             datatype: "json",
             //未登陆，暂且手动输入数字模拟
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 $("#fan_count").text(data.length);
             }
@@ -83,7 +86,7 @@ $(".j-uflag").css("display","block");
             type: "post",
             datatype: "json",
             //未登陆，暂且手动输入数字模拟
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 var $a = parseFloat(data.length);
                 $("#play_song_count").text($a+ "首");
@@ -95,7 +98,7 @@ $(".j-uflag").css("display","block");
             type: "post",
             datatype: "json",
             //未登陆，暂且手动输入数字模拟
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 $("#song_list_create").text(data.length);
             }
@@ -106,7 +109,7 @@ $(".j-uflag").css("display","block");
             type: "post",
             datatype: "json",
             //未登陆，暂且手动输入数字模拟
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 $("#song_list_liked").text(data.length);
             }
@@ -118,7 +121,7 @@ $(".j-uflag").css("display","block");
             url: "/user/getSongRanking",
             type: "post",
             datatype: "json",
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     vm.songRanking.push({
@@ -138,7 +141,7 @@ $(".j-uflag").css("display","block");
             url: "/user/getSongListCreate",
             type: "post",
             datatype: "json",
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     vm.songListCreate.push({
@@ -157,7 +160,7 @@ $(".j-uflag").css("display","block");
             url: "/user/getSongListLiked",
             type: "post",
             datatype: "json",
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 if(data == null)
                     $("#song_list_liked").text(0);
@@ -175,6 +178,9 @@ $(".j-uflag").css("display","block");
                     }
                 }
             }
+        });
+        $("#editor").click(function () {
+            location.href = "MySetting.html";
         })
 //$(function)结尾
     });
@@ -259,7 +265,7 @@ $(".j-uflag").css("display","block");
         </div>
     </div>
 </header>
-<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+<div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
     <ul class="f-cb lb mg">
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>
@@ -297,7 +303,7 @@ $(".j-uflag").css("display","block");
                         </div>
                         <div class="rect" id="newmusician"></div>
                         <h2 id="j-name-wrap" class="wrap f-fl f-cb ">
-                            <span class="tit f-ff2 s-fc0 f-thide userName" style="font-size: x-large">Lancereallyet</span>
+                            <span class="tit f-ff2 s-fc0 f-thide userName" style="font-size: x-large"></span>
                             <span id="j-vip-code"></span>
                             <i class="icn u-icn u-icn-01"></i>
                         </h2>
@@ -378,7 +384,7 @@ $(".j-uflag").css("display","block");
         <div class="h-myList">
             <div class="u-title u-title-1 f-cb" id="cHeader" style="">
                 <h3><span class="f-ff2 f-pr ">我创建的歌单（<span class="f-pa f-r-black-icon" id="song_list_create"
-                                                         style="display:inline-block;width:8px;height:8px;top:1px;background-size:cover;">6</span></span>
+                                                         style="display:inline-block;width:8px;height:8px;top:1px;background-size:cover;"></span></span>
                 </h3>
             </div>
         </div>
@@ -399,7 +405,7 @@ $(".j-uflag").css("display","block");
         <div class="h-list-liked">
             <div class="u-title u-title-1 f-cb" id="sHeader" style="">
                 <h3><span class="f-ff2 f-pr">我收藏的歌单（<span class="f-pa f-r-black-icon" id="song_list_liked"
-                                                         style="display:inline-block;width:8px;height:8px;background-size:cover;top:1px;">10</span></span>
+                                                         style="display:inline-block;width:8px;height:8px;background-size:cover;top:1px;"></span></span>
                 </h3>
             </div>
         </div>

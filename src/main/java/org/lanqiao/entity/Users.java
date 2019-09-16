@@ -25,7 +25,7 @@ public class Users {
 
     private Integer userPhoneActivation;
 
-    private Integer userPhone;
+    private String userPhone;
 
     private Integer userQq;
 
@@ -46,6 +46,26 @@ public class Users {
     private SongList songList;
 
     private int slCount;
+
+    private SongComment songComment;
+
+    private int userPhoneCode;
+
+    public int getUserPhoneCode() {
+        return userPhoneCode;
+    }
+
+    public void setUserPhoneCode(int userPhoneCode) {
+        this.userPhoneCode = userPhoneCode;
+    }
+
+    public SongComment getSongComment() {
+        return songComment;
+    }
+
+    public void setSongComment(SongComment songComment) {
+        this.songComment = songComment;
+    }
 
     public int getSlCount() {
         return slCount;
@@ -219,11 +239,11 @@ public class Users {
         this.userPhoneActivation = userPhoneActivation;
     }
 
-    public Integer getUserPhone() {
+    public String getUserPhone() {
         return userPhone;
     }
 
-    public void setUserPhone(Integer userPhone) {
+    public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
 

@@ -8,10 +8,16 @@
     <script type="text/javascript" src="js/vue.js"></script>
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <meta charset="UTF-8">
     <title>MyAuthentication</title>
 </head>
 <script>
+    //cookie
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
     $(function () {
         //用户选择控制
         $(".login-button").mouseenter(function () {
@@ -27,6 +33,82 @@
             $(".j-uflag").css("display","block");
         });
 
+        //获取用户手机
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
+            url: "/user/getUserPhone",
+            type: "post",
+            datatype: "json",
+            data: {
+                "userId": parseInt(userId)
+            },
+            success: function (data) {
+                $(".inputPhone").attr("value",data.userPhone);
+            }
+        });
+
+        var state = 1;
+        //修改手机
+        $(".changePhone").click(function () {
+            $(".inputPhone").attr("disabled",false);
+        });
+
+        $(".inputPhone").blur(function () {
+            $.ajax({
+                url:"/user/checkPhone",
+                type:"post",
+                dataType:"text",
+                data:{
+                    'phoneNumber':$(".inputPhone").val(),
+                },
+                success:function (data) {
+                    if(data.length>0)
+                        alert("该手机号已被认证！\n 请再次确认号码");
+                    else{
+                        state = 0;
+                        alert("YOYO切克闹！\n 该手机号可以进行认证~")
+                    }
+                }
+            })
+        });
+
+        //获取验证码
+        $(".getCode").click(function () {
+            if(state == 0)
+            $.ajax({
+                url:"/user/getIdentifyingCode",
+                type:"post",
+                dataType:"text",
+                data:{
+                    'phoneNumber':$(".inputPhone").val(),
+                },
+                success:function (data) {
+                    if(data>0)
+                    alert("YOYO切克闹！验证码已发送，请稍作等待~");
+                }
+            })
+            else
+                alert("该手机号已被认证！\n 请更改号码！！！！！");
+        });
+
+        //验证码验证
+        $(".code").blur(function () {
+            $.ajax({
+                url:"/user/checkIdentifyingCode",
+                type:"post",
+                dataType:"text",
+                data:{
+                    'IdentifyingCode':parseInt($(".code").val()),
+                    'phoneNumber':$(".inputPhone").val()
+                },
+                success:function (data) {
+                    if(data>0){
+                        alert("恭喜！手机号"+$(".inputPhone").val()+"验证成功YOYO");
+                    }
+                }
+            })
+        })
+
         //信息校验
             $(".Authentication").validate({
                 rules: {
@@ -35,6 +117,10 @@
                         regex: /^[\u2E80-\u9FFF]+$/
                         // 昵称 /^\w{4,20}$/
                         //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                    },
+                    phoneNum:{
+                        required: true,
+                        regex: /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
                     },
                     email:{
                         required:true,
@@ -54,12 +140,16 @@
                         required: "真实姓名审核通过后不可更改（VIP除外",
                         regex: "姓名格式不正确"
                     },
+                    phoneNum:{
+                        required: "",
+                        regex: "手机号码格式不正确"
+                    },
                     email:{
-                        required:"请输入邮箱",
+                        required:"",
                         email:"邮箱格式不正确"
                     },
                     qq:{
-                        required:"请输入QQ",
+                        required:"",
                         regex:"QQ格式不正确"
                     },
                     idCard:{
@@ -74,6 +164,7 @@
             });
 //表单提交
          $(".submit").click(function () {
+             if(parseInt($(".code").val())>100000)
              $.ajax({
                  // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
                  url: "/user/updateUserInfo",
@@ -82,15 +173,19 @@
                  data: {
                      "userId": 1,
                      "userRealName": $("#realName").val(),
-                     "userPhone":17854283609,
-                     "userEmail":$(".email").text(),
+                     "userPhone":parseInt($(".inputPhone").val()),
+                     "userEmail":$(".email").val(),
                      "userQq":$(".qq").val(),
-                     "userIdCard":$(".idCard").text(),
+                     "userIdCard":$(".idCard").val(),
+                     "userPhoneActivation":1
                  },
                  success: function (data) {
-                     alert("9.12 15:31完成，开始做下一个页面吧~")
+                     if(data>0)
+                     alert("YOYO切克闹！信息认证成功! \n 于9.12 15:31完成，开始做下一个页面吧~");
                  }
              });
+             else
+                 alert("某处信息不符合规范！");
          });
     })
 </script>
@@ -174,7 +269,7 @@
         </div>
     </div>
 </header>
-<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+<div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
     <ul class="f-cb lb mg">
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>
@@ -225,9 +320,9 @@
                                     <span class="rc-select-arrow" unselectable="on" style="user-select: none;"><i
                                             class="rc-select-arrow-icon"></i></span></div>
                             </div>
-                            <input disabled="" class="input addon-after input-small" placeholder="请输入手机号" type="text"
-                                   value="178****3609"></div>
-                        <button class="index__button___34GnR index__normal-button___YLaJ-"
+                            <input disabled="true" name="phoneNum" class="input addon-after input-small inputPhone" placeholder="请输入手机号" type="text"
+                                   value=""></div>
+                        <button class="index__button___34GnR index__normal-button___YLaJ- changePhone"
                                 style="vertical-align: top; width: 116px; position: absolute; top: 0px; right: 0px;">更改
                         </button>
                     </div>
@@ -235,9 +330,9 @@
                 <div class="index__form-item___3hHkk"><i
                         class="index__required___qSINY">*</i><label class="index__label___1hASe">验证码</label>
                     <div class="index__normal___PXWIw">
-                        <div class="clearfix"><input class="input fl" placeholder="请输入验证码" type="text" value=""
+                        <div class="clearfix"><input class="input fl code" placeholder="请输入验证码" type="text" value=""
                                                      style="width: 294px;">
-                            <button class="fr index__button___34GnR index__primary-button___pcseP"
+                            <button class="getCode fr index__button___34GnR index__primary-button___pcseP"
                                     style="width: 116px;">获取验证码
                             </button>
                         </div>

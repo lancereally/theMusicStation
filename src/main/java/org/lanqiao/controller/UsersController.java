@@ -1,15 +1,20 @@
 package org.lanqiao.controller;
 
+import com.aliyuncs.exceptions.ClientException;
 import org.lanqiao.entity.Share;
 import org.lanqiao.entity.Users;
-import org.lanqiao.service.ShareService;
 import org.lanqiao.service.ShareServiceImpl;
 import org.lanqiao.service.UsersService;
+import org.lanqiao.util.IdentifyingCode;
+import org.lanqiao.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -20,6 +25,10 @@ public class UsersController {
 
     @Autowired
     ShareServiceImpl shareService;
+
+    @Resource
+    RedisUtil redisUtil;
+
 
     //MyHomePage页面
 //获取用户基本信息
@@ -84,6 +93,7 @@ public class UsersController {
     //更新用户基本设置信息
     @RequestMapping("/user/updateUserInfo")
     public int updateUserInfo(Users users){
+        int a= usersService.updateUserInfo(users);
         return usersService.updateUserInfo(users);
     }
 
@@ -93,7 +103,8 @@ public class UsersController {
         return usersService.checkName(userName);
     }
 
-//注册and登录
+    //cookie
+    //注册and登录
     //注册
     @RequestMapping("/user/register")
     public int register(Users users){
@@ -106,7 +117,110 @@ public class UsersController {
         return usersService.accountLogin(users);
     }
 
+    //注册
+    @RequestMapping("/user/getIdByAnything")
+    public int getIdByAnything(HttpServletResponse response,Users users){
+        Cookie cookie = new Cookie("userId", usersService.getIdByAnything(users)+"");
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return usersService.getIdByAnything(users);
+    }
+    //登录验证账户
+//    @RequestMapping("/login/checkAccount")
+//    public boolean checkAccount(HttpServletResponse response, String str, String password) {
+//        Account account = accountService.checkAccount(str, password);
+//        if (account != null){
+//            Cookie cookie = new Cookie("accId", account.getAccId().toString());
+//            cookie.setPath("/");
+//            response.addCookie(cookie);
+//            return true;
+//        }
+//        return false;
+//    }
     //手机登录
+
+
+    //VIP
+    @RequestMapping("/user/activeVIP")
+    public boolean activeVIP(Users users){
+        return usersService.activeVIP(users);
+    }
+
+    //获取评论
+     @RequestMapping("/user/getMyComment")
+     public List<Users> getMyComment(Users users){
+         return usersService.getMyComment(users);
+     }
+
+     //拉取fans and follows
+     @RequestMapping("/user/getMyFollows")
+     public List<Users> getMyFollows(Users users){
+         return usersService.getMyFollows(users);
+     }
+
+    @RequestMapping("/user/getMyFans")
+    public List<Users> getMyFans(Users users){
+        return usersService.getMyFans(users);
+    }
+
+    //短信
+
+    @RequestMapping("/user/getIdentifyingCode")
+    public int getIdentifyingCode(String phoneNumber) throws ClientException {
+        IdentifyingCode test = new IdentifyingCode();
+        int code = test.SendCode(phoneNumber);
+
+        //redis
+        redisUtil.set(phoneNumber,code);
+        //mybatis
+//        Users users = new Users();
+//        users.setUserPhone(phoneNumber);
+//        users.setUserPhoneCode(code);
+        return 1;
+    }
+
+    @RequestMapping("/user/checkIdentifyingCode")
+    public int checkIdentifyingCode(int IdentifyingCode,String phoneNumber) throws ClientException {
+//        Jedis jedis = new Jedis();
+//        if (phoneNumber == jedis.get(IdentifyingCode)) {
+//            jedis.close();
+//            return 1;
+//        }
+
+        if(IdentifyingCode == (int)redisUtil.get(phoneNumber))
+            return 1;
+        else
+            return 0;
+//        Users users = new Users();
+//        users.setUserPhone(phoneNumber);
+//        if(IdentifyingCode == usersService.selectCodeByPhone(phoneNumber))
+//        return 1;
+//        else
+//            return 0;
+    }
+
+    @RequestMapping("/user/getUserPhone")
+    public String getUserPhone(Integer userId)  {
+        return usersService.getUserPhone(userId);
+    }
+
+    @RequestMapping("/user/checkPhone")
+    public List<Users> checkPhone(String phoneNumber)  {
+        return usersService.checkPhone(phoneNumber);
+    }
+
+//    @RequestMapping("/set")
+//    public String set(){
+//        redisUtil.set("17854283609",456);
+//        return "";
+//    }
+//
+//    @RequestMapping("/get")
+//    public String get(){
+//        int user = (int)redisUtil.get("17854283609");
+//        System.out.println(user);
+//        return "";
+//    }
 
 
 }

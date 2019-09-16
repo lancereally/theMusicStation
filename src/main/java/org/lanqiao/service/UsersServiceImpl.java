@@ -15,7 +15,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Users getLittleInfo (Integer userId){
-        return usersMapper.getLittleInfo(userId);
+        return usersMapper.selectByPrimaryKey(userId);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class UsersServiceImpl implements UsersService {
     //更新用户基本设置信息
     @Override
     public int updateUserInfo(Users users){
-        return usersMapper.updateUserInfo(users);
+        return usersMapper.updateUserInfo(users) ;
     }
 
     @Override
@@ -83,5 +83,55 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean accountLogin(Users users){
         return usersMapper.accountLogin(users) < 0 ? true : false;
+    }
+
+    //VIP
+    @Override
+    public boolean activeVIP(Users users){
+        return usersMapper.updateUserInfo(users) > 0 ? true : false;
+    }
+
+    //获取评论
+    @Override
+    public List<Users> getMyComment(Users users){
+        return usersMapper.getMyComment(users);
+    }
+
+    //拉取fans and follows
+    @Override
+    public List<Users> getMyFollows(Users users){
+        return usersMapper.getMyFollows(users);
+    }
+
+    @Override
+    public List<Users> getMyFans(Users users){
+        return usersMapper.getMyFans(users);
+    }
+
+    //cookie
+    @Override
+    public int getIdByAnything(Users users){
+        return usersMapper.getIdByAnything(users);
+    }
+
+    //手机
+    @Override
+    public void updatePhoneInfo(Users users){
+        usersMapper.updatePhoneInfo(users);
+    }
+
+    @Override
+    public int selectCodeByPhone(String phoneNumber){
+        return usersMapper.selectCodeByPhone(phoneNumber);
+    }
+
+    @Override
+    public String getUserPhone(Integer userId)  {
+        return usersMapper.getUserPhone(userId);
+    }
+
+    @Override
+    public List<Users> checkPhone(String phoneNumber)  {
+        return usersMapper.checkPhone(phoneNumber);
     }
 }

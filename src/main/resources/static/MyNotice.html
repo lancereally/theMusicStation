@@ -8,21 +8,21 @@
     <title>MyNotice</title>
 </head>
 <script>
-    $(function () {
-        //获取通知数量
-        $.ajax({
-            url: "/user/getMyNotice",
-            type: "post",
-            datatype: "json",
-            //未登陆，暂且手动输入数字模拟
-            data: {"userId": 1},
-            success: function (data) {
-                vm.comments.push({
-
-                });
-            }
-        });
-    })
+    // $(function () {
+    //     //获取通知数量
+    //     $.ajax({
+    //         url: "/user/getMyNotice",
+    //         type: "post",
+    //         datatype: "json",
+    //         //未登陆，暂且手动输入数字模拟
+    //         data: {"userId": 1},
+    //         success: function (data) {
+    //             vm.comments.push({
+    //
+    //             });
+    //         }
+    //     });
+    // })
 </script>
 <body>
 <div class="g-mn6">

@@ -6,6 +6,9 @@
     <title>网易云音乐</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript" src="js/layui/layui.js"></script>
+    <script type="application/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="js/layui/css/layui.css" />
     <link rel="stylesheet" href="css/MyOption.css">
@@ -62,6 +65,36 @@
         })
       });
 
+      //注册账号信息校验
+      $(".register").validate({
+        rules: {
+          userName:{
+            required: true,
+            regex: /^\w{3,15}$/
+            // 昵称 /^\w{4,20}$/
+            //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+          },
+          userPassword:{
+            required: true,
+            regex: /^\w{6,15}$/
+          }
+        },
+        messages: {
+          userName: {
+            required: "YOYO切克闹!土嗨昵称为3-15位任意字符哦~",
+            regex: "昵称格式不正确！"
+          },
+          userPassword:{
+            required:"请输入长度6位以上的密码",
+            regex:"密码格式不正确!"
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.appendTo( element.parent());
+        },
+        success:function () {}
+      });
+
       function account() {
         //x上限，y下限
         var x = 999999;
@@ -71,7 +104,7 @@
       }
 
         $(".userLogin").click(function () {
-          if($(".proto").attr('checked')=='checked'){
+          if($(".proto").attr('checked','checked')){
             alert(1);
             var userAccount = account();
             $.ajax({
@@ -81,7 +114,8 @@
               data:{
                 'userName':$(".username").val(),
                 "userAccount":userAccount,
-                "userPassword":$(".password").val()
+                "userPassword":$(".password").val(),
+                "userPicUrl":"images/userPicDefault.jpg"
               },
               success:function (data) {
                 if(data == "false")
@@ -97,6 +131,35 @@
             alert("您还未同意土嗨音乐协议哦~");
           }
         });
+      //信息校验
+      $(".accountLoginValidater").validate({
+        rules: {
+          userAccount:{
+            required: true,
+            minlength: 6
+            // 昵称 /^\w{4,20}$/
+            //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+          },
+          userPassword:{
+            required: true,
+            maxlength:2
+          }
+        },
+        messages: {
+          userAccount: {
+            required: "",
+            minlength: "YOYO切克闹!土嗨账号长度至少为6位哦~"
+          },
+          userPassword:{
+            required:"请输入密码",
+            maxlength:"密码不正确!"
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.appendTo( element.parent() );
+        },
+        success:function () {}
+      });
 
       //账号密码登录
       $(".accountLogin").click(function () {
@@ -109,20 +172,88 @@
             "userPassword":$(".pass").val()
           },
           success:function (data) {
-            if(data == "false"){
+            if(data == false){
               alert("YOYO切克闹~登录成功嗨起来！");
-              location.reload("MyHomePage.html");
+              $.ajax({
+                url:"/user/getIdByAnything",
+                type:"post",
+                dataType:"json",
+                data:{
+                  'userAccount':$(".account").val(),
+                }
+                ,
+                success:function (data) {
+                  if(data>0)
+                    location.href = "MyHomePage.html";
+                }
+              });
             }
             else
-              alert("DB管理员已经删库跑路，本站暂停使用~");
+              alert("YOYO对不起,您的账号或密码有误");
           }
         })
       });
 
 
+      var state = 0;
       //手机验证码登录
       $(".phoneNum").blur(function () {
-        if($(this).val()){}
+        $.ajax({
+          url:"/user/checkPhone",
+          type:"post",
+          dataType:"json",
+          data:{
+            'phoneNumber':$(".phoneNum").val(),
+          },
+          success:function (data) {
+            if(data.length<1){
+              alert("该手机还未进行认证！！！");
+              state = 0;
+            }
+
+            else{
+              state = 1;
+              alert("YOYO切克闹~该手机已认证~");
+            }
+
+          }
+        })
+      });
+      $(".ma").click(function () {
+        if(state == 1)
+        $.ajax({
+          url:"/user/getIdentifyingCode",
+          type:"post",
+          dataType:"text",
+          data:{
+            'phoneNumber':$(".phoneNum").val(),
+          },
+          success:function (data) {
+            alert("YOYO切克闹！验证码已发送，请稍作等待~")
+          }
+        })
+        else
+          alert("该手机还未进行认证！！！");
+      });
+      $(".phoneLogin").click(function () {
+        if(state == 1)
+        $.ajax({
+          url:"/user/checkIdentifyingCode",
+          type:"post",
+          dataType:"text",
+          data:{
+            'IdentifyingCode':parseInt($(".validate").val()),
+            'phoneNumber':$(".phoneNum").val()
+          },
+          success:function (data) {
+            if(data>0){
+              alert("于2019.9.15实现短信验证功能");
+              location.href = "MyHomePage.html";
+            }
+          }
+        })
+        else
+          alert("该手机还未进行认证！！！");
       });
       // $(".phoneLogin").click(function () {
       //   $.ajax({
@@ -272,35 +403,38 @@
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
     </div></div><span class="zcls" title="关闭窗体" >×</span></div>
     <div class="auto-1568105551339 m-layer z-show " id="loginAccount" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" id="auto-id-GIUtr1rxR6Tr59E4">
-      <div class="n-log2 n-log2-2">
-        <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" class="js-input u-txt account" placeholder="请输入帐号" autocomplete="off">
-          <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+      <form action="" class="accountLoginValidater">
+        <div class="n-log2 n-log2-2 accountLoginValidate">
+          <div class="f-pr" style="z-index:5;">
+            <input type="text" name="userAccount" class="js-input u-txt account" placeholder="请输入帐号" autocomplete="off">
+            <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+          </div>
+          <div class="f-mgt10">
+            <input type="password" name="userPassword" class="js-input u-txt pass" placeholder="请输入密码" autocomplete="new-password">
+          </div>
+          <div class="js-captcha"></div>
+          <div class="ScapTcha js-scaptcha"></div>
+          <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+          <div class="f-mgt10">
+            <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
+            <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+          </div>
+          <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2 accountLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+          </div>
         </div>
-        <div class="f-mgt10">
-          <input type="password" name="epw" class="js-input u-txt pass" placeholder="请输入密码" autocomplete="new-password">
-        </div>
-        <div class="js-captcha"></div>
-        <div class="ScapTcha js-scaptcha"></div>
-        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
-        <div class="f-mgt10">
-          <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
-          <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
-        </div>
-        <div class="f-mgt20">
-          <a class="js-primary u-btn2 u-btn2-2 accountLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
-        </div>
-      </div>
+      </form>
+
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
     </div></div><span class="zcls" title="关闭窗体" >×</span></div>
     <div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号注册</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
-      <div class="n-log2 n-log2-2">
+      <form action="" class="register"><div class="n-log2 n-log2-2 ">
         <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" id="e" class="js-input u-txt username" placeholder="请输入昵称" autocomplete="off">
+          <input type="text" name="userName" id="userName" class="js-input u-txt username" placeholder="请输入昵称" autocomplete="off">
           <ul class="js-suggest u-fill" style="visibility:hidden;" id="auto-id-CIFtIW9szaHfGuVh"></ul>
         </div>
         <div class="f-mgt10">
-          <input type="password" name="epw"  class="js-input u-txt password" placeholder="请输入密码" autocomplete="new-password">
+          <input type="password" name="userPassword"  class="js-input u-txt password" placeholder="请输入密码" autocomplete="new-password">
         </div>
         <div class="f-mgt10">
           <input type="password" name="epw"  class="js-input u-txt password2" placeholder="请再次输入密码" autocomplete="new-password">
@@ -316,7 +450,8 @@
         <div class="f-mgt20">
           <a class="js-primary u-btn2 u-btn2-2 userLogin" hidefocus="true" href="#" data-action="login"><i>注　册</i></a>
         </div>
-      </div>
+      </div></form>
+
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
     </div></div><span class="zcls" title="关闭窗体" id="auto-id-H0iRlpFpOZ2EdSyw">×</span></div>
     <div class="auto-1568105551339 m-layer z-show login" style="top: 198px; left: 503px;display:none"><div class="zbar" id="auto-id-cUzAhzE6Kx69KFTU"><div class="zttl f-thide">登录</div></div><div class="zcnt"><div class="lyct lyct-1" id="auto-id-kXP3EkBRbFKINXWU">

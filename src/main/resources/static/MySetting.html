@@ -8,10 +8,16 @@
     <script type="text/javascript" src="js/vue.js"></script>
     <script src="js/jquery.validate.js"></script>
     <script src="js/jquery.validate.regex.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <meta charset="UTF-8">
     <title>MySetting</title>
 </head>
 <script>
+    //cookie
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
     $(function () {
         //用户选择控制
         $(".login-button").mouseenter(function () {
@@ -34,10 +40,11 @@
             url: "/user/getUserInfo",
             type: "post",
             datatype: "json",
-            data: {"userId": 1},
+            data: {"userId": parseInt(userId)},
             success: function (data) {
                 $("#avatar").attr("src",data.userHeadUrl);
                  $("#nickname").text(data.userName);
+                 $("#signature").text(data.userText);
             }
         });
 
@@ -140,7 +147,7 @@
                 type: "post",
                 datatype: "json",
                 data: {
-                    "userId": 1,
+                    "userId": parseInt(userId),
                     "userName":$("#nickname").text(),
                     "userBirthday":$(".year").text()+"-"+$(".month").text()+"-"+$(".date").text(),
                     "userLocation":$(".province").text()+$(".city").text(),
@@ -239,7 +246,7 @@
         </div>
     </div>
 </header>
-<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+<div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
     <ul class="f-cb lb mg">
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>

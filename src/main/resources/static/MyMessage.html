@@ -6,10 +6,16 @@
     <link rel="stylesheet" href="css/MyOption.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <meta charset="UTF-8">
     <title>MyMessage</title>
 </head>
 <script>
+    //cookie
+    // var userId = $.cookie('userId');
+    // if (userId === undefined) {
+    //     location.href = "Index.html";
+    // }
 $(function () {
     //用户选择控制
     $(".j-uflag").mouseleave(function () {
@@ -28,42 +34,48 @@ $(function () {
     $("#letter").click(function () {
         $(".iframe").attr("src","MyPrivateLetter.html");
     });
+    $("#comment").click(function () {
+        $(".iframe").attr("src","MyComment.html");
+    });
+    $("#notice").click(function () {
+        $(".iframe").attr("src","MyNotice.html");
+    });
     //判断评论是否为空
-    $.ajax({
-        url: "/user/getMyComment",
-        type: "post",
-        datatype: "json",
-        //未登陆，暂且手动输入数字模拟
-        data: {"userId": 1},
-        success: function (data) {
-            if(data==null)
-                $("#comment").click(function () {
-                    $(".iframe").attr("src","NoComment.html");
-                })
-            else
-                $("#comment").click(function () {
-                    $(".iframe").attr("src","NoComment.html");
-                })
-        }
-    });
-    //判断通知是否为空
-    $.ajax({
-        url: "/user/getMyNotice",
-        type: "post",
-        datatype: "json",
-        //未登陆，暂且手动输入数字模拟
-        data: {"userId": 1},
-        success: function (data) {
-            if(data==null)
-                $("#comment").click(function () {
-                    $(".iframe").attr("src","NoNotice.html");
-                })
-            else
-                $("#comment").click(function () {
-                    $(".iframe").attr("src","NoNotice.html");
-                })
-        }
-    });
+    // $.ajax({
+    //     url: "/user/getMyComment",
+    //     type: "post",
+    //     datatype: "json",
+    //     //未登陆，暂且手动输入数字模拟
+    //     data: {"userId": parseInt(userId)},
+    //     success: function (data) {
+    //         if(data==null)
+    //             $("#comment").click(function () {
+    //                 $(".iframe").attr("src","NoComment.html");
+    //             })
+    //         else
+    //             $("#comment").click(function () {
+    //                 $(".iframe").attr("src","NoComment.html");
+    //             })
+    //     }
+    // });
+    // //判断通知是否为空
+    // $.ajax({
+    //     url: "/user/getMyNotice",
+    //     type: "post",
+    //     datatype: "json",
+    //     //未登陆，暂且手动输入数字模拟
+    //     data: {"userId": parseInt(userId)},
+    //     success: function (data) {
+    //         if(data==null)
+    //             $("#comment").click(function () {
+    //                 $(".iframe").attr("src","NoNotice.html");
+    //             })
+    //         else
+    //             $("#comment").click(function () {
+    //                 $(".iframe").attr("src","NoNotice.html");
+    //             })
+    //     }
+    // });
 });
 </script>
 <body>
@@ -146,7 +158,7 @@ $(function () {
         </div>
     </div>
 </header>
-<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+<div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
     <ul class="f-cb lb mg">
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>

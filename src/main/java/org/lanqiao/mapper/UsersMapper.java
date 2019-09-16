@@ -52,5 +52,22 @@ public interface UsersMapper {
 
     //账号登录
     public int accountLogin(Users users);
+
+    //获取comment
+    public List<Users> getMyComment(Users users);
+
+    //拉取fans and follows
+    public List<Users> getMyFollows(Users users);
+
+    public List<Users> getMyFans(Users users);
+
+    //cookie
+    public int getIdByAnything(Users users);
+
+    //手机
+    public int updatePhoneInfo(Users users);
+    public int selectCodeByPhone(String phoneNumber);
+    public String getUserPhone(Integer userId);
+    public List<Users> checkPhone(String phoneNumber);
 // 徐东方
 }
