@@ -151,8 +151,8 @@
                                 </p>
                                 <p class="song_num">{{songItems.songlistCount}}首</p>
                                 <span class="item_xiugai">
-                                    <a class="item_edit"></a>
-                                    <a class="item_del"></a>
+<!--                                    <a class="item_edit"></a>-->
+                                    <a class="item_del" name="can_sl" @click="getSongListId(songItems.songlistId)"></a>
                                 </span>
                             </div>
                         </li>
@@ -208,6 +208,23 @@
         </div>
     </div>
     <span class="cre_close" name="del_end" title="关闭窗口">×</span>
+</div>
+<div class="mymusic_can">
+    <div class="can_hd">
+        <div class="can_title">
+            提示
+        </div>
+    </div>
+    <div class="cre_body">
+        <div class="can_body">
+            <div class="can_info">确定取消收藏歌单?</div>
+            <div class="can_button">
+                <button type="button" class="btnCre btnCre_bcolor" name="cf_btn">确定</button>
+                <button type="button" class="btnCre three_distance" name="can_btn">取消</button>
+            </div>
+        </div>
+    </div>
+    <span class="cre_close" name="can_end" title="关闭窗口">×</span>
 </div>
 <div class="control">&nbsp;</div>
 </body>

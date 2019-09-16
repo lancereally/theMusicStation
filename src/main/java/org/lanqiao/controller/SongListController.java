@@ -53,4 +53,9 @@ public class SongListController {
     public int deleteBySongListId(Integer songListId){
         return songListService.deleteBySongListId(songListId);
     }
+    //取消收藏歌单——郭长达
+    @RequestMapping("/MyMusic/cancelSonglist")
+    public int cancelBySongListId(Integer songListId){
+        return songListService.cancelBySongListId(songListId);
+    }
 }

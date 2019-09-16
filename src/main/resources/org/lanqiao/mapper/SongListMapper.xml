@@ -67,6 +67,12 @@
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from songlist where songlist_id = #{songListId,jdbcType=INTEGER}
     </delete>
+    <!--取消收藏歌单-郭长达-->
+    <delete id="cancelBySongListId" parameterType="java.lang.Integer">
+        delete from usersonglist where songlist_id = #{songListId}
+    </delete>
+
+
 
 
 

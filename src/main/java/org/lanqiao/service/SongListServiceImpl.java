@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+
 public class SongListServiceImpl implements SongListService{
 
     @Autowired
@@ -52,6 +53,9 @@ public class SongListServiceImpl implements SongListService{
     public int deleteBySongListId(Integer songListId) {
         return songListMapper.deleteByPrimaryKey(songListId);
     }
-
-
+    //取消收藏歌单——郭长达
+    @Override
+    public int cancelBySongListId(Integer songListId) {
+        return songListMapper.cancelBySongListId(songListId);
+    }
 }

@@ -332,8 +332,8 @@ div{
     cursor: pointer;
     background: url("../images/MyMusic/layer.png") no-repeat 0 -95px;
 }
-/*删除窗体*/
-.mymusic_del{
+/*删除窗体 */
+.mymusic_del {
     display: none;
     top: 260px;
     left: 528px;
@@ -344,14 +344,14 @@ div{
     box-shadow: 0 5px 16px rgba(0,0,0,0.8);
     border: none;
 }
-.del_hd{
+.del_hd {
     position: relative;
     z-index: 10;
     border-bottom: 1px solid #191919;
     border-radius: 4px 4px 0 0;
     background: #2d2d2d;
 }
-.del_title{
+.del_title {
     padding-right: 45px;
     margin: 0;
     height: 38px;
@@ -367,14 +367,60 @@ div{
     word-wrap: normal;
     text-align: left;
 }
-.del_body{
+.del_body {
     padding: 40px 0;
     text-align: center;
 }
-.del_info{
+.del_info {
     line-height: 22px;
     font-size: 14px;
 }
-.del_button{
+.del_button {
+    margin-top: 30px;
+}
+/*取消收藏*/
+.mymusic_can{
+    display: none;
+    top: 260px;
+    left: 528px;
+    width: 480px;
+    position: absolute;
+    z-index: 9998;
+    border-radius: 4px;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.8);
+    border: none;
+}
+.can_hd{
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid #191919;
+    border-radius: 4px 4px 0 0;
+    background: #2d2d2d;
+}
+.can_title{
+    padding-right: 45px;
+    margin: 0;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 18px;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-align: left;
+}
+.can_body {
+    padding: 40px 0;
+    text-align: center;
+}
+.can_info {
+    line-height: 22px;
+    font-size: 14px;
+}
+.can_button {
     margin-top: 30px;
 }
