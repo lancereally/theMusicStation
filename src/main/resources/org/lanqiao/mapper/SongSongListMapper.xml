@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.SongSongListMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.entity.SongSongList" >
+    <result column="songlist_id" property="songlistId" jdbcType="INTEGER" />
+    <result column="song_id" property="songId" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="org.lanqiao.entity.SongSongList" >
+    insert into songsonglist (songlist_id, song_id)
+    values (#{songlistId,jdbcType=INTEGER}, #{songId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.SongSongList" >
+    insert into songsonglist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="songlistId != null" >
+        songlist_id,
+      </if>
+      <if test="songId != null" >
+        song_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="songlistId != null" >
+        #{songlistId,jdbcType=INTEGER},
+      </if>
+      <if test="songId != null" >
+        #{songId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

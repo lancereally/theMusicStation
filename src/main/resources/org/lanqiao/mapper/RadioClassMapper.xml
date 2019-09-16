@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.RadioClassMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.entity.RadioClass" >
+    <id column="radio_class_id" property="radioClassId" jdbcType="INTEGER" />
+    <result column="radiao_class_name" property="radiaoClassName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    radio_class_id, radiao_class_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from radioclass
+    where radio_class_id = #{radioClassId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from radioclass
+    where radio_class_id = #{radioClassId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.RadioClass" >
+    insert into radioclass (radio_class_id, radiao_class_name)
+    values (#{radioClassId,jdbcType=INTEGER}, #{radiaoClassName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.RadioClass" >
+    insert into radioclass
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="radioClassId != null" >
+        radio_class_id,
+      </if>
+      <if test="radiaoClassName != null" >
+        radiao_class_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="radioClassId != null" >
+        #{radioClassId,jdbcType=INTEGER},
+      </if>
+      <if test="radiaoClassName != null" >
+        #{radiaoClassName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.RadioClass" >
+    update radioclass
+    <set >
+      <if test="radiaoClassName != null" >
+        radiao_class_name = #{radiaoClassName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where radio_class_id = #{radioClassId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.RadioClass" >
+    update radioclass
+    set radiao_class_name = #{radiaoClassName,jdbcType=VARCHAR}
+    where radio_class_id = #{radioClassId,jdbcType=INTEGER}
+  </update>
+</mapper>

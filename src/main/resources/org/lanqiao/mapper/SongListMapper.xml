@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.SongListMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.entity.SongList" >
+    <id column="songlist_id" property="songlistId" jdbcType="INTEGER" />
+    <result column="songlsit_name" property="songlsitName" jdbcType="VARCHAR" />
+    <result column="songlist_description" property="songlistDescription" jdbcType="VARCHAR" />
+    <result column="songlist_tag" property="songlistTag" jdbcType="VARCHAR" />
+    <result column="songlist_count" property="songlistCount" jdbcType="INTEGER" />
+    <result column="songlist_create_time" property="songlistCreateTime" jdbcType="TIMESTAMP" />
+    <result column="songlist_commet_num" property="songlistCommetNum" jdbcType="INTEGER" />
+    <result column="songlist_keep_num" property="songlistKeepNum" jdbcType="INTEGER" />
+    <result column="songlist_pic_url" property="songlistPicUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    songlist_id, songlsit_name, songlist_description, songlist_tag, songlist_count, songlist_create_time, 
+    songlist_commet_num, songlist_keep_num, songlist_pic_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from songlist
+    where songlist_id = #{songlistId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from songlist
+    where songlist_id = #{songlistId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.SongList" >
+    insert into songlist (songlist_id, songlsit_name, songlist_description, 
+      songlist_tag, songlist_count, songlist_create_time, 
+      songlist_commet_num, songlist_keep_num, songlist_pic_url
+      )
+    values (#{songlistId,jdbcType=INTEGER}, #{songlsitName,jdbcType=VARCHAR}, #{songlistDescription,jdbcType=VARCHAR}, 
+      #{songlistTag,jdbcType=VARCHAR}, #{songlistCount,jdbcType=INTEGER}, #{songlistCreateTime,jdbcType=TIMESTAMP}, 
+      #{songlistCommetNum,jdbcType=INTEGER}, #{songlistKeepNum,jdbcType=INTEGER}, #{songlistPicUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.SongList" >
+    insert into songlist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="songlistId != null" >
+        songlist_id,
+      </if>
+      <if test="songlsitName != null" >
+        songlsit_name,
+      </if>
+      <if test="songlistDescription != null" >
+        songlist_description,
+      </if>
+      <if test="songlistTag != null" >
+        songlist_tag,
+      </if>
+      <if test="songlistCount != null" >
+        songlist_count,
+      </if>
+      <if test="songlistCreateTime != null" >
+        songlist_create_time,
+      </if>
+      <if test="songlistCommetNum != null" >
+        songlist_commet_num,
+      </if>
+      <if test="songlistKeepNum != null" >
+        songlist_keep_num,
+      </if>
+      <if test="songlistPicUrl != null" >
+        songlist_pic_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="songlistId != null" >
+        #{songlistId,jdbcType=INTEGER},
+      </if>
+      <if test="songlsitName != null" >
+        #{songlsitName,jdbcType=VARCHAR},
+      </if>
+      <if test="songlistDescription != null" >
+        #{songlistDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="songlistTag != null" >
+        #{songlistTag,jdbcType=VARCHAR},
+      </if>
+      <if test="songlistCount != null" >
+        #{songlistCount,jdbcType=INTEGER},
+      </if>
+      <if test="songlistCreateTime != null" >
+        #{songlistCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="songlistCommetNum != null" >
+        #{songlistCommetNum,jdbcType=INTEGER},
+      </if>
+      <if test="songlistKeepNum != null" >
+        #{songlistKeepNum,jdbcType=INTEGER},
+      </if>
+      <if test="songlistPicUrl != null" >
+        #{songlistPicUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.SongList" >
+    update songlist
+    <set >
+      <if test="songlsitName != null" >
+        songlsit_name = #{songlsitName,jdbcType=VARCHAR},
+      </if>
+      <if test="songlistDescription != null" >
+        songlist_description = #{songlistDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="songlistTag != null" >
+        songlist_tag = #{songlistTag,jdbcType=VARCHAR},
+      </if>
+      <if test="songlistCount != null" >
+        songlist_count = #{songlistCount,jdbcType=INTEGER},
+      </if>
+      <if test="songlistCreateTime != null" >
+        songlist_create_time = #{songlistCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="songlistCommetNum != null" >
+        songlist_commet_num = #{songlistCommetNum,jdbcType=INTEGER},
+      </if>
+      <if test="songlistKeepNum != null" >
+        songlist_keep_num = #{songlistKeepNum,jdbcType=INTEGER},
+      </if>
+      <if test="songlistPicUrl != null" >
+        songlist_pic_url = #{songlistPicUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where songlist_id = #{songlistId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.SongList" >
+    update songlist
+    set songlsit_name = #{songlsitName,jdbcType=VARCHAR},
+      songlist_description = #{songlistDescription,jdbcType=VARCHAR},
+      songlist_tag = #{songlistTag,jdbcType=VARCHAR},
+      songlist_count = #{songlistCount,jdbcType=INTEGER},
+      songlist_create_time = #{songlistCreateTime,jdbcType=TIMESTAMP},
+      songlist_commet_num = #{songlistCommetNum,jdbcType=INTEGER},
+      songlist_keep_num = #{songlistKeepNum,jdbcType=INTEGER},
+      songlist_pic_url = #{songlistPicUrl,jdbcType=VARCHAR}
+    where songlist_id = #{songlistId,jdbcType=INTEGER}
+  </update>
+</mapper>

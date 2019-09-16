@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.SongListCommentMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.entity.SongListComment" >
+    <id column="songlc_id" property="songlcId" jdbcType="INTEGER" />
+    <result column="songlist_id" property="songlistId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="songlc_text" property="songlcText" jdbcType="VARCHAR" />
+    <result column="songlc_likes" property="songlcLikes" jdbcType="INTEGER" />
+    <result column="songlc_to_id" property="songlcToId" jdbcType="INTEGER" />
+    <result column="songlc_time" property="songlcTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    songlc_id, songlist_id, user_id, songlc_text, songlc_likes, songlc_to_id, songlc_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from songlistcomment
+    where songlc_id = #{songlcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from songlistcomment
+    where songlc_id = #{songlcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.SongListComment" >
+    insert into songlistcomment (songlc_id, songlist_id, user_id, 
+      songlc_text, songlc_likes, songlc_to_id, 
+      songlc_time)
+    values (#{songlcId,jdbcType=INTEGER}, #{songlistId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{songlcText,jdbcType=VARCHAR}, #{songlcLikes,jdbcType=INTEGER}, #{songlcToId,jdbcType=INTEGER}, 
+      #{songlcTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.SongListComment" >
+    insert into songlistcomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="songlcId != null" >
+        songlc_id,
+      </if>
+      <if test="songlistId != null" >
+        songlist_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="songlcText != null" >
+        songlc_text,
+      </if>
+      <if test="songlcLikes != null" >
+        songlc_likes,
+      </if>
+      <if test="songlcToId != null" >
+        songlc_to_id,
+      </if>
+      <if test="songlcTime != null" >
+        songlc_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="songlcId != null" >
+        #{songlcId,jdbcType=INTEGER},
+      </if>
+      <if test="songlistId != null" >
+        #{songlistId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="songlcText != null" >
+        #{songlcText,jdbcType=VARCHAR},
+      </if>
+      <if test="songlcLikes != null" >
+        #{songlcLikes,jdbcType=INTEGER},
+      </if>
+      <if test="songlcToId != null" >
+        #{songlcToId,jdbcType=INTEGER},
+      </if>
+      <if test="songlcTime != null" >
+        #{songlcTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.SongListComment" >
+    update songlistcomment
+    <set >
+      <if test="songlistId != null" >
+        songlist_id = #{songlistId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="songlcText != null" >
+        songlc_text = #{songlcText,jdbcType=VARCHAR},
+      </if>
+      <if test="songlcLikes != null" >
+        songlc_likes = #{songlcLikes,jdbcType=INTEGER},
+      </if>
+      <if test="songlcToId != null" >
+        songlc_to_id = #{songlcToId,jdbcType=INTEGER},
+      </if>
+      <if test="songlcTime != null" >
+        songlc_time = #{songlcTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where songlc_id = #{songlcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.SongListComment" >
+    update songlistcomment
+    set songlist_id = #{songlistId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      songlc_text = #{songlcText,jdbcType=VARCHAR},
+      songlc_likes = #{songlcLikes,jdbcType=INTEGER},
+      songlc_to_id = #{songlcToId,jdbcType=INTEGER},
+      songlc_time = #{songlcTime,jdbcType=TIMESTAMP}
+    where songlc_id = #{songlcId,jdbcType=INTEGER}
+  </update>
+</mapper>

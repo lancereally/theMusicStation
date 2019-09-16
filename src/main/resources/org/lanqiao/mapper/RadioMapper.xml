@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.RadioMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Radio" >
+    <id column="radio_id" property="radioId" jdbcType="INTEGER" />
+    <result column="radio_name" property="radioName" jdbcType="VARCHAR" />
+    <result column="radio_cover_url" property="radioCoverUrl" jdbcType="VARCHAR" />
+    <result column="radio_description" property="radioDescription" jdbcType="VARCHAR" />
+    <result column="radio_subscription" property="radioSubscription" jdbcType="INTEGER" />
+    <result column="radio_class_id" property="radioClassId" jdbcType="INTEGER" />
+    <result column="radio_show_num" property="radioShowNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    radio_id, radio_name, radio_cover_url, radio_description, radio_subscription, radio_class_id, 
+    radio_show_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from radio
+    where radio_id = #{radioId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from radio
+    where radio_id = #{radioId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.Radio" >
+    insert into radio (radio_id, radio_name, radio_cover_url, 
+      radio_description, radio_subscription, radio_class_id, 
+      radio_show_num)
+    values (#{radioId,jdbcType=INTEGER}, #{radioName,jdbcType=VARCHAR}, #{radioCoverUrl,jdbcType=VARCHAR}, 
+      #{radioDescription,jdbcType=VARCHAR}, #{radioSubscription,jdbcType=INTEGER}, #{radioClassId,jdbcType=INTEGER}, 
+      #{radioShowNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.Radio" >
+    insert into radio
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="radioId != null" >
+        radio_id,
+      </if>
+      <if test="radioName != null" >
+        radio_name,
+      </if>
+      <if test="radioCoverUrl != null" >
+        radio_cover_url,
+      </if>
+      <if test="radioDescription != null" >
+        radio_description,
+      </if>
+      <if test="radioSubscription != null" >
+        radio_subscription,
+      </if>
+      <if test="radioClassId != null" >
+        radio_class_id,
+      </if>
+      <if test="radioShowNum != null" >
+        radio_show_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="radioId != null" >
+        #{radioId,jdbcType=INTEGER},
+      </if>
+      <if test="radioName != null" >
+        #{radioName,jdbcType=VARCHAR},
+      </if>
+      <if test="radioCoverUrl != null" >
+        #{radioCoverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="radioDescription != null" >
+        #{radioDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="radioSubscription != null" >
+        #{radioSubscription,jdbcType=INTEGER},
+      </if>
+      <if test="radioClassId != null" >
+        #{radioClassId,jdbcType=INTEGER},
+      </if>
+      <if test="radioShowNum != null" >
+        #{radioShowNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Radio" >
+    update radio
+    <set >
+      <if test="radioName != null" >
+        radio_name = #{radioName,jdbcType=VARCHAR},
+      </if>
+      <if test="radioCoverUrl != null" >
+        radio_cover_url = #{radioCoverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="radioDescription != null" >
+        radio_description = #{radioDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="radioSubscription != null" >
+        radio_subscription = #{radioSubscription,jdbcType=INTEGER},
+      </if>
+      <if test="radioClassId != null" >
+        radio_class_id = #{radioClassId,jdbcType=INTEGER},
+      </if>
+      <if test="radioShowNum != null" >
+        radio_show_num = #{radioShowNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where radio_id = #{radioId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Radio" >
+    update radio
+    set radio_name = #{radioName,jdbcType=VARCHAR},
+      radio_cover_url = #{radioCoverUrl,jdbcType=VARCHAR},
+      radio_description = #{radioDescription,jdbcType=VARCHAR},
+      radio_subscription = #{radioSubscription,jdbcType=INTEGER},
+      radio_class_id = #{radioClassId,jdbcType=INTEGER},
+      radio_show_num = #{radioShowNum,jdbcType=INTEGER}
+    where radio_id = #{radioId,jdbcType=INTEGER}
+  </update>
+</mapper>

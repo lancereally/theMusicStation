@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.RidioShowMapper" >
+  <resultMap id="BaseResultMap" type="org.lanqiao.entity.RidioShow" >
+    <id column="show_id" property="showId" jdbcType="INTEGER" />
+    <result column="radio_id" property="radioId" jdbcType="INTEGER" />
+    <result column="show_name" property="showName" jdbcType="VARCHAR" />
+    <result column="show_cover_url" property="showCoverUrl" jdbcType="VARCHAR" />
+    <result column="show_description" property="showDescription" jdbcType="VARCHAR" />
+    <result column="show_url" property="showUrl" jdbcType="VARCHAR" />
+    <result column="show_duration" property="showDuration" jdbcType="INTEGER" />
+    <result column="show_likes" property="showLikes" jdbcType="INTEGER" />
+    <result column="show_comment" property="showComment" jdbcType="INTEGER" />
+    <result column="show_play_times" property="showPlayTimes" jdbcType="INTEGER" />
+    <result column="show_create_date" property="showCreateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    show_id, radio_id, show_name, show_cover_url, show_description, show_url, show_duration, 
+    show_likes, show_comment, show_play_times, show_create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from radioshow
+    where show_id = #{showId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from radioshow
+    where show_id = #{showId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.RidioShow" >
+    insert into radioshow (show_id, radio_id, show_name, 
+      show_cover_url, show_description, show_url, 
+      show_duration, show_likes, show_comment, 
+      show_play_times, show_create_date)
+    values (#{showId,jdbcType=INTEGER}, #{radioId,jdbcType=INTEGER}, #{showName,jdbcType=VARCHAR}, 
+      #{showCoverUrl,jdbcType=VARCHAR}, #{showDescription,jdbcType=VARCHAR}, #{showUrl,jdbcType=VARCHAR}, 
+      #{showDuration,jdbcType=INTEGER}, #{showLikes,jdbcType=INTEGER}, #{showComment,jdbcType=INTEGER}, 
+      #{showPlayTimes,jdbcType=INTEGER}, #{showCreateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.RidioShow" >
+    insert into radioshow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="showId != null" >
+        show_id,
+      </if>
+      <if test="radioId != null" >
+        radio_id,
+      </if>
+      <if test="showName != null" >
+        show_name,
+      </if>
+      <if test="showCoverUrl != null" >
+        show_cover_url,
+      </if>
+      <if test="showDescription != null" >
+        show_description,
+      </if>
+      <if test="showUrl != null" >
+        show_url,
+      </if>
+      <if test="showDuration != null" >
+        show_duration,
+      </if>
+      <if test="showLikes != null" >
+        show_likes,
+      </if>
+      <if test="showComment != null" >
+        show_comment,
+      </if>
+      <if test="showPlayTimes != null" >
+        show_play_times,
+      </if>
+      <if test="showCreateDate != null" >
+        show_create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="showId != null" >
+        #{showId,jdbcType=INTEGER},
+      </if>
+      <if test="radioId != null" >
+        #{radioId,jdbcType=INTEGER},
+      </if>
+      <if test="showName != null" >
+        #{showName,jdbcType=VARCHAR},
+      </if>
+      <if test="showCoverUrl != null" >
+        #{showCoverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showDescription != null" >
+        #{showDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="showUrl != null" >
+        #{showUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showDuration != null" >
+        #{showDuration,jdbcType=INTEGER},
+      </if>
+      <if test="showLikes != null" >
+        #{showLikes,jdbcType=INTEGER},
+      </if>
+      <if test="showComment != null" >
+        #{showComment,jdbcType=INTEGER},
+      </if>
+      <if test="showPlayTimes != null" >
+        #{showPlayTimes,jdbcType=INTEGER},
+      </if>
+      <if test="showCreateDate != null" >
+        #{showCreateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.RidioShow" >
+    update radioshow
+    <set >
+      <if test="radioId != null" >
+        radio_id = #{radioId,jdbcType=INTEGER},
+      </if>
+      <if test="showName != null" >
+        show_name = #{showName,jdbcType=VARCHAR},
+      </if>
+      <if test="showCoverUrl != null" >
+        show_cover_url = #{showCoverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showDescription != null" >
+        show_description = #{showDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="showUrl != null" >
+        show_url = #{showUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="showDuration != null" >
+        show_duration = #{showDuration,jdbcType=INTEGER},
+      </if>
+      <if test="showLikes != null" >
+        show_likes = #{showLikes,jdbcType=INTEGER},
+      </if>
+      <if test="showComment != null" >
+        show_comment = #{showComment,jdbcType=INTEGER},
+      </if>
+      <if test="showPlayTimes != null" >
+        show_play_times = #{showPlayTimes,jdbcType=INTEGER},
+      </if>
+      <if test="showCreateDate != null" >
+        show_create_date = #{showCreateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where show_id = #{showId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.RidioShow" >
+    update radioshow
+    set radio_id = #{radioId,jdbcType=INTEGER},
+      show_name = #{showName,jdbcType=VARCHAR},
+      show_cover_url = #{showCoverUrl,jdbcType=VARCHAR},
+      show_description = #{showDescription,jdbcType=VARCHAR},
+      show_url = #{showUrl,jdbcType=VARCHAR},
+      show_duration = #{showDuration,jdbcType=INTEGER},
+      show_likes = #{showLikes,jdbcType=INTEGER},
+      show_comment = #{showComment,jdbcType=INTEGER},
+      show_play_times = #{showPlayTimes,jdbcType=INTEGER},
+      show_create_date = #{showCreateDate,jdbcType=TIMESTAMP}
+    where show_id = #{showId,jdbcType=INTEGER}
+  </update>
+</mapper>
