@@ -15,7 +15,7 @@
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
-    <include refid="Base_Column_List" />
+    *
     from songcomment
     where songc_id = #{songcId,jdbcType=INTEGER}
   </select>

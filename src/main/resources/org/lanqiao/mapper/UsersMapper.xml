@@ -96,7 +96,7 @@
       <result column="songlist_keep_num" property="songlistKeepNum" jdbcType="INTEGER" />
       <result column="songlist_pic_url" property="songlistPicUrl" jdbcType="VARCHAR" />
     </association>
-  </resultMap>>
+  </resultMap>
 
 
   <!--》》》郭书卿》》》-->
@@ -128,50 +128,49 @@
 
 
 
->>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
-  <sql id="Base_Column_List" >
-    user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, 
-    user_location, user_head_url, user_real_name, user_email, user_phone_activation, 
-    user_phone, user_qq, user_id_card, user_vip_state
-  </sql>
+<!--  <sql id="Base_Column_List" >-->
+<!--    user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, -->
+<!--    user_location, user_head_url, user_real_name, user_email, user_phone_activation, -->
+<!--    user_phone, user_qq, user_id_card, user_vip_state-->
+<!--  </sql>-->
 
 <!--徐东方-->
-  <select id="getLittleInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getLittleInfo" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
     user_name,user_head_url,user_location,user_vip_state
     from users
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
 
-  <select id="getFollowCount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getFollowCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
     f.usera_id
     from users u,userfan f
     where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = f.usera_id
   </select>
 
-  <select id="getMyComment" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getMyComment" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select s.user_id, s.songc_text, s.songc_time
 from users u, songcomment s
 where u.user_id = #{userId,jdbcType=INTEGER}
 and s.songc_to_id = u.user_id
   </select>
 
-  <select id="getFanCount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getFanCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
     f.usera_id
     from users u,userfan f
     where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = f.userb_id
   </select>
 
-  <select id="getPlaySongCount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getPlaySongCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
     s.us_id
     from users u,usersong s
     where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id
   </select>
 
-  <select id="getSongListCreateCount" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getSongListCreateCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
     distinct(s.usl_id)
     from users u,usersonglist s
@@ -179,7 +178,7 @@ and s.songc_to_id = u.user_id
     or s.us_relation = 2
   </select>
 
-  <select id="getSongListCreateLiked" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getSongListCreateLiked" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
     distinct(s.usl_id)
     from users u,usersonglist s
@@ -187,14 +186,14 @@ and s.songc_to_id = u.user_id
     or s.us_relation = 2
   </select>
 
-  <select id="getSongRanking" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="getSongRanking" resultMap="UsersResultMap" parameterType="java.lang.Integer">
     select s.song_name, si.singer_name, us.us_play_times
     from users u, song s, singer si, usersong us
     where u.user_id=#{userId,jdbcType=INTEGER} and u.user_id=us.user_id and us.song_id=s.song_id and s.singer_id=si.singer_id
     ORDER BY us.us_play_times desc
   </select>
 
-  <select id="getMyFollows" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="getMyFollows" resultMap="UsersResultMap" parameterType="java.lang.Integer">
     SELECT u.user_head_url, u.user_name
 from users u
 where u.user_id in
@@ -215,7 +214,7 @@ where
     </if>
   </select>
 
-  <select id="getMyFans" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="getMyFans" resultMap="UsersResultMap" parameterType="java.lang.Integer">
     SELECT u.user_head_url, u.user_name
 from users u
 where u.user_id in
@@ -224,7 +223,7 @@ from users u, userfan f
 where u.user_id = #{userId,jdbcType=INTEGER} and f.userb_id = u.user_id)
   </select>
 
-  <select id="getSongListCreate" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="getSongListCreate" resultMap="UsersResultMap" parameterType="java.lang.Integer">
     SELECT DISTINCT(sl.songlist_name), u.user_id,
 sl.songlist_pic_url, sum(DISTINCT(s.song_play_times)) as slCount
     from songlist sl, usersonglist us, songsonglist ss, song s, users u
@@ -233,7 +232,7 @@ sl.songlist_pic_url, sum(DISTINCT(s.song_play_times)) as slCount
 and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
 </select>
 
-  <select id="getSongListLiked" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="getSongListLiked" resultMap="UsersResultMap" parameterType="java.lang.Integer">
     SELECT DISTINCT(sl.songlist_name),u.user_id,
 sl.songlist_pic_url, sum(DISTINCT(s.song_play_times)) as slCount
     from songlist sl, usersonglist us, songsonglist ss, song s, users u
@@ -253,7 +252,7 @@ and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
 
-  <select id="checkPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+  <select id="checkPhone" resultMap="UsersResultMap" parameterType="java.lang.String">
     SELECT user_id
     from users
     where user_phone = #{userPhone,jdbcType=VARCHAR}
@@ -339,12 +338,9 @@ and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
   </select>
 <!--徐东方-->
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-=======
   <select id="selectByPrimaryKey" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
->>>>>>> 8d37e308c82a9b20ddb6ac311c6acc5b46a4e9c6
-    select 
-    <include refid="Base_Column_List" />
+    select
+    *
     from users
     where user_id = #{userId,jdbcType=INTEGER}
   </select>

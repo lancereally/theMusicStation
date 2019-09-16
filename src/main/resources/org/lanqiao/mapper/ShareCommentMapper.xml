@@ -16,15 +16,15 @@
 
   </resultMap>
 
+  <sql id="Base_Column_List" >
+    sc_id, share_id, user_id, sc_text, sc_likes, sc_to_id, sc_time
+  </sql>
   <select id="selectByShareId" parameterType="java.lang.Integer" resultMap="ShareCommentResultMap">
     select s.sc_id, s.sc_likes,s.sc_text,s.sc_time,s.sc_to_id,u.user_name,u.user_head_url from
     sharecomment s, users u where s.user_id = u.user_id and s.share_id = #{share_id} order by s.sc_time desc
   </select>
 
 
-  <sql id="Base_Column_List" >
-    sc_id, share_id, user_id, sc_text, sc_likes, sc_to_id, sc_time
-  </sql>
   <select id="selectByPrimaryKey" resultMap="ShareCommentResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

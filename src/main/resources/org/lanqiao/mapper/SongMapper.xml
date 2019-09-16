@@ -32,6 +32,11 @@
         <result column="album_pic_url" property="albumPicUrl" jdbcType="VARCHAR"/>
         <result column="singer_id" property="singerId" jdbcType="INTEGER"/>
     </resultMap>
+    <sql id="Base_Column_List">
+    song_id, song_name, song_lyric, song_description, song_url, song_duration, song_download,
+    song_commet_count, song_play_times, song_create_date, song_status, song_keep_num,
+    album_id, song_pic_url, singer_id
+  </sql>
     <select id="selectSingerByPK_q" resultMap="SongResultMap" parameterType="java.lang.Integer">
     select song_name, song_url, singer_name from song, singer where song.singer_id = singer.singer_id and song_id = 1
   </select>
@@ -51,14 +56,10 @@
 <!--    </select>-->
 
 
-    <sql id="Base_Column_List">
-    song_id, song_name, song_lyric, song_description, song_url, song_duration, song_download, 
-    song_commet_count, song_play_times, song_create_date, song_status, song_keep_num, 
-    album_id, song_pic_url, singer_id
-  </sql>
+
     <select id="selectByPrimaryKey" resultMap="SongResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
+        *
         from song
         where song_id = #{songId,jdbcType=INTEGER}
     </select>

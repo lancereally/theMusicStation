@@ -10,7 +10,6 @@
 
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR" />
-      <collection property="albumSet" resultMap="AlbumResultMap"></collection>
 
   </resultMap>
 
@@ -27,7 +26,9 @@
         <result column="singer_id" property="singerId" jdbcType="INTEGER" />
     </resultMap>
 
-
+    <sql id="Base_Column_List">
+    singer_id, singer_name, user_id, singer_description, singer_pic_url
+  </sql>
 
     <select id="selectHotSingers" resultMap="SingerResultMap" parameterType="java.lang.Integer">
         select singer_id, singer_name, singer_pic_url, singer_description,user_id from singer  order by rand()
@@ -52,12 +53,9 @@
         select s.singer_name,s.singer_pic_url ,a.* from album a, singer s, usersingers us,users u where a.singer_id = s.singer_id and  us.singer_id = s.singer_id and us.user_id = u.user_id and u.user_id =#{userId}
     </select>
 
-    <sql id="Base_Column_List">
-    singer_id, singer_name, user_id, singer_description, singer_pic_url
-  </sql>
     <select id="selectByPrimaryKey" resultMap="SingerResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
+        *
         from singer
         where singer_id = #{singerId,jdbcType=INTEGER}
     </select>
