@@ -24,4 +24,6 @@ public interface SongListService {
     int deleteBySongListId(Integer songListId);
     //取消收藏歌单-郭长达
     int cancelBySongListId(Integer songListId);
+    //编辑歌单标签信息-郭长达
+    int updataSongListTag(SongList songList);
 }

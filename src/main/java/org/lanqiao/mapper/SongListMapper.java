@@ -39,4 +39,6 @@ public interface SongListMapper {
     int deleteByPrimaryKey(Integer songlistId);
     //取消收藏歌单-郭长达
     int cancelBySongListId(Integer songlistId);
+    //编辑歌单标签-郭长达
+    int updataSongListTag(SongList songList);
 }

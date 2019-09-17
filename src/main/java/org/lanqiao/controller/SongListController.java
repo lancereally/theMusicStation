@@ -58,4 +58,9 @@ public class SongListController {
     public int cancelBySongListId(Integer songListId){
         return songListService.cancelBySongListId(songListId);
     }
+    //编辑歌单标签信息-郭长达
+    @RequestMapping("/MyMusic/editTag")
+    public int editSongListTag(SongList songList){
+        return songListService.updataSongListTag(songList);
+    }
 }

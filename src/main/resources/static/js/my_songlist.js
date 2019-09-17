@@ -201,10 +201,6 @@ $(function () {
             }
         },
     });
-    var padDate=function(va){
-        va=va<10?'0'+va:va;
-        return va
-    }
     ss.getSongSet();
     sinfo.getSongCount();
     sinfo.getSongPlayCount();
@@ -243,3 +239,7 @@ $(function () {
        })
     });
 });
+var padDate=function(va){
+    va=va<10?'0'+va:va;
+    return va
+};

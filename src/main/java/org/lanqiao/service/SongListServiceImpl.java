@@ -58,4 +58,9 @@ public class SongListServiceImpl implements SongListService{
     public int cancelBySongListId(Integer songListId) {
         return songListMapper.cancelBySongListId(songListId);
     }
+    //编辑歌单标签信息-郭长达
+    @Override
+    public int updataSongListTag(SongList songList) {
+        return songListMapper.updataSongListTag(songList);
+    }
 }

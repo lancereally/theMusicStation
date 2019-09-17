@@ -1,4 +1,5 @@
 $(function () {
+    var tagVal=[];
     var url = location.search,
         songListId = {};
     //如果url有id
@@ -57,11 +58,31 @@ $(function () {
                 $(data.elem).prop("checked",false);
                 layer.msg('最多选择三个标签！！');
             }
-            console.log(data.elem); //得到checkbox原始DOM对象
-            console.log(data.elem.checked); //是否被选中，true或者false
+            console.log(len);
             console.log(data.value); //复选框value值，也可以通过data.elem.value得到
-            console.log(data.othis); //得到美化后的DOM对象
         });
+    });
+    //输出选中标签的值
+    $("#doSave").click(function () {
+       $("input:checkbox[class='tag-sel']:checked").each(function (index) {
+           tagVal[index]=$(this).val()
+       });
+       //保存标签
+       $.ajax({
+           url:"/MyMusic/editTag",
+           type:"post",
+           data:{
+               songlistTag:tagVal[0]+" "+tagVal[1]+" "+tagVal[2],
+               songlistId:songListId.songListId
+           },
+           dataType:"json",
+           success:function (data) {
+               if(data==1){
+                   layer.msg('标签保存成功！！');
+                   $("div[class='edit_tag']").css("display", "none");
+               }
+           }
+       })
     });
     $("input[name='PicUpload']").change(function () {
         var url = getUrl(this.files[0]);
