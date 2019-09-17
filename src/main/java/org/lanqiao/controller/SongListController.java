@@ -43,6 +43,16 @@ public class SongListController {
     public SongList getSongListInfo(Integer songListId,Integer userId){
         return songListService.getSongListInfo(songListId,userId);
     }
+    //编辑歌单信息
+    @RequestMapping("/MyMusic/editSonglist")
+    public int editSongListInfo(SongList songList){
+        return songListService.updateSongListInfo(songList);
+    }
+    //删除歌单-郭长达
+    @RequestMapping("/MyMusic/deleteSonglist")
+    public int deleteBySongListId(Integer songListId){
+        return songListService.deleteBySongListId(songListId);
+    }
 
     @RequestMapping("/songList/getSongList")
     public List<SongList> getSongList(String keyWord){

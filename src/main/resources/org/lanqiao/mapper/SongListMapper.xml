@@ -47,7 +47,7 @@
     
     <!--查询歌单信息-->
     <select id="selectBySongListId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
-        select u.user_head_url,u.user_name,sl.songlist_name,sl.songlist_pic_url,sl.songlist_create_time from users u,songlist sl,usersonglist usl
+        select u.user_head_url,u.user_name,sl.songlist_name,sl.songlist_pic_url,sl.songlist_create_time,sl.songlist_id,sl.songlist_description from users u,songlist sl,usersonglist usl
         where sl.songlist_id = usl.songlist_id and usl.user_id = u.user_id and u.user_id = #{userId} and sl.songlist_id = #{songListId}
     </select>
     <!--    查询创建的歌单-gcd-->
@@ -70,6 +70,18 @@
     <insert id="insertUserSongList" parameterType="java.lang.Integer">
         insert into usersonglist(songlist_id,user_id,us_relation) values (#{songListId},#{userId},#{usRelation})
     </insert>
+    <!--编辑歌单信息-郭长达-->
+    <update id="updateSongListInfo" parameterType="org.lanqiao.entity.SongList">
+        update songlist set songlist_name = #{songlistName},songlist_pic_url= #{songlistPicUrl},songlist_description= #{songlistDescription} where songlist_id = #{songlistId}
+    </update>
+    <!--删除歌单-郭长达-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from songlist where songlist_id = #{songListId,jdbcType=INTEGER}
+    </delete>
+
+
+
+
 
     <sql id="Base_Column_List">
     songlist_id, songlist_name, songlist_description, songlist_tag, songlist_count, songlist_create_time, 
@@ -81,10 +93,7 @@
         from songlist
         where songlist_id = #{songlistId,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from songlist
-    where songlist_id = #{songlistId,jdbcType=INTEGER}
-  </delete>
+
     <insert id="insert" parameterType="org.lanqiao.entity.SongList">
     insert into songlist (songlist_id, songlist_name, songlist_description, 
       songlist_tag, songlist_count, songlist_create_time, 

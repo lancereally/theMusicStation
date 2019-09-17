@@ -9,7 +9,6 @@ $(function () {
         for(var i = 0; i < strs.length; i++) {
             songListId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
-
     }
     //
     // console.log('传过来的参数是:', songListId.songListId);
@@ -83,7 +82,8 @@ $(function () {
     var comment = new Vue({
         el: "#songComment",
         data: {
-            commentList: []
+            commentList: [],
+            userHeadUrl1:""
         },
         methods: {
             getComment: function () {
@@ -111,17 +111,33 @@ $(function () {
                         }
                     }
                 })
+            },
+            getPic:function () {
+                $.ajax({
+                    url:"/MyMusic/showSonglistInfo",
+                    type:"post",
+                    data:{
+                        songListId: songListId.songListId,
+                        userId:5
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        comment.userHeadUrl1=data.usersSet[0].userHeadUrl;
+                    }
+                })
             }
         }
     });
     var songList = new Vue({
         el: "#listInfo",
         data: {
+            songlistId:"",
             songlistName: "",
             songlistCreateTime: "",
             songlistPicUrl: "",
             userName: "",
-            userHeadUrl: ""
+            userHeadUrl: "",
+            url:""
             // listMsg:[]
         },
         methods: {
@@ -136,6 +152,7 @@ $(function () {
                     },
                     dataType: "json",
                     success: function (data) {
+                        songList.songlistId=data.songlistId;
                         songList.songlistName=data.songlistName;
                         songList.songlistCreateTime=data.songlistCreateTime;
                         songList.songlistPicUrl=data.songlistPicUrl;
@@ -143,6 +160,9 @@ $(function () {
                         songList.userHeadUrl=data.usersSet[0].userHeadUrl
                     }
                 });
+            },
+            goToEdit:function (songlistId) {
+                songList.url= 'MyMusic_edit.html' + '?songListId=' + escape(songlistId);
             }
         }
     });
@@ -151,5 +171,27 @@ $(function () {
     sinfo.getSongCount();
     sinfo.getSongPlayCount();
     comment.getComment();
+    comment.getPic();
     songList.getListInfo();
+    $("#msg_send").click(function () {
+       $.ajax({
+           url:"/MyMusic/songlist/insert",
+           type:"post",
+           data:{
+               songlistId: songListId.songListId,
+               songlcText:$("textarea[class='msg_info']").val(),
+               userId:5
+           },
+           dataType:"json",
+           success:function (data) {
+               if(data==1){
+                   layui.use('layer', function () {
+                       var layer = layui.layer;
+                       layer.msg('评论成功！');
+                   });
+                   setTimeout("window.location.reload()","1000");
+               }
+           }
+       })
+    });
 });

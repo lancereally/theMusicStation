@@ -1,11 +1,14 @@
 //我的音乐js文件
 $(function () {
+    //vue使用
     var song = new Vue({
         el:"#songList",
         data:{
             likeSongList:[],
             shouSongList:[],
-            url:""
+            url:"",
+            eurl:"",
+            songListId:""
         },
         methods:{
             getLikeSongList:function () {
@@ -56,7 +59,14 @@ $(function () {
             },
             goTo:function (slId) {
                 song.url= 'my_songlist.html' + '?songListId=' + escape(slId);
-                // alert(url)
+            },
+            goToE:function (songListId) {
+                song.eurl= 'MyMusic_edit.html' + '?songListId=' + escape(songListId);
+                // alert(song.eurl)
+            },
+            getSongListId:function(songListId){
+                song.songListId = songListId;
+                // alert(songListId)
             }
         }
     });
@@ -100,28 +110,63 @@ $(function () {
             })
         }
     });
-// //   layui引用
-//     $("a[class='create_btn']").click(function () {
-//
-//         console.log("ssss0");
-//         layui.use('layer', function(){
-//             var layer = layui.layer;
-//
-//             layer.msg('hello');
-//         });
-//     });
     //创建按钮使用
+
     $("a[class='create_btn']").click(function () {
         $("div[class='mymusic_create']").css("display", "inline");
         $("div[class='control']").css("display", "inline")
     });
-    $("span[class='cre_close']").click(function () {
+    $("span[name='cre_end']").click(function () {
         $("div[class='mymusic_create']").css("display", "none");
         $("div[class='control']").css("display", "none")
     });
     $("button[name='dbtn']").click(function () {
         $("div[class='mymusic_create']").css("display", "none");
         $("div[class='control']").css("display", "none")
+    });
+    //删除按钮使用
+    //在 jquery中，如果需要进行动态添加元素，并且添加的元素要具有动态绑定事件的效果，那么可以把元素的绑定事件交给父元素或者body元素来实现
+    $('body').on('click',"a[name='del_sl']",function(){
+        $("div[class='mymusic_del']").css("display", "inline");
+        $("div[class='control']").css("display", "inline")
+    }) ;
+    // $("a[name='del_sl']").click(function () {
+    //     $("div[class='mymusic_del']").css("display", "inline");
+    //     $("div[class='control']").css("display", "inline")
+    // });
+    $("span[name='del_end']").click(function () {
+        $("div[class='mymusic_del']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    $("button[name='del_btn']").click(function () {
+        $("div[class='mymusic_del']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    //删除歌单
+    $("button[name='confirm_btn']").click(function () {
+        $.ajax({
+            url:"/MyMusic/deleteSonglist",
+            type:"post",
+            data:{
+                songListId:song.songListId
+            },
+            dataType:"json",
+            success:function (data) {
+                if(data == 1){
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('成功删除歌单！');
+                    });
+                    setTimeout("window.location.reload()","1000");
+                }else{
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('删除歌单失败！');
+                    });
+                    setTimeout("window.location.reload()","1000");
+                }
+            }
+        })
     });
     //新建歌单
     $("button[name='nbtn']").click(function () {
@@ -169,7 +214,5 @@ $(function () {
                 }
             }
         })
-
-
     });
 });
