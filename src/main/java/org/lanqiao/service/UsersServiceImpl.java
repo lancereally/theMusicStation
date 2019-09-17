@@ -5,6 +5,7 @@ import org.lanqiao.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,5 +37,25 @@ public class UsersServiceImpl implements UsersService {
         }else {
             return usersMapper.insertFan(userId,otherId);
         }
+    }
+
+    @Override
+    public List<Users> selectUsersByInput(String input) {
+         return usersMapper.selectUsersByInput(input);
+         // better but not access yet
+//        List<Integer> userIdList = new ArrayList<>();
+//        List<Users> usersList = usersMapper.selectUsersByInput1(input);
+//        for (Users user : usersList) {
+//            userIdList.add(user.getUserId());
+//        }
+//        int i = 0;
+//        for (Users user : usersList) {
+//            user.setSongListCount(usersMapper.selectUsersByInput2(userIdList).get(i++));
+//        }
+//        i = 0;
+//        for (Users user : usersList) {
+//            user.setFans(usersMapper.selectUsersByInput3(userIdList).get(i++));
+//        }
+//        return usersList;
     }
 }

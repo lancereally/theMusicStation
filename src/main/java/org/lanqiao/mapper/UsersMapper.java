@@ -36,4 +36,11 @@ public interface UsersMapper {
 
 
 //
+
+    // <- Lzc : search users
+    List<Users> selectUsersByInput(String input);
+    List<Users> selectUsersByInput1(String input);
+    List<Integer> selectUsersByInput2(List<Integer> userIdList);
+    List<Integer> selectUsersByInput3(List<Integer> userIdList);
+    // ->
 }

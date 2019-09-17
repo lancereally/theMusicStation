@@ -34,13 +34,24 @@ public class Users {
     private Integer userVipState;
 
     //粉丝数
-    private Integer fans;
+    private Integer fans = 0;
 
     //关注数
     private Integer attention;
 
     //动态数量
     private Integer shareCount;
+
+    //关联歌单数
+    private Integer songListCount = 0;
+
+    public Integer getSongListCount() {
+        return songListCount;
+    }
+
+    public void setSongListCount(Integer songListCount) {
+        this.songListCount = songListCount;
+    }
 
     public Integer getFans() {
         return fans;

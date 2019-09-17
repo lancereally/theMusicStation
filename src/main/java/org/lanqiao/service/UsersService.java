@@ -14,4 +14,6 @@ public interface UsersService {
     public Integer becomeOtherFan(Integer userId,Integer otherId);
     //《《《郭书卿《《《
 
+    // Lzc : search users
+    List<Users> selectUsersByInput(String input);
 }
