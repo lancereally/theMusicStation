@@ -17,4 +17,10 @@ public class SingerController {
     public List<Singer> getSingerListOnMyMusic(Integer userId){
         return singerService.selectByUserId(userId);
     }
+
+    @RequestMapping("/singer/checkCollection")
+    public String checkUserAndSinger(Integer userId, Integer singerId){
+        return singerService.checkUserAndSinger(userId,singerId) + "";
+    }
+
 }

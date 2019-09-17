@@ -42,9 +42,24 @@
         .pad-0{
             padding: 0;
         }
+        .btnfav{
+            display: block;
+            position: absolute;
+            bottom: 650px;
+            right: 20px;
+            width: 76px;
+            height: 32px;
+            line-height: 32px;
+            background-color: #777777;
+            text-align: center;
+            border-radius: 10px;
+            color: #dddddd;
+        }
     </style>
     <script>
         $(function () {
+
+            var userId = 1;
 
             var url = location.search,
                 singerId = {};
@@ -65,7 +80,8 @@
                     songs:[],
                     singerId:singerId.singerId,
                     songCount:"",
-                    albums:[]
+                    albums:[],
+                    collection:"收藏"
 
                 },
                 methods:{
@@ -143,13 +159,38 @@
                                 bigBox.albums = album;
                             }
                         })
+                    },
+                    checkCollection:function () {
+                        bigBox.collection = "收藏";
+                        $.ajax({
+                            url:check === 0 ? "/singer/checkCollection" : "/singer/collectionSinger",
+                            datatype:"json",
+                            data:{
+                                userId : userId,
+                                singerId: bigBox.singerId
+                            },
+                            type:"post",
+                            success:function (check) {
+                                if (check){
+                                    bigBox.collection = "已收藏"
+                                }
+                            }
+                        })
                     }
+
                 }
 
             });
 
+            var check = 0;
             bigBox.getSinger();
             bigBox.showSongs();
+            bigBox.checkCollection();
+
+            $("#artist-sub").click(function () {
+                check = 1;
+                bigBox.checkCollection();
+            })
 
         });
 
@@ -165,7 +206,7 @@
     <h2 class="f-w-n f-left">{{singer.singerName}}</h2><i class="f-left" style="padding-top: 20px"><h4 class="f-w-n f-c-d">{{singer.antherName}}</h4></i>
     <div style="clear: both">
         <img :src="singer.singerPicUrl" height="300px" width="640px">
-
+        <a id="artist-sub" href="javascript:void(0)" class="btnfav f-tid">{{collection}}</a>
     </div>
 </div>
 <div style="width: 100%; height: 500px; overflow: hidden">
@@ -270,7 +311,10 @@
     </div>
 
     <div id="description">
-        <div>
+        <div style="padding: 10px 20px">
+           姓名：{{singer.singerName}}
+        </div>
+        <div style="padding: 10px 20px">
             {{singer.singerDescription}}
         </div>
     </div>

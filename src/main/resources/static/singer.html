@@ -87,7 +87,7 @@
                 <a href="#">
                     <img :src="singer.singerPicUrl" height="55px" width="55px">
                 </a><br>
-                    <a class="font-12 singername">{{singer.singerName}}</a>
+                    <a :href="'singer.html?singerId='+singer.singerId" class="font-12 singername">{{singer.singerName}}</a>
             </li>
         </ul>
         <div class="starUser"><i class="font-12 f-w-b">网易云音乐多端下载</i></div>
