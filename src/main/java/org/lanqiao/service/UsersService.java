@@ -45,6 +45,9 @@ public interface UsersService {
     //获取comment
     public List<Users> getMyComment(Users users);
 
+    //获取Notice
+    public List<Users> getMyNotice(Users users);
+
     //拉取fans and follows
     public List<Users> getMyFollows(Users users);
 

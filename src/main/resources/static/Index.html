@@ -5,12 +5,13 @@
     <meta charset="utf-8" />
     <title>网易云音乐</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="application/javascript" src="js/layui/layui.js"></script>
+<!--    <script type="application/javascript" src="js/layui/layui.js"></script>-->
     <script type="application/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script type="text/javascript" src="js/layui/layui.js"></script>
     <link rel="stylesheet" href="css/MyOption.css">
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/Login.css"/>
@@ -18,6 +19,7 @@
   </head>
   <script>
     $(function () {
+
       $("#login").click(function () {
         $(".login").css("display","block");
       });
@@ -44,6 +46,7 @@
 
       //注册
       $(".username").blur(function () {
+        if($(".username").val() != "")
         $.ajax({
           url:"/user/checkName",
           type:"post",
@@ -53,9 +56,21 @@
           },
           success:function (data) {
             if(data == "false"){
-              alert("该用户名已经存在！");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('该用户名已经存在！',{
+                  area:['400px', '50px']
+                });
+              });
+              // alert("该用户名已经存在！");
             }else{
-              alert("哦哟，这名字可以哦~");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('哦哟，这名字可以哦~',{
+                  area:['400px', '50px']
+                });
+              });
+              // alert("哦哟，这名字可以哦~");
             }
             if($("#nickname").val() == ""){
               $(".text").addClass("error");
@@ -65,7 +80,18 @@
         })
       });
 
-      //注册账号信息校验
+
+      function account() {
+        //x上限，y下限
+        var x = 999999;
+        var y = 100000;
+        var rand = parseInt(Math.random() * (x - y + 1) + y);
+        return rand;
+      }
+
+
+//注册账号信息校验
+      var state = 0;
       $(".register").validate({
         rules: {
           userName:{
@@ -92,46 +118,86 @@
         errorPlacement: function(error, element) {
           error.appendTo( element.parent());
         },
-        success:function () {}
+        success:function () {
+          state = 1;
+        }
+      });
+//账号注册
+      $(".userLogin").click(function () {
+        if(state != 1)
+          layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg('某处信息有误~',{
+              area:['400px', '50px']
+            });
+          });
+        else if($(".proto").attr('checked','checked')){
+          var userAccount = account();
+          $.ajax({
+            url:"/user/register",
+            type:"post",
+            dataType:"text",
+            data:{
+              'userName':$(".username").val(),
+              "userAccount":userAccount,
+              "userPassword":$(".password").val(),
+              "userHeadUrl":"images/userPicDefault.jpg"
+            },
+            success:function (data) {
+              if(data == "1"){
+                layui.use('layer', function(){
+                  var layer = layui.layer;
+                  layer.msg('YOYO切克闹~登录成功嗨起来！',{
+                    area:['400px', '50px']
+                  });
+                });
+                // alert("YOYO切克闹~登录成功嗨起来！");
+                $.ajax({
+                  url:"/user/getIdByAnything",
+                  type:"post",
+                  dataType:"json",
+                  data:{
+                    'userAccount':userAccount
+                  }
+                  ,
+                  success:function (data) {
+                    if(data>0){location.href = "MyHomePage.html";
+                      layui.use('layer', function(){
+                        var layer = layui.layer;
+                        layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
+                          area:['400px', '50px']
+                        });
+                      });
+                      // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                    }
+                  }
+                });
+              }
+              else
+                layui.use('layer', function(){
+                  var layer = layui.layer;
+                  layer.msg('DB管理员已经删库跑路，本站暂停使用~',{
+                    area:['400px', '50px']
+                  });
+                });
+              // alert("DB管理员已经删库跑路，本站暂停使用~");
+            }
+          })
+        }
+        else
+        {
+          // alert("您还未同意土嗨音乐协议哦~");
+          layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg('您还未同意土嗨音乐协议哦~',{
+              area:['400px', '50px']
+            });
+          });
+        }
       });
 
-      function account() {
-        //x上限，y下限
-        var x = 999999;
-        var y = 100000;
-        var rand = parseInt(Math.random() * (x - y + 1) + y);
-        return rand;
-      }
-
-        $(".userLogin").click(function () {
-          if($(".proto").attr('checked','checked')){
-            alert(1);
-            var userAccount = account();
-            $.ajax({
-              url:"/user/register",
-              type:"post",
-              dataType:"text",
-              data:{
-                'userName':$(".username").val(),
-                "userAccount":userAccount,
-                "userPassword":$(".password").val(),
-                "userPicUrl":"images/userPicDefault.jpg"
-              },
-              success:function (data) {
-                if(data == "false")
-                  alert("YOYO切克闹~注册成功嗨起来！" +
-                          "您的账号为"+userAccount);
-                else
-                  alert("DB管理员已经删库跑路，本站暂停使用~");
-              }
-            })
-          }
-          else
-          {
-            alert("您还未同意土嗨音乐协议哦~");
-          }
-        });
-      //信息校验
+      //登录信息校验
+      var loginState = 0;
       $(".accountLoginValidater").validate({
         rules: {
           userAccount:{
@@ -142,7 +208,7 @@
           },
           userPassword:{
             required: true,
-            maxlength:2
+            minlength:3
           }
         },
         messages: {
@@ -158,11 +224,13 @@
         errorPlacement: function(error, element) {
           error.appendTo( element.parent() );
         },
-        success:function () {}
+        success:function () {
+          loginState = 1;
+        }
       });
-
-      //账号密码登录
+//账号密码登录
       $(".accountLogin").click(function () {
+        if(loginState == 1)
         $.ajax({
           url:"/user/accountLogin",
           type:"post",
@@ -173,7 +241,11 @@
           },
           success:function (data) {
             if(data == false){
-              alert("YOYO切克闹~登录成功嗨起来！");
+              layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('YOYO切克闹~登录成功嗨起来！',{
+                  area:['400px', '50px']});
+              });
               $.ajax({
                 url:"/user/getIdByAnything",
                 type:"post",
@@ -189,10 +261,23 @@
               });
             }
             else
-              alert("YOYO对不起,您的账号或密码有误");
+            // alert("YOYO对不起,您的账号或密码有误");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('YOYO对不起,您的账号或密码有误',{
+                  area:['400px', '50px']
+                });
+              });
           }
         })
+        else
+          layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('某处信息格式错误！',{
+              area:['400px', '50px']});
+          });
       });
+
 
 
       var state = 0;
@@ -207,13 +292,25 @@
           },
           success:function (data) {
             if(data.length<1){
-              alert("该手机还未进行认证！！！");
+              // alert("该手机还未进行认证！！！");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('该手机还未进行认证！！！',{
+                  area:['400px', '50px']
+                });
+              });
               state = 0;
             }
 
             else{
               state = 1;
-              alert("YOYO切克闹~该手机已认证~");
+              // alert("YOYO切克闹~该手机已认证~");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('YOYO切克闹~该手机已认证~',{
+                  area:['400px', '50px']
+                });
+              });
             }
 
           }
@@ -229,11 +326,23 @@
             'phoneNumber':$(".phoneNum").val(),
           },
           success:function (data) {
-            alert("YOYO切克闹！验证码已发送，请稍作等待~")
+            // alert("YOYO切克闹！验证码已发送，请稍作等待~")
+            layui.use('layer', function(){
+              var layer = layui.layer;
+              layer.msg('YOYO切克闹！验证码已发送，请稍作等待~',{
+                area:['400px', '50px']
+              });
+            });
           }
         })
         else
-          alert("该手机还未进行认证！！！");
+          // alert("该手机还未进行认证！！！");
+        layui.use('layer', function(){
+          var layer = layui.layer;
+          layer.msg('该手机还未进行认证！！！',{
+            area:['400px', '50px']
+          });
+        });
       });
       $(".phoneLogin").click(function () {
         if(state == 1)
@@ -247,13 +356,43 @@
           },
           success:function (data) {
             if(data>0){
-              alert("于2019.9.15实现短信验证功能");
-              location.href = "MyHomePage.html";
+              // alert("于2019.9.15实现短信验证功能");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('于2019.9.15实现短信验证功能',{
+                  area:['400px', '50px']
+                });
+              });
+              $.ajax({
+                url:"/user/getIdByAnything",
+                type:"post",
+                dataType:"json",
+                data:{
+                  'userPhone':$(".phoneNum").val()
+                },
+                success:function (data) {
+                  if(data>0){location.href = "MyHomePage.html";
+                    // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                    layui.use('layer', function(){
+                      var layer = layui.layer;
+                      layer.msg("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount,{
+                        area:['400px', '50px']
+                      });
+                    });
+                  }
+                }
+              });
             }
           }
         })
         else
-          alert("该手机还未进行认证！！！");
+          // alert("该手机还未进行认证！！！");
+        layui.use('layer', function(){
+          var layer = layui.layer;
+          layer.msg('该手机还未进行认证！！！',{
+            area:['400px', '50px']
+          });
+        });
       });
       // $(".phoneLogin").click(function () {
       //   $.ajax({

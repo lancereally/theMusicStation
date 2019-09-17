@@ -155,6 +155,12 @@ from users u, songcomment s
 where u.user_id = #{userId,jdbcType=INTEGER}
 and s.songc_to_id = u.user_id
   </select>
+  <select id="getMyNotice" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select s.user_id, s.songc_time
+from users u, songcomment s
+where u.user_id = #{userId,jdbcType=INTEGER}
+and s.songc_to_id = u.user_id and s.songc_likes = 1
+  </select>
 
   <select id="getFanCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
@@ -172,7 +178,7 @@ and s.songc_to_id = u.user_id
 
   <select id="getSongListCreateCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
-    distinct(s.usl_id)
+    count(distinct(s.usl_id))
     from users u,usersonglist s
     where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id and s.us_relation = 0
     or s.us_relation = 2
@@ -180,7 +186,7 @@ and s.songc_to_id = u.user_id
 
   <select id="getSongListCreateLiked" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
-    distinct(s.usl_id)
+    count(distinct(s.usl_id))
     from users u,usersonglist s
     where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id and s.us_relation = 1
     or s.us_relation = 2
@@ -211,6 +217,9 @@ where
     </if>
     <if test="userAccount != null" >
       user_account = #{userAccount,jdbcType=INTEGER}
+    </if>
+    <if test="userPhone != null" >
+      user_phone = #{userPhone,jdbcType=VARCHAR}
     </if>
   </select>
 
@@ -258,7 +267,7 @@ and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
     where user_phone = #{userPhone,jdbcType=VARCHAR}
   </select>
 
-  <update id="updateUserInfo" parameterType="org.lanqiao.entity.Users" >
+  <update id="updateVIP" parameterType="org.lanqiao.entity.Users" >
     update users
     <set >
       <if test="userName != null" >
@@ -311,8 +320,59 @@ and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
     <if test="userId != null" >
       user_id = #{userId,jdbcType=INTEGER}
     </if>
-    <if test="userName != null" >
-      user_name = #{userName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateUserInfo" parameterType="org.lanqiao.entity.Users" >
+    update users
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userText != null" >
+        user_text = #{userText,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userLocation != null" >
+        user_location = #{userLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadUrl != null" >
+        user_head_url = #{userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        user_real_name = #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoneActivation != null" >
+        user_phone_activation = #{userPhoneActivation,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        user_qq = #{userQq,jdbcType=INTEGER},
+      </if>
+      <if test="userIdCard != null" >
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userVipState != null" >
+        user_vip_state = #{userVipState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where
+    <if test="userId != null" >
+      user_id = #{userId,jdbcType=INTEGER}
     </if>
   </update>
 

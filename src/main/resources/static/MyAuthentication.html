@@ -9,6 +9,8 @@
     <script type="text/javascript" src="js/jquery.validate.js"></script>
     <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script type="text/javascript" src="js/layui/layui.js"></script>
     <meta charset="UTF-8">
     <title>MyAuthentication</title>
 </head>
@@ -62,11 +64,22 @@
                     'phoneNumber':$(".inputPhone").val(),
                 },
                 success:function (data) {
-                    if(data.length>0)
-                        alert("该手机号已被认证！\n 请再次确认号码");
+                    if(data != "[]"){
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('该手机号已被认证！\n 请再次确认号码');
+                        });
+                        state = 1;
+                    }
+
+                        // alert("该手机号已被认证！\n 请再次确认号码");
                     else{
                         state = 0;
-                        alert("YOYO切克闹！\n 该手机号可以进行认证~")
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('YOYO切克闹！\n 该手机号可以进行认证~');
+                        });
+                        // alert("YOYO切克闹！\n 该手机号可以进行认证~")
                     }
                 }
             })
@@ -84,14 +97,23 @@
                 },
                 success:function (data) {
                     if(data>0)
-                    alert("YOYO切克闹！验证码已发送，请稍作等待~");
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('YOYO切克闹！验证码已发送，请稍作等待~');
+                        });
+                    // alert("YOYO切克闹！验证码已发送，请稍作等待~");
                 }
             })
             else
-                alert("该手机号已被认证！\n 请更改号码！！！！！");
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('该手机号已被认证！\n 请更改号码！！！！！');
+                });
+                // alert("该手机号已被认证！\n 请更改号码！！！！！");
         });
 
         //验证码验证
+        var codeState = 0;
         $(".code").blur(function () {
             $.ajax({
                 url:"/user/checkIdentifyingCode",
@@ -103,13 +125,24 @@
                 },
                 success:function (data) {
                     if(data>0){
-                        alert("恭喜！手机号"+$(".inputPhone").val()+"验证成功YOYO");
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('恭喜！手机号'+$(".inputPhone").val()+'验证成功YOYO');
+                        });
+                        codeState = 1;
+                        // alert("恭喜！手机号"+$(".inputPhone").val()+"验证成功YOYO");
                     }
+                    else
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('验证失败！');
+                        });
                 }
             })
         })
 
         //信息校验
+        var validateState = 0;
             $(".Authentication").validate({
                 rules: {
                     realName:{
@@ -158,13 +191,15 @@
                     }
                 },
                 errorPlacement: function(error, element) {
-
                     error.appendTo( element.parent().next() );
+                },
+                success:function () {
+                    validateState = 1;
                 }
             });
 //表单提交
          $(".submit").click(function () {
-             if(parseInt($(".code").val())>100000)
+             if(codeState == 1&&validateState == 1)
              $.ajax({
                  // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
                  url: "/user/updateUserInfo",
@@ -181,11 +216,24 @@
                  },
                  success: function (data) {
                      if(data>0)
-                     alert("YOYO切克闹！信息认证成功! \n 于9.12 15:31完成，开始做下一个页面吧~");
+                         layui.use('layer', function(){
+                             var layer = layui.layer;
+                             layer.msg('YOYO切克闹！信息认证成功! \n 于9.12 15:31完成，开始做下一个页面吧~');
+                         });
+                     // alert("YOYO切克闹！信息认证成功! \n 于9.12 15:31完成，开始做下一个页面吧~");
                  }
              });
-             else
-                 alert("某处信息不符合规范！");
+             else if(codeState != 1)
+                 layui.use('layer', function(){
+                     var layer = layui.layer;
+                     layer.msg('还未成功进行手机验证！');
+                 });
+             else if(validateState != 1)
+                 layui.use('layer', function(){
+                     var layer = layui.layer;
+                     layer.msg('某处信息不符合规范！');
+                 });
+                 // alert("某处信息不符合规范！");
          });
     })
 </script>

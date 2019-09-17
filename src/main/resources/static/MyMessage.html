@@ -12,10 +12,10 @@
 </head>
 <script>
     //cookie
-    // var userId = $.cookie('userId');
-    // if (userId === undefined) {
-    //     location.href = "Index.html";
-    // }
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
 $(function () {
     //用户选择控制
     $(".j-uflag").mouseleave(function () {
@@ -41,41 +41,42 @@ $(function () {
         $(".iframe").attr("src","MyNotice.html");
     });
     //判断评论是否为空
-    // $.ajax({
-    //     url: "/user/getMyComment",
-    //     type: "post",
-    //     datatype: "json",
-    //     //未登陆，暂且手动输入数字模拟
-    //     data: {"userId": parseInt(userId)},
-    //     success: function (data) {
-    //         if(data==null)
-    //             $("#comment").click(function () {
-    //                 $(".iframe").attr("src","NoComment.html");
-    //             })
-    //         else
-    //             $("#comment").click(function () {
-    //                 $(".iframe").attr("src","NoComment.html");
-    //             })
-    //     }
-    // });
+    $.ajax({
+        url: "/user/getMyComment",
+        type: "post",
+        datatype: "json",
+        //未登陆，暂且手动输入数字模拟
+        data: {"userId": parseInt(userId)},
+        success: function (data) {
+            if(data.length<1)
+                $("#comment").click(function () {
+                    $(".iframe").attr("src","NoComment.html");
+                })
+            else
+                $("#comment").click(function () {
+                    $(".iframe").attr("src","MyComment.html");
+                })
+        }
+    });
+
     // //判断通知是否为空
-    // $.ajax({
-    //     url: "/user/getMyNotice",
-    //     type: "post",
-    //     datatype: "json",
-    //     //未登陆，暂且手动输入数字模拟
-    //     data: {"userId": parseInt(userId)},
-    //     success: function (data) {
-    //         if(data==null)
-    //             $("#comment").click(function () {
-    //                 $(".iframe").attr("src","NoNotice.html");
-    //             })
-    //         else
-    //             $("#comment").click(function () {
-    //                 $(".iframe").attr("src","NoNotice.html");
-    //             })
-    //     }
-    // });
+    $.ajax({
+        url: "/user/getMyNotice",
+        type: "post",
+        datatype: "json",
+        //未登陆，暂且手动输入数字模拟
+        data: {"userId": parseInt(userId)},
+        success: function (data) {
+            if(data==null)
+                $("#comment").click(function () {
+                    $(".iframe").attr("src","NoNotice.html");
+                })
+            else
+                $("#comment").click(function () {
+                    $(".iframe").attr("src","MyNotice.html");
+                })
+        }
+    });
 });
 </script>
 <body>

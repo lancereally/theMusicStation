@@ -9,6 +9,8 @@
     <script src="js/jquery.validate.js"></script>
     <script src="js/jquery.validate.regex.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script type="text/javascript" src="js/layui/layui.js"></script>
     <meta charset="UTF-8">
     <title>MySetting</title>
 </head>
@@ -43,7 +45,7 @@
             data: {"userId": parseInt(userId)},
             success: function (data) {
                 $("#avatar").attr("src",data.userHeadUrl);
-                 $("#nickname").text(data.userName);
+                 $("#nickname").val(data.userName);
                  $("#signature").text(data.userText);
             }
         });
@@ -101,20 +103,29 @@
                         $("#nickname").text("该用户名已经存在！");
                         $(".u-err").css("display","block");
                     }else{
-                        alert("哦哟，这名字可以哦~")
+                        // alert("哦哟，这名字可以哦~")
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('哦哟，这名字可以哦~');
+                        });
                     }
                     if($("#nickname").val() == ""){
                          $(".text").addClass("error");
                         $("#nickname").val("昵称不得为空！");
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('昵称不得为空！');
+                        });
                     }
                 }
             })
         });
         //用户简介
         $(".text").blur(function (){
-            if($(".text").val() == "")
+            if($(".text").val() == ""){
                 $(".text").addClass("error");
                 $(".text").val("内容不得为空！");
+            }
         });
 
         //图片校验
@@ -136,29 +147,45 @@
                 //的base64编码格式的地址
                 $('#avatar').get(0).src = e.target.result;
                 // $('#avatar').attr("src","e.target.result");
-            }
-        })
+            };
+        });
 
         //提交
         $("#save").click(function () {
             $.ajax({
-                // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
-                url: "/user/updateUserInfo",
-                type: "post",
-                datatype: "json",
-                data: {
-                    "userId": parseInt(userId),
-                    "userName":$("#nickname").text(),
-                    "userBirthday":$(".year").text()+"-"+$(".month").text()+"-"+$(".date").text(),
-                    "userLocation":$(".province").text()+$(".city").text(),
-                    "userText":$(".text").text(),
-                    "userSex":"保密",
-                    "userHeadUrl":$("#avatar")[0].src,
+                url:"/user/upLoadFile",
+                type:"post",
+                dataType:"text",
+                data:{
+                    'imageFile':$("#avatar")[0].src
                 },
-                success: function (data) {
-                    alert("9.12 15:31完成，开始做下一个页面吧~")
+                success:function (data) {
+                    $("#avatar").attr("src",data);
+                    $.ajax({
+                        // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
+                        url: "/user/updateUserInfo",
+                        type: "post",
+                        datatype: "json",
+                        data: {
+                            "userId": parseInt(userId),
+                            "userName":$("#nickname").val(),
+                            "userBirthday":$(".year").text()+"-"+$(".month").text()+"-"+$(".date").text(),
+                            "userLocation":$(".province").text()+$(".city").text(),
+                            "userText":$(".text").text(),
+                            "userSex":"保密",
+                            "userHeadUrl":$("#avatar").attr("src")
+                        },
+                        success: function (data) {
+                            // alert("9.12 15:31完成，开始做下一个页面吧~")
+                            layui.use('layer', function(){
+                                var layer = layui.layer;
+                                layer.msg('YOYO切克闹！提交成功~');
+                            });
+                        }
+                    });
                 }
             });
+
         });
 
     });//function结束
@@ -280,7 +307,7 @@
                 <div class="frm m-frm">
                     <div class="itm">
                         <label class="lab name">昵称：</label>
-                        <input name="userName" type="text" class="u-txt txt" value="Lancereallyet" id="nickname" maxlength="30">
+                        <input name="userName" type="text" class="u-txt txt" id="nickname" maxlength="30">
                         <div class="u-err" style="display:none;" id="err"><i
                                 class="u-icn u-icn-25"></i><span>昵称已存在！</span></div>
                     </div>

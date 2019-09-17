@@ -5,6 +5,7 @@ import org.lanqiao.entity.Share;
 import org.lanqiao.entity.Users;
 import org.lanqiao.service.ShareServiceImpl;
 import org.lanqiao.service.UsersService;
+import org.lanqiao.util.Base64;
 import org.lanqiao.util.IdentifyingCode;
 import org.lanqiao.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +153,12 @@ public class UsersController {
          return usersService.getMyComment(users);
      }
 
+    //获取点赞通知
+    @RequestMapping("/user/getMyNotice")
+    public List<Users> getMyNotice(Users users){
+        return usersService.getMyNotice(users);
+    }
+
      //拉取fans and follows
      @RequestMapping("/user/getMyFollows")
      public List<Users> getMyFollows(Users users){
@@ -207,6 +214,14 @@ public class UsersController {
     @RequestMapping("/user/checkPhone")
     public List<Users> checkPhone(String phoneNumber)  {
         return usersService.checkPhone(phoneNumber);
+    }
+
+    @RequestMapping("/user/upLoadFile")
+    public String insertImage(String imageFile){
+        Base64 base64 = new Base64();
+        String path = base64.base64(imageFile);
+        System.out.println(path);
+        return path;
     }
 
 //    @RequestMapping("/set")

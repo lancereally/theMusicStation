@@ -56,6 +56,8 @@ public interface UsersMapper {
 
     public int updateUserInfo(Users users);
 
+    public int updateVIP(Users users);
+
     public int checkName(String userName);
 
     //注册
@@ -66,6 +68,8 @@ public interface UsersMapper {
 
     //获取comment
     public List<Users> getMyComment(Users users);
+
+    public List<Users> getMyNotice(Users users);
 
     //拉取fans and follows
     public List<Users> getMyFollows(Users users);

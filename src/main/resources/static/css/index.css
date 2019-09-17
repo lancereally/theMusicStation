@@ -196,7 +196,6 @@ header #head-title #head-title-container .logo a {
   line-height: 33px;
   color: #ccc;
   border-radius: 20px;
-  background-color: none;
   font-size: 12px;
 }
 
@@ -311,7 +310,6 @@ header #head-title #head-title-container .logo a {
   height: 500px;
   background: gray;
   margin: 0 auto;
-  display: ;
 }
 
 #container-right {

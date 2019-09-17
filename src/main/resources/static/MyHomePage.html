@@ -8,7 +8,8 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
-
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script src="js/layui/layui.js"></script>
     <meta charset="UTF-8">
     <title>MyHomePage</title>
 </head>
@@ -93,27 +94,27 @@
             }
         })
       //  获取创建歌单数量
-        $.ajax({
-            url: "/user/getSongListCreateCount",
-            type: "post",
-            datatype: "json",
-            //未登陆，暂且手动输入数字模拟
-            data: {"userId": parseInt(userId)},
-            success: function (data) {
-                $("#song_list_create").text(data.length);
-            }
-        })
+      //   $.ajax({
+      //       url: "/user/getSongListCreateCount",
+      //       type: "post",
+      //       datatype: "json",
+      //       //未登陆，暂且手动输入数字模拟
+      //       data: {"userId": parseInt(userId)},
+      //       success: function (data) {
+      //           $("#song_list_create").text(data.length);
+      //       }
+      //   })
         //获取收藏歌单数量
-        $.ajax({
-            url: "/user/getSongListLikedCount",
-            type: "post",
-            datatype: "json",
-            //未登陆，暂且手动输入数字模拟
-            data: {"userId": parseInt(userId)},
-            success: function (data) {
-                $("#song_list_liked").text(data.length);
-            }
-        })
+        // $.ajax({
+        //     url: "/user/getSongListLikedCount",
+        //     type: "post",
+        //     datatype: "json",
+        //     //未登陆，暂且手动输入数字模拟
+        //     data: {"userId": parseInt(userId)},
+        //     success: function (data) {
+        //         $("#song_list_liked").text(data.length);
+        //     }
+        // })
         //
         //展示听歌排行
         $.ajax({
@@ -123,14 +124,17 @@
             datatype: "json",
             data: {"userId": parseInt(userId)},
             success: function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    vm.songRanking.push({
-                        songName: data[i].song.songName,
-                        singerName: data[i].singer.singerName,
-                        playTimes: data[i].userSong.usPlayTimes,
-                    });
-                    $(".m-record").css("height", "+=48");
+                if(data.length>0){
+                    for (var i = 0; i < data.length; i++) {
+                        vm.songRanking.push({
+                            songName: data[i].song.songName,
+                            singerName: data[i].singer.singerName,
+                            playTimes: data[i].userSong.usPlayTimes,
+                        });
+                        $(".m-record").css("height", "+=48");
+                    }
                 }
+
                 //显示歌曲列数
                 // $(".number").text(vm.products.length);
             }
@@ -143,15 +147,20 @@
             datatype: "json",
             data: {"userId": parseInt(userId)},
             success: function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    vm.songListCreate.push({
-                        songListName: data[i].songList.songlistName,
-                        songListPic: data[i].songList.songlistPicUrl,
-                        playTimes: data[i].slCount
-                    });
-                    $("#list-create").css("height", "+=195");
-                    // $("#song_list_create").text(vm.songListCreate.length);
+                if(data.length>0){
+                    $("#song_list_create").text(data.length);
+                    for (var i = 0; i < data.length; i++) {
+                        vm.songListCreate.push({
+                            songListName: data[i].songList.songlistName,
+                            songListPic: data[i].songList.songlistPicUrl,
+                            playTimes: data[i].slCount
+                        });
+                        $("#list-create").css("height", "+=195");
+                        // $("#song_list_create").text(vm.songListCreate.length);
+                    }
                 }
+                else
+                    $("#song_list_create").val(0);
             }
         });
         //展示我收藏的歌单
@@ -165,6 +174,7 @@
                 if(data == null)
                     $("#song_list_liked").text(0);
                 else {
+                    $("#song_list_liked").text(data.length);
                     for (var i = 0; i < data.length; i++) {
                         vm.songListLiked.push({
                             songListName: data[i].songList.songlistName,
@@ -303,7 +313,7 @@
                         </div>
                         <div class="rect" id="newmusician"></div>
                         <h2 id="j-name-wrap" class="wrap f-fl f-cb ">
-                            <span class="tit f-ff2 s-fc0 f-thide userName" style="font-size: x-large"></span>
+                            <span class="tit f-ff2 s-fc0 userName" style="font-size: x-large;width:200px"></span>
                             <span id="j-vip-code"></span>
                             <i class="icn u-icn u-icn-01"></i>
                         </h2>
@@ -320,8 +330,8 @@
                             <i class="u-icn u-icn-68 f-alpha" id="newCount" style="display:none;"></i>
                         </a></li>
                 </ul>
-                <div class="inf s-fc3">
-                    <span>所在地区：<span class="userLocation">山东省 - 青岛市</span></span>
+                <div class="inf s-fc3" style="margin-top: 100px">
+                    <span >所在地区：<span class="userLocation">山东省 - 青岛市</span></span>
                 </div>
                 <!--                <div class="inf s-fc3 f-cb">-->
                 <!--                    <span class="tit">社交网络：</span>-->
@@ -344,9 +354,9 @@
                 <!--                    </div>-->
             </span>
             <div class="nav f-cb">
-                <span data-action="songsall" id="songsall">所有时间</span>
-                <i style="display:block;margin-top: 4px">|</i>
-                <span data-action="songsweek" id="songsweek" class="z-sel">最近一周</span>
+
+
+
             </div>
             <!--            </div>-->
         </div>

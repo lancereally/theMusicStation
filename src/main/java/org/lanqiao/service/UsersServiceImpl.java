@@ -89,13 +89,19 @@ public class UsersServiceImpl implements UsersService {
     //VIP
     @Override
     public boolean activeVIP(Users users){
-        return usersMapper.updateUserInfo(users) > 0 ? true : false;
+        return usersMapper.updateVIP(users) > 0 ? true : false;
     }
 
     //获取评论
     @Override
     public List<Users> getMyComment(Users users){
         return usersMapper.getMyComment(users);
+    }
+
+    //获取通知
+    @Override
+    public List<Users> getMyNotice(Users users){
+        return usersMapper.getMyNotice(users);
     }
 
     //拉取fans and follows
