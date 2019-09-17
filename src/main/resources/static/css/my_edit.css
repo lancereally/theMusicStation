@@ -131,6 +131,12 @@
     left: 0;
     bottom: 0;
 }
+.btm span{
+    position: absolute;
+    left:48px;
+    top: 5px;
+    color: #FFFFFF;
+}
 .body_upload{
     color: #fff;
     text-align: center;

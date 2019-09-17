@@ -63,6 +63,11 @@ $(function () {
             console.log(data.othis); //得到美化后的DOM对象
         });
     });
+    $("input[name='PicUpload']").change(function () {
+        var url = getUrl(this.files[0]);
+        // var $img = $("<img>").attr("src", url).css("width", "50px");
+        $("#SongListPic").attr("src",url);
+    });
 
     //保存修改按钮
     $("#savabtn").click(function () {
@@ -88,3 +93,15 @@ $(function () {
         })
     })
 });
+//获取图片地址，获得预览
+function getUrl(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) {
+        url = window.createObjectURL(file);
+    } else if (window.URL != undefined) {
+        url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) {
+        url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+}
