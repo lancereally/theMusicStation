@@ -25,6 +25,12 @@ public class SingerServiceImpl implements SingerService {
         return singerList;
     }
 
+
+    // Lzc : search singer
+    @Override
+    public List<Singer> selectSingerByInput(String input){
+        return singerMapper.selectSingerByInput(input);
+    }
     @Override
     public List<Singer> getEnterSinger(Integer size) {
         return singerMapper.selectEnterSingers(size);
@@ -38,5 +44,11 @@ public class SingerServiceImpl implements SingerService {
     @Override
     public Singer selectSingerByPk(Integer singerId) {
         return singerMapper.selectByPrimaryKey(singerId);
+    }
+
+
+    @Override
+    public Boolean checkUserAndSinger(Integer userId, Integer singerId) {
+        return singerMapper.selectSingerAndUser(userId,singerId).getUserId() > 0 ? true : false;
     }
 }

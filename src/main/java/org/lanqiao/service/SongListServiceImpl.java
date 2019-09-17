@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-
 public class SongListServiceImpl implements SongListService{
 
     @Autowired
@@ -62,5 +61,15 @@ public class SongListServiceImpl implements SongListService{
     @Override
     public int updataSongListTag(SongList songList) {
         return songListMapper.updataSongListTag(songList);
+    }
+
+    @Override
+    public List<SongList> selectByKeyWord(String keyWord) {
+        return songListMapper.selectSongList(keyWord);
+    }
+    // Lzc : search song list
+    @Override
+    public List<SongList> selectSongListByInput(String input) {
+        return songListMapper.selectSongListByInput(input);
     }
 }

@@ -41,4 +41,8 @@ public interface SongListMapper {
     int cancelBySongListId(Integer songlistId);
     //编辑歌单标签-郭长达
     int updataSongListTag(SongList songList);
+
+    List<SongList> selectSongList(String keyWord);
+    // Lzc : search song list
+    List<SongList> selectSongListByInput(String input);
 }

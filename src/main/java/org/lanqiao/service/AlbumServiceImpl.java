@@ -9,12 +9,15 @@ import java.util.List;
 
 @Service
 public class AlbumServiceImpl implements AlbumService{
-
     @Autowired
     AlbumMapper albumMapper;
 
     @Override
-    public List<Album> seelctBySingerId(Integer singerId) {
+    public List<Album> selectBySingerId(Integer singerId) {
         return albumMapper.selectBySingerId(singerId);
+    }
+
+    public List<Album> selectAlbumByInput(String input) {
+        return albumMapper.selectAlbumByInput(input);
     }
 }

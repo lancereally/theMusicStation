@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>search_songList</title>
+    <link rel="stylesheet" href="css/search_music.css">
+    <link rel="stylesheet" href="css/search_songList.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+            // 结果记录数
+            var resNum = 0;
+            $(".s-fc6",parent.document).html(resNum);
+
+            // 获取父页面搜索内容
+            var searchContent = $("#m-search-input", parent.document).val();
+
+            var vm = new Vue({
+                el: "#myView",
+                data: {
+                    slList: []
+                    // currPage: "1"
+                },
+                methods: {
+                    getSingers: function (input) {
+                        $.ajax({
+                            url: "/search/selectSongListByInput",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                input: searchContent
+                            },
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    vm.slList = data;
+                                    resNum = data.length;
+                                    // 设置结果记录数
+                                    $(".s-fc6", parent.document).html(resNum);
+                                }
+                            }
+                        })
+                    }
+                    // prePage: function () {
+                    //     if (vm.$data.currPage > 1) {
+                    //         vm.$data.currPage--;
+                    //         $("#getBtn").trigger("click");
+                    //     }else alert("不能再往前啦")
+                    // },
+                    // nextPage: function () {
+                    //     $.ajax({
+                    //         url: "/backend/getMaxPage",
+                    //         type: "post",
+                    //         dateType: "json",
+                    //         success: function (maxPage) {
+                    //             if (vm.$data.currPage < maxPage) {
+                    //                 vm.$data.currPage++;
+                    //                 $("#getBtn").trigger("click");
+                    //             }else alert("再往后也没有啦")
+                    //         }
+                    //     })
+                    // }
+                }
+            });
+
+            // 搜索
+            if (searchContent !== "")
+                vm.getSingers(searchContent);
+        })
+    </script>
+
+</head>
+<body>
+<div class="ztag j-flag" id="myView">
+    <div class="n-srchrst ztag">
+        <table cellspacing="0" cellpadding="0" class="m-table m-table-2 m-table-2-cover">
+            <tbody>
+            <tr class="h-flag" v-for="(sl,index) in slList">
+                <td class="first w0">
+                    <div class="hd">
+                        <span class="ply " title="播放" data-res-type="" v-bind:data-res-id="sl.songlistId" data-res-action="play"></span>
+                    </div>
+                </td>
+                <td class="w7">
+                    <div class="u-cover u-cover-3">
+                        <a v-bind:href="'/songlist?songlistId='+sl.songlistId">
+                            <img v-bind:src="sl.songlistPicUrl">
+                            <span v-bind:title="sl.songlistName" class="msk"></span>
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div class="f-cb">
+                        <div class="opt hshow" style="display: none;">
+                            <a class="u-icn u-icn-81" href="javascript:;"
+                               title="添加到播放列表" hidefocus="true"
+                               data-res-type="13" data-res-id="2866655903"
+                               data-res-action="addto"></a>
+                            <span data-res-id="2866655903" data-res-action="fav" data-res-type="13" class="icn icn-fav "
+                                  title="收藏">收藏</span>
+                            <span data-res-id="2866655903" data-res-action="share"
+                                  class="icn icn-share" data-res-type="13" title="分享">分享</span>
+                        </div>
+                        <div class="tt">
+                            <div class="ttc">
+                                <span class="txt">
+                                    <a v-bind:href="'/songlist?songlistId='+sl.songlistId"
+                                       v-bind:title="sl.songlistName">{{sl.songlistName}}
+<!--                                        <span class="s-fc7">h</span>-->
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td class="w11 s-fc4">{{sl.songlistCount}}</td>
+                <td class="w4">
+                    <div class="text">
+                        <span class="s-fc3">by</span>&nbsp;&nbsp;
+                        <a class="s-fc3" v-bind:href="'/user?userId='+sl.usersSet.userId" v-bind:title="sl.usersSet.userName">{{sl.usersSet[0].userName}}</a>
+                    </div>
+                </td>
+                <td class="w6 s-fc4">收藏：<span id="flag_fav_count-2866655903">{{sl.songlistKeepNum}}</span></td>
+                <td class="last w6 s-fc4">评论：<span id="flag_play_count-2866655903">{{sl.songlistCommetNum}}</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

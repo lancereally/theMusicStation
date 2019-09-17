@@ -34,6 +34,17 @@
         <result column="fans" property="fans" jdbcType="INTEGER" />
         <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
     </resultMap>
+    
+    <select id="selectSongList" resultMap="SonglistResultMap" parameterType="String">
+        select s.songlist_id, s.songlist_name, u.user_name,s.songlist_pic_url  from songlist s , users u , usersonglist us
+        where s.songlist_id = us.songlist_id and us.user_id = u.user_id
+        <if test="_parameter != null">
+        and
+            songlist_description like "%${_parameter}%"
+        </if>
+    </select>
+    
+    
     <!--查询歌单信息-->
     <select id="selectBySongListId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
         select u.user_head_url,u.user_name,sl.songlist_name,sl.songlist_pic_url,sl.songlist_create_time,sl.songlist_id,sl.songlist_description from users u,songlist sl,usersonglist usl
@@ -80,6 +91,12 @@
 
 
 
+
+
+    <!-- Lzc : selectSongListByInput -->
+    <select id="selectSongListByInput" resultMap="SonglistResultMap" parameterType="java.lang.String">
+        select sl.songlist_id,sl.songlist_pic_url,sl.songlist_name,sl.songlist_count,u.user_name,sl.songlist_keep_num,sl.songlist_commet_num from songlist sl,users u,usersonglist usl where ((sl.songlist_name like concat('%',#{input},'%')) or (u.user_name like concat('%',#{input},'%'))) and sl.songlist_id = usl.songlist_id and usl.user_id = u.user_id
+    </select>
 
     <sql id="Base_Column_List">
     songlist_id, songlist_name, songlist_description, songlist_tag, songlist_count, songlist_create_time, 

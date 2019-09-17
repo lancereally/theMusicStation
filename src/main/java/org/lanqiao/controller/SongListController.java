@@ -63,4 +63,15 @@ public class SongListController {
     public int editSongListTag(SongList songList){
         return songListService.updataSongListTag(songList);
     }
+
+    @RequestMapping("/songList/getSongList")
+    public List<SongList> getSongList(String keyWord){
+        return songListService.selectByKeyWord(keyWord);
+    }
+
+    // Lzc : search song list
+    @RequestMapping("/search/selectSongListByInput")
+    public List<SongList> selectSongListByInput(String input){
+        return songListService.selectSongListByInput(input);
+    }
 }

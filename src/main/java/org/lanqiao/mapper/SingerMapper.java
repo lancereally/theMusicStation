@@ -26,7 +26,12 @@ public interface SingerMapper {
     List<Singer> selectEnterSingers(Integer size);
     List<Singer> selectHotSingers(Integer size);
     List<Singer> selectSingerByKeyWord(String keyWord);
+    Singer selectSingerAndUser(Integer userId, Integer singerId);
+
     //《《《郭书卿《《《
     //郭长达
     List<Singer> selectByUserId(Integer userId);
+
+    // Lzc : search singer
+    public List<Singer> selectSingerByInput(String input);
 }
