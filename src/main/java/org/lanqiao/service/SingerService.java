@@ -15,6 +15,8 @@ public interface SingerService {
 
     public Boolean checkUserAndSinger(Integer userId, Integer SingerId);
 
+    public int insertSingerAndUser(Integer userId, Integer SingerId);
+
     //郭长达：通过用户id查询关注的歌手
     public List<Singer> selectByUserId(Integer userId);
 }

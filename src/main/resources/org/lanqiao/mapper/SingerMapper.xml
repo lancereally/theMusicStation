@@ -27,6 +27,9 @@
         <result column="singer_id" property="singerId" jdbcType="INTEGER" />
     </resultMap>
 
+    <insert id="insertSingerAndUser" parameterType="java.lang.Integer">
+        insert into usersingers (user_id, singer_id) values ( #{param1},  #{param2} )
+    </insert>
 
     <select id="selectSingerAndUser" parameterType="java.lang.Integer" resultMap="SingerResultMap">
         select count(user_id) as user_id from usersingers where user_id = #{param1} and singer_id = #{param2}

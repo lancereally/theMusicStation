@@ -23,4 +23,8 @@ public class SingerController {
         return singerService.checkUserAndSinger(userId,singerId) + "";
     }
 
+    @RequestMapping("/singer/collectionSinger")
+    public int insertSingerAndUser(Integer userId, Integer singerId){
+        return singerService.insertSingerAndUser(userId,singerId);
+    }
 }
