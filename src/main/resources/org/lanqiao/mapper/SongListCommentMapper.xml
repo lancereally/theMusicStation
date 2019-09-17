@@ -32,10 +32,16 @@
         <result column="fans" property="fans" jdbcType="INTEGER"/>
         <result column="shareCount" property="shareCount" jdbcType="INTEGER"/>
     </resultMap>
+    <!--查询歌单的评论-郭长达-->
     <select id="selectCommentBySongListId" resultMap="SongListCommentResultMap"
             parameterType="java.lang.Integer">
-        select slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId}
+        select slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId} order by slc.songlc_id desc
     </select>
+    <!--添加歌单的评论-郭长达-->
+    <insert id="insertSongListComment" parameterType="org.lanqiao.entity.SongListComment">
+        insert into songlistcomment(songlist_id ,songlc_text,user_id) values (#{songlistId},#{songlcText},#{userId})
+    </insert>
+
     <sql id="Base_Column_List">
         songlc_id, songlist_id, user_id, songlc_text, songlc_likes, songlc_to_id, songlc_time
     </sql>

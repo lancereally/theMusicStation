@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>网易云音乐</title>
@@ -25,7 +25,7 @@
                 <ul class="head-ul">
                     <li>
               <span>
-                <a href="#">
+                <a href="MyMusic.html">
                   <em>发现音乐</em>
                   <sub class="cor">&nbsp;</sub>
                 </a>
@@ -126,8 +126,8 @@
                                 </p>
                                 <p class="song_num">{{songItem.songlistCount}}首</p>
                                 <span class="item_xiugai" v-if="index>0">
-                                    <a class="item_edit" href="MyMusic_edit.html"></a>
-                                    <a class="item_del"></a>
+                                    <a class="item_edit"  :href="eurl" target="toIframe" @click="goToE(songItem.songlistId)"></a>
+                                    <a class="item_del" name="del_sl" @click="getSongListId(songItem.songlistId)"></a>
                                 </span>
                             </div>
                         </li>
@@ -151,7 +151,7 @@
                                 </p>
                                 <p class="song_num">{{songItems.songlistCount}}首</p>
                                 <span class="item_xiugai">
-                                    <a class="item_edit" href="MyMusic_edit.html"></a>
+                                    <a class="item_edit"></a>
                                     <a class="item_del"></a>
                                 </span>
                             </div>
@@ -164,7 +164,6 @@
         <div class="mymusic_show">
             <iframe name="toIframe" class="show_frame" scrolling="auto" frameborder="0" width="100%" height="642px"
                     src="my_songlist.html?songListId=1">
-
             </iframe>
         </div>
     </div>
@@ -191,7 +190,24 @@
             </div>
         </div>
     </div>
-    <span class="cre_close" title="关闭窗口">×</span>
+    <span class="cre_close" name="cre_end" title="关闭窗口">×</span>
+</div>
+<div class="mymusic_del">
+    <div class="del_hd">
+        <div class="del_title">
+            提示
+        </div>
+    </div>
+    <div class="cre_body">
+        <div class="del_body">
+            <div class="del_info">确定删除歌单?</div>
+            <div class="del_button">
+                <button type="button" class="btnCre btnCre_bcolor" name="confirm_btn">确定</button>
+                <button type="button" class="btnCre three_distance" name="del_btn">取消</button>
+            </div>
+        </div>
+    </div>
+    <span class="cre_close" name="del_end" title="关闭窗口">×</span>
 </div>
 <div class="control">&nbsp;</div>
 </body>

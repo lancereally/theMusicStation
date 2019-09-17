@@ -18,6 +18,12 @@ public class SingerController {
         return singerService.selectByUserId(userId);
     }
 
+    @RequestMapping("/singer/checkCollection")
+    public String checkUserAndSinger(Integer userId, Integer singerId){
+        return singerService.checkUserAndSinger(userId,singerId) + "";
+    }
+
+
     // Lzc : search singer
     @RequestMapping("/search/selectSingerByInput")
     public List<Singer> selectSingerByInput(String input){

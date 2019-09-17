@@ -45,4 +45,10 @@ public class SingerServiceImpl implements SingerService {
     public Singer selectSingerByPk(Integer singerId) {
         return singerMapper.selectByPrimaryKey(singerId);
     }
+
+
+    @Override
+    public Boolean checkUserAndSinger(Integer userId, Integer singerId) {
+        return singerMapper.selectSingerAndUser(userId,singerId).getUserId() > 0 ? true : false;
+    }
 }

@@ -8,6 +8,8 @@
     <script src="js/jquery-1.7.2.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/vue.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
     <script src="js/my_songlist.js"></script>
 </head>
 <body>
@@ -23,7 +25,7 @@
                 <i class="one_tag">
                     <!--                    <span class="one_top"></span>-->
                 </i>
-                <a class="one_edit" href="MyMusic_edit.html">编辑</a>
+                <a class="one_edit" v-if="songlistId>1" :href="url" @click="goToEdit(songlistId)">编辑</a>
                 <h2 class="one_title">{{songlistName}}</h2>
             </div>
             <div class="det_two">
@@ -40,6 +42,7 @@
                 <button type="button" class="btn btn-default btn-sm three_distance">下载</button>
                 <button type="button" class="btn btn-default btn-sm three_distance">评论</button>
             </div>
+            <p class="jiesao">介绍：</p>
         </div>
     </div>
 </div>
@@ -106,96 +109,6 @@
                 </div>
             </td>
         </tr>
-        <!--            <tr >-->
-        <!--                <td>-->
-        <!--                    <div class="table_head">-->
-        <!--                        <span class="table_num">1</span>-->
-        <!--                        <span class="tb_play"></span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_name">-->
-        <!--                        <a>星空</a>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <span class="tb_time">04:45</span>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_text">-->
-        <!--                    <span>-->
-        <!--                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>-->
-        <!--                    </span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_text ab_text" >-->
-        <!--                    <span>-->
-        <!--                        <a>Richard&nbsp;Clayderman</a>-->
-        <!--                    </span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--            </tr>-->
-        <!--            <tr class="even">-->
-        <!--                <td>-->
-        <!--                    <div class="table_head">-->
-        <!--                        <span class="table_num">1</span>-->
-        <!--                        <span class="tb_play"></span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_name">-->
-        <!--                        <a>星空</a>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <span class="tb_time">04:45</span>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_text">-->
-        <!--                    <span>-->
-        <!--                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>-->
-        <!--                    </span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_text ab_text">-->
-        <!--                    <span>-->
-        <!--                        <a>Richard&nbsp;Clayderman</a>-->
-        <!--                    </span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--            </tr>-->
-        <!--            <tr>-->
-        <!--                <td>-->
-        <!--                    <div class="table_head">-->
-        <!--                        <span class="table_num">1</span>-->
-        <!--                        <span class="tb_play"></span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_name">-->
-        <!--                        <a>星空</a>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <span class="tb_time">04:45</span>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_text">-->
-        <!--                    <span>-->
-        <!--                        <a>Richard&nbsp;<div class="soild">ch</div>Clayderman</a>-->
-        <!--                    </span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--                <td>-->
-        <!--                    <div class="tb_text ab_text">-->
-        <!--                    <span>-->
-        <!--                        <a>Richard&nbsp;Clayderman</a>-->
-        <!--                    </span>-->
-        <!--                    </div>-->
-        <!--                </td>-->
-        <!--            </tr>-->
         </tbody>
     </table>
 </div>
@@ -211,10 +124,10 @@
             条评论
         </span>
     </div>
-    <div class="msg_det">
+    <div class="msg_det" id="songComment">
         <div class="msg_user">
             <div class="userpic">
-                <img src="images/MyMusic/facepic.jpg">
+                <img :src="userHeadUrl1 ">
             </div>
             <div class="msg_text">
                 <div class="msg_textarea">
@@ -228,8 +141,8 @@
                 <span class="info_num">140</span>
             </div>
         </div>
-        <div class="msg_show" id="songComment">
-            <div>
+        <div class="msg_show" >
+            <div style="margin-bottom: 20px">
                 <h3 class="m_hd">精彩评论</h3>
                 <div class="aw_msg">
                     <div class="msg_userpic">
@@ -273,26 +186,6 @@
                     </div>
                 </div>
             </div>
-            <!--            <div class="aw_msg">-->
-            <!--                <div class="msg_userpic">-->
-            <!--                    <a><img src="images/MyMusic/facepic.jpg"></a>-->
-            <!--                </div>-->
-            <!--                <div class="msg_userinfo">-->
-            <!--                    <div class="msg_pl">-->
-            <!--                        <a>okc!up</a>-->
-            <!--                        <img>-->
-            <!--                        ：孟子坤《π》-->
-            <!--                    </div>-->
-            <!--                    <div class="pl_bar">-->
-            <!--                        <div class="pl_time">9月6日&nbsp;13:00</div>-->
-            <!--                        <a>-->
-            <!--                            <i class="zan"></i>(22)-->
-            <!--                        </a>-->
-            <!--                        <span class="pl_jg">|</span>-->
-            <!--                        <a class="replay">回复</a>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
         </div>
         <div class="msg_page">
             <div class="page_bar">

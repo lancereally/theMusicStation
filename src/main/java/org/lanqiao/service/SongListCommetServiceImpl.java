@@ -17,4 +17,9 @@ public class SongListCommetServiceImpl implements SongListCommentService {
     public List<SongListComment> selectCommentBySongListId(Integer songListId) {
         return songListCommentMapper.selectCommentBySongListId(songListId);
     }
+
+    @Override
+    public int insertSongListComment(SongListComment songListComment) {
+        return songListCommentMapper.insertSongListComment(songListComment);
+    }
 }

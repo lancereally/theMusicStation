@@ -90,7 +90,7 @@ ul{
     word-wrap: normal;
 }
 .det_two{
-    margin-top: 35px;
+    margin-top: 20px;
 }
 .two_pic {
     margin-right: 10px;
@@ -126,6 +126,14 @@ ul{
 }
 .three_distance{
     margin-left: 10px;
+}
+.jiesao{
+    margin-top: 12px;
+    line-height: 18px;
+    color: #666;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
 .sl_headtitle{
     padding: 0 30px 0 32px;

@@ -13,11 +13,11 @@ public class AlbumServiceImpl implements AlbumService{
     AlbumMapper albumMapper;
 
     @Override
-    public List<Album> selectAlbumByInput(String input) {
-        return albumMapper.selectAlbumByInput(input);
+    public List<Album> selectBySingerId(Integer singerId) {
+        return albumMapper.selectBySingerId(singerId);
     }
 
-    public List<Album> seelctBySingerId(Integer singerId) {
-        return albumMapper.selectBySingerId(singerId);
+    public List<Album> selectAlbumByInput(String input) {
+        return albumMapper.selectAlbumByInput(input);
     }
 }

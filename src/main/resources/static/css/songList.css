@@ -1,0 +1,122 @@
+.mainSongList{
+    padding: 40px;
+    width: 984px;
+    height: 1253px;
+    margin: auto;
+}
+.mainUl{
+    margin-top: 40px;
+    margin-left: -50px;
+}
+.mainli{
+    float: left;
+    display: inline-block;
+    width: 140px;
+    height: 188px;
+    overflow: hidden;
+    padding: 0 0 30px 50px;
+    line-height: 1.4;
+}
+.bottom{
+    width: 100%;
+    height: 27px;
+    position: relative;
+    bottom: 30px;
+    color: #ccc;
+    background-color: red;
+}
+.u-title{
+    width: 100%;
+    height: 40px;
+    border-bottom: 2px #ffd700 solid;
+}
+.f-left{
+    float: left;
+}
+.f-right{
+    float: right;
+}
+.btn{
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    margin: 15px 0 0 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid #C4C4C4;
+    padding: 2px;
+    background-color: rgba(247,247,247,0.81);
+    box-shadow: 0 0 1px #747474;
+}
+.btn-songlist{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.choseDiv{
+    width: 520px;
+    height: 200px;
+    position: fixed;
+    z-index: 5;
+}
+.choseDivTop{
+    width: 490px;
+    height: 20px;
+    padding: 10px 0 0 30px;
+    border-bottom: 1px #aaa solid;
+    background-color: #eee;
+}
+.allChose{
+    border-radius: 10px;
+    border: 1px solid #C4C4C4;
+    background-color: rgba(247,247,247,0.81);
+    box-shadow: 0 0 1px #aaa;
+}
+.choseDivLeft{
+    height: 42px;
+    width: 100%;
+    background-color: white;
+}
+.choseClass{
+    padding: 0 20px 0 20px;
+    margin-top: 10px;
+    border-right: 2px #5e5e5e solid;
+}
+.choseClassFont1{
+    font-size: 16px;
+    line-height: 40px;
+    font-weight: bold;
+}
+.choseClassFont2{
+    font-size: 12px;
+    line-height: 40px;
+    font-weight: normal;
+}
+.font-12{
+    font-size: 12px;
+}
+.font-16{
+    font-size: 16px;
+}
+.songListName{
+    display: block;
+    width: 100%;
+    height: 30px;
+    text-align: left;
+    line-height: 30px;
+    overflow: hidden;
+}
+.userName{
+    display: block;
+    width: 100%;
+    height: 15px;
+    text-align: left;
+    line-height: 15px;
+    overflow: hidden;
+}
+.songListType{
+    position: relative;
+    top: -25px;
+}
+.f-c-d{
+    color: #9b9b9b;
+}

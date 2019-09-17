@@ -22,4 +22,6 @@ public interface SongListCommentMapper {
     int updateByPrimaryKey(SongListComment record);
     //查询出该歌单下所有的评论-郭长达
     List<SongListComment> selectCommentBySongListId(Integer songListId);
+    //添加评论-郭长达
+    int insertSongListComment(SongListComment songListComment);
 }

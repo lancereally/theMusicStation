@@ -26,6 +26,9 @@
     </resultMap>
 
 
+    <select id="selectSingerAndUser" parameterType="java.lang.Integer" resultMap="SingerResultMap">
+        select count(user_id) as user_id from usersingers where user_id = #{param1} and singer_id = #{param2}
+    </select>
 
     <select id="selectHotSingers" resultMap="SingerResultMap" parameterType="java.lang.Integer">
         select singer_id, singer_name, singer_pic_url, singer_description,user_id from singer  order by rand()

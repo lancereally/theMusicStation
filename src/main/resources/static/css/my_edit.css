@@ -145,6 +145,9 @@
     cursor: pointer;
     text-decoration: none;
 }
+.three_distance{
+    margin-left: 20px;
+}
 .btn1{
     /*margin-right: 20px;*/
     /*color: #bebebe;*/
