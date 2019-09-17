@@ -1,0 +1,264 @@
+*{
+  margin:0;
+  padding: 0;
+}
+#container{
+
+}
+#container-main{
+  background-color: #FFFFFF;
+  height: 100%  ;
+  display: inline-table;
+}
+#container-left {
+  padding: 47px 30px 40px 39px;
+  width: 640px;
+}
+
+.music-info {
+  margin-top: -10px;
+}
+
+.music-head {
+  width: 198px;
+  height: 198px;
+  top: -4px;
+  left: -4px;
+  position: relative;
+  display: block;
+  float: left;
+}
+.music-head img {
+  width: 130px;
+  height: 130px;
+  margin: 34px;
+  display: block;
+}
+
+.music-head .msk {
+  width: 206px;
+  height: 205px;
+  top: -4px;
+  left: -4px;
+  background-position: -140px -580px;
+  display: block;
+  position: absolute;
+}
+
+.lyric {
+  float: right;
+  width: 414px;
+}
+
+.hd {
+  float: left;
+}
+
+.lyric .hd .tit {
+  position: relative;
+  width: 296px;
+  left: -59px;
+  top: -6px;
+  font-size: 24px;
+  vertical-align: middle;
+  margin: 0 0 0 64px;
+}
+.lyric .hd .tit em {
+  font-style: normal;
+  text-align: left;
+  font-size: inherit;
+}
+
+.lyric-content {
+  height: auto;
+  margin-top: 13px;
+  line-height: 23px;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.lab {
+  float: left;
+  width: 54px;
+  height: 24px;
+  background-position: 0 -463px;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.des {
+  margin: 10px 0;
+  color: #999;
+  font-size: 12px;
+}
+.des span a {
+  color: #0c73c2;
+}
+.des span a:hover {
+  text-decoration: underline;
+}
+
+.m-info {
+  display: block;
+  width: 100%;
+  float: left;
+}
+
+.btns {
+  margin-right: -10px;
+}
+
+.btn {
+  background: url(../img/icon-2.png) no-repeat;
+  float: left;
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+  background : url(../img/icon-2.png) no-repeat;
+}
+
+.btn-play-bg {
+  color: #000;
+  background-position: right -428px;
+  cursor: pointer;
+}
+.btn-play-bg i {
+  display: block;
+  padding: 0 7px 0 8px;
+  color: #fff;
+  background: url(../img/icon-2.png) no-repeat;
+  background-position: 0 -387px;
+  height: 31px;
+  font-style: normal;
+  line-height: 31px;
+  font-size: 12px;
+}
+
+.btn-play-1 {
+  float: left;
+  width: 20px;
+  height: 18px;
+  margin: 6px 2px 2px 0;
+  background-position: 0 -1622px;
+  overflow: hidden;
+}
+
+.btn-add-1 {
+  margin-right: 5px;
+  width: 31px;
+  margin-left: -3px;
+  padding-right: 0;
+  background-position: 0 -1588px;
+  float: left;
+  height: 31px;
+  line-height: 30px;
+  min-width: 23px;
+  cursor: pointer;
+}
+.container-right{
+  position: relative;
+  float: right;
+  width: 270px;
+  zoom: 1;
+  background-color: #FFFFFF;
+  border-right: 1px solid #d3d3d3;;
+}
+.container-inner{
+  padding: 20px 40px 40px 30px;
+}
+.container-inner::after{
+  clear: both;
+  content: '.';
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.unknow{
+  /*margin-bottom: 40px;*/
+}
+.u-h3{
+  position: relative;
+  height: 23px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  color: #333;
+}
+.f-f1{
+  float: left;
+}
+.m-piclist{
+  margin-left: -13px;
+  padding-bottom: 55px;
+}
+.m-piclist li{
+  display: inline;
+  padding: 0 0 13px 13px;
+  float: left;
+  width: 40px;
+  height: 40px;
+}
+.m-piclist li,.m-piclist li img{
+  float: left;
+  width: 40px;
+  height: 40px;
+}
+.f-tdn, .f-tdn:hover{
+  text-decoration: none;
+}
+.sl-list{
+  margin-bottom: 25px;
+}
+.sl-list li{
+  float: left;
+  width: 200px;
+  height: 50px;
+  margin-bottom: 15px;
+  line-height: 24px;
+}
+.uli-pic{
+  margin-right: -60px;
+  float: left;
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: block;
+}
+.uli-pic a{
+  cursor: pointer;
+}
+.uli-pic img{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.uli-info{
+  margin-left: 60px;
+  line-height: 24px;
+}
+.uli-info p{
+  width: 140px;
+}
+.ffs1{
+  font-size: 14px;
+}
+.uli-title:hover{
+  color: #000;
+}
+.a-mover{
+  cursor: pointer;
+}
+.byedit{
+  float: left;
+  color: #999999;
+}
+.editName{
+  float: left;
+  max-width: 106px;
+  margin: 0 2px 0 4px;
+}
