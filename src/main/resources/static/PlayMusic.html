@@ -125,7 +125,8 @@
         <div id="container-left">
             <div class="music-info" id="songInfo">
                 <div class="music-head">
-                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop"><img :src="songPicUrl"></div>
+                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv"><img
+                            :src="songPicUrl"></div>
                     <span class="msk msk1"> </span>
                 </div>
                 <div class="lyric">
@@ -149,16 +150,11 @@
                 <a>{{albumName}}</a>
               </span>
                     </p>
-                    <div class="m-info">
-                        <div class="btns" id="btnplay">
-                            <a class=" btn btn-play-bg" hidefocus="true">
-                                <i> <em class="btn btn-play-1"></em>播放</i>
-                            </a>
-                            <a class="btn btn-add-1" hidefocus="true"> </a>
-                        </div>
+                    <div class="m-info" id="minf">
+                        <button type="button" class="btnCre btnCre_bcolor a-mover" id="play_btn">播放</button>
                     </div>
-<!--                    <div class="lyric-content" v-html="songLyric">-->
-<!--                    </div>-->
+                    <!--                    <div class="lyric-content" v-html="songLyric">-->
+                    <!--                    </div>-->
                     <div class="crl"></div>
                 </div>
                 <div id="aplayer" class="music_play">
@@ -173,9 +169,8 @@
                         <span class="msg_size">评论</span>
                     </h3>
                     <span class="msg_num">共
-            <span class="msg_size"></span>
-            条评论
-        </span>
+                        <span class="msg_size"></span>条评论
+                    </span>
                 </div>
                 <div class="msg_det">
                     <div class="msg_user">

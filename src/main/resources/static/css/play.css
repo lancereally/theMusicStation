@@ -265,3 +265,15 @@
 .music_play{
   width: 100%;
 }
+.btnCre{
+  border:1px solid #666666;
+  width: 83px;
+  height: 43px;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btnCre_bcolor{
+  background: #0c73c2;
+  color: #FFFFFF;
+}
