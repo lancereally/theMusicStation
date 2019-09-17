@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class SongListCommetServiceImpl implements SongListCommentService {
+public class SongListCommentServiceImpl implements SongListCommentService {
 
     @Autowired
     SongListCommentMapper songListCommentMapper;

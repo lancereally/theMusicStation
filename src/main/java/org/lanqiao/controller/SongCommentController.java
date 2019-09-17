@@ -25,4 +25,16 @@ public class SongCommentController {
     public int insertSongComment(SongComment songComment) {
         return songCommentService.insertSongComment(songComment);
     }
+
+    //精彩评论查询-郭长达
+    @RequestMapping("/PlayMusic/showAwComment")
+    public List<SongComment> getAwesomeComment(Integer songId){
+        return songCommentService.selectAwComment(songId);
+    }
+
+    //查询出该歌曲下精彩评论-郭长达
+    @RequestMapping("/PlayMusic/addCommentLike")
+    public int updateSongCommentLike(Integer songcId){
+        return songCommentService.updateSongCommentLike(songcId);
+    }
 }

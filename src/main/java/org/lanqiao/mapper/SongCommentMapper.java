@@ -19,12 +19,12 @@ public interface SongCommentMapper {
     int updateByPrimaryKeySelective(SongComment record);
 
     int updateByPrimaryKey(SongComment record);
-    //查询出该歌单下所有的评论-郭长达
+    //查询出该歌曲下所有的评论-郭长达
     List<SongComment> selectCommentBySongId(Integer songId);
     //添加评论-郭长达
     int insertSongComment(SongComment songComment);
     //精彩评论查询-郭长达
     List<SongComment> selectAwesomeComment(Integer songId);
-    //歌单点赞-郭长达
+    //歌曲点赞-郭长达
     int updateLikeNum(Integer songId);
 }
