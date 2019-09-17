@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<style>
+  #getSong{
+    display: block;
+    width:100px;
+    height: 100px;
+    margin:0 auto;
+    background: black;
+  }
+</style>
 <html>
   <head>
     <meta charset="utf-8" />
@@ -6,6 +15,9 @@
     <link rel="stylesheet" type="text/css" href="css/audio.css" />
   </head>
   <body style="height: 999px">
+    <div id="getSong" >
+
+    </div>
     <div class="audio-box">
       <div class="audio-container">
         <div class="audio-view">
@@ -53,6 +65,22 @@
   <script type="text/javascript" src="js/audio.js"></script>
   <script type="text/javascript">
     $(function() {
+      var getSong = new vue({
+        el:"getSong",
+        data:{
+          songSet:[]
+        },
+        methods: {
+          getSongSet:function () {
+            getSong.songSet = [];
+            $.ajax({
+              url:""
+            })
+          }
+        }
+
+      })
+
       var song = [
         {
           cover: 'img/cover5.jpg',
@@ -73,6 +101,7 @@
           src: 'http://webmp3-1253691995.costj.myqcloud.com/audio/baab.mp3',
           title: 'B.A.A.B'
         },
+
         false
       )
 

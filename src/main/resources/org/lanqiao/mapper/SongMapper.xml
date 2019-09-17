@@ -41,6 +41,11 @@
     <select id="selectSongBySongList" parameterType="java.lang.Integer" resultMap="SongResultMap">
         select so.song_name ,si.singer_name,so.song_duration,so.song_play_times,a.album_name from album a,singer si,song so,songsonglist sosol where sosol.song_id = so.song_id and si.singer_id = so.singer_id and so.album_id = a.album_id and sosol.songlist_id= #{songListId}
     </select>
+
+    <!--查询单曲信息-->
+    <select id="selectSong" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select song_name,song_url,song_pic_url from song where song_id = 1
+    </select>
 <!--    &lt;!&ndash;查询歌单歌单总播放次数&ndash;&gt;-->
 <!--    <select id="selectSongPlayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">-->
 <!--      select sum(song_play_times) from song so,songsonglist sosol where sosol.song_id = so.song_id and sosol.songlist_id= #{songListId}-->
@@ -243,4 +248,6 @@
       singer_id = #{singerId,jdbcType=INTEGER}
     where song_id = #{songId,jdbcType=INTEGER}
   </update>
+
+
 </mapper>

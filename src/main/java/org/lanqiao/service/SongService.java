@@ -10,4 +10,7 @@ public interface SongService {
     //查询歌单歌曲总数和播放总数
     int selectSongCount(Integer songListId);
     int selectSongPlayCount(Integer songListId);
+
+    //根据id查询单曲
+
 }
