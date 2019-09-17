@@ -21,15 +21,18 @@ div{
 }
 .mymusic_main{
     min-height: 645px;
-    width: 980px;
+    /*width: 980px;*/
     /*height: 900px;*/
-    margin-left: 260px;
-    border-right:1px solid #999999;
+    margin-left: 266px;
+    margin-right: 266px;
+    /*border-right:1px solid #999999;*/
     border-left:1px solid #999999;
-    background:url("../images/MyMusic/wrap3.png") repeat-y center 0 ;
+    /*background:url("../images/MyMusic/wrap3.png") repeat-y center 0 ;*/
 }
 /*侧边栏*/
 .mymusic_side{
+    border-right:1px solid #999999;
+    background-color: #eeeeee;
     overflow-y: auto;
     overflow-x: hidden;
     width: 240px;
@@ -52,7 +55,7 @@ div{
     background: rgba(0,0,0,0.1);
 }
 .l_neirong{
-    width: 232px;
+    width: 100%;
 }
 /*侧边单个*/
 .side_nav{
@@ -140,7 +143,7 @@ div{
     display: inline-block;
     width: 10px;
 }
-.list_info *{
+.list_info a{
     cursor: pointer;
     vertical-align: middle;
 }
@@ -195,7 +198,7 @@ div{
 /*中间显示部分*/
 .mymusic_show{
     float: left;
-    width: 740px;
+    width: 75%;
     height: 605px;
 }
 
@@ -332,10 +335,10 @@ div{
     cursor: pointer;
     background: url("../images/MyMusic/layer.png") no-repeat 0 -95px;
 }
-/*删除窗体*/
-.mymusic_del{
+/*删除窗体 */
+.mymusic_del {
     display: none;
-    top: 297.5px;
+    top: 260px;
     left: 528px;
     width: 480px;
     position: absolute;
@@ -344,14 +347,14 @@ div{
     box-shadow: 0 5px 16px rgba(0,0,0,0.8);
     border: none;
 }
-.del_hd{
+.del_hd {
     position: relative;
     z-index: 10;
     border-bottom: 1px solid #191919;
     border-radius: 4px 4px 0 0;
     background: #2d2d2d;
 }
-.del_title{
+.del_title {
     padding-right: 45px;
     margin: 0;
     height: 38px;
@@ -367,14 +370,60 @@ div{
     word-wrap: normal;
     text-align: left;
 }
-.del_body{
+.del_body {
     padding: 40px 0;
     text-align: center;
 }
-.del_info{
+.del_info {
     line-height: 22px;
     font-size: 14px;
 }
-.del_button{
+.del_button {
+    margin-top: 30px;
+}
+/*取消收藏*/
+.mymusic_can{
+    display: none;
+    top: 260px;
+    left: 528px;
+    width: 480px;
+    position: absolute;
+    z-index: 9998;
+    border-radius: 4px;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.8);
+    border: none;
+}
+.can_hd{
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid #191919;
+    border-radius: 4px 4px 0 0;
+    background: #2d2d2d;
+}
+.can_title{
+    padding-right: 45px;
+    margin: 0;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 18px;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+    text-align: left;
+}
+.can_body {
+    padding: 40px 0;
+    text-align: center;
+}
+.can_info {
+    line-height: 22px;
+    font-size: 14px;
+}
+.can_button {
     margin-top: 30px;
 }

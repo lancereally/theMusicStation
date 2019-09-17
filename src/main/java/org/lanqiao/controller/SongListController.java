@@ -53,4 +53,25 @@ public class SongListController {
     public int deleteBySongListId(Integer songListId){
         return songListService.deleteBySongListId(songListId);
     }
+    //取消收藏歌单——郭长达
+    @RequestMapping("/MyMusic/cancelSonglist")
+    public int cancelBySongListId(Integer songListId){
+        return songListService.cancelBySongListId(songListId);
+    }
+    //编辑歌单标签信息-郭长达
+    @RequestMapping("/MyMusic/editTag")
+    public int editSongListTag(SongList songList){
+        return songListService.updataSongListTag(songList);
+    }
+
+    @RequestMapping("/songList/getSongList")
+    public List<SongList> getSongList(String keyWord){
+        return songListService.selectByKeyWord(keyWord);
+    }
+
+    // Lzc : search song list
+    @RequestMapping("/search/selectSongListByInput")
+    public List<SongList> selectSongListByInput(String input){
+        return songListService.selectSongListByInput(input);
+    }
 }

@@ -9,6 +9,7 @@
     <script src="js/vue.min.js"></script>
     <script src="js/wangEditor.min.js"></script>
     <link href="css/wangEditor.css" rel="stylesheet">
+    <script src="js/timeChange.js"></script>
     <script>
         $(function () {
             //Vue
@@ -53,7 +54,7 @@
                                         songUrl: data[i].songUrl,
                                         songName: data[i].songName,
                                         singerName: data[i].singerName,
-                                        shareTime: data[i].shareTime,
+                                        shareTime: format(data[i].shareTime,'yyyy-MM-dd'),
                                         shareTitle: data[i].shareTitle,
                                         shareVideoTimes: data[i].shareVideoTimes,
                                         shareAnnexUrl: data[i].shareAnnexUrl,
@@ -268,7 +269,7 @@
                                             userName : shareComment[i].userName,
                                             userHeadUrl:shareComment[i].userHeadUrl,
                                             scText : shareComment[i].scText,
-                                            scTime:shareComment[i].scTime,
+                                            scTime:format(shareComment[i].scTime,'yyyy-MM-dd'),
                                             scLikes:shareComment[i].scLikes,
                                             shareCommentList:shareComment[i].shareCommentList
                                         })

@@ -11,6 +11,18 @@
     <script src="js/layui/layui.js"></script>
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <script src="js/my_edit.js"></script>
+    <script>
+        //Demo
+        layui.use('form', function(){
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="edit_main">
@@ -51,12 +63,77 @@
                     </div>
                 </div>
                 <div class="body_pic">
-                    <img :src="songlistPicUrl">
-                    <span class="btm"></span>
-                    <a class="body_upload">编辑封面</a>
+                    <img id="SongListPic" :src="songlistPicUrl">
+                    <span class="btm"><span>编辑封面</span></span>
+                    <input type="file" class="body_upload" name="PicUpload" style="opacity: 0;"></input>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="edit_tag">
+        <div class="tag_hd">
+            <div class="tag_title">
+                选择标签
+            </div>
+        </div>
+        <div class="tag_body">
+            <div>
+                <!--//layUI多选，可以在tag选择尝试使用-->
+                <form class="layui-form" action="">
+                <div class="tag_select">
+                    <div class="sel_kj">
+                        <h4>选择合适的标签，最多可选3个</h4>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">语种：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="华语" lay-skin="primary" value="华语">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="英语" lay-skin="primary" value="英语">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="日语" lay-skin="primary" value="日语">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="韩语" lay-skin="primary" value="韩语">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="粤语" lay-skin="primary" value="粤语">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">风格：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="摇滚" lay-skin="primary" value="摇滚">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="民谣" lay-skin="primary" value="民谣">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="电子" lay-skin="primary" value="电子">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="古典" lay-skin="primary" value="古典">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="轻音乐" lay-skin="primary" value="轻音乐">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">场景：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="夜晚" lay-skin="primary" value="夜晚">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="学习" lay-skin="primary" value="学习">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="午休" lay-skin="primary" value="午休">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="运动" lay-skin="primary" value="运动">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="驾车" lay-skin="primary" value="驾车">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">情感：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="清新" lay-skin="primary" value="清新">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="怀旧" lay-skin="primary" value="怀旧">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="浪漫" lay-skin="primary" value="浪漫">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="伤感" lay-skin="primary" value="伤感">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="治愈" lay-skin="primary" value="治愈">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tag_save">
+                    <div class="save_kj">
+                        <button type="button" class="btn btn-primary btn-sm btn_long" id="doSave">保存并关闭</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <span class="tag_close">×</span>
     </div>
 </body>
 </html>

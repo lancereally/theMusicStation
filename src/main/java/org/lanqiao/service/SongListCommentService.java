@@ -9,4 +9,6 @@ public interface SongListCommentService {
     List<SongListComment> selectCommentBySongListId(Integer songListId);
     //添加评论-郭长达
     int insertSongListComment(SongListComment songListComment);
+    //查询精彩评论-郭长达
+    List<SongListComment> selectAwesomeComment(Integer songListId);
 }

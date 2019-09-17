@@ -35,6 +35,12 @@
         album_id, album_name, album_description, album_company, album_count, album_create_time,
         album_commet_num, album_keep_num, album_pic_url, singer_id
      </sql>
+
+    <!-- Lzc -->
+    <select id="selectAlbumByInput" resultMap="AlbumResultMap" parameterType="java.lang.String">
+        select a.album_id,a.album_name,a.album_pic_url,s.singer_id,s.singer_name from album a,singer s where ((a.album_name like concat('%',#{input},'%')) or (s.singer_name like concat('%',#{input},'%'))) and a.singer_id = s.singer_id
+    </select>
+
     <select id="selectByPrimaryKey" resultMap="AlbumResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Album_Column_List"/>

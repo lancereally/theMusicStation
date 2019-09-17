@@ -37,4 +37,12 @@ public interface SongListMapper {
     int updateSongListInfo(SongList songList);
     //删除歌单-gcd
     int deleteByPrimaryKey(Integer songlistId);
+    //取消收藏歌单-郭长达
+    int cancelBySongListId(Integer songlistId);
+    //编辑歌单标签-郭长达
+    int updataSongListTag(SongList songList);
+
+    List<SongList> selectSongList(String keyWord);
+    // Lzc : search song list
+    List<SongList> selectSongListByInput(String input);
 }

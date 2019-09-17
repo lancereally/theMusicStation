@@ -52,6 +52,24 @@ public class SongListServiceImpl implements SongListService{
     public int deleteBySongListId(Integer songListId) {
         return songListMapper.deleteByPrimaryKey(songListId);
     }
+    //取消收藏歌单——郭长达
+    @Override
+    public int cancelBySongListId(Integer songListId) {
+        return songListMapper.cancelBySongListId(songListId);
+    }
+    //编辑歌单标签信息-郭长达
+    @Override
+    public int updataSongListTag(SongList songList) {
+        return songListMapper.updataSongListTag(songList);
+    }
 
-
+    @Override
+    public List<SongList> selectByKeyWord(String keyWord) {
+        return songListMapper.selectSongList(keyWord);
+    }
+    // Lzc : search song list
+    @Override
+    public List<SongList> selectSongListByInput(String input) {
+        return songListMapper.selectSongListByInput(input);
+    }
 }

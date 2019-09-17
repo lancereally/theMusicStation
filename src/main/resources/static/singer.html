@@ -37,10 +37,24 @@
     </style>
     <script>
         $(function () {
+
+            var url = location.search,
+                singerId = {};
+
+            if(url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i++) {
+                    singerId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+
+            }
+
             var bigBox = new Vue({
                 el:"#bigBox",
                 data:{
-                    singers:[]
+                    singers:[],
+                    singerId:singerId.singerId
                 },
                 methods: {
                     getOtherSingers:function () {
@@ -64,7 +78,7 @@
 <iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
 <div class="mainBody" id="bigBox">
     <div class="m-left f-left">
-        <iframe src="works.html" frameborder="0" width="640px" height="1000px"></iframe>
+        <iframe :src="'works.html?singerId='+singerId" frameborder="0" width="640px" height="1000px"></iframe>
         </div>
     <div class="m-right f-right">
         <div class="starUser"><i class="font-12 f-w-b">相似歌手</i></div>
@@ -73,7 +87,7 @@
                 <a href="#">
                     <img :src="singer.singerPicUrl" height="55px" width="55px">
                 </a><br>
-                    <a class="font-12 singername">{{singer.singerName}}</a>
+                    <a :href="'singer.html?singerId='+singer.singerId" class="font-12 singername">{{singer.singerName}}</a>
             </li>
         </ul>
         <div class="starUser"><i class="font-12 f-w-b">网易云音乐多端下载</i></div>
