@@ -21,15 +21,18 @@ div{
 }
 .mymusic_main{
     min-height: 645px;
-    width: 980px;
+    /*width: 980px;*/
     /*height: 900px;*/
-    margin-left: 260px;
-    border-right:1px solid #999999;
+    margin-left: 266px;
+    margin-right: 266px;
+    /*border-right:1px solid #999999;*/
     border-left:1px solid #999999;
-    background:url("../images/MyMusic/wrap3.png") repeat-y center 0 ;
+    /*background:url("../images/MyMusic/wrap3.png") repeat-y center 0 ;*/
 }
 /*侧边栏*/
 .mymusic_side{
+    border-right:1px solid #999999;
+    background-color: #eeeeee;
     overflow-y: auto;
     overflow-x: hidden;
     width: 240px;
@@ -52,7 +55,7 @@ div{
     background: rgba(0,0,0,0.1);
 }
 .l_neirong{
-    width: 232px;
+    width: 100%;
 }
 /*侧边单个*/
 .side_nav{
@@ -195,7 +198,7 @@ div{
 /*中间显示部分*/
 .mymusic_show{
     float: left;
-    width: 740px;
+    width: 75%;
     height: 605px;
 }
 
