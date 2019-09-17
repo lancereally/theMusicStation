@@ -137,7 +137,19 @@ $(function () {
                     }
                 })
             }
-        }
+        },
+        filters: {
+            formatDate:function(val) {
+                var value=new Date(val);
+                var year=value.getFullYear();
+                var month=padDate(value.getMonth()+1);
+                var day=padDate(value.getDate());
+                var hour=padDate(value.getHours());
+                var minutes=padDate(value.getMinutes());
+                var seconds=padDate(value.getSeconds());
+                return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
+            }
+        },
     });
     var songList = new Vue({
         el: "#listInfo",
@@ -175,9 +187,24 @@ $(function () {
             goToEdit:function (songlistId) {
                 songList.url= 'MyMusic_edit.html' + '?songListId=' + escape(songlistId);
             }
-        }
+        },
+        filters: {
+            formatDate:function(val) {
+                var value=new Date(val);
+                var year=value.getFullYear();
+                var month=padDate(value.getMonth()+1);
+                var day=padDate(value.getDate());
+                var hour=padDate(value.getHours());
+                var minutes=padDate(value.getMinutes());
+                var seconds=padDate(value.getSeconds());
+                return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
+            }
+        },
     });
-
+    var padDate=function(va){
+        va=va<10?'0'+va:va;
+        return va
+    }
     ss.getSongSet();
     sinfo.getSongCount();
     sinfo.getSongPlayCount();
@@ -185,6 +212,15 @@ $(function () {
     comment.getPic();
     comment.getAwComment();
     songList.getListInfo();
+    //富文本
+    // var E = window.wangEditor;
+    // var editor = new E('#editPic', '#editText');
+    // // editor.customConfig.uploadImgShowBase64 = true;
+    // // editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+    //
+    // editor.customConfig.menus = [
+    //     'emoticon' // 表情
+    // ];
     $("#msg_send").click(function () {
        $.ajax({
            url:"/MyMusic/songlist/insert",

@@ -11,6 +11,18 @@
     <script src="js/layui/layui.js"></script>
     <link rel="stylesheet" href="js/layui/css/layui.css">
     <script src="js/my_edit.js"></script>
+    <script>
+        //Demo
+        layui.use('form', function(){
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="edit_main">
@@ -66,85 +78,49 @@
         </div>
         <div class="tag_body">
             <div>
+                <!--//layUI多选，可以在tag选择尝试使用-->
+                <form class="layui-form" action="">
                 <div class="tag_select">
                     <div class="sel_kj">
                         <h4>选择合适的标签，最多可选3个</h4>
-                        <div class="sel_content">
-                            <h5>语种：</h5>
-                            <div class="tag_list">
-                                <ul>
-                                    <li data-name="华语"><a class="btn_icon"><span>华语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="欧美"><a class="btn_icon"><span>欧美</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="日语"><a class="btn_icon"><span>日语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="韩语"><a class="btn_icon"><span>韩语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="粤语"><a class="btn_icon"><span>粤语</span></a><i class="sel_icon"></i></li>
-                                </ul>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">语种：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="华语" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="英语" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="日语" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="韩语" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="粤语" lay-skin="primary">
                             </div>
                         </div>
-                        <div class="sel_content">
-                            <h5>风格：</h5>
-                            <div class="tag_list">
-                                <ul>
-                                    <li data-name="流行"><a class="btn_icon"><span>流行</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="摇滚"><a class="btn_icon"><span>摇滚</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="民谣"><a class="btn_icon"><span>民谣</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="电子"><a class="btn_icon"><span>电子</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="舞曲"><a class="btn_icon"><span>舞曲</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="说唱"><a class="btn_icon"><span>说唱</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="轻音乐"><a class="btn_icon"><span>轻音乐</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="爵士"><a class="btn_icon"><span>爵士</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="乡村"><a class="btn_icon"><span>乡村</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="R&B/Soul"><a class="btn_icon"><span>R&B/Soul</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="古典"><a class="btn_icon"><span>古典</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="民族"><a class="btn_icon"><span>民族</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="日语"><a class="btn_icon"><span>日语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="韩语"><a class="btn_icon"><span>韩语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="粤语"><a class="btn_icon"><span>粤语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="华语"><a class="btn_icon"><span>华语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="欧美"><a class="btn_icon"><span>欧美</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="日语"><a class="btn_icon"><span>日语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="韩语"><a class="btn_icon"><span>韩语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="粤语"><a class="btn_icon"><span>粤语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="日语"><a class="btn_icon"><span>日语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="韩语"><a class="btn_icon"><span>韩语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="粤语"><a class="btn_icon"><span>粤语</span></a><i class="sel_icon"></i></li>
-                                </ul>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">风格：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="摇滚" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="民谣" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="电子" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="古典" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="轻音乐" lay-skin="primary">
                             </div>
                         </div>
-                        <div class="sel_content">
-                            <h5>场景：</h5>
-                            <div class="tag_list">
-                                <ul>
-                                    <li data-name="华语"><a class="btn_icon"><span>华语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="欧美"><a class="btn_icon"><span>欧美</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="日语"><a class="btn_icon"><span>日语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="韩语"><a class="btn_icon"><span>韩语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="粤语"><a class="btn_icon"><span>粤语</span></a><i class="sel_icon"></i></li>
-                                </ul>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">场景：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="夜晚" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="学习" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="午休" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="运动" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="驾车" lay-skin="primary">
                             </div>
                         </div>
-                        <div class="sel_content">
-                            <h5>情感：</h5>
-                            <div class="tag_list">
-                                <ul>
-                                    <li data-name="华语"><a class="btn_icon"><span>华语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="欧美"><a class="btn_icon"><span>欧美</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="日语"><a class="btn_icon"><span>日语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="韩语"><a class="btn_icon"><span>韩语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="粤语"><a class="btn_icon"><span>粤语</span></a><i class="sel_icon"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="sel_content">
-                            <h5>主题：</h5>
-                            <div class="tag_list">
-                                <ul>
-                                    <li data-name="华语"><a class="btn_icon"><span>华语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="欧美"><a class="btn_icon"><span>欧美</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="日语"><a class="btn_icon"><span>日语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="韩语"><a class="btn_icon"><span>韩语</span></a><i class="sel_icon"></i></li>
-                                    <li data-name="粤语"><a class="btn_icon"><span>粤语</span></a><i class="sel_icon"></i></li>
-                                </ul>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">情感：</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="清新" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="怀旧" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="浪漫" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="伤感" lay-skin="primary">
+                                <input type="checkbox"  class="tag-sel" name="" lay-filter="tt" title="治愈" lay-skin="primary">
                             </div>
                         </div>
                     </div>
@@ -154,6 +130,7 @@
                         <button type="button" class="btn btn-primary btn-sm btn_long" >保存并关闭</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
         <span class="tag_close">×</span>
