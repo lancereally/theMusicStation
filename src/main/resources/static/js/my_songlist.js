@@ -16,7 +16,8 @@ $(function () {
     var ss = new Vue({
         el: "#songVue",
         data: {
-            songSet: []
+            songSet: [],
+            url
         },
         methods: {
             getSongSet: function () {
@@ -32,6 +33,7 @@ $(function () {
                         if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
                                 ss.songSet.push({
+                                    songId:data[i].songId,
                                     songName: data[i].songName,
                                     songDuration: data[i].songDuration,
                                     singerName: data[i].singerName,
@@ -43,6 +45,9 @@ $(function () {
                         }
                     }
                 });
+            },
+            goToSong: function (songId){
+                ss.url='PlayMusic.html' + '?songId=' + escape(songId);
             }
         }
     });

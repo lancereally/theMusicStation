@@ -27,4 +27,9 @@ public class SongController {
     public int getSongPlayCount(Integer songListId){
         return songService.selectSongPlayCount(songListId);
     }
+    //查询歌曲信息-郭长达
+    @RequestMapping("/MyMusic/songInfo/show")
+    public Song getSongInfoBySongId(Integer songId){
+        return songService.selectSongInfoBySongId(songId);
+    }
 }

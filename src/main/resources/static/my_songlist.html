@@ -96,7 +96,7 @@
             </td>
             <td>
                 <div class="tb_name">
-                    <a>{{song.songName}}</a>
+                    <a :href="url" @click="goToSong(song.songId)" target="_parent">{{song.songName}}</a>
                 </div>
             </td>
             <td>

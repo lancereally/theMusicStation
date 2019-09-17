@@ -39,7 +39,11 @@
 
     <!--查询歌单中歌曲信息-->
     <select id="selectSongBySongList" parameterType="java.lang.Integer" resultMap="SongResultMap">
-        select so.song_name ,si.singer_name,so.song_duration,so.song_play_times,a.album_name from album a,singer si,song so,songsonglist sosol where sosol.song_id = so.song_id and si.singer_id = so.singer_id and so.album_id = a.album_id and sosol.songlist_id= #{songListId}
+        select so.song_id,so.song_name ,si.singer_name,so.song_duration,so.song_play_times,a.album_name from album a,singer si,song so,songsonglist sosol where sosol.song_id = so.song_id and si.singer_id = so.singer_id and so.album_id = a.album_id and sosol.songlist_id= #{songListId}
+    </select>
+    <!--查询歌曲信息-->
+    <select id="selectSongInfoBySongId" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select so.song_lyric,so.song_commet_count,so.song_name,so.song_url,so.song_pic_url,a.album_name,si.singer_name from song so,album a,singer si where si.singer_id = so.singer_id and a.album_id = so.album_id and so.song_id = #{songId}
     </select>
 <!--    &lt;!&ndash;查询歌单歌单总播放次数&ndash;&gt;-->
 <!--    <select id="selectSongPlayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">-->
