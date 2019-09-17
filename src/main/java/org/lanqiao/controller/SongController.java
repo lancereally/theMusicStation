@@ -28,6 +28,5 @@ public class SongController {
         return songService.selectSongPlayCount(songListId);
     }
 
-    @RequestMapping("/MyMusic/song/songinfo")
-    public
+
 }
