@@ -35,7 +35,7 @@
     <!--查询歌单的评论-郭长达-->
     <select id="selectCommentBySongListId" resultMap="SongListCommentResultMap"
             parameterType="java.lang.Integer">
-        select slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId} order by slc.songlc_id desc
+        select slc.songlc_id,slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId} order by slc.songlc_id desc
     </select>
     <!--添加歌单的评论-郭长达-->
     <insert id="insertSongListComment" parameterType="org.lanqiao.entity.SongListComment">
@@ -43,9 +43,19 @@
     </insert>
     <!--查询精彩评论-郭长达-->
     <select id="selectAwesomeComment" parameterType="java.lang.Integer" resultMap="SongListCommentResultMap">
-        select slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url
+        select slc.songlc_id,slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url
         from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{userId} and slc.songlc_likes>20 order by slc.songlc_likes desc
     </select>
+    <!--歌单点赞-->
+    <update id="updateLikeNum" parameterType="java.lang.Integer">
+        update songlistcomment set songlc_likes = songlc_likes+1 where songlc_id = #{songlcId}
+    </update>
+
+
+
+
+
+
 
     <sql id="Base_Column_List">
         songlc_id, songlist_id, user_id, songlc_text, songlc_likes, songlc_to_id, songlc_time

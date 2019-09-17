@@ -136,6 +136,36 @@ $(function () {
                         }
                     }
                 })
+            },
+            dianzanAw:function (songlcId,index) {
+                $.ajax({
+                    url:"/MyMusic/dianzan",
+                    type:"post",
+                    data:{
+                        songlcId:songlcId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            comment.awComment[index].songlcLikes =  comment.awComment[index].songlcLikes +1;
+                        }
+                    }
+                })
+            },
+            dianzan:function (songlcId,index) {
+                $.ajax({
+                    url:"/MyMusic/dianzan",
+                    type:"post",
+                    data:{
+                        songlcId:songlcId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            comment.commentList[index].songlcLikes+=1;
+                        }
+                    }
+                })
             }
         },
         filters: {

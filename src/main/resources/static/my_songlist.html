@@ -144,8 +144,8 @@
         </div>
         <div class="msg_show" >
             <div style="margin-bottom: 20px">
-                <h3 class="m_hd">精彩评论</h3>
-                <div class="aw_msg" v-for="comment in awComment">
+                <h3 class="m_hd" v-if="awComment.length>0">精彩评论</h3>
+                <div class="aw_msg" v-for="(comment,index) in awComment">
                     <div class="msg_userpic">
                         <a><img :src="comment.user.userHeadUrl"></a>
                     </div>
@@ -157,8 +157,8 @@
                         </div>
                         <div class="pl_bar">
                             <div class="pl_time">{{comment.songlcTime | formatDate }}</div>
-                            <a>
-                                <i class="zan"></i>(<span>{{comment.songlcLikes}}</span>)
+                            <a @click="dianzanAw(comment.songlcId,index)">
+                                <i class="zan" ></i>(<span>{{comment.songlcLikes}}</span>)
                             </a>
                             <span class="pl_jg">|</span>
                             <a class="replay">回复</a>
@@ -166,8 +166,8 @@
                     </div>
                 </div>
             </div>
-            <h3 class="m_hd">最新评论</h3>
-            <div class="aw_msg" v-for="comments in commentList">
+            <h3 class="m_hd" v-if="commentList.length>0">最新评论</h3>
+            <div class="aw_msg" v-for="(comments,index) in commentList">
                 <div class="msg_userpic">
                     <a><img :src="comments.user.userHeadUrl"></a>
                 </div>
@@ -179,7 +179,7 @@
                     </div>
                     <div class="pl_bar">
                         <div class="pl_time">{{comments.songlcTime | formatDate }}</div>
-                        <a>
+                        <a @click="dianzan(comments.songlcId,index)">
                             <i class="zan"></i>(<span>{{comments.songlcLikes}}</span>)
                         </a>
                         <span class="pl_jg">|</span>

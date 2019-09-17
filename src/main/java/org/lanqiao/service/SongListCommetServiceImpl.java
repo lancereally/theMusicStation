@@ -27,4 +27,9 @@ public class SongListCommetServiceImpl implements SongListCommentService {
     public List<SongListComment> selectAwesomeComment(Integer songListId) {
         return songListCommentMapper.selectAwesomeComment(songListId);
     }
+    //歌单点赞-郭长达
+    @Override
+    public int updateCommentLike(Integer songlcId) {
+        return songListCommentMapper.updateLikeNum(songlcId);
+    }
 }
