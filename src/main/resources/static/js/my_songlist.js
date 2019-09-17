@@ -188,6 +188,8 @@ $(function () {
             songlistName: "",
             songlistCreateTime: "",
             songlistPicUrl: "",
+            songlistDescription:"",
+            songlistTag:[],
             userName: "",
             userHeadUrl: "",
             url:""
@@ -209,6 +211,9 @@ $(function () {
                         songList.songlistName=data.songlistName;
                         songList.songlistCreateTime=data.songlistCreateTime;
                         songList.songlistPicUrl=data.songlistPicUrl;
+                        songList.songlistDescription=data.songlistDescription;
+                        if(data.songlistTag!=null)
+                            songList.songlistTag=data.songlistTag.split(" ");
                         songList.userName=data.usersSet[0].userName;
                         songList.userHeadUrl=data.usersSet[0].userHeadUrl
                     }
