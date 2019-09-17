@@ -119,21 +119,27 @@ tr {
 
 .m-table .hd .ply {
     float: right;
-}.u-cover-3 {
-     width: 50px;
-     height: 50px;
- }
+}
+
+.u-cover-3 {
+    width: 50px;
+    height: 50px;
+}
 
 .u-cover {
     position: relative;
     display: block;
-}.u-cover img {
-     display: block;
-     width: 100%;
-     height: 100%;
- }.u-cover-3 .msk {
-      background-position: -160px 0;
-  }
+}
+
+.u-cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.u-cover-3 .msk {
+    background-position: -160px 0;
+}
 
 .u-cover .msk {
     position: absolute;
@@ -141,17 +147,64 @@ tr {
     left: 0;
     width: 100%;
     height: 100%;
-}.m-table-2 .opt {
-     float: right;
- }.m-table .tt {
-      float: left;
-      width: 100%;
-  }.m-table-2 .tt {
-       margin-right: -100px;
-   }.f-cb:after {
-        clear: both;
-        content: '.';
-        display: block;
-        height: 0;
-        visibility: hidden;
-    }
+}
+
+.m-table-2 .opt {
+    float: right;
+}
+
+.m-table .tt {
+    float: left;
+    width: 100%;
+}
+
+.m-table-2 .tt {
+    margin-right: -100px;
+}
+
+.f-cb:after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.u-icn, .u-title-1 .out .icon {
+    background: url(../images/icon.png) no-repeat 0 9999px;
+}
+
+.u-icn, .u-icn2, .u-icn3 {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.u-icn-81 {
+    width: 13px;
+    height: 13px;
+    background-position: 0 -700px;
+}
+
+.m-table .u-icn-81 {
+    float: left;
+    margin-top: 2px;
+}
+
+.m-table .mv, .m-table .icn {
+    float: left;
+    width: 18px;
+    height: 16px;
+    margin: 2px 0 0 4px;
+    overflow: hidden;
+    text-indent: -999px;
+    cursor: pointer;
+}
+
+.m-table .icn-fav {
+    background-position: 0 -174px;
+}
+
+.m-table .icn-share {
+    background-position: 0 -195px;
+}

@@ -82,6 +82,7 @@ $(function () {
     var comment = new Vue({
         el: "#songComment",
         data: {
+            awComment:[],
             commentList: [],
             userHeadUrl1:""
         },
@@ -97,21 +98,14 @@ $(function () {
                     dataType: "json",
                     success: function (data) {
                         if (data.length > 0) {
-                            for (var i = 0; i < data.length; i++) {
-                                comment.commentList.push({
-                                    songlcText: data[i].songlcText,
-                                    songlcTime: data[i].songlcTime,
-                                    songlcLikes: data[i].songlcLikes,
-                                    userName: data[i].user.userName,
-                                    userHeadUrl: data[i].user.userHeadUrl
-                                });
-                            }
+                            comment.commentList = data;
                         } else {
                             // alert("表中无记录");
                         }
                     }
                 })
             },
+            //查询当前登录用户的头像
             getPic:function () {
                 $.ajax({
                     url:"/MyMusic/showSonglistInfo",
@@ -125,8 +119,37 @@ $(function () {
                         comment.userHeadUrl1=data.usersSet[0].userHeadUrl;
                     }
                 })
+            },
+            getAwComment:function () {
+                comment.awComment = [];
+                $.ajax({
+                    url:"/MyMusic/songlist/awComment",
+                    type:"post",
+                    data:{
+                        songListId: songListId.songListId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if (data.length > 0) {
+                            comment.awComment = data;
+                        } else {
+                        }
+                    }
+                })
             }
-        }
+        },
+        filters: {
+            formatDate:function(val) {
+                var value=new Date(val);
+                var year=value.getFullYear();
+                var month=padDate(value.getMonth()+1);
+                var day=padDate(value.getDate());
+                var hour=padDate(value.getHours());
+                var minutes=padDate(value.getMinutes());
+                var seconds=padDate(value.getSeconds());
+                return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
+            }
+        },
     });
     var songList = new Vue({
         el: "#listInfo",
@@ -164,15 +187,36 @@ $(function () {
             goToEdit:function (songlistId) {
                 songList.url= 'MyMusic_edit.html' + '?songListId=' + escape(songlistId);
             }
-        }
+        },
+        filters: {
+            formatDate:function(val) {
+                var value=new Date(val);
+                var year=value.getFullYear();
+                var month=padDate(value.getMonth()+1);
+                var day=padDate(value.getDate());
+                var hour=padDate(value.getHours());
+                var minutes=padDate(value.getMinutes());
+                var seconds=padDate(value.getSeconds());
+                return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
+            }
+        },
     });
-
     ss.getSongSet();
     sinfo.getSongCount();
     sinfo.getSongPlayCount();
     comment.getComment();
     comment.getPic();
+    comment.getAwComment();
     songList.getListInfo();
+    //富文本
+    // var E = window.wangEditor;
+    // var editor = new E('#editPic', '#editText');
+    // // editor.customConfig.uploadImgShowBase64 = true;
+    // // editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024;
+    //
+    // editor.customConfig.menus = [
+    //     'emoticon' // 表情
+    // ];
     $("#msg_send").click(function () {
        $.ajax({
            url:"/MyMusic/songlist/insert",
@@ -195,3 +239,7 @@ $(function () {
        })
     });
 });
+var padDate=function(va){
+    va=va<10?'0'+va:va;
+    return va
+};

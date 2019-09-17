@@ -334,6 +334,9 @@ ul{
     color: #999;
     margin-top: 10px;
 }
+.msg_show{
+    padding-top: 70px;
+}
 .msg_show h3{
     clear: left;
     font-size: 12px;

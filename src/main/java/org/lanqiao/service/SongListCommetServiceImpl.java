@@ -22,4 +22,9 @@ public class SongListCommetServiceImpl implements SongListCommentService {
     public int insertSongListComment(SongListComment songListComment) {
         return songListCommentMapper.insertSongListComment(songListComment);
     }
+    //查询精彩评论-郭长达
+    @Override
+    public List<SongListComment> selectAwesomeComment(Integer songListId) {
+        return songListCommentMapper.selectAwesomeComment(songListId);
+    }
 }

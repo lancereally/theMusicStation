@@ -124,50 +124,6 @@ $(function () {
         $("div[class='mymusic_create']").css("display", "none");
         $("div[class='control']").css("display", "none")
     });
-    //删除按钮使用
-    //在 jquery中，如果需要进行动态添加元素，并且添加的元素要具有动态绑定事件的效果，那么可以把元素的绑定事件交给父元素或者body元素来实现
-    $('body').on('click',"a[name='del_sl']",function(){
-        $("div[class='mymusic_del']").css("display", "inline");
-        $("div[class='control']").css("display", "inline")
-    }) ;
-    // $("a[name='del_sl']").click(function () {
-    //     $("div[class='mymusic_del']").css("display", "inline");
-    //     $("div[class='control']").css("display", "inline")
-    // });
-    $("span[name='del_end']").click(function () {
-        $("div[class='mymusic_del']").css("display", "none");
-        $("div[class='control']").css("display", "none")
-    });
-    $("button[name='del_btn']").click(function () {
-        $("div[class='mymusic_del']").css("display", "none");
-        $("div[class='control']").css("display", "none")
-    });
-    //删除歌单
-    $("button[name='confirm_btn']").click(function () {
-        $.ajax({
-            url:"/MyMusic/deleteSonglist",
-            type:"post",
-            data:{
-                songListId:song.songListId
-            },
-            dataType:"json",
-            success:function (data) {
-                if(data == 1){
-                    layui.use('layer', function () {
-                        var layer = layui.layer;
-                        layer.msg('成功删除歌单！');
-                    });
-                    setTimeout("window.location.reload()","1000");
-                }else{
-                    layui.use('layer', function () {
-                        var layer = layui.layer;
-                        layer.msg('删除歌单失败！');
-                    });
-                    setTimeout("window.location.reload()","1000");
-                }
-            }
-        })
-    });
     //新建歌单
     $("button[name='nbtn']").click(function () {
         var songListId = 0;
@@ -215,4 +171,89 @@ $(function () {
             }
         })
     });
+    //删除按钮使用
+    //在 jquery中，如果需要进行动态添加元素，并且添加的元素要具有动态绑定事件的效果，那么可以把元素的绑定事件交给父元素或者body元素来实现
+    $('body').on('click',"a[name='del_sl']",function(){
+        $("div[class='mymusic_del']").css("display", "inline");
+        $("div[class='control']").css("display", "inline")
+    }) ;
+    $("span[name='del_end']").click(function () {
+        $("div[class='mymusic_del']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    $("button[name='del_btn']").click(function () {
+        $("div[class='mymusic_del']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    //删除歌单
+    $("button[name='confirm_btn']").click(function () {
+        $.ajax({
+            url:"/MyMusic/deleteSonglist",
+            type:"post",
+            data:{
+                songListId:song.songListId
+            },
+            dataType:"json",
+            success:function (data) {
+                if(data == 1){
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('成功删除歌单！');
+                    });
+                    setTimeout("window.location.reload()","1000");
+                }else{
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('删除歌单失败！');
+                    });
+                    setTimeout("window.location.reload()","1000");
+                }
+            }
+        })
+    });
+    //取消收藏
+    $('body').on('click',"a[name='can_sl']",function(){
+        $("div[class='mymusic_can']").css("display", "inline");
+        $("div[class='control']").css("display", "inline")
+    }) ;
+    $("span[name='can_end']").click(function () {
+        $("div[class='mymusic_can']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    $("button[name='can_btn']").click(function () {
+        $("div[class='mymusic_can']").css("display", "none");
+        $("div[class='control']").css("display", "none")
+    });
+    //取消收藏功能
+    $("button[name='cf_btn']").click(function () {
+        $.ajax({
+            url:"/MyMusic/cancelSonglist",
+            type:"post",
+            data:{
+                songListId:song.songListId
+            },
+            dataType:"json",
+            success:function (data) {
+                if(data == 1){
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('取消收藏歌单成功！');
+                    });
+                    setTimeout("window.location.reload()","1000");
+                }else{
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('取消收藏歌单失败！');
+                    });
+                    setTimeout("window.location.reload()","1000");
+                }
+            }
+        })
+    })
 });
+function showControl() {
+    $("div[class='control']").css("display", "inline");
+}
+function closeControl() {
+    $("div[class='control']").css("display", "none")
+}

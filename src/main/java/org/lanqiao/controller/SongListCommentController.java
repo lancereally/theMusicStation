@@ -22,4 +22,9 @@ public class SongListCommentController {
     public int insertSongListComment(SongListComment songListComment){
         return commentService.insertSongListComment(songListComment);
     }
+    //查询精彩评论（点赞数大于20）-郭长达
+    @RequestMapping("/MyMusic/songlist/awComment")
+    public List<SongListComment> getAwComment(Integer songListId){
+        return commentService.selectAwesomeComment(songListId);
+    }
 }

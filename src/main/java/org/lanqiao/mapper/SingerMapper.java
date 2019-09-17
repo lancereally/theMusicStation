@@ -31,4 +31,7 @@ public interface SingerMapper {
     //《《《郭书卿《《《
     //郭长达
     List<Singer> selectByUserId(Integer userId);
+
+    // Lzc : search singer
+    public List<Singer> selectSingerByInput(String input);
 }

@@ -25,6 +25,12 @@ public class SingerServiceImpl implements SingerService {
         return singerList;
     }
 
+
+    // Lzc : search singer
+    @Override
+    public List<Singer> selectSingerByInput(String input){
+        return singerMapper.selectSingerByInput(input);
+    }
     @Override
     public List<Singer> getEnterSinger(Integer size) {
         return singerMapper.selectEnterSingers(size);

@@ -92,7 +92,7 @@ a {
 }
 
 .n-srchrst .srchsongst .hshow {
-    /*visibility: hidden;*/
+    visibility: hidden;
 }
 
 .u-icn, .u-title-1 .out .icon {

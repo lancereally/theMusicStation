@@ -22,6 +22,12 @@ public interface SongListService {
     int updateSongListInfo(SongList songList);
     //删除歌单-郭长达
     int deleteBySongListId(Integer songListId);
+    //取消收藏歌单-郭长达
+    int cancelBySongListId(Integer songListId);
+    //编辑歌单标签信息-郭长达
+    int updataSongListTag(SongList songList);
 
     List<SongList> selectByKeyWord(String keyWord);
+    // Lzc : search song list
+    List<SongList> selectSongListByInput(String input);
 }
