@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>play</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.0/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div id="aplayer">test</div>
+</body>
+</html>
+<script src="js/APlayer.min.js">
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        lrcType: 1,
+        audio: [{
+            name: playSong.songName,
+            artist: playSong.singerName,
+            url: playSong.songUrl,
+            cover: playSong.songPicUrl,
+            lrc: playSong.songLyric
+        }]
+    });
+</script>
