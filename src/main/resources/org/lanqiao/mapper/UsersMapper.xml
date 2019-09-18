@@ -51,6 +51,10 @@
   </select>
 
   <!--《《《郭书卿《《《-->
+  <!--获取当前用户头像-gcd-->
+  <select id="selectHeadUrl" parameterType="java.lang.Integer" resultMap="UsersResultMap">
+    select user_head_url from users where user_id=#{userId}
+  </select>
 
 
 

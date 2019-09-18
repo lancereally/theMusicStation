@@ -1,7 +1,9 @@
 package org.lanqiao.controller;
 
 import org.lanqiao.entity.SongComment;
+import org.lanqiao.entity.Users;
 import org.lanqiao.service.SongCommentService;
+import org.lanqiao.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,8 @@ public class SongCommentController {
 
     @Autowired
     SongCommentService songCommentService;
+    @Autowired
+    UsersService usersService;
 
     //查询出该歌单下所有的评论-郭长达
     @RequestMapping("/PlayMusic/showComment")
@@ -36,5 +40,10 @@ public class SongCommentController {
     @RequestMapping("/PlayMusic/addCommentLike")
     public int updateSongCommentLike(Integer songcId){
         return songCommentService.updateSongCommentLike(songcId);
+    }
+    //郭长达-查询用户头像
+    @RequestMapping("/PlayMusic/showUserHead")
+    public Users getUserHeadPic(Integer userId){
+        return usersService.getUserHeadPic(userId);
     }
 }
