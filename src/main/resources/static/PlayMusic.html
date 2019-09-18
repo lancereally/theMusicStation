@@ -172,7 +172,7 @@
                         <span class="msg_size"></span>条评论
                     </span>
                 </div>
-                <div class="msg_det">
+                <div class="msg_det" id="songComment">
                     <div class="msg_user">
                         <div class="userpic">
                             <img src="images/MyMusic/facepic.jpg">
@@ -189,63 +189,43 @@
                             <span class="info_num">140</span>
                         </div>
                     </div>
-                    <div class="msg_show">
-                        <h3 class="m_hd">精彩评论</h3>
-                        <div class="aw_msg">
+                    <div class="msg_show" >
+                        <h3 class="m_hd" v-if="awComment.length>0">精彩评论</h3>
+                        <div class="aw_msg" v-for="(awc,index) in awComment">
                             <div class="msg_userpic">
-                                <a><img src="images/MyMusic/facepic.jpg"></a>
+                                <a><img :src="awc.user.userHeadUrl"></a>
                             </div>
                             <div class="msg_userinfo">
                                 <div class="msg_pl">
-                                    <a>okc!up</a>
+                                    <a>{{awc.user.userName}}</a>
                                     <img>
-                                    ：孟子坤《π》
+                                    ：<span>{{awc.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
-                                    <div class="pl_time">9月6日&nbsp;13:00</div>
-                                    <a>
-                                        <i class="zan"></i>(22)
+                                    <div class="pl_time">{{awc.songcTime | formatDate}}</div>
+                                    <a @click="likeAwComment(awc.songcId,index)" class="a-mover">
+                                        <i class="zan a-mover"></i>({{awc.songcLikes}})
                                     </a>
                                     <span class="pl_jg">|</span>
                                     <a class="replay">回复</a>
                                 </div>
                             </div>
                         </div>
-                        <h3 class="m_hd">最新评论</h3>
-                        <div class="aw_msg">
+                        <h3 class="m_hd" v-if="commentList.length>0">最新评论</h3>
+                        <div class="aw_msg" v-for="(comment,index) in commentList">
                             <div class="msg_userpic">
-                                <a><img src="images/MyMusic/facepic.jpg"></a>
+                                <a><img :src="comment.user.userHeadUrl"></a>
                             </div>
                             <div class="msg_userinfo">
                                 <div class="msg_pl">
-                                    <a>okc!up</a>
+                                    <a>{{comment.user.userName}}</a>
                                     <img>
-                                    ：孟子坤《π》
+                                    ：<span>{{comment.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
-                                    <div class="pl_time">9月6日&nbsp;13:00</div>
-                                    <a>
-                                        <i class="zan"></i>(22)
-                                    </a>
-                                    <span class="pl_jg">|</span>
-                                    <a class="replay">回复</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="aw_msg">
-                            <div class="msg_userpic">
-                                <a><img src="images/MyMusic/facepic.jpg"></a>
-                            </div>
-                            <div class="msg_userinfo">
-                                <div class="msg_pl">
-                                    <a>okc!up</a>
-                                    <img>
-                                    ：孟子坤《π》
-                                </div>
-                                <div class="pl_bar">
-                                    <div class="pl_time">9月6日&nbsp;13:00</div>
-                                    <a>
-                                        <i class="zan"></i>(22)
+                                    <div class="pl_time">{{comment.songcTime|formatDate}}</div>
+                                    <a @click="likeComment(comment.songcId,index)" class="a-mover">
+                                        <i class="zan a-mover"></i>({{comment.songcLikes}})
                                     </a>
                                     <span class="pl_jg">|</span>
                                     <a class="replay">回复</a>
@@ -254,13 +234,13 @@
                         </div>
                     </div>
                     <div class="msg_page">
-                        <div class="page_bar">
-                            <a>上一页</a>
-                            <a>1</a>
-                            <a>2</a>
-                            <a>3</a>
-                            <a>下一页</a>
-                        </div>
+<!--                        <div class="page_bar">-->
+<!--                            <a>上一页</a>-->
+<!--                            <a>1</a>-->
+<!--                            <a>2</a>-->
+<!--                            <a>3</a>-->
+<!--                            <a>下一页</a>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>

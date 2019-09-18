@@ -68,28 +68,89 @@ $(function () {
         methods:{
             //查询精彩评论
             getSongAwC:function () {
-                
+                sComment.awComment=[];
+                $.ajax({
+                    url:"/PlayMusic/showAwComment",
+                    type:"post",
+                    data:{
+                        songId:songId.songId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        sComment.awComment=data;
+                    }
+                })
             },
             //查询全部评论
             getSongComment:function () {
-                
+                sComment.commentList=[];
+                $.ajax({
+                    url:"/PlayMusic/showComment",
+                    type:"post",
+                    data:{
+                        songId:songId.songId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        sComment.commentList=data;
+                    }
+                })
             },
             //查询用户头像
             getUserPic:function () {
                 
             },
-            //查询全部评论
-            likeComment:function () {
-
+            //点赞评论
+            likeComment:function (songcId,index) {
+                $.ajax({
+                    url:"/PlayMusic/addCommentLike",
+                    type:"post",
+                    data:{
+                        songcId:songcId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            sComment.commentList[index].songcLikes +=1;
+                        }
+                    }
+                })
             },
-            //查询精彩评论
-            likeAwComment:function f() {
-                
+            //点赞精彩评论
+            likeAwComment:function (songcId,index) {
+                $.ajax({
+                    url:"/PlayMusic/addCommentLike",
+                    type:"post",
+                    data:{
+                        songcId:songcId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            sComment.awComment[index].songcLikes =  sComment.awComment[index].songcLikes +1;
+                        }
+                    }
+                })
+            }
+        },
+        filters:{
+            formatDate:function(val) {
+                var value=new Date(val);
+                var year=value.getFullYear();
+                var month=padDate(value.getMonth()+1);
+                var day=padDate(value.getDate());
+                var hour=padDate(value.getHours());
+                var minutes=padDate(value.getMinutes());
+                var seconds=padDate(value.getSeconds());
+                return year+'-'+month+'-'+day+' '+hour+':'+minutes+':'+seconds;
             }
         }
     });
 
     playSong.getSongInfo();
+    sComment.getSongAwC();
+    sComment.getSongComment();
+
     $("#play_btn").click(function () {
         var music=document.getElementById("aplayer");
         if(music.paused == true){
@@ -105,3 +166,7 @@ $(function () {
     // })
 
 });
+var padDate=function(va){
+    va=va<10?'0'+va:va;
+    return va
+};
