@@ -35,7 +35,7 @@
     <!--查询歌单的评论-郭长达-->
     <select id="selectCommentBySongListId" resultMap="SongListCommentResultMap"
             parameterType="java.lang.Integer">
-        select slc.songlc_id,slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId} order by slc.songlc_id desc
+        select slc.songlc_id,slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url,u.user_vip_state from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId} order by slc.songlc_id desc
     </select>
     <!--添加歌单的评论-郭长达-->
     <insert id="insertSongListComment" parameterType="org.lanqiao.entity.SongListComment">

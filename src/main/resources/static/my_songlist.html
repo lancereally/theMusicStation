@@ -158,9 +158,9 @@
                     </div>
                     <div class="msg_userinfo">
                         <div class="msg_pl">
-                            <a>{{comment.user.userName}}</a>
+                            <a >{{comment.user.userName}}</a>
                             <img>
-                            :<span>{{comment.songlcText}}</span>
+                            :<span >{{comment.songlcText}}</span>
                         </div>
                         <div class="pl_bar">
                             <div class="pl_time">{{comment.songlcTime | formatDate }}</div>
@@ -182,7 +182,7 @@
                     <div class="msg_pl">
                         <a>{{comments.user.userName}}</a>
                         <img>
-                        ：<span>{{comments.songlcText}}</span>
+                        ：<span :class="{vipUser:comments.user.userVipState==1}" >{{comments.songlcText}}</span>
                     </div>
                     <div class="pl_bar">
                         <div class="pl_time">{{comments.songlcTime | formatDate }}</div>

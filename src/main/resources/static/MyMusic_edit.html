@@ -37,7 +37,7 @@
                     <div class="itm">
                         <span class="imp_tag">*</span>
                         <label class="lab">歌单名：</label>
-                        <input type="text" class="name_text" :value="songlistName">
+                        <input type="text" class="name_text" name="songListName">
                         <div class="err_msg">
                             <i class="err_icon"></i>
                         </div>
@@ -53,19 +53,19 @@
                     <div class="itm">
                         <label class="lab">介绍：</label>
                         <div class="body_text">
-                            <textarea class="text_info">{{songlistDescription}}</textarea>
+                            <textarea class="text_info" name="songListDescription"></textarea>
                             <span class="text_num">998</span>
                         </div>
                     </div>
                     <div class="itm body_btn">
-                        <button type="button" class="btn btn-primary btn-sm" id="savabtn">保存</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="savabtn" >保存</button>
                         <button type="button" class="btn btn-default btn-sm three_distance">取消</button>
                     </div>
                 </div>
                 <div class="body_pic">
                     <img id="SongListPic" :src="songlistPicUrl">
                     <span class="btm"><span>编辑封面</span></span>
-                    <input type="file" class="body_upload" name="PicUpload" style="opacity: 0;"></input>
+                        <input type="file" class="body_upload" name="file" id="pic_show" style="opacity: 0;"></input>
                 </div>
             </div>
         </div>

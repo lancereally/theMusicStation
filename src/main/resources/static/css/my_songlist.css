@@ -452,3 +452,7 @@ ul{
     border-radius: 0;
     background: rgba(0,0,0,0.1);
 }
+.vipUser{
+    color: gold;
+    font-weight: bolder;
+}
