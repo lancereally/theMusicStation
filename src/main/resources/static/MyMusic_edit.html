@@ -37,7 +37,7 @@
                     <div class="itm">
                         <span class="imp_tag">*</span>
                         <label class="lab">歌单名：</label>
-                        <input type="text" class="name_text" name="songListName">
+                        <input type="text" class="name_text" name="songListName" :value="songlistName">
                         <div class="err_msg">
                             <i class="err_icon"></i>
                         </div>
@@ -53,8 +53,8 @@
                     <div class="itm">
                         <label class="lab">介绍：</label>
                         <div class="body_text">
-                            <textarea class="text_info" name="songListDescription"></textarea>
-                            <span class="text_num">998</span>
+                            <textarea class="text_info" name="songListDescription">{{songlistDescription}}</textarea>
+                            <span class="text_num">{{998-songlistDescription.length}}</span>
                         </div>
                     </div>
                     <div class="itm body_btn">
