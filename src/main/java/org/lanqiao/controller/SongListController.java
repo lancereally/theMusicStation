@@ -74,7 +74,11 @@ public class SongListController {
     public int editSongListTag(SongList songList){
         return songListService.updataSongListTag(songList);
     }
-
+    //查询拥有某个歌曲的歌单-郭长达
+    @RequestMapping("/PlayMusic/show/likeSongList")
+    public List<SongList> getSongListBySongId(Integer songId){
+        return  songListService.selectSongListBySongId(songId);
+    }
     @RequestMapping("/songList/getSongList")
     public List<SongList> getSongList(String keyWord){
         return songListService.selectByKeyWord(keyWord);

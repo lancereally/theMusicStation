@@ -86,7 +86,10 @@
     <update id="updataSongListTag" parameterType="org.lanqiao.entity.SongList">
         update songlist set songlist_tag = #{songlistTag} where songlist_id = #{songlistId}
     </update>
-
+    <!--查询拥有某个歌曲的歌单-郭长达-->
+    <select id="selectSongListBySongId" resultMap="SonglistResultMap" parameterType="java.lang.Integer">
+        select sl.* from songsonglist sosol,song s, songlist sl where sosol.songlist_id = sl.songlist_id and sosol.song_id = s.song_id and s.song_id = #{songId}
+    </select>
 
 
 
