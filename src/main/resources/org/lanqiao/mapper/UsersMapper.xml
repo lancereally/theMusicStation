@@ -156,10 +156,12 @@ where u.user_id = #{userId,jdbcType=INTEGER}
 and s.songc_to_id = u.user_id
   </select>
   <select id="getMyNotice" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
-    select s.user_id, s.songc_time
+    SELECT u.user_name, id.songc_time, id.user_id, u.user_head_url
+from (select s.user_id, s.songc_time
 from users u, songcomment s
 where u.user_id = #{userId,jdbcType=INTEGER}
-and s.songc_to_id = u.user_id and s.songc_likes = 1
+and s.songc_to_id = u.user_id and s.songc_likes = 1) id, users u
+where u.user_id = id.user_id
   </select>
 
   <select id="getFanCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
@@ -233,21 +235,48 @@ where u.user_id = #{userId,jdbcType=INTEGER} and f.userb_id = u.user_id)
   </select>
 
   <select id="getSongListCreate" resultMap="UsersResultMap" parameterType="java.lang.Integer">
-    SELECT DISTINCT(sl.songlist_name), u.user_id,
-sl.songlist_pic_url, sum(DISTINCT(s.song_play_times)) as slCount
-    from songlist sl, usersonglist us, songsonglist ss, song s, users u
-    where
-    us.us_relation = 0 and u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
-and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
+      select DISTINCT(zi.songlist_name), sl.songlist_pic_url
+      from (SELECT DISTINCT(sl.songlist_name)
+      from songlist sl, usersonglist us, users u
+      where
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 0)
+      or
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 2)) zi, songsonglist ss, song s,songlist sl
+      where sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
+      and sl.songlist_name = zi.songlist_name
 </select>
+<!--  无总播放量-->
+
+<!--  SELECT DISTINCT(sl.songlist_name), u.user_id,-->
+<!--  sl.songlist_pic_url, sum(DISTINCT(s.song_play_times)) as slCount-->
+<!--  from songlist sl, usersonglist us, songsonglist ss, song s, users u-->
+<!--  where-->
+<!--  us.us_relation = 0 and u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id-->
+<!--  and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id-->
+
+<!--精简版，歌单缺失1-->
+
+<!--  SELECT DISTINCT(sl.songlist_name), u.user_id,-->
+<!--  sl.songlist_pic_url-->
+<!--  from songlist sl, usersonglist us, songsonglist ss, song s, users u-->
+<!--  where-->
+<!--  us.us_relation = 0 and u.user_id = 1 and u.user_id = us.user_id and us.songlist_id = sl.songlist_id-->
+<!--  and sl.songlist_id = ss.songlist_id-->
 
   <select id="getSongListLiked" resultMap="UsersResultMap" parameterType="java.lang.Integer">
-    SELECT DISTINCT(sl.songlist_name),u.user_id,
-sl.songlist_pic_url, sum(DISTINCT(s.song_play_times)) as slCount
-    from songlist sl, usersonglist us, songsonglist ss, song s, users u
-    where
-    us.us_relation = 2 and us.user_id = #{userId,jdbcType=INTEGER} and us.songlist_id = sl.songlist_id
-and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
+    select DISTINCT(zi.songlist_name), sl.songlist_pic_url
+      from (SELECT DISTINCT(sl.songlist_name)
+      from songlist sl, usersonglist us, users u
+      where
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 1)
+      or
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 2)) zi, songsonglist ss, song s,songlist sl
+      where sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
+      and sl.songlist_name = zi.songlist_name
   </select>
 
 <!--  <select id="selectCodeByPhone" resultType="java.lang.Integer" parameterType="java.lang.String">-->

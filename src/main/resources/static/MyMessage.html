@@ -69,10 +69,10 @@ $(function () {
         success: function (data) {
             if(data==null)
                 $("#comment").click(function () {
-                    $(".iframe").attr("src","NoNotice.html");
+                    $(".iframe").attr("src","NoComment.html");
                 })
             else
-                $("#comment").click(function () {
+                $("#notice").click(function () {
                     $(".iframe").attr("src","MyNotice.html");
                 })
         }
