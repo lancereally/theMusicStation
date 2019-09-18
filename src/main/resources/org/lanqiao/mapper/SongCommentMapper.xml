@@ -34,7 +34,7 @@
   </resultMap>
   <!--查询歌曲的评论-郭长达-->
   <select id="selectCommentBySongId" parameterType="java.lang.Integer" resultMap="SongCommentResultMap">
-    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} order by sc.song_id desc
+    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} order by sc.songc_time desc
   </select>
   <!--添加歌曲的评论-郭长达-->
   <insert id="insertSongComment" parameterType="org.lanqiao.entity.SongComment">

@@ -98,7 +98,9 @@ $(function () {
             },
             //查询用户头像
             getUserPic:function () {
-                
+                $.ajax({
+                    url:""
+                })
             },
             //点赞评论
             likeComment:function (songcId,index) {
@@ -152,15 +154,36 @@ $(function () {
     sComment.getSongComment();
 
     $("#play_btn").click(function () {
-        var music=document.getElementById("aplayer");
-        if(music.paused == true){
-            alert(go)
-        }else{
-
-        }
+        alert("go")
+        // music=document.getElementById("aplayer");
+        // if(music.paused == true){
+        //     alert(go)
+        // }else{
+        //
+        // }
     });
 
+    $("#msg_send").click(function () {
+        $.ajax({
+            url:"/PlayMusic/insertComment",
+            type:"post",
+            data:{
+                songId: songId.songId,
+                songcText:$("textarea[class='msg_info']").val(),
+                userId:5
+            },
+            dataType:"json",
+            success:function (data) {
+                if(data==1){
+                    layui.use('layer', function () {
+                        var layer = layui.layer;
+                        layer.msg('评论成功！');
+                    });
+                }
+            }
 
+        })
+    })
     // ap.on('playing', function () {
     //     console.log("77777")
     // })
