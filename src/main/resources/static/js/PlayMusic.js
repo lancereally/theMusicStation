@@ -10,6 +10,7 @@ $(function () {
             songId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
+    //Vue歌曲信息
     var playSong = new Vue({
         el: "#songInfo",
         data: {
@@ -65,6 +66,7 @@ $(function () {
             }
         }
     });
+    //Vue歌曲评论
     var sComment = new Vue({
         el:"#songComment",
         data:{
@@ -163,12 +165,34 @@ $(function () {
             }
         }
     });
-
+    //Vue用户推荐
+    var senduser = new Vue({
+        el:"#tuijian",
+        data:{
+           userHeadUrl:[]
+        },
+        methods: {
+            getUserHeadPic:function() {
+                senduser.userHeadUrl=[];
+                $.ajax({
+                    url:"/PlayMusic/likeSong/userShow",
+                    type:"post",
+                    data:{
+                        songId:songId.songId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        senduser.userHeadUrl=data;
+                    }
+                })
+            }
+        }
+    });
     playSong.getSongInfo();
     sComment.getSongAwC();
     sComment.getSongComment();
     sComment.getUserPic();
-
+    senduser.getUserHeadPic();
 
     $("#msg_send").click(function () {
         $.ajax({

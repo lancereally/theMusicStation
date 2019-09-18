@@ -241,16 +241,13 @@
             </div>
         </div>
         <div class="container-right">
-            <div class="container-inner">
+            <div class="container-inner" id="tuijian">
                 <div class="unknow"></div>
                 <h3 class="u-h3">
                     <span class="f-f1">喜欢这首歌的人</span>
                 </h3>
                 <ul class="m-piclist">
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
+                    <li v-for="pic in userHeadUrl"><a class="f-tdn a-mover"><img class="user-pic" :src="pic.userHeadUrl"></a></li>
                 </ul>
                 <h3 class="u-h3">
                     <span class="f-f1">包含这首歌的歌单</span>
