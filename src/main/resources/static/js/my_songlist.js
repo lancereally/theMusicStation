@@ -10,9 +10,7 @@ $(function () {
             songListId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
-    //
-    // console.log('传过来的参数是:', songListId.songListId);
-    // alert( songListId.songListId);
+
     var ss = new Vue({
         el: "#songVue",
         data: {
@@ -59,26 +57,24 @@ $(function () {
         },
         methods: {
             getSongCount: function () {
-                sinfo.songCount;
                 $.ajax({
                     url: "/MyMusic/songlist/countshow",
                     type: "post",
                     data: {songListId: songListId.songListId},
                     dataType: "json",
                     success: function (data) {
-                        songCount = data;
+                        sinfo.songCount = data;
                     }
                 })
             },
             getSongPlayCount: function () {
-                sinfo.songPlayCount;
                 $.ajax({
                     url: "/MyMusic/songlist/playcountshow",
                     type: "post",
                     data: {songListId: songListId.songListId},
                     dataType: "json",
                     success: function (data) {
-                        songPlayCount = data;
+                        sinfo.songPlayCount = data;
                     }
                 })
             }
@@ -226,6 +222,9 @@ $(function () {
             },
             goToEdit:function (songlistId) {
                 songList.url= 'MyMusic_edit.html' + '?songListId=' + escape(songlistId);
+            },
+            goToPlay:function (songId) {
+                songList.url= 'PlayMusic.html' + '?songId=' + escape(songId);
             }
         },
         filters: {

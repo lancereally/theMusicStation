@@ -163,12 +163,7 @@ $(function () {
     sComment.getUserPic();
     $("#play_btn").click(function () {
         alert("go")
-        // music=document.getElementById("aplayer");
-        // if(music.paused == true){
-        //     alert(go)
-        // }else{
-        //
-        // }
+
     });
 
     $("#msg_send").click(function () {
@@ -187,15 +182,12 @@ $(function () {
                         var layer = layui.layer;
                         layer.msg('评论成功！');
                     });
+                    setTimeout("window.location.reload()","1000");
                 }
             }
 
         })
     })
-    // ap.on('playing', function () {
-    //     console.log("77777")
-    // })
-
 });
 var padDate=function(va){
     va=va<10?'0'+va:va;

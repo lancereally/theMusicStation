@@ -37,11 +37,11 @@
                 <span class="two_time">{{songlistCreateTime | formatDate}} 创建</span>
             </div>
             <div class="det_three">
-                <button type="button" class="btn btn-primary btn-sm">播放</button>
+                <button type="button" class="btn btn-primary btn-sm"><a :href="url" @click="goToPlay(1)" target="_parent">播放</a></button>
                 <button type="button" class="btn btn-default btn-sm three_distance">收藏</button>
                 <button type="button" class="btn btn-default btn-sm three_distance">分享</button>
                 <button type="button" class="btn btn-default btn-sm three_distance">下载</button>
-                <button type="button" class="btn btn-default btn-sm three_distance">评论</button>
+                <button type="button" class="btn btn-default btn-sm three_distance"><a href="#songComment">评论</a></button>
             </div>
             <div class="tag_div" v-if="songlistTag.length>0">
                 <b >标签：</b>
@@ -122,17 +122,17 @@
 </div>
 
 
-<div class="sl_msg">
+<div class="sl_msg" id="songComment">
     <div class="msg_headtitle">
         <h3>
             <span class="msg_size">评论</span>
         </h3>
         <span class="msg_num">共
-            <span class="msg_size"></span>
+            <span class="msg_tsize">{{commentList.length}}</span>
             条评论
         </span>
     </div>
-    <div class="msg_det" id="songComment">
+    <div class="msg_det" >
         <div class="msg_user">
             <div class="userpic">
                 <img :src="userHeadUrl1 ">

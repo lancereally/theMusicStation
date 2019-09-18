@@ -293,6 +293,9 @@ ul{
 
     line-height: 28px;
 }
+.msg_tsize{
+    color: gold;
+}
 .msg_num{
     margin: 9px 0 0 20px;
     float: left;
