@@ -125,8 +125,9 @@
         <div id="container-left">
             <div class="music-info" id="songInfo">
                 <div class="music-head">
-                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv"><img
-                            :src="songPicUrl"></div>
+                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv">
+                        <img :src="songPicUrl">
+                    </div>
                     <span class="msk msk1"> </span>
                 </div>
                 <div class="lyric">
@@ -137,18 +138,12 @@
                         </div>
                     </div>
                     <p class="des"></p>
-                    <p class="des">
-                        歌手：
-                        <span>
-                <a class="" href="">{{singerName}}</a>
-              </span>
+                    <p class="des">歌手：
+                        <span><a class="" href="">{{singerName}}</a></span>
                     </p>
 
-                    <p class="des">
-                        所属专辑：
-                        <span>
-                <a>{{albumName}}</a>
-              </span>
+                    <p class="des">所属专辑：
+                        <span><a>{{albumName}}</a></span>
                     </p>
                     <div class="m-info" id="minf">
                         <button type="button" class="btnCre btnCre_bcolor a-mover" id="play_btn">播放</button>
@@ -163,7 +158,7 @@
                 </div>
             </div>
 
-            <div class="sl_msg" style="    float: left;    width: 100%;">
+            <div class="sl_msg" style="    float: left;    width: 100%;" id="songComment">
                 <div class="msg_headtitle">
                     <h3>
                         <span class="msg_size">评论</span>
@@ -172,10 +167,10 @@
                         <span class="msg_size"></span>条评论
                     </span>
                 </div>
-                <div class="msg_det" id="songComment">
+                <div class="msg_det" >
                     <div class="msg_user">
                         <div class="userpic">
-                            <img src="images/MyMusic/facepic.jpg">
+                            <img :src="userHeadUrl1">
                         </div>
                         <div class="msg_text">
                             <div class="msg_textarea">

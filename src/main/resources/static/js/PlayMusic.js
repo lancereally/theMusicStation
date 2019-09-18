@@ -99,7 +99,15 @@ $(function () {
             //查询用户头像
             getUserPic:function () {
                 $.ajax({
-                    url:""
+                    url:"/PlayMusic/showUserHead",
+                    type:"post",
+                    data:{
+                        userId:5
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        sComment.userHeadUrl1=data.userHeadUrl;
+                    }
                 })
             },
             //点赞评论
@@ -152,7 +160,7 @@ $(function () {
     playSong.getSongInfo();
     sComment.getSongAwC();
     sComment.getSongComment();
-
+    sComment.getUserPic();
     $("#play_btn").click(function () {
         alert("go")
         // music=document.getElementById("aplayer");
