@@ -34,7 +34,7 @@
   </resultMap>
   <!--查询歌曲的评论-郭长达-->
   <select id="selectCommentBySongId" parameterType="java.lang.Integer" resultMap="SongCommentResultMap">
-    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} order by sc.songc_time desc
+    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url,u.user_vip_state  from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} order by sc.songc_time desc
   </select>
   <!--添加歌曲的评论-郭长达-->
   <insert id="insertSongComment" parameterType="org.lanqiao.entity.SongComment">
@@ -42,8 +42,7 @@
   </insert>
   <!--查询歌曲精彩评论-郭长达-->
   <select id="selectAwesomeComment" parameterType="java.lang.Integer" resultMap="SongCommentResultMap">
-    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url
-    from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} and sc.songc_likes>20 order by sc.songc_likes desc
+    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url,u.user_vip_state from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} and sc.songc_likes>20 order by sc.songc_likes desc
   </select>
   <!--歌曲点赞-郭长达-->
   <update id="updateLikeNum" parameterType="java.lang.Integer">

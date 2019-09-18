@@ -43,8 +43,7 @@
     </insert>
     <!--查询精彩评论-郭长达-->
     <select id="selectAwesomeComment" parameterType="java.lang.Integer" resultMap="SongListCommentResultMap">
-        select slc.songlc_id,slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url
-        from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId} and slc.songlc_likes>20 order by slc.songlc_likes desc
+        select slc.songlc_id,slc.songlc_text,slc.songlc_time,slc.songlc_likes,u.user_name,u.user_head_url,u.user_vip_state from songlistcomment slc,users u where u.user_id = slc.user_id and slc.songlist_id = #{songListId} and slc.songlc_likes>20 order by slc.songlc_likes desc
     </select>
     <!--歌单点赞-->
     <update id="updateLikeNum" parameterType="java.lang.Integer">
