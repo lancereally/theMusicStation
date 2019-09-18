@@ -253,33 +253,13 @@
                     <span class="f-f1">包含这首歌的歌单</span>
                 </h3>
                 <ul class="sl-list">
-                    <li>
-                        <div class="uli-pic"><a><img src="images/p-listpic.jpg"></a></div>
+                    <li v-for="sl in songListDet">
+                        <div class="uli-pic"><a><img :src="sl.songlistPicUrl"></a></div>
                         <div class="uli-info">
-                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">声之形 音乐集 & 衍生作品</a></p>
+                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">{{sl.songlistName}}</a></p>
                             <p>
                                 <span class="byedit">by</span>
-                                <a class="editName byedit a-mover">柏林少女妖</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="uli-pic"><a><img src="images/p-listpic.jpg"></a></div>
-                        <div class="uli-info">
-                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">声之形 音乐集 & 衍生作品</a></p>
-                            <p>
-                                <span class="byedit">by</span>
-                                <a class="editName byedit a-mover">柏林少女妖</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="uli-pic"><a><img src="images/p-listpic.jpg"></a></div>
-                        <div class="uli-info">
-                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">声之形 音乐集 & 衍生作品</a></p>
-                            <p>
-                                <span class="byedit">by</span>
-                                <a class="editName byedit a-mover">柏林少女妖</a>
+                                <a class="editName byedit a-mover">{{sl.usersSet[0].userName}}</a>
                             </p>
                         </div>
                     </li>

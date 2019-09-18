@@ -88,7 +88,8 @@
     </update>
     <!--查询拥有某个歌曲的歌单-郭长达-->
     <select id="selectSongListBySongId" resultMap="SonglistResultMap" parameterType="java.lang.Integer">
-        select sl.* from songsonglist sosol,song s, songlist sl where sosol.songlist_id = sl.songlist_id and sosol.song_id = s.song_id and s.song_id = #{songId}
+        select sl.*,u.* from songsonglist sosol,song s, songlist sl,users u,usersonglist usl
+        where sosol.songlist_id = sl.songlist_id and sosol.song_id = s.song_id and u.user_id = usl.user_id and usl.songlist_id = sl.songlist_id and usl.us_relation = 1 and s.song_id = 5
     </select>
 
 

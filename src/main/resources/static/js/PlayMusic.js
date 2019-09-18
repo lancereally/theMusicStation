@@ -169,7 +169,8 @@ $(function () {
     var senduser = new Vue({
         el:"#tuijian",
         data:{
-           userHeadUrl:[]
+            userHeadUrl:[],
+            songListDet:[]
         },
         methods: {
             getUserHeadPic:function() {
@@ -185,6 +186,20 @@ $(function () {
                         senduser.userHeadUrl=data;
                     }
                 })
+            },
+            getSongListDet:function () {
+                senduser.songListDet=[];
+                $.ajax({
+                    url:"/PlayMusic/show/likeSongList",
+                    type:"post",
+                    data:{
+                        songId:songId.songId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        senduser.songListDet=data;
+                    }
+                })
             }
         }
     });
@@ -193,7 +208,7 @@ $(function () {
     sComment.getSongComment();
     sComment.getUserPic();
     senduser.getUserHeadPic();
-
+    senduser.getSongListDet();
     $("#msg_send").click(function () {
         $.ajax({
             url:"/PlayMusic/insertComment",
