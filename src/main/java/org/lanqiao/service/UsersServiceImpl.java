@@ -42,4 +42,9 @@ public class UsersServiceImpl implements UsersService {
     public Users getUserHeadPic(Integer userId) {
         return usersMapper.selectHeadUrl(userId);
     }
+    //获取喜欢这首歌的用户头像-郭长达
+    @Override
+    public List<Users> getUserHeadPicLikeSong(Integer songId) {
+        return usersMapper.selectHeadUrlLikeSong(songId);
+    }
 }

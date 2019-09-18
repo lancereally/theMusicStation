@@ -55,7 +55,10 @@
   <select id="selectHeadUrl" parameterType="java.lang.Integer" resultMap="UsersResultMap">
     select user_head_url from users where user_id=#{userId}
   </select>
-
+  <!--获取喜欢这首歌的用户头像（播放次数排序）-郭长达-->
+  <select id="selectHeadUrlLikeSong" parameterType="java.lang.Integer" resultMap="UsersResultMap">
+    select u.user_head_url from users u,song s, usersong us where s.song_id = us.song_id and us.user_id = u.user_id and s.song_id = #{songId} order by us.us_play_times desc limit 0,4
+  </select>
 
 
   <sql id="Base_Column_List" >

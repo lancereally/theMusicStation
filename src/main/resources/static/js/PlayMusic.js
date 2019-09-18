@@ -53,6 +53,13 @@ $(function () {
                         ap.on('pause',function () {
                             $("#loopDiv").attr("class",endL);
                         })
+                        $("#play_btn").click(function () {
+                            alert("wai")
+                            ap.on('pause', function () {
+                                alert("li")
+                                console.log('player play');
+                            });
+                        });
                     }
                 })
             }
@@ -161,10 +168,7 @@ $(function () {
     sComment.getSongAwC();
     sComment.getSongComment();
     sComment.getUserPic();
-    $("#play_btn").click(function () {
-        alert("go")
 
-    });
 
     $("#msg_send").click(function () {
         $.ajax({

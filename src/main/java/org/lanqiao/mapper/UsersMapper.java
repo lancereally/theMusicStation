@@ -24,6 +24,8 @@ public interface UsersMapper {
     //郭长达
     //查询用户头像
     Users selectHeadUrl(Integer userId);
+    //获取喜欢这首歌的用户头像
+    List<Users> selectHeadUrlLikeSong(Integer songId);
     //》》》郭书卿》》》
     Users selectShareCountByPK_q(Integer userId);
     Users selectFansByPk_q(Integer userId);
