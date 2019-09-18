@@ -12,5 +12,5 @@ public interface SongService {
     int selectSongPlayCount(Integer songListId);
 
     //根据id查询单曲
-
+    Song selectSong( Integer songId );
 }
