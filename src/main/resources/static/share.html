@@ -29,6 +29,16 @@
 
         $(function () {
 
+            $.ajax({
+                url: "/user/getUserInfo",
+                type: "post",
+                datatype: "json",
+                data :{"userId" : parseInt(user_id)},
+                success: function (data) {
+                    $(".login-button img").attr("src",data.userHeadUrl);
+                }
+            });
+
 
             //Vue
             var bigBox = new Vue({
@@ -448,11 +458,11 @@
 <header style="border-bottom: 30px #ffd700 solid;">
     <div id="head-title">
         <div id="head-title-container">
-            <h2 class="logo"><a hidefocus="true" href="/#" id="tuHai">土嗨音乐网</a></h2>
+            <h2 class="logo"><a hidefocus="true" href="Index.html" id="tuHai">土嗨音乐网</a></h2>
             <ul class="head-ul">
                 <li>
               <span>
-                <a href="/#">
+                <a href="Index.html">
                   <em>发现音乐</em>
                   <sub class="cor">&nbsp;</sub>
                 </a>
@@ -501,24 +511,19 @@
             </ul>
             <div class="login-button">
             <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+<!--              <a href="#" id="login">登录</a>-->
+                <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>
             <div class="search-box">
                 <div class="srchbg">
-              <span class="parent">
-                <input
-                        type="text"
-                        name="srch"
-                        id="srch"
-                        class="txt j-flag"
-                        value=""
-                        style="opacity: 1;"
-                        placeholder="音乐/视频/电台/用户"
-                />
-              </span>
+                    <span class="parent" style="margin: 8px 0 0 20px;">
+                        <a type="button" id="srch"
+                           style="opacity: 1;color: #333;line-height: 16px;text-decoration: none;font-size: 12px"
+                           href="search.html">搜索音乐/歌手/歌词...</a>
+                  </span>
                 </div>
             </div>
         </div>
@@ -909,7 +914,7 @@
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">{{star.userName}}{{star.userVipState}}</a>
+                        <a href="#" class="font-14" style="color: black">{{star.userName}}</a>
                         <img src="images/V.png" height="11" v-if="star.userVipState == 1">
                     </div>
                     <div class="time font-12 ">
@@ -933,7 +938,7 @@
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">{{user.userName}}{{user.userVipState}}</a>
+                        <a href="#" class="font-14" style="color: black">{{user.userName}}</a>
                         <img src="images/V.png" height="11" v-if="user.userVipState == 1">
                     </div>
                     <div class="time font-12 ">
