@@ -43,7 +43,7 @@ $(function(){
         },
         methods:{
             sendSongId:function(SongId){
-                Leaderboard1.url="PlayMusic.html"+"?songId="+escape(SongId);
+                Leaderboard1.url="PlayMusic.html"+"?id="+escape(SongId);
             },
             getSong:function () {
                 Leaderboard1.songSet = [];
@@ -79,7 +79,7 @@ $(function(){
         },
         methods:{
             sendSongId:function(SongId){
-                Leaderboard2.url="PlayMusic.html"+"?songId="+escape(SongId);
+                Leaderboard2.url="PlayMusic.html"+"?id="+escape(SongId);
             },
             getSong:function () {
                 Leaderboard2.songSet = [];
@@ -114,7 +114,7 @@ $(function(){
         },
         methods:{
             sendSongId:function(SongId){
-                Leaderboard3.url="PlayMusic.html"+"?songId="+escape(SongId);
+                Leaderboard3.url="PlayMusic.html"+"?id="+escape(SongId);
             },
             getSong:function () {
                 Leaderboard3.songSet = [];

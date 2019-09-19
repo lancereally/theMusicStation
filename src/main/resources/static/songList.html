@@ -12,8 +12,26 @@
     <link rel="stylesheet" href="css/songList.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+
     <script>
+        var user_id = $.cookie('userId');
+        if (user_id === undefined) {
+            location.href = "Index.html";
+        }
+
+
         $(function () {
+
+            $.ajax({
+                url: "/user/getUserInfo",
+                type: "post",
+                datatype: "json",
+                data :{"userId" : parseInt(user_id)},
+                success: function (data) {
+                    $(".login-button img").attr("src",data.userHeadUrl);
+                }
+            });
 
             var url = location.search,
                 keyWord = {};
@@ -123,9 +141,10 @@
                 </li>
             </ul>
             <div class="login-button">
-            <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+                      <span>
+<!--              <a href="#" id="login">登录</a>-->
+                          <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>

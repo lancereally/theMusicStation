@@ -1,3 +1,8 @@
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
     //获取用户头像
     $.ajax({
@@ -124,7 +129,7 @@ $(function () {
                     url:"/PlayMusic/showUserHead",
                     type:"post",
                     data:{
-                        userId:5
+                        userId:parseInt(userId)
                     },
                     dataType:"json",
                     success:function (data) {
@@ -235,7 +240,7 @@ $(function () {
                 songId: songId.id,
                 songcText:$("textarea[class='msg_info']").val(),
                 songcToId:replayId,
-                userId:5
+                userId:parseInt(userId)
             },
             dataType:"json",
             success:function (data) {
