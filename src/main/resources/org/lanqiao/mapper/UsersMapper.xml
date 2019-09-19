@@ -39,7 +39,7 @@
   </select>
 
   <select id="selectOtherUsersByRand" resultMap="UsersResultMap">
-    select  user_id, user_text, user_name, user_head_url  from users order by rand() limit 3
+    select  user_id, user_text, user_name, user_head_url,user_vip_state  from users order by rand() limit 3
   </select>
 
   <insert id="insertFan" parameterType="java.lang.Integer">

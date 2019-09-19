@@ -5,6 +5,7 @@
     <id column="singer_id" property="singerId" jdbcType="INTEGER" />
     <result column="singer_name" property="singerName" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_vip_state" property="userVipState" jdbcType="INTEGER" />
     <result column="singer_description" property="singerDescription" jdbcType="VARCHAR" />
     <result column="singer_pic_url" property="singerPicUrl" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
@@ -48,7 +49,7 @@
     </select>
 
     <select id="selectStarByRand" resultMap="SingerResultMap">
-    select u.user_id, singer_description, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
+    select u.user_id,u.user_vip_state, singer_description, user_name, user_head_url  from  singer s , users u where s.user_id = u.user_id order by rand() limit 3
   </select>
 
     <!--郭长达-->

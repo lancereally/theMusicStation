@@ -40,7 +40,7 @@
         where s.songlist_id = us.songlist_id and us.user_id = u.user_id
         <if test="_parameter != null">
         and
-            songlist_description like "%${_parameter}%"
+            songlist_tag like "%${_parameter}%"
         </if>
     </select>
     
