@@ -21,6 +21,8 @@ public class Share {
 
     private String songUrl;
 
+    private String songPicUrl;
+
     private String singerName;
 
     private String shareText;
@@ -44,6 +46,14 @@ public class Share {
     private Integer shareForwardCount;/*评论总数*/
 
     private List<Share> shareList;
+
+    public String getSongPicUrl() {
+        return songPicUrl;
+    }
+
+    public void setSongPicUrl(String songPicUrl) {
+        this.songPicUrl = songPicUrl;
+    }
 
     public Integer getUserVipState() {
         return userVipState;

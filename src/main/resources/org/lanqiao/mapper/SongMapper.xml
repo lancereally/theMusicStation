@@ -33,7 +33,7 @@
         <result column="singer_id" property="singerId" jdbcType="INTEGER"/>
     </resultMap>
     <select id="selectSingerByPK_q" resultMap="SongResultMap" parameterType="java.lang.Integer">
-    select song_name, song_url, singer_name from song, singer where song.singer_id = singer.singer_id and song_id = 1
+    select song_name,song_pic_url, song_url, singer_name from song, singer where song.singer_id = singer.singer_id and song_id = #{song_id}
   </select>
 
 
@@ -49,6 +49,21 @@
     <!--查询单曲信息-->
     <select id="selectSong" parameterType="java.lang.Integer" resultMap="SongResultMap">
         select song_name,song_url,song_pic_url from song where song_id = 1
+    </select>
+
+    <!--查询播放次数最多单曲-->
+    <select id="selectSongByPlayTimes" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select song_name,song_id from song order by song_play_times desc limit 10
+    </select>
+
+    <!--按照创建时间查询歌曲-->
+    <select id="selectSongByCreateTime" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select song_name,song_id from song order by song_play_times desc limit 10
+    </select>
+
+    <!--随机查询十首单曲-->
+    <select id="selectTenSong" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select song_name,song_id from song order by rand() limit 10
     </select>
 <!--    &lt;!&ndash;查询歌单歌单总播放次数&ndash;&gt;-->
 <!--    <select id="selectSongPlayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">-->

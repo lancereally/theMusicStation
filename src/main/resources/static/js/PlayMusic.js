@@ -1,4 +1,19 @@
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
+    //获取用户头像
+    $.ajax({
+        url: "/user/getUserInfo",
+        type: "post",
+        datatype: "json",
+        data :{"userId" : parseInt(userId)},
+        success: function (data) {
+            $(".login-button img").attr("src",data.userHeadUrl);
+        }
+    });
     //获取url值
     var url = location.search,
         songId = {};
@@ -9,7 +24,9 @@ $(function () {
         for (var i = 0; i < strs.length; i++) {
             songId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
-    }
+    };
+    //存点击回复得到的评论id
+    var replayId=0;
     //Vue歌曲信息
     var playSong = new Vue({
         el: "#songInfo",
@@ -26,7 +43,7 @@ $(function () {
                 $.ajax({
                     url: "/MyMusic/songInfo/show",
                     type: "post",
-                    data: {songId: songId.songId},
+                    data: {songId: songId.id},
                     dataType: "json",
                     success: function (data) {
                         playSong.songName = data.songName;
@@ -37,12 +54,12 @@ $(function () {
                         playSong.albumName = data.album.albumName;
                         const ap = new APlayer({
                             container: document.getElementById('aplayer'),
+
                             lrcType: 1,
                             audio: [{
                                 name: playSong.songName,
                                 artist: playSong.singerName,
                                 url: playSong.songUrl,
-                                cover: playSong.songPicUrl,
                                 lrc: playSong.songLyric
                             }]
                         });
@@ -72,7 +89,8 @@ $(function () {
         data:{
             awComment:[],
             commentList: [],
-            userHeadUrl1:""
+            userHeadUrl1:"",
+            userName:""
         },
         methods:{
             //查询精彩评论
@@ -82,7 +100,7 @@ $(function () {
                     url:"/PlayMusic/showAwComment",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -97,7 +115,7 @@ $(function () {
                     url:"/PlayMusic/showComment",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -111,7 +129,7 @@ $(function () {
                     url:"/PlayMusic/showUserHead",
                     type:"post",
                     data:{
-                        userId:5
+                        userId:parseInt(userId)
                     },
                     dataType:"json",
                     success:function (data) {
@@ -150,7 +168,12 @@ $(function () {
                         }
                     }
                 })
-            }
+            },
+            replay:function (songcId,userName) {
+                replayId=songcId;
+                sComment.userName=userName;
+                $("#editText").before("<span>"+"@"+userName+"："+"</span>");
+                }
         },
         filters:{
             formatDate:function(val) {
@@ -179,7 +202,7 @@ $(function () {
                     url:"/PlayMusic/likeSong/userShow",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -193,7 +216,7 @@ $(function () {
                     url:"/PlayMusic/show/likeSongList",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -214,9 +237,10 @@ $(function () {
             url:"/PlayMusic/insertComment",
             type:"post",
             data:{
-                songId: songId.songId,
+                songId: songId.id,
                 songcText:$("textarea[class='msg_info']").val(),
-                userId:5
+                songcToId:replayId,
+                userId:parseInt(userId)
             },
             dataType:"json",
             success:function (data) {

@@ -5,13 +5,41 @@
     <title>share</title>
     <link href="css/main-gsq.css" rel=stylesheet>
     <link href="css/share.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css" />
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/wangEditor.min.js"></script>
     <link href="css/wangEditor.css" rel="stylesheet">
     <script src="js/timeChange.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+
+    <style>
+        #tuHai:hover{
+            text-decoration:none;
+        }
+
+    </style>
     <script>
+
+        var user_id = $.cookie('userId');
+        if (user_id === undefined) {
+            location.href = "Index.html";
+        }
+
+
         $(function () {
+
+            $.ajax({
+                url: "/user/getUserInfo",
+                type: "post",
+                datatype: "json",
+                data :{"userId" : parseInt(user_id)},
+                success: function (data) {
+                    $(".login-button img").attr("src",data.userHeadUrl);
+                }
+            });
+
+
             //Vue
             var bigBox = new Vue({
                 el: "#mainBody",
@@ -27,7 +55,7 @@
                     songKey: "",
                     songs: [],
                     checkSongId: "",
-                    userId: 1,
+                    userId: parseInt(user_id),
                     choseSong: "",
                     choseSinger: "",
                     shareComment:[],
@@ -50,7 +78,7 @@
                                 for (var i = 0; i < data.length; i++)
                                     bigBox.shares.push({
                                         userName: data[i].userName,
-                                        videoOrMusic: data[i].songUrl == null ? data[i].shareFromId == null ? "发布视频" : "转发动态" : "分享音乐",
+                                        videoOrMusic: data[i].shareTitle == null ? data[i].shareFromId == null ? "分享音乐" : "转发动态" : "发布视频",
                                         songUrl: data[i].songUrl,
                                         songName: data[i].songName,
                                         singerName: data[i].singerName,
@@ -67,7 +95,9 @@
                                         shareId: data[i].shareId,
                                         shareLikes: data[i].shareLikes,
                                         shareFromId: data[i].shareFromId,
-                                        userVipState:data[i].userVipState
+                                        userVipState:data[i].userVipState,
+                                        songPicUrl:data[i].songPicUrl,
+                                        songId:data[i].songId
                                     })
                             }
                         })
@@ -97,7 +127,7 @@
                             type: "post",
                             success: function (data) {
                                 bigBox.shares[index].shareList[indexSon].shareLikes = bigBox.shares[index].shareList[indexSon].shareLikes + 1;
-                                alert("dianzan")
+                                // alert("dianzan")
                             },
                             error: function (data) {
                             }
@@ -128,7 +158,7 @@
                             data: {
                                 shareText: bigBox.shareText,
                                 shareFromId: bigBox.otherShareId,
-                                userId: 2
+                                userId: bigBox.userId
                             },
                             success: function () {
                                 $("#shareOthersDiv").hide();
@@ -166,7 +196,7 @@
                             type: "post",
                             datatype: 'json',
                             data: {
-                                userId: 1
+                                userId: bigBox.userId
                             },
                             success: function (user) {
                                 bigBox.users.push({
@@ -249,7 +279,7 @@
                             url: "/share/becomeOtherFan",
                             type: "post",
                             data: {
-                                userId: 1,
+                                userId: bigBox.userId,
                                 otherId: el.lastChild.innerHTML
                             },
                             datatype: "json",
@@ -425,9 +455,81 @@
     </script>
 </head>
 <body>
+<header style="border-bottom: 30px #ffd700 solid;">
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="Index.html" id="tuHai">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="Index.html">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="MyMusic.html">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="share.html">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+<!--              <a href="#" id="login">登录</a>-->
+                <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+                    <span class="parent" style="margin: 8px 0 0 20px;">
+                        <a type="button" id="srch"
+                           style="opacity: 1;color: #333;line-height: 16px;text-decoration: none;font-size: 12px"
+                           href="search.html">搜索音乐/歌手/歌词...</a>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-
-<iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
 <div id="mainBody">
 
 
@@ -529,7 +631,7 @@
         <div class="f-tde">
             <div style="height: 30px; width: 40px;" id="editorVideoPic" class="f-left"></div>
             <a href="#" style="display: block;padding: 5px 10px;" class="f-left"><span class="f-left fileinput-button">
-            <img src="images/Picture.png" height="15px">
+            <img src="images/video.png" height="15px">
             <input type="file" id="fileVideoUpload" name="file" form="shareVideoForm">
             </span>
             </a>
@@ -611,18 +713,18 @@
                         </div>
 
                         <!--音频动态-->
-                        <div v-if="sh.songName != null">
-                            <div class="s-music">
+                        <div v-if="sh.shareTitle == null">
+                            <div class="s-music" v-if="sh.songName != null">
                                 <div class="f-left">
-                                    <a href="#">
-                                        <img src="images/userPic.jpg" height="45">
+                                    <a :href="'PlayMusic.html?id='+sh.songId">
+                                        <img :src="sh.songPicUrl" height="45">
                                         <img src="images/v-play.png" height="25" class="img-t">
                                     </a>
                                 </div>
                                 <div><a href="#"><h3 class="">{{sh.songName}}</h3></a></div>
                                 <div><a href="#"><h4 class="">{{sh.singerName}}</h4></a></div>
                             </div>
-                            <div class=" z-0"><img :src="sh.shareAnnexUrl" height="189"></div>
+                            <div class=" z-0" v-if="sh.shareAnnexUrl != null"><img :src="sh.shareAnnexUrl" height="189"></div>
                         </div>
 
                         <!--转发动态-->
@@ -657,11 +759,11 @@
                                 </div>
 
                                 <!--音频动态-->
-                                <div v-if="shSon.songName != null">
-                                    <div class="s-music">
+                                <div v-if="shSon.shareTitle == null">
+                                    <div class="s-music" v-if="shSon.songName != null">
                                         <div class="f-left">
-                                            <a href="#">
-                                                <img src="images/userPic.jpg" height="45">
+                                            <a :href="'PlayMusic.html?id='+shSon.songId">
+                                                <img :src="shSon.songPicUrl" height="45">
                                                 <img src="images/v-play.png" height="25" class="img-t">
                                             </a>
                                         </div>
@@ -812,7 +914,7 @@
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">{{star.userName}}{{star.userVipState}}</a>
+                        <a href="#" class="font-14" style="color: black">{{star.userName}}</a>
                         <img src="images/V.png" height="11" v-if="star.userVipState == 1">
                     </div>
                     <div class="time font-12 ">
@@ -836,7 +938,7 @@
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">{{user.userName}}{{user.userVipState}}</a>
+                        <a href="#" class="font-14" style="color: black">{{user.userName}}</a>
                         <img src="images/V.png" height="11" v-if="user.userVipState == 1">
                     </div>
                     <div class="time font-12 ">

@@ -37,6 +37,11 @@
                                     resNum = data.length;
                                     // 设置结果记录数
                                     $(".s-fc6", parent.document).html(resNum);
+                                    for (let i = 0; i < vm.userList.length; i++) {
+                                        if (vm.userList[i].userSex === "女") {
+                                            $("i").removeClass("u-icn-s-01").addClass("u-icn-s-02");
+                                        }
+                                    }
                                 }
                             }
                         })
@@ -77,13 +82,13 @@
             <tr class="h-flag " v-for="(user,index) in userList">
                 <td class="first w7">
                     <div class="u-cover u-cover-3">
-                        <a v-bind:href="'/user?userId='+user.userId">
+                        <a>
                             <img v-bind:src="user.userHeadUrl">
                             <span class="msk" v-bind:title="user.userName"></span></a></div>
                 </td>
                 <td class="">
                     <div class="ttc">
-                        <a href="'/user?userId='+user.userId" v-bind:title="user.userName" class="txt f-fs1">
+                        <a v-bind:title="user.userName" class="txt f-fs1">
                             <span class="s-fc7">{{user.userName}}</span>
                             <i class="icnfix u-icn u-icn-s-01"></i>
                         </a>
@@ -91,10 +96,10 @@
                     <div class="dec s-fc4 f-thide" title="">{{user.userText}}</div>
                 </td>
                 <td class="w9">
-                    <a data-res-id="440336567" data-res-action="follow" class="u-btn u-btn-3 f-tdn"
-                       href="javascript:void(0)">
-                        <i>关注</i>
-                    </a>
+<!--                    <a data-res-id="440336567" data-res-action="follow" class="u-btn u-btn-3 f-tdn"-->
+<!--                       href="javascript:void(0)">-->
+<!--                        <i>关注</i>-->
+<!--                    </a>-->
                 </td>
                 <td class="w9 s-fc4">歌单：{{user.songListCount}}</td>
                 <td class="last w9 s-fc4">粉丝：<span>{{user.fans}}</span></td>

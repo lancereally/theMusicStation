@@ -34,20 +34,24 @@
   </resultMap>
   <!--查询歌曲的评论-郭长达-->
   <select id="selectCommentBySongId" parameterType="java.lang.Integer" resultMap="SongCommentResultMap">
-    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url,u.user_vip_state  from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} order by sc.songc_time desc
+    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url,u.user_vip_state,sc.songc_to_id   from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} order by sc.songc_time desc
   </select>
   <!--添加歌曲的评论-郭长达-->
   <insert id="insertSongComment" parameterType="org.lanqiao.entity.SongComment">
-    insert into songcomment(song_id ,songc_text,user_id) values (#{songId},#{songcText},#{userId})
+    insert into songcomment(song_id ,songc_text,user_id,songc_to_id) values (#{songId},#{songcText},#{userId},#{songcToId})
   </insert>
   <!--查询歌曲精彩评论-郭长达-->
   <select id="selectAwesomeComment" parameterType="java.lang.Integer" resultMap="SongCommentResultMap">
-    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url,u.user_vip_state from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} and sc.songc_likes>20 order by sc.songc_likes desc
+    select sc.songc_id,sc.songc_text,sc.songc_time,sc.songc_likes,u.user_name,u.user_head_url,u.user_vip_state,sc.songc_to_id from songcomment sc,users u where u.user_id = sc.user_id and sc.song_id = #{songId} and sc.songc_likes>20 order by sc.songc_likes desc
   </select>
   <!--歌曲点赞-郭长达-->
   <update id="updateLikeNum" parameterType="java.lang.Integer">
     update songcomment set songc_likes = songc_likes+1 where songc_id = #{songcId}
   </update>
+  <!--根据被评论的id取被评论用户名字-郭长达-->
+  <select id="selectUserNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+    select u.user_name from songcomment sc,users u where u.user_id = sc.user_id and sc.songc_id = #{songcId}
+  </select>
 
 
 

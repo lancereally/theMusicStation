@@ -1,10 +1,53 @@
 <!DOCTYPE html>
 
+<style>
+    .aplayer{
+        margin-left: 0px !important;
+        width: 100% !important;
+        top: -205px;
+        left:-5px;
+        background: rgba(0,0,0,0) !important;
+    }
+    .aplayer.aplayer-withlrc .aplayer-pic{
+        height: 205px !important;
+        width: 205px !important;
+    }
+    .aplayer.aplayer-withlrc .aplayer-info{
+        margin:0 !important;
+        height: 205px !important;
+    }
+    .aplayer .aplayer-pic{
+        background: rgba(0,0,0,0) !important;
+    }
+    .aplayer-body{
+        position: relative;
+        width: inherit;
+    }
+    .aplayer .aplayer-info .aplayer-music{
+        display: none;
+    }
+    .aplayer.aplayer-withlrc .aplayer-lrc{
+        height: 70px;
+        margin: 75px 0 7px;
+    }
+    .aplayer.aplayer-withlrc .aplayer-lrc:before{
+        display: none !important;
+    }
+    .layui-anim-rotate{
+        animation-duration: 10s !important;
+    }
+    .aplayer .aplayer-info .aplayer-controller{
+        margin-top:12px !important;
+    }
+
+
+</style>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>网易云音乐</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script src="js/vue.min.js"></script>
     <script type="application/javascript" src="js/layui/layui.js"></script>
     <link rel="stylesheet" href="css/index.css"/>
@@ -23,7 +66,7 @@
             <ul class="head-ul">
                 <li>
               <span>
-                <a href="#">
+                <a href="/#">
                   <em>发现音乐</em>
                   <sub class="cor">&nbsp;</sub>
                 </a>
@@ -31,7 +74,7 @@
                 </li>
                 <li>
               <span>
-                <a href="#">
+                <a href="MyMusic.html">
                   <em>我的音乐</em>
                   <sub class="cor">&nbsp;</sub>
                 </a>
@@ -39,7 +82,7 @@
                 </li>
                 <li>
               <span>
-                <a href="#">
+                <a href="share.html">
                   <em>朋友</em>
                   <sub class="cor">&nbsp;</sub>
                 </a>
@@ -72,24 +115,19 @@
             </ul>
             <div class="login-button">
             <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+<!--              <a href="#" id="login">登录</a>-->
+                <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>
             <div class="search-box">
                 <div class="srchbg">
-              <span class="parent">
-                <input
-                        type="text"
-                        name="srch"
-                        id="srch"
-                        class="txt j-flag"
-                        value=""
-                        style="opacity: 1;"
-                        placeholder="音乐/视频/电台/用户"
-                />
-              </span>
+                    <span class="parent" style="margin: 8px 0 0 20px;">
+                        <a type="button" id="srch"
+                           style="opacity: 1;color: #333;line-height: 16px;text-decoration: none;font-size: 12px"
+                           href="search.html">搜索音乐/歌手/歌词...</a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -124,38 +162,43 @@
     <div id="container-main">
         <div id="container-left">
             <div class="music-info" id="songInfo">
-                <div class="music-head">
-                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv">
-                        <img :src="songPicUrl">
-                    </div>
-                    <span class="msk msk1"> </span>
-                </div>
-                <div class="lyric">
-                    <div class="hd">
-                        <i class="lab"></i>
-                        <div class="tit">
-                            <em>{{songName}}</em>
+                <div class="music-play">
+                    <div class="music-head">
+                        <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv" >
+                            <img :src="songPicUrl">
                         </div>
+                        <span class="msk msk1"> </span>
                     </div>
-                    <p class="des"></p>
-                    <p class="des">歌手：
-                        <span><a class="" href="">{{singerName}}</a></span>
-                    </p>
+                    <div id="aplayer" class="music_play">
+                        <pre class="aplayer-lrc-content">
+                        </pre>
+                    </div>
+                    <div class="lyric">
+                        <div class="hd">
+                            <i class="lab"></i>
+                            <div class="tit">
+                                <em>{{songName}}</em>
+                            </div>
+                            <p class="des">歌手：
+                                <span><a class="" href="">{{singerName}}</a>&nbsp;&nbsp;&nbsp;&nbsp;所属专辑：</span><span><a>{{albumName}}</a></span>
+                            </p>
 
-                    <p class="des">所属专辑：
-                        <span><a>{{albumName}}</a></span>
-                    </p>
-                    <div class="m-info" id="minf">
-                        <button type="button" class="btnCre btnCre_bcolor a-mover" id="play_btn">播放</button>
+                        </div>
+
+
+
+
+                        <!--
+                        <div class="m-info" id="minf">
+                            <button type="button" class="btnCre btnCre_bcolor a-mover" id="play_btn">播放</button>
+                        </div>
+                        -->
+                        <!--                    <div class="lyric-content" v-html="songLyric">-->
+                        <!--                    </div>-->
+                        <div class="crl"></div>
                     </div>
-                    <!--                    <div class="lyric-content" v-html="songLyric">-->
-                    <!--                    </div>-->
-                    <div class="crl"></div>
                 </div>
-                <div id="aplayer" class="music_play">
-                <pre class="aplayer-lrc-content">
-                </pre>
-                </div>
+
             </div>
 
             <div class="sl_msg" style="    float: left;    width: 100%;" id="songComment">
@@ -168,17 +211,13 @@
                     </span>
                 </div>
                 <div class="msg_det" >
-                    <div class="msg_user">
+                    <div class="msg_user" >
                         <div class="userpic">
                             <img :src="userHeadUrl1">
                         </div>
                         <div class="msg_text">
-                            <div class="msg_textarea">
-                                <textarea class="msg_info" placeholder="评论"></textarea>
-                            </div>
-                            <div class="msg_bar">
-                                <i class="bar_emoj msg_icon"></i>
-                                <i class="bar_at msg_icon"></i>
+                            <div class="msg_textarea" id="editText">
+                                <textarea class="msg_info" id="com_text" placeholder="评论"></textarea>
                             </div>
                             <button type="button" class="btn btn-primary btn-xs" id="msg_send">评论</button>
                             <span class="info_num">140</span>
@@ -194,7 +233,7 @@
                                 <div class="msg_pl">
                                     <a>{{awc.user.userName}}</a>
                                     <img>
-                                    ：<span :class="{vipUser:awc.user.userVipState==1}" >{{awc.songcText}}</span>
+                                    ：&nbsp;<span v-if="awc.toUserName!=null">@{{awc.toUserName}}&nbsp;&nbsp;&nbsp;</span><span :class="{vipUser:awc.user.userVipState==1}" >{{awc.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
                                     <div class="pl_time">{{awc.songcTime | formatDate}}</div>
@@ -202,7 +241,7 @@
                                         <i class="zan a-mover"></i>({{awc.songcLikes}})
                                     </a>
                                     <span class="pl_jg">|</span>
-                                    <a class="replay">回复</a>
+                                    <a class="replay"  href="#songComment" @click="replay(awc.songcId,awc.user.userName)">回复</a>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +254,7 @@
                                 <div class="msg_pl">
                                     <a>{{comment.user.userName}}</a>
                                     <img>
-                                    ：<span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songcText}}</span>
+                                    ：&nbsp;<span v-if="comment.toUserName!=null">@{{comment.toUserName}}&nbsp;&nbsp;&nbsp;</span><span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
                                     <div class="pl_time">{{comment.songcTime|formatDate}}</div>
@@ -223,7 +262,7 @@
                                         <i class="zan a-mover"></i>({{comment.songcLikes}})
                                     </a>
                                     <span class="pl_jg">|</span>
-                                    <a class="replay">回复</a>
+                                    <a class="replay" href="#songComment" @click="replay(comment.songcId,comment.user.userName)">回复</a>
                                 </div>
                             </div>
                         </div>
