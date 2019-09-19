@@ -24,7 +24,7 @@ $(function () {
                     url: "/MyMusic/showSonglistInfo",
                     type: "post",
                     data: {
-                        songListId: songListId.songListId,
+                        songListId: songListId.id,
                         userId: 5
                     },
                     dataType: "json",
@@ -73,7 +73,7 @@ $(function () {
             type: "post",
             data: {
                 songlistTag: tagVal[0] + " " + tagVal[1] + " " + tagVal[2],
-                songlistId: songListId.songListId
+                songlistId: songListId.id
             },
             dataType: "json",
             success: function (data) {
@@ -142,7 +142,7 @@ $(function () {
                     url: "/MyMusic/editSonglist",
                     type: "post",
                     data: {
-                        songlistId: songListId.songListId,
+                        songlistId: songListId.id,
                         songlistName: $("input[class='name_text']").val(),
                         songlistPicUrl: data,
                         songlistDescription: $("textarea[class='text_info']").val()

@@ -11,7 +11,8 @@
             var sing = new Vue({
                 el: "#singerVue",
                 data: {
-                    singerList:[]
+                    singerList:[],
+                    url:""
                 },
                 methods:{
                     getSingerList:function () {
@@ -24,17 +25,16 @@
                             success: function (data) {
                                 if (data.length > 0) {
                                     for (var i = 0; i < data.length; i++) {
-                                        sing.singerList.push({
-                                            singerName:data[i].singerName,
-                                            singerPicUrl:data[i].singerPicUrl,
-                                            albumSet:data[i].albumSet.length
-                                        });
+                                        sing.singerList=data;
                                     }
                                 } else {
                                     alert("表中无记录");
                                 }
                             }
                         })
+                    },
+                    getUrl:function (singerId) {
+                        sing.url= 'singer.html' + '?id=' + escape(singerId);
                     }
                 }
 
@@ -55,7 +55,7 @@
         <li v-for="singer in singerList">
             <div class="singer_list" >
                 <div class="singer_pic">
-                    <a>
+                    <a :href="url" @click="getUrl(singer.)">
                         <img :src="singer.singerPicUrl">
                     </a>
                 </div>

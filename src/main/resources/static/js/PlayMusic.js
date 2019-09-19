@@ -28,7 +28,7 @@ $(function () {
                 $.ajax({
                     url: "/MyMusic/songInfo/show",
                     type: "post",
-                    data: {songId: songId.songId},
+                    data: {songId: songId.id},
                     dataType: "json",
                     success: function (data) {
                         playSong.songName = data.songName;
@@ -85,7 +85,7 @@ $(function () {
                     url:"/PlayMusic/showAwComment",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -100,7 +100,7 @@ $(function () {
                     url:"/PlayMusic/showComment",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -187,7 +187,7 @@ $(function () {
                     url:"/PlayMusic/likeSong/userShow",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -201,7 +201,7 @@ $(function () {
                     url:"/PlayMusic/show/likeSongList",
                     type:"post",
                     data:{
-                        songId:songId.songId
+                        songId:songId.id
                     },
                     dataType:"json",
                     success:function (data) {
@@ -222,7 +222,7 @@ $(function () {
             url:"/PlayMusic/insertComment",
             type:"post",
             data:{
-                songId: songId.songId,
+                songId: songId.id,
                 songcText:$("textarea[class='msg_info']").val(),
                 songcToId:replayId,
                 userId:5
