@@ -6,10 +6,20 @@
     <link rel="stylesheet" href="css/MyOption.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script type="text/javascript" src="js/layui/layui.js"></script>
     <meta charset="UTF-8">
     <title>MyAuthentication</title>
 </head>
 <script>
+    //cookie
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
     $(function () {
         //用户选择控制
         $(".login-button").mouseenter(function () {
@@ -24,6 +34,207 @@
         $(".j-uflag").mouseenter(function () {
             $(".j-uflag").css("display","block");
         });
+
+        //获取用户手机
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
+            url: "/user/getUserPhone",
+            type: "post",
+            datatype: "json",
+            data: {
+                "userId": parseInt(userId)
+            },
+            success: function (data) {
+                $(".inputPhone").attr("value",data.userPhone);
+            }
+        });
+
+        var state = 1;
+        //修改手机
+        $(".changePhone").click(function () {
+            $(".inputPhone").attr("disabled",false);
+        });
+
+        $(".inputPhone").blur(function () {
+            $.ajax({
+                url:"/user/checkPhone",
+                type:"post",
+                dataType:"text",
+                data:{
+                    'phoneNumber':$(".inputPhone").val(),
+                },
+                success:function (data) {
+                    if(data != "[]"){
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('该手机号已被认证！\n 请再次确认号码');
+                        });
+                        state = 1;
+                    }
+
+                        // alert("该手机号已被认证！\n 请再次确认号码");
+                    else{
+                        state = 0;
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('YOYO切克闹！\n 该手机号可以进行认证~');
+                        });
+                        // alert("YOYO切克闹！\n 该手机号可以进行认证~")
+                    }
+                }
+            })
+        });
+
+        //获取验证码
+        $(".getCode").click(function () {
+            if(state == 0)
+            $.ajax({
+                url:"/user/getIdentifyingCode",
+                type:"post",
+                dataType:"text",
+                data:{
+                    'phoneNumber':$(".inputPhone").val(),
+                },
+                success:function (data) {
+                    if(data>0)
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('YOYO切克闹！验证码已发送，请稍作等待~');
+                        });
+                    // alert("YOYO切克闹！验证码已发送，请稍作等待~");
+                }
+            })
+            else
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+                    layer.msg('该手机号已被认证！\n 请更改号码！！！！！');
+                });
+                // alert("该手机号已被认证！\n 请更改号码！！！！！");
+        });
+
+        //验证码验证
+        var codeState = 0;
+        $(".code").blur(function () {
+            $.ajax({
+                url:"/user/checkIdentifyingCode",
+                type:"post",
+                dataType:"text",
+                data:{
+                    'IdentifyingCode':parseInt($(".code").val()),
+                    'phoneNumber':$(".inputPhone").val()
+                },
+                success:function (data) {
+                    if(data>0){
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('恭喜！手机号'+$(".inputPhone").val()+'验证成功YOYO');
+                        });
+                        codeState = 1;
+                        // alert("恭喜！手机号"+$(".inputPhone").val()+"验证成功YOYO");
+                    }
+                    else
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('验证失败！');
+                        });
+                }
+            })
+        })
+
+        //信息校验
+        var validateState = 0;
+            $(".Authentication").validate({
+                rules: {
+                    realName:{
+                        required: true,
+                        regex: /^[\u2E80-\u9FFF]+$/
+                        // 昵称 /^\w{4,20}$/
+                        //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                    },
+                    phoneNum:{
+                        required: true,
+                        regex: /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                    },
+                    email:{
+                        required:true,
+                        email:true
+                    },
+                    qq:{
+                        required:true,
+                        regex: /^[1-9][0-9]{6,11}$/
+                    },
+                    idCard:{
+                        required:true,
+                        regex: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+                    }
+                },
+                messages: {
+                    realName:{
+                        required: "真实姓名审核通过后不可更改（VIP除外",
+                        regex: "姓名格式不正确"
+                    },
+                    phoneNum:{
+                        required: "",
+                        regex: "手机号码格式不正确"
+                    },
+                    email:{
+                        required:"",
+                        email:"邮箱格式不正确"
+                    },
+                    qq:{
+                        required:"",
+                        regex:"QQ格式不正确"
+                    },
+                    idCard:{
+                        required:"审核通过后不可更改",
+                        regex:"身份证号格式不正确"
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    error.appendTo( element.parent().next() );
+                },
+                success:function () {
+                    validateState = 1;
+                }
+            });
+//表单提交
+         $(".submit").click(function () {
+             if(codeState == 1&&validateState == 1)
+             $.ajax({
+                 // 通过首页用户名字获取用户ID，以此更新基本信息，暂且手动输入1进行模拟
+                 url: "/user/updateUserInfo",
+                 type: "post",
+                 datatype: "json",
+                 data: {
+                     "userId": 1,
+                     "userRealName": $("#realName").val(),
+                     "userPhone":parseInt($(".inputPhone").val()),
+                     "userEmail":$(".email").val(),
+                     "userQq":$(".qq").val(),
+                     "userIdCard":$(".idCard").val(),
+                     "userPhoneActivation":1
+                 },
+                 success: function (data) {
+                     if(data>0)
+                         layui.use('layer', function(){
+                             var layer = layui.layer;
+                             layer.msg('YOYO切克闹！信息认证成功! \n 于9.12 15:31完成，开始做下一个页面吧~');
+                         });
+                     // alert("YOYO切克闹！信息认证成功! \n 于9.12 15:31完成，开始做下一个页面吧~");
+                 }
+             });
+             else if(codeState != 1)
+                 layui.use('layer', function(){
+                     var layer = layui.layer;
+                     layer.msg('还未成功进行手机验证！');
+                 });
+             else if(validateState != 1)
+                 layui.use('layer', function(){
+                     var layer = layui.layer;
+                     layer.msg('某处信息不符合规范！');
+                 });
+                 // alert("某处信息不符合规范！");
+         });
     })
 </script>
 <body>
@@ -106,7 +317,7 @@
         </div>
     </div>
 </header>
-<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+<div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
     <ul class="f-cb lb mg">
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>
@@ -130,14 +341,14 @@
     <div class="index_form-section_z6JBL">
         <h1 class="index_title_3QmRb">实名认证</h1>
         <div class="index__form___3vVYf">
-            <form>
-                <div class="index__form-item___3hHkk"><label  class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>真实姓名</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入真实姓名" type="text" value="">
+            <form class="Authentication">
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label  class="index__label___1hASe">真实姓名</label>
+                    <div class="index__normal___PXWIw"><input name="realName" id="realName" class="input " placeholder="请输入真实姓名" type="text" value="">
                     </div>
-                    <span class="index__options___12oCV">审核通过后不可更改（VIP除外</span></div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>手机号</label>
+                    <span class="index__options___12oCV realNameInfo"></span></div>
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">手机号</label>
                     <div class="index__normal___PXWIw">
                         <div class="addon-group">
                             <div class="addon-before rc-select rc-select-enabled" style="width: 63px;">
@@ -157,43 +368,46 @@
                                     <span class="rc-select-arrow" unselectable="on" style="user-select: none;"><i
                                             class="rc-select-arrow-icon"></i></span></div>
                             </div>
-                            <input disabled="" class="input addon-after input-small" placeholder="请输入手机号" type="text"
-                                   value="178****3609"></div>
-                        <button class="index__button___34GnR index__normal-button___YLaJ-"
+                            <input disabled="true" name="phoneNum" class="input addon-after input-small inputPhone" placeholder="请输入手机号" type="text"
+                                   value=""></div>
+                        <button class="index__button___34GnR index__normal-button___YLaJ- changePhone"
                                 style="vertical-align: top; width: 116px; position: absolute; top: 0px; right: 0px;">更改
                         </button>
                     </div>
                     <span class="index__options___12oCV">审核后将绑定到土嗨帐号中</span></div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>验证码</label>
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">验证码</label>
                     <div class="index__normal___PXWIw">
-                        <div class="clearfix"><input class="input fl" placeholder="请输入验证码" type="text" value=""
+                        <div class="clearfix"><input class="input fl code" placeholder="请输入验证码" type="text" value=""
                                                      style="width: 294px;">
-                            <button class="fr index__button___34GnR index__primary-button___pcseP"
+                            <button class="getCode fr index__button___34GnR index__primary-button___pcseP"
                                     style="width: 116px;">获取验证码
                             </button>
                         </div>
                     </div>
                 </div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>邮箱</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入邮箱" type="text" value="">
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">邮箱</label>
+                    <div class="index__normal___PXWIw"><input name="email" class="input email" placeholder="请输入邮箱" type="text" value="">
                     </div>
-                </div>
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe">QQ</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入QQ号" type="text" value="">
-                    </div>
-                </div>
+                    <span class="index__options___12oCV emailInfo"></span></div>
 
-                <div class="index__form-item___3hHkk"><label class="index__label___1hASe"><i
-                        class="index__required___qSINY">*</i>证件号码</label>
-                    <div class="index__normal___PXWIw"><input class="input" placeholder="请输入身份证号码" type="text" value="">
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">QQ</label>
+                    <div class="index__normal___PXWIw"><input name="qq" class="input qq" placeholder="请输入QQ号" type="text" value="">
                     </div>
-                    <span class="index__options___12oCV">审核通过后不可更改</span></div>
+                    <span class="index__options___12oCV qqInfo"></span></div>
+
+
+                <div class="index__form-item___3hHkk"><i
+                        class="index__required___qSINY">*</i><label class="index__label___1hASe">证件号码</label>
+                    <div class="index__normal___PXWIw"><input name="idCard" class="input idCard" placeholder="" type="text" value="">
+                    </div>
+                    <span class="index__options___12oCV idCardInfo"></span></div>
                 <div class="index__form-item___3hHkk"><label class="index__label___1hASe"></label>
                 </div>
                 <div class="border-top align-center index__form-item___3hHkk">
-                    <button class="index__button___34GnR index__primary-button___pcseP"
+                    <button class="index__button___34GnR index__primary-button___pcseP submit"
                             style="width: 160px; margin-top: 40px;">提交审核
                     </button>
                 </div>

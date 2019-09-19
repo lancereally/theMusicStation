@@ -62,6 +62,11 @@ public class SongListServiceImpl implements SongListService{
     public int updataSongListTag(SongList songList) {
         return songListMapper.updataSongListTag(songList);
     }
+    //查询拥有某个歌曲的歌单-郭长达
+    @Override
+    public List<SongList> selectSongListBySongId(Integer songId) {
+        return songListMapper.selectSongListBySongId(songId);
+    }
 
     @Override
     public List<SongList> selectByKeyWord(String keyWord) {

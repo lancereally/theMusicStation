@@ -13,7 +13,7 @@ public class FileUploadGsq {
     }
 
     public String uploadToDisk(MultipartFile file){
-        return uploadToDiskSon("D:/MusicImages",file);
+        return uploadToDiskSon("D:/MusicImage",file);
     }
 
     public String uploadToTomcat(HttpServletRequest request, MultipartFile file) {
@@ -80,7 +80,7 @@ public class FileUploadGsq {
                 e.printStackTrace();
             }
         }
-        return str + "/" + fileName;
+        return "/upload/" + fileName;
 
     }
 }

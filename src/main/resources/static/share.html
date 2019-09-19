@@ -66,7 +66,8 @@
                                         shareText: data[i].shareText,
                                         shareId: data[i].shareId,
                                         shareLikes: data[i].shareLikes,
-                                        shareFromId: data[i].shareFromId
+                                        shareFromId: data[i].shareFromId,
+                                        userVipState:data[i].userVipState
                                     })
                             }
                         })
@@ -191,7 +192,8 @@
                                         singerDescription: starUsers[i].singerDescription,
                                         userName: starUsers[i].userName,
                                         userHeadUrl: starUsers[i].userHeadUrl,
-                                        userId: starUsers[i].userId
+                                        userId: starUsers[i].userId,
+                                        userVipState:starUsers[i].userVipState
                                     })
                                 }
                             }
@@ -200,6 +202,9 @@
                     //换一批明星
                     changeStar: function () {
                         bigBox.toGerStar();
+                    },
+                    changeOtherUser:function(){
+                        bigBox.toGetOthers();
                     },
                     //随机获取其他用户
                     toGetOthers: function () {
@@ -214,7 +219,8 @@
                                         userName: otherUsers[i].userName,
                                         userText: otherUsers[i].userText,
                                         userHeadUrl: otherUsers[i].userHeadUrl,
-                                        userId: otherUsers[i].userId
+                                        userId: otherUsers[i].userId,
+                                        userVipState:otherUsers[i].userVipState
                                     })
                                 }
                             }
@@ -582,7 +588,7 @@
                     <div class="userShare f-left font-14 f-c-6">
                         <div class="type">
                             <a href="#" class="font-14">{{sh.userName}}</a>
-                            <img src="images/V.png" height="11">
+                            <img src="images/V.png" height="11" v-if="sh.userVipState==1">
                             <span>{{sh.videoOrMusic}}</span>
                         </div>
                         <div class="time font-12">
@@ -615,7 +621,6 @@
                                 </div>
                                 <div><a href="#"><h3 class="">{{sh.songName}}</h3></a></div>
                                 <div><a href="#"><h4 class="">{{sh.singerName}}</h4></a></div>
-
                             </div>
                             <div class=" z-0"><img :src="sh.shareAnnexUrl" height="189"></div>
                         </div>
@@ -807,8 +812,8 @@
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">{{star.userName}}</a>
-                        <img src="images/V.png" height="11">
+                        <a href="#" class="font-14" style="color: black">{{star.userName}}{{star.userVipState}}</a>
+                        <img src="images/V.png" height="11" v-if="star.userVipState == 1">
                     </div>
                     <div class="time font-12 ">
                         <a href="#">{{star.singerDescription}}</a>
@@ -822,7 +827,7 @@
 
 
             <div class="starUser"><i class="font-12 f-w-b">感兴趣的人</i><i class="f-right"><a class="font-12"
-                                                                                          href="#">换一批</a></i></div>
+                                                                                          href="#" @click="changeOtherUser">换一批</a></i></div>
             <div class="otherUser-div" v-for="user in otherUsers">
                 <div class="userPic f-left">
                     <a href="#">
@@ -831,8 +836,8 @@
                 </div>
                 <div class=" f-left font-14 f-c-6 otherUsername">
                     <div class="type">
-                        <a href="#" class="font-14" style="color: black">{{user.userName}}</a>
-                        <img src="images/V.png" height="11">
+                        <a href="#" class="font-14" style="color: black">{{user.userName}}{{user.userVipState}}</a>
+                        <img src="images/V.png" height="11" v-if="user.userVipState == 1">
                     </div>
                     <div class="time font-12 ">
                         <a href="#">{{user.userText}}</a>

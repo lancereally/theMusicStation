@@ -3,9 +3,12 @@ package org.lanqiao.controller;
 import org.lanqiao.entity.SongList;
 import org.lanqiao.entity.SongListUserVo;
 import org.lanqiao.service.SongListService;
+import org.lanqiao.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.SQLOutput;
 
 import java.util.List;
 
@@ -48,6 +51,14 @@ public class SongListController {
     public int editSongListInfo(SongList songList){
         return songListService.updateSongListInfo(songList);
     }
+    //无情的工具类
+    @RequestMapping("/MyMusic/songList/uploadFile")
+    public String insertImg(String imageFile){
+        Base64 base64 = new Base64();
+        String path = base64.base64(imageFile);
+        System.out.println(path);
+        return path;
+    }
     //删除歌单-郭长达
     @RequestMapping("/MyMusic/deleteSonglist")
     public int deleteBySongListId(Integer songListId){
@@ -63,7 +74,11 @@ public class SongListController {
     public int editSongListTag(SongList songList){
         return songListService.updataSongListTag(songList);
     }
-
+    //查询拥有某个歌曲的歌单-郭长达
+    @RequestMapping("/PlayMusic/show/likeSongList")
+    public List<SongList> getSongListBySongId(Integer songId){
+        return  songListService.selectSongListBySongId(songId);
+    }
     @RequestMapping("/songList/getSongList")
     public List<SongList> getSongList(String keyWord){
         return songListService.selectByKeyWord(keyWord);

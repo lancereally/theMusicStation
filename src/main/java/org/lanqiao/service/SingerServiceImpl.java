@@ -51,4 +51,9 @@ public class SingerServiceImpl implements SingerService {
     public Boolean checkUserAndSinger(Integer userId, Integer singerId) {
         return singerMapper.selectSingerAndUser(userId,singerId).getUserId() > 0 ? true : false;
     }
+
+    @Override
+    public int insertSingerAndUser(Integer userId, Integer SingerId) {
+        return singerMapper.insertSingerAndUser(userId,SingerId);
+    }
 }

@@ -25,7 +25,7 @@ public class Users {
 
     private Integer userPhoneActivation;
 
-    private Integer userPhone;
+    private String userPhone;
 
     private Integer userQq;
 
@@ -33,14 +33,134 @@ public class Users {
 
     private Integer userVipState;
 
+    private UserSong userSong;
+
+    private UserSongList userSongList;
+
+    private Song song;
+
+    private Singer singer;
+
+    private SongSongList songSongList;
+
+    private SongList songList;
+
+    private int slCount;
+
+    private SongComment songComment;
+
+    private int userPhoneCode;
+
+    public int getUserPhoneCode() {
+        return userPhoneCode;
+    }
+
+    public void setUserPhoneCode(int userPhoneCode) {
+        this.userPhoneCode = userPhoneCode;
+    }
+
+    public SongComment getSongComment() {
+        return songComment;
+    }
+
+    public void setSongComment(SongComment songComment) {
+        this.songComment = songComment;
+    }
+
+    public int getSlCount() {
+        return slCount;
+    }
+
+    public void setSlCount(int slCount) {
+        this.slCount = slCount;
+    }
+
+    public SongList getSongList() {
+        return songList;
+    }
+
+    public void setSongList(SongList songList) {
+        this.songList = songList;
+    }
+
+    public SongSongList getSongSongList() {
+        return songSongList;
+    }
+
+    public void setSongSongList(SongSongList songSongList) {
+        this.songSongList = songSongList;
+    }
+
+    public Song getSong() {
+        return song;
+    }
+
+    public void setSong(Song song) {
+        this.song = song;
+    }
+
+    public Singer getSinger() {
+        return singer;
+    }
+
+    public void setSinger(Singer singer) {
+        this.singer = singer;
+    }
+
+    public UserSongList getUserSongList() {
+        return userSongList;
+    }
+
+    public void setUserSongList(UserSongList userSongList) {
+        this.userSongList = userSongList;
+    }
+
+    public UserSong getUserSong() {
+        return userSong;
+    }
+
+    public void setUserSong(UserSong userSong) {
+        this.userSong = userSong;
+    }
+
+    //用户粉丝关注关系表
+    private Integer useraId;
+    private Integer userbId;
+
+    public Integer getUseraId() {
+        return useraId;
+    }
+
+    public void setUseraId(Integer userAId) {
+        this.useraId = userAId;
+    }
+
+    public Integer getUserbId() {
+        return userbId;
+    }
+
+    public void setUserbId(Integer userBId) {
+        this.userbId = userBId;
+    }
     //粉丝数
-    private Integer fans;
+    private Integer fans = 0;
 
     //关注数
     private Integer attention;
 
     //动态数量
     private Integer shareCount;
+
+    //关联歌单数
+    private Integer songListCount = 0;
+
+    public Integer getSongListCount() {
+        return songListCount;
+    }
+
+    public void setSongListCount(Integer songListCount) {
+        this.songListCount = songListCount;
+    }
 
     public Integer getFans() {
         return fans;
@@ -162,11 +282,11 @@ public class Users {
         this.userPhoneActivation = userPhoneActivation;
     }
 
-    public Integer getUserPhone() {
+    public String getUserPhone() {
         return userPhone;
     }
 
-    public void setUserPhone(Integer userPhone) {
+    public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
 

@@ -10,6 +10,7 @@ $(function () {
             songId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
+    //Vue歌曲信息
     var playSong = new Vue({
         el: "#songInfo",
         data: {
@@ -54,11 +55,19 @@ $(function () {
                         ap.on('pause',function () {
                             $("#loopDiv").attr("class",endL);
                         })
+                        $("#play_btn").click(function () {
+                            alert("wai")
+                            ap.on('pause', function () {
+                                alert("li")
+                                console.log('player play');
+                            });
+                        });
                     }
                 })
             }
         }
     });
+    //Vue歌曲评论
     var sComment = new Vue({
         el:"#songComment",
         data:{
@@ -157,21 +166,50 @@ $(function () {
             }
         }
     });
-
+    //Vue用户推荐
+    var senduser = new Vue({
+        el:"#tuijian",
+        data:{
+            userHeadUrl:[],
+            songListDet:[]
+        },
+        methods: {
+            getUserHeadPic:function() {
+                senduser.userHeadUrl=[];
+                $.ajax({
+                    url:"/PlayMusic/likeSong/userShow",
+                    type:"post",
+                    data:{
+                        songId:songId.songId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        senduser.userHeadUrl=data;
+                    }
+                })
+            },
+            getSongListDet:function () {
+                senduser.songListDet=[];
+                $.ajax({
+                    url:"/PlayMusic/show/likeSongList",
+                    type:"post",
+                    data:{
+                        songId:songId.songId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        senduser.songListDet=data;
+                    }
+                })
+            }
+        }
+    });
     playSong.getSongInfo();
     sComment.getSongAwC();
     sComment.getSongComment();
     sComment.getUserPic();
-    $("#play_btn").click(function () {
-        alert("go")
-        // music=document.getElementById("aplayer");
-        // if(music.paused == true){
-        //     alert(go)
-        // }else{
-        //
-        // }
-    });
-
+    senduser.getUserHeadPic();
+    senduser.getSongListDet();
     $("#msg_send").click(function () {
         $.ajax({
             url:"/PlayMusic/insertComment",
@@ -188,15 +226,12 @@ $(function () {
                         var layer = layui.layer;
                         layer.msg('评论成功！');
                     });
+                    setTimeout("window.location.reload()","1000");
                 }
             }
 
         })
     })
-    // ap.on('playing', function () {
-    //     console.log("77777")
-    // })
-
 });
 var padDate=function(va){
     va=va<10?'0'+va:va;

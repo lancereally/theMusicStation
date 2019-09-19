@@ -183,7 +183,7 @@ dl {
 }
 .m-record{
     width: 900px;
-    height: 413px;
+    height: 60px;
 
 }
 .m-record-title {
@@ -398,7 +398,7 @@ dl {
 
 }
 .myList{
-    width: 900px;
+    width: 300px;
     height: 195px;
 
 }
@@ -500,7 +500,7 @@ overflow: hidden;
 
 }
 .list-liked{
-    width: 900px;
+    width: 200px;
     height: 195px;
 
 }

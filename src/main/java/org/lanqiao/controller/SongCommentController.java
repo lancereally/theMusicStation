@@ -18,7 +18,7 @@ public class SongCommentController {
     @Autowired
     UsersService usersService;
 
-    //查询出该歌单下所有的评论-郭长达
+    //查询出该歌曲下所有的评论-郭长达
     @RequestMapping("/PlayMusic/showComment")
     public List<SongComment> getAllSongCommet(Integer songId) {
         return songCommentService.selectAllComment(songId);

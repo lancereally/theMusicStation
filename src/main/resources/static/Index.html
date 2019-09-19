@@ -5,11 +5,16 @@
     <meta charset="utf-8" />
     <title>网易云音乐</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<!--    <script type="application/javascript" src="js/layui/layui.js"></script>-->
+    <script type="application/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
     <script type="application/javascript" src="js/layui/layui.js"></script>
     <script src="js/vue.min.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script type="text/javascript" src="js/layui/layui.js"></script>
     <link rel="stylesheet" href="css/MyOption.css">
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/Login.css"/>
@@ -39,7 +44,427 @@
       $(".zcls").click(function () {
         $(".m-layer").css("display","none");
       });
-    })
+
+
+      //注册
+      $(".username").blur(function () {
+        if($(".username").val() != "")
+        $.ajax({
+          url:"/user/checkName",
+          type:"post",
+          dataType:"text",
+          data:{
+            'userName':$(".username").val()
+          },
+          success:function (data) {
+            if(data == "false"){
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('该用户名已经存在！',{
+                  area:['400px', '50px']
+                });
+              });
+              // alert("该用户名已经存在！");
+            }else{
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('哦哟，这名字可以哦~',{
+                  area:['400px', '50px']
+                });
+              });
+              // alert("哦哟，这名字可以哦~");
+            }
+            if($("#nickname").val() == ""){
+              $(".text").addClass("error");
+              $("#nickname").val("昵称不得为空！");
+            }
+          }
+        })
+      });
+
+
+      function account() {
+        //x上限，y下限
+        var x = 999999;
+        var y = 100000;
+        var rand = parseInt(Math.random() * (x - y + 1) + y);
+        return rand;
+      }
+
+
+//注册账号信息校验
+      var state = 0;
+      $(".register").validate({
+        rules: {
+          userName:{
+            required: true,
+            regex: /^\w{3,15}$/
+            // 昵称 /^\w{4,20}$/
+            //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+          },
+          userPassword:{
+            required: true,
+            regex: /^\w{6,15}$/
+          }
+        },
+        messages: {
+          userName: {
+            required: "YOYO切克闹!土嗨昵称为3-15位任意字符哦~",
+            regex: "昵称格式不正确！"
+          },
+          userPassword:{
+            required:"请输入长度6位以上的密码",
+            regex:"密码格式不正确!"
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.appendTo( element.parent());
+        },
+        success:function () {
+          state = 1;
+        }
+      });
+//账号注册
+      $(".userLogin").click(function () {
+        if(state != 1)
+          layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg('某处信息有误~',{
+              area:['400px', '50px']
+            });
+          });
+        else if($(".proto").attr('checked','checked')){
+          var userAccount = account();
+          $.ajax({
+            url:"/user/register",
+            type:"post",
+            dataType:"text",
+            data:{
+              'userName':$(".username").val(),
+              "userAccount":userAccount,
+              "userPassword":$(".password").val(),
+              "userHeadUrl":"images/userPicDefault.jpg"
+            },
+            success:function (data) {
+              if(data == "1"){
+                layui.use('layer', function(){
+                  var layer = layui.layer;
+                  layer.msg('YOYO切克闹~登录成功嗨起来！',{
+                    area:['400px', '50px']
+                  });
+                });
+                // alert("YOYO切克闹~登录成功嗨起来！");
+                $.ajax({
+                  url:"/user/getIdByAnything",
+                  type:"post",
+                  dataType:"json",
+                  data:{
+                    'userAccount':userAccount
+                  }
+                  ,
+                  success:function (data) {
+                    if(data>0){
+                      // location.href = "MyHomePage.html";
+                      // layui.use('layer', function(){
+                      //   var layer = layui.layer;
+                      //   layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
+                      //     area:['400px', '50px']
+                      //   });
+                      // });
+                      // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                      layer.confirm("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount,{
+                                btn: ['确定']
+                              }, function (index, layero) {
+                        location.href = "MyHomePage.html";
+                                //移除元素
+                                 $("#tr" + id).remove();
+                                //无法关闭这个消息框
+                                layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                              }
+                      );
+                    }
+                  }
+                });
+              }
+              else
+                layui.use('layer', function(){
+                  var layer = layui.layer;
+                  layer.msg('DB管理员已经删库跑路，本站暂停使用~',{
+                    area:['400px', '50px']
+                  });
+                });
+              // alert("DB管理员已经删库跑路，本站暂停使用~");
+            }
+          })
+        }
+        else
+        {
+          // alert("您还未同意土嗨音乐协议哦~");
+          layui.use('layer', function(){
+            var layer = layui.layer;
+            layer.msg('您还未同意土嗨音乐协议哦~',{
+              area:['400px', '50px']
+            });
+          });
+        }
+      });
+
+      //登录信息校验
+      var loginState = 0;
+      $(".accountLoginValidater").validate({
+        rules: {
+          userAccount:{
+            required: true,
+            minlength: 6
+            // 昵称 /^\w{4,20}$/
+            //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+          },
+          userPassword:{
+            required: true,
+            minlength:3
+          }
+        },
+        messages: {
+          userAccount: {
+            required: "",
+            minlength: "YOYO切克闹!土嗨账号长度至少为6位哦~"
+          },
+          userPassword:{
+            required:"请输入密码",
+            maxlength:"密码不正确!"
+          }
+        },
+        errorPlacement: function(error, element) {
+          error.appendTo( element.parent() );
+        },
+        success:function () {
+          loginState = 1;
+        }
+      });
+
+//账号密码登录
+      $(".accountLogin").click(function () {
+        if(loginState == 1)
+        $.ajax({
+          url:"/user/accountLogin",
+          type:"post",
+          dataType:"json",
+          data:{
+            'userAccount':$(".account").val(),
+            "userPassword":$(".pass").val()
+          },
+          success:function (data) {
+            if(data == false){
+              layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.msg('YOYO切克闹~登录成功嗨起来！',{
+                  area:['400px', '50px']});
+              });
+              $.ajax({
+                url:"/user/getIdByAnything",
+                type:"post",
+                dataType:"json",
+                data:{
+                  'userAccount':$(".account").val(),
+                }
+                ,
+                success:function (data) {
+                  if(data>0)
+                    location.href = "MyHomePage.html";
+                }
+              });
+            }
+            else
+            // alert("YOYO对不起,您的账号或密码有误");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('YOYO切克闹~该手机还未进行认证，可直接注册登录~',{
+                  area:['400px', '50px']
+                });
+              });
+          }
+        })
+        else
+          layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg('某处信息格式错误！',{
+              area:['400px', '50px']});
+          });
+      });
+
+
+
+      var state = 0;
+      //手机验证码登录
+      $(".phoneNum").blur(function () {
+        $.ajax({
+          url:"/user/checkPhone",
+          type:"post",
+          dataType:"json",
+          data:{
+            'phoneNumber':$(".phoneNum").val(),
+          },
+          success:function (data) {
+            if(data.length<1){
+              // alert("该手机还未进行认证！！！");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('YOYO切克闹~该手机还未进行认证，可一键注册登录~',{
+                  area:['400px', '50px']
+                });
+              });
+              state = 0;
+            }
+
+            else{
+              state = 1;
+              // alert("YOYO切克闹~该手机已认证~");
+              layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('YOYO切克闹~该手机已认证，可登录~',{
+                  area:['400px', '50px']
+                });
+              });
+            }
+          }
+        })
+      });
+
+      //验证码发送
+      $(".ma").click(function () {
+        if(state>=0)
+        $.ajax({
+          url:"/user/getIdentifyingCode",
+          type:"post",
+          dataType:"text",
+          data:{
+            'phoneNumber':$(".phoneNum").val(),
+          },
+          success:function (data) {
+            // alert("YOYO切克闹！验证码已发送，请稍作等待~")
+            layui.use('layer', function(){
+              var layer = layui.layer;
+              layer.msg('YOYO切克闹！验证码已发送，请稍作等待~',{
+                area:['400px', '50px']
+              });
+            });
+          }
+        })
+        // else
+        //   // alert("该手机还未进行认证！！！");
+        // layui.use('layer', function(){
+        //   var layer = layui.layer;
+        //   layer.msg('YOYO切克闹~该手机还未进行认证，可直接注册登录~',{
+        //     area:['400px', '50px']
+        //   });
+        // });
+      });
+
+      //点击手机登录按钮
+      $(".phoneLogin").click(function () {
+        $.ajax({
+          url:"/user/checkIdentifyingCode",
+          type:"post",
+          dataType:"text",
+          data:{
+            'IdentifyingCode':parseInt($(".validate").val()),
+            'phoneNumber':$(".phoneNum").val()
+          },
+          success:function (data) {
+            if(state > 0){
+              if(data>0){
+                // alert("于2019.9.15实现短信验证功能");
+                // layui.use('layer', function(){
+                //   var layer = layui.layer;
+                //   layer.msg('YOYO切克闹~登录成功~',{
+                //     area:['400px', '50px']
+                //   });
+                // });
+                layer.confirm("YOYO切克闹~登录成功~",{
+                          btn: ['确定']
+                        }, function (index, layero) {
+                          location.href = "MyHomePage.html";
+                          //移除元素
+                          $("#tr" + id).remove();
+                          //无法关闭这个消息框
+                          layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                        }
+                );
+              }
+            }
+            else{
+              var userAccount = account();
+              $.ajax({
+                url:"/user/register",
+                type:"post",
+                dataType:"text",
+                data:{
+                  'userName':"新用户"+userAccount,
+                  "userAccount":userAccount,
+                  "userPassword":123456+"",
+                  "userHeadUrl":"images/userPicDefault.jpg"
+                },
+                success:function (data) {
+                    // alert("YOYO切克闹~登录成功嗨起来！");
+                    $.ajax({
+                      url:"/user/getIdByAnything",
+                      type:"post",
+                      dataType:"json",
+                      data:{
+                        'userAccount':userAccount
+                      }
+                      ,
+                      success:function (data) {
+                        if(data>0){
+                          // location.href = "MyHomePage.html";
+                          // layui.use('layer', function(){
+                          //   var layer = layui.layer;
+                          //   layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
+                          //     area:['400px', '50px']
+                          //   });
+                          // });
+                          // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                          layer.confirm("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount+"初始密码为123456",{
+                                    btn: ['确定']
+                                  }, function (index, layero) {
+                                    location.href = "MyHomePage.html";
+                                    //移除元素
+                                    $("#tr" + id).remove();
+                                    //无法关闭这个消息框
+                                    layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                                  }
+                          );
+                        }
+                      }
+                    });
+                  // alert("DB管理员已经删库跑路，本站暂停使用~");
+                }
+              })
+            }
+          }
+        })
+      });
+      // $(".phoneLogin").click(function () {
+      //   $.ajax({
+      //     url:"/user/phoneLogin",
+      //     type:"post",
+      //     dataType:"text",
+      //     data:{
+      //       'userAccount':$(".account").val(),
+      //       "userPassword":$(".password").val()
+      //     },
+      //     success:function (data) {
+      //       if(data == "true")
+      //         alert("YOYO切克闹~登录成功嗨起来！");
+      //       else
+      //         alert("DB管理员已经删库跑路，本站暂停使用~");
+      //     }
+      //   })
+      // });
+
+
+    })//function
+
   </script>
   <body>
     <header>
@@ -148,66 +573,74 @@
     <div class="auto-1568105551339 m-layer z-show " id="loginPhone" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">手机短信登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
       <div class="n-log2 n-log2-2">
         <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" class="js-input u-txt" placeholder="请输入手机号" autocomplete="off">
+          <input type="text" name="e" class="js-input u-txt phoneNum" placeholder="请输入手机号" autocomplete="off">
           <ul class="js-suggest u-fill" style="visibility:hidden;" ></ul>
         </div>
         <div class="f-mgt20">
           <a class="js-primary u-btn2 u-btn2-2 ma" hidefocus="true" href="#" data-action="login"><i>点击获取验证码</i></a>
         </div>
         <div class="f-mgt10">
-          <input type="password" name="epw" id="epw" class="js-input u-txt" placeholder="请输入验证码" autocomplete="new-password">
+          <input type="password" name="epw" id="epw" class="js-input u-txt validate" placeholder="请输入验证码" autocomplete="new-password">
         </div>
         <div class="js-captcha"></div>
         <div class="ScapTcha js-scaptcha"></div>
         <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
         <div class="f-mgt20">
-          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+          <a class="js-primary u-btn2 u-btn2-2 phoneLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
         </div>
       </div>
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
     </div></div><span class="zcls" title="关闭窗体" >×</span></div>
     <div class="auto-1568105551339 m-layer z-show " id="loginAccount" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" id="auto-id-GIUtr1rxR6Tr59E4">
-      <div class="n-log2 n-log2-2">
-        <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
-          <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+      <form action="" class="accountLoginValidater">
+        <div class="n-log2 n-log2-2 accountLoginValidate">
+          <div class="f-pr" style="z-index:5;">
+            <input type="text" name="userAccount" class="js-input u-txt account" placeholder="请输入帐号" autocomplete="off">
+            <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+          </div>
+          <div class="f-mgt10">
+            <input type="password" name="userPassword" class="js-input u-txt pass" placeholder="请输入密码" autocomplete="new-password">
+          </div>
+          <div class="js-captcha"></div>
+          <div class="ScapTcha js-scaptcha"></div>
+          <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+          <div class="f-mgt10">
+            <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
+            <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+          </div>
+          <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2 accountLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+          </div>
         </div>
-        <div class="f-mgt10">
-          <input type="password" name="epw" class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
-        </div>
-        <div class="js-captcha"></div>
-        <div class="ScapTcha js-scaptcha"></div>
-        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
-        <div class="f-mgt10">
-          <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
-          <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
-        </div>
-        <div class="f-mgt20">
-          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
-        </div>
-      </div>
+      </form>
+
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
     </div></div><span class="zcls" title="关闭窗体" >×</span></div>
-    <div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
-      <div class="n-log2 n-log2-2">
+    <div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号注册</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+      <form action="" class="register"><div class="n-log2 n-log2-2 ">
         <div class="f-pr" style="z-index:5;">
-          <input type="text" name="e" id="e" class="js-input u-txt" placeholder="请输入帐号" autocomplete="off">
+          <input type="text" name="userName" id="userName" class="js-input u-txt username" placeholder="请输入昵称" autocomplete="off">
           <ul class="js-suggest u-fill" style="visibility:hidden;" id="auto-id-CIFtIW9szaHfGuVh"></ul>
         </div>
         <div class="f-mgt10">
-          <input type="password" name="epw"  class="js-input u-txt" placeholder="请输入密码" autocomplete="new-password">
+          <input type="password" name="userPassword"  class="js-input u-txt password" placeholder="请输入密码" autocomplete="new-password">
+        </div>
+        <div class="f-mgt10">
+          <input type="password" name="epw"  class="js-input u-txt password2" placeholder="请再次输入密码" autocomplete="new-password">
         </div>
         <div class="js-captcha"></div>
         <div class="ScapTcha js-scaptcha"></div>
         <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
         <div class="f-mgt10">
-          <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
-          <a href="#" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+          <label class="check"><input name="gender" type="radio" class="proto" value="0">
+            <a href="#" target="_blank" class="">请阅读并遵守土嗨音乐协议</a>
+          </label>
         </div>
         <div class="f-mgt20">
-          <a class="js-primary u-btn2 u-btn2-2" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+          <a class="js-primary u-btn2 u-btn2-2 userLogin" hidefocus="true" href="#" data-action="login"><i>注　册</i></a>
         </div>
-      </div>
+      </div></form>
+
       <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
     </div></div><span class="zcls" title="关闭窗体" id="auto-id-H0iRlpFpOZ2EdSyw">×</span></div>
     <div class="auto-1568105551339 m-layer z-show login" style="top: 198px; left: 503px;display:none"><div class="zbar" id="auto-id-cUzAhzE6Kx69KFTU"><div class="zttl f-thide">登录</div></div><div class="zcnt"><div class="lyct lyct-1" id="auto-id-kXP3EkBRbFKINXWU">

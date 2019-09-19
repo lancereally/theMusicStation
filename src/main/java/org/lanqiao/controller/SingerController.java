@@ -29,4 +29,8 @@ public class SingerController {
     public List<Singer> selectSingerByInput(String input){
         return singerService.selectSingerByInput(input);
     }
+    @RequestMapping("/singer/collectionSinger")
+    public int insertSingerAndUser(Integer userId, Integer singerId){
+        return singerService.insertSingerAndUser(userId,singerId);
+    }
 }

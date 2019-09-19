@@ -40,7 +40,7 @@
         where s.songlist_id = us.songlist_id and us.user_id = u.user_id
         <if test="_parameter != null">
         and
-            songlist_description like "%${_parameter}%"
+            songlist_tag like "%${_parameter}%"
         </if>
     </select>
     
@@ -86,6 +86,11 @@
     <update id="updataSongListTag" parameterType="org.lanqiao.entity.SongList">
         update songlist set songlist_tag = #{songlistTag} where songlist_id = #{songlistId}
     </update>
+    <!--查询拥有某个歌曲的歌单-郭长达-->
+    <select id="selectSongListBySongId" resultMap="SonglistResultMap" parameterType="java.lang.Integer">
+        select sl.*,u.* from songsonglist sosol,song s, songlist sl,users u,usersonglist usl
+        where sosol.songlist_id = sl.songlist_id and sosol.song_id = s.song_id and u.user_id = usl.user_id and usl.songlist_id = sl.songlist_id and usl.us_relation = 1 and s.song_id = 5
+    </select>
 
     <select id="selectEightSongList" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
         select * from songlist order by rand() LIMIT 8

@@ -13,23 +13,30 @@
         <result column="share_from_id" property="shareFromId" jdbcType="INTEGER"/>
         <result column="share_time" property="shareTime" jdbcType="TIMESTAMP"/>
         <result column="share_video_times" property="shareVideoTimes" jdbcType="INTEGER"/>
-
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
         <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR"/>
+        <result column="user_vip_state" property="userVipState" jdbcType="INTEGER"/>
 
         <result column="share_comment_count" property="shareCommentCount" jdbcType="INTEGER"/>
         <result column="share_forward_count" property="shareForwardCount" jdbcType="INTEGER"/>
-
     </resultMap>
 
+    <sql id="Base_Column_List">
+    share_id, user_id, song_id, share_text, share_title, share_annex_url, share_location,
+    share_likes, share_from_id, share_time, share_video_times
+  </sql>
     <update id="updateShareLikesByPK_q" parameterType="Integer">
        update share set share_likes = share_likes + 1  where share_id = #{share_id}
     </update>
 
-
+    <!--    //    徐东方-->
+    <select id="getEventCount" resultMap="ShareResultMap" parameterType="java.lang.Integer">
+        select share_id from share where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <!--    //    徐东方-->
 
     <select id="getShareCommentCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">
-        select count(sc_id) as share_comment_count from sharecomment where share_id = #{share_id}
+        select count(share_id) from sharecomment where share_id = #{share_id}
     </select>
 
     <select id="getShareForwardCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">
@@ -38,7 +45,7 @@
 
 
     <select id="selectShareByPK_q" resultMap="ShareResultMap" parameterType="Integer">
-    select u.user_name,u.user_head_url,s.song_id, s.share_id,
+    select u.user_name,u.user_head_url,u.user_vip_state,s.song_id, s.share_id,
       s.share_text,s.share_title, s.share_annex_url, s.share_location, s.share_likes,
         s.share_from_id, s.share_time, s.share_video_times
         from share s ,users u
@@ -47,7 +54,7 @@
 
 
     <select id="getAllShare_q" resultMap="ShareResultMap">
-    select u.user_name,u.user_head_url,s.song_id,s.share_id,
+    select u.user_name,u.user_head_url,u.user_vip_state,s.song_id,s.share_id,
       s.share_text,s.share_title, s.share_annex_url, s.share_location, s.share_likes,
         s.share_from_id, s.share_time, s.share_video_times
         from share s ,users u
@@ -55,10 +62,6 @@
   </select>
 
 
-    <sql id="Base_Column_List">
-    share_id, user_id, song_id, share_text, share_title, share_annex_url, share_location, 
-    share_likes, share_from_id, share_time, share_video_times
-  </sql>
     <select id="selectByPrimaryKey" resultMap="ShareResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>

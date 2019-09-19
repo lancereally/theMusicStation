@@ -1,48 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>search_user</title>
     <link rel="stylesheet" href="css/search_songList.css">
     <link rel="stylesheet" href="css/search_user.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+            // 结果记录数
+            var resNum = 0;
+            $(".s-fc6",parent.document).html(resNum);
+
+            // 获取父页面搜索内容
+            var searchContent = $("#m-search-input", parent.document).val();
+
+            var vm = new Vue({
+                el: "#myView",
+                data: {
+                    userList: []
+                    // currPage: "1"
+                },
+                methods: {
+                    getSingers: function (input) {
+                        $.ajax({
+                            url: "/search/selectUsersByInput",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                input: searchContent
+                            },
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    vm.userList = data;
+                                    resNum = data.length;
+                                    // 设置结果记录数
+                                    $(".s-fc6", parent.document).html(resNum);
+                                }
+                            }
+                        })
+                    }
+                    // prePage: function () {
+                    //     if (vm.$data.currPage > 1) {
+                    //         vm.$data.currPage--;
+                    //         $("#getBtn").trigger("click");
+                    //     }else alert("不能再往前啦")
+                    // },
+                    // nextPage: function () {
+                    //     $.ajax({
+                    //         url: "/backend/getMaxPage",
+                    //         type: "post",
+                    //         dateType: "json",
+                    //         success: function (maxPage) {
+                    //             if (vm.$data.currPage < maxPage) {
+                    //                 vm.$data.currPage++;
+                    //                 $("#getBtn").trigger("click");
+                    //             }else alert("再往后也没有啦")
+                    //         }
+                    //     })
+                    // }
+                }
+            });
+
+            // 搜索
+            if (searchContent !== "")
+                vm.getSingers(searchContent);
+        })
+    </script>
 </head>
 <body>
-<div class="ztag j-flag" id="auto-id-Nxtr8EmmTvCdbBH7">
+<div class="ztag j-flag" id="myView">
     <div class="n-srchrst ztag">
         <table cellspacing="0" cellpadding="0" class="m-table m-table-2 m-table-2-cover">
             <tbody>
-            <tr class="h-flag ">
+            <tr class="h-flag " v-for="(user,index) in userList">
                 <td class="first w7">
-                    <div class="u-cover u-cover-3"><a href="/user/home?id=440336567"><img
-                            src="http://p1.music.126.net/vCvFpHCH9r5sSAeIDGpB_A==/109951163457723915.jpg?param=180y180"><span
-                            class="msk" title="------H-------"></span></a></div>
+                    <div class="u-cover u-cover-3">
+                        <a v-bind:href="'/user?userId='+user.userId">
+                            <img v-bind:src="user.userHeadUrl">
+                            <span class="msk" v-bind:title="user.userName"></span></a></div>
                 </td>
                 <td class="">
-                    <div class="ttc"><a href="/user/home?id=440336567" title="------H-------"
-                                        class="txt f-fs1">------<span class="s-fc7">H</span>-------<i
-                            class="icnfix u-icn u-icn-s-02"></i></a></div>
-                    <div class="dec s-fc4 f-thide" title=""></div>
+                    <div class="ttc">
+                        <a href="'/user?userId='+user.userId" v-bind:title="user.userName" class="txt f-fs1">
+                            <span class="s-fc7">{{user.userName}}</span>
+                            <i class="icnfix u-icn u-icn-s-01"></i>
+                        </a>
+                    </div>
+                    <div class="dec s-fc4 f-thide" title="">{{user.userText}}</div>
                 </td>
-                <td class="w9"><a data-res-id="440336567" data-res-action="follow" class="u-btn u-btn-3 f-tdn"
-                                  href="javascript:void(0)"><i>关注</i></a></td>
-                <td class="w9 s-fc4">歌单：2</td>
-                <td class="last w9 s-fc4">粉丝：<span id="follow_num_440336567">63</span></td>
-            </tr>
-            <tr class="h-flag even">
-                <td class="first w7">
-                    <div class="u-cover u-cover-3"><a href="/user/home?id=389364108"><img
-                            src="http://p1.music.126.net/-dpSRu-a7_AyOixqbiq0-g==/109951164334446269.jpg?param=180y180"><span
-                            class="msk" title="___-H-___"></span></a></div>
+                <td class="w9">
+                    <a data-res-id="440336567" data-res-action="follow" class="u-btn u-btn-3 f-tdn"
+                       href="javascript:void(0)">
+                        <i>关注</i>
+                    </a>
                 </td>
-                <td class="">
-                    <div class="ttc"><a href="/user/home?id=389364108" title="___-H-___" class="txt f-fs1">___-<span
-                            class="s-fc7">H</span>-___<i class="icnfix u-icn u-icn-s-02"></i></a></div>
-                    <div class="dec s-fc4 f-thide" title="🈂️">🈂️</div>
-                </td>
-                <td class="w9"><a data-res-id="389364108" data-res-action="follow" class="u-btn u-btn-3 f-tdn"
-                                  href="javascript:void(0)"><i>关注</i></a></td>
-                <td class="w9 s-fc4">歌单：9</td>
-                <td class="last w9 s-fc4">粉丝：<span id="follow_num_389364108">40</span></td>
+                <td class="w9 s-fc4">歌单：{{user.songListCount}}</td>
+                <td class="last w9 s-fc4">粉丝：<span>{{user.fans}}</span></td>
             </tr>
             </tbody>
         </table>

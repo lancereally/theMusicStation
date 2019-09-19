@@ -179,7 +179,7 @@
                         <span class="msg_size">评论</span>
                     </h3>
                     <span class="msg_num">共
-                        <span class="msg_size"></span>条评论
+                        <span class="msg_tsize">{{commentList.length}}</span>&nbsp;条评论
                     </span>
                 </div>
                 <div class="msg_det" >
@@ -209,7 +209,7 @@
                                 <div class="msg_pl">
                                     <a>{{awc.user.userName}}</a>
                                     <img>
-                                    ：<span>{{awc.songcText}}</span>
+                                    ：<span :class="{vipUser:awc.user.userVipState==1}" >{{awc.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
                                     <div class="pl_time">{{awc.songcTime | formatDate}}</div>
@@ -230,7 +230,7 @@
                                 <div class="msg_pl">
                                     <a>{{comment.user.userName}}</a>
                                     <img>
-                                    ：<span>{{comment.songcText}}</span>
+                                    ：<span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
                                     <div class="pl_time">{{comment.songcTime|formatDate}}</div>
@@ -256,48 +256,25 @@
             </div>
         </div>
         <div class="container-right">
-            <div class="container-inner">
+            <div class="container-inner" id="tuijian">
                 <div class="unknow"></div>
                 <h3 class="u-h3">
                     <span class="f-f1">喜欢这首歌的人</span>
                 </h3>
                 <ul class="m-piclist">
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
-                    <li><a class="f-tdn a-mover"><img class="user-pic" src="images/user1.jpg"></a></li>
+                    <li v-for="pic in userHeadUrl"><a class="f-tdn a-mover"><img class="user-pic" :src="pic.userHeadUrl"></a></li>
                 </ul>
                 <h3 class="u-h3">
                     <span class="f-f1">包含这首歌的歌单</span>
                 </h3>
                 <ul class="sl-list">
-                    <li>
-                        <div class="uli-pic"><a><img src="images/p-listpic.jpg"></a></div>
+                    <li v-for="sl in songListDet">
+                        <div class="uli-pic"><a><img :src="sl.songlistPicUrl"></a></div>
                         <div class="uli-info">
-                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">声之形 音乐集 & 衍生作品</a></p>
+                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">{{sl.songlistName}}</a></p>
                             <p>
                                 <span class="byedit">by</span>
-                                <a class="editName byedit a-mover">柏林少女妖</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="uli-pic"><a><img src="images/p-listpic.jpg"></a></div>
-                        <div class="uli-info">
-                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">声之形 音乐集 & 衍生作品</a></p>
-                            <p>
-                                <span class="byedit">by</span>
-                                <a class="editName byedit a-mover">柏林少女妖</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="uli-pic"><a><img src="images/p-listpic.jpg"></a></div>
-                        <div class="uli-info">
-                            <p class="f-thide"><a class="f-fs1 uli-title a-mover ffs1">声之形 音乐集 & 衍生作品</a></p>
-                            <p>
-                                <span class="byedit">by</span>
-                                <a class="editName byedit a-mover">柏林少女妖</a>
+                                <a class="editName byedit a-mover">{{sl.usersSet[0].userName}}</a>
                             </p>
                         </div>
                     </li>

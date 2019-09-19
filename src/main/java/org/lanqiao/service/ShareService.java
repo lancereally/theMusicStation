@@ -11,11 +11,17 @@ public interface ShareService {
 
     public int updateShareLikesByPK(Integer shareId);
 
+
+//    徐东方
+    public List<Share> getEventCount(Integer userId);
+//    徐东方
+
     public int insertShareForward(Share share);
 
     public List<ShareComment> selectByShareId(Integer shareId);
 
     public Integer insertShareComment(ShareComment shareComment);
+
 
 
 }
