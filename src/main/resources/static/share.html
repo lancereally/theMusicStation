@@ -708,8 +708,8 @@
                         </div>
 
                         <!--音频动态-->
-                        <div v-if="sh.songName != null">
-                            <div class="s-music">
+                        <div v-if="sh.shareTitle == null">
+                            <div class="s-music" v-if="sh.songName != null">
                                 <div class="f-left">
                                     <a :href="'PlayMusic.html?id='+sh.songId">
                                         <img :src="sh.songPicUrl" height="45">
@@ -719,7 +719,7 @@
                                 <div><a href="#"><h3 class="">{{sh.songName}}</h3></a></div>
                                 <div><a href="#"><h4 class="">{{sh.singerName}}</h4></a></div>
                             </div>
-                            <div class=" z-0"><img :src="sh.shareAnnexUrl" height="189"></div>
+                            <div class=" z-0" v-if="sh.shareAnnexUrl != null"><img :src="sh.shareAnnexUrl" height="189"></div>
                         </div>
 
                         <!--转发动态-->
@@ -754,8 +754,8 @@
                                 </div>
 
                                 <!--音频动态-->
-                                <div v-if="shSon.songName != null">
-                                    <div class="s-music">
+                                <div v-if="shSon.shareTitle == null">
+                                    <div class="s-music" v-if="shSon.songName != null">
                                         <div class="f-left">
                                             <a :href="'PlayMusic.html?id='+shSon.songId">
                                                 <img :src="shSon.songPicUrl" height="45">
