@@ -43,7 +43,6 @@ $(function () {
                                 name: playSong.songName,
                                 artist: playSong.singerName,
                                 url: playSong.songUrl,
-                                cover: playSong.songPicUrl,
                                 lrc: playSong.songLyric
                             }]
                         });

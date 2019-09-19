@@ -17,6 +17,7 @@
 
 .music-info {
   margin-top: -10px;
+  height: 215px;
 }
 
 .music-head {
@@ -28,6 +29,7 @@
   display: block;
   float: left;
 }
+
 .music-head img {
   width: 130px;
   height: 130px;
@@ -45,9 +47,16 @@
   position: absolute;
 }
 
+.music-play{
+  position: relative;
+}
+
 .lyric {
-  float: left;
-  width: 100%;
+  clear: both;
+  position: absolute;
+  top: 15px;
+  right: 0px;
+
 }
 
 .hd {
@@ -58,7 +67,7 @@
   position: relative;
   width: 296px;
   left: -59px;
-  top: -6px;
+
   font-size: 24px;
   vertical-align: middle;
   margin: 0 0 0 64px;
@@ -94,6 +103,7 @@
   margin: 10px 0;
   color: #999;
   font-size: 12px;
+  line-height: 30px;
 }
 .des span a {
   color: #0c73c2;
