@@ -35,4 +35,13 @@ public interface SongMapper {
     Song selectSongInfoBySongId(Integer songId);
     // Lzc : search lyric
     List<Song> selectLyricByInput(String input);
+
+    //根据播放次数查询
+    List<Song> selectSongByPlayTimes();
+
+    //根据创建时间查询歌单
+    List<Song> selectSongByCreateTime();
+
+    //查询原创歌曲
+    List<Song> selectTenSong();
 }

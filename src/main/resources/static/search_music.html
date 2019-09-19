@@ -82,14 +82,15 @@
         <div class="item f-cb h-flag" v-for="(song,index) in songList">
             <div class="td">
                 <div class="hd">
-                    <a v-bind:id="song.id" class="ply " title="播放" data-res-copyright="1"
+                    <a v-bind:href="'PlayMusic.html?id='+song.id" target="_blank" class="ply "
+                       title="播放" data-res-copyright="1"
                        data-res-type="18" data-res-id="1384464205" data-res-action="play"
-                       data-res-from="32" data-res-data="j"></a>
+                       data-res-from="32" data-res-data="j" ></a>
                 </div>
             </div>
             <div class="td w0">
                 <div class="sn">
-                    <div class="text"><a v-bind:href="'/song?id='+song.id"><b title=""><span
+                    <div class="text"><a v-bind:href="'PlayMusic.html?id='+song.id" target="_blank"><b title=""><span
                             class="s-fc7">{{song.songName}}</span></b></a></div>
                 </div>
             </div>
@@ -108,11 +109,14 @@
                         class="icn icn-dl" title="下载"></span></div>
             </div>
             <div class="td w1">
-                <div class="text"><a v-bind:href="'/song?id='+song.singerName"><span class="s-fc7">{{song.singerName}}</span></a></div>
+                <div class="text">
+                    <a v-bind:href="'singer.html?id='+song.singerId" target="_blank">
+                        <span class="s-fc7">{{song.singerName}}</span>
+                    </a>
+                </div>
             </div>
             <div class="td w2">
-                <div class="text"><a class="s-fc3" v-bind:href="'/song?id='+song.albumName" title="song.albumName">《<span
-                        class="s-fc7">{{song.albumName}}</span>》</a></div>
+                <div class="text">《<span class="s-fc7">{{song.albumName}}</span>》</div>
             </div>
             <div class="td">{{song.songDuration}}</div>
         </div>

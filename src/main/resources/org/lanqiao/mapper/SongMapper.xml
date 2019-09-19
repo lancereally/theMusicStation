@@ -50,6 +50,21 @@
     <select id="selectSong" parameterType="java.lang.Integer" resultMap="SongResultMap">
         select song_name,song_url,song_pic_url from song where song_id = 1
     </select>
+
+    <!--查询播放次数最多单曲-->
+    <select id="selectSongByPlayTimes" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select song_name,song_id from song order by song_play_times desc limit 10
+    </select>
+
+    <!--按照创建时间查询歌曲-->
+    <select id="selectSongByCreateTime" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select song_name,song_id from song order by song_play_times desc limit 10
+    </select>
+
+    <!--随机查询十首单曲-->
+    <select id="selectTenSong" parameterType="java.lang.Integer" resultMap="SongResultMap">
+        select song_name,song_id from song order by rand() limit 10
+    </select>
 <!--    &lt;!&ndash;查询歌单歌单总播放次数&ndash;&gt;-->
 <!--    <select id="selectSongPlayCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">-->
 <!--      select sum(song_play_times) from song so,songsonglist sosol where sosol.song_id = so.song_id and sosol.songlist_id= #{songListId}-->

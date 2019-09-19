@@ -1,5 +1,27 @@
 ;(function($){
-	
+	//获取url值
+	var url = location.search,
+		songListId = {};
+	//如果url有id
+	if(url.indexOf("?") != -1) {
+		var str = url.substr(1);
+		strs = str.split("&");
+		for(var i = 0; i < strs.length; i++) {
+			songListId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+		}
+	}
+
+	var getSong = new Vue({
+		el:"#audio-box",
+		data:{
+			songSet:[]
+		},
+		methods:{
+			getSongList:function(){
+
+			}
+		}
+	})
 	var fnName = 'audioPlay';
 	var config = {
 

@@ -74,19 +74,19 @@
         <ul class="m-cvrlst m-cvrlst-alb3 f-cb">
             <li v-for="(album,index) in albumList">
                 <div class="u-cover u-cover-alb2">
-                    <a v-bind:href="['/album?id='+album.albumId]">
+                    <a v-bind:href="['singer.html?id='+album.singer.singerId]" target="_blank">
                         <img v-bind:src="album.albumPicUrl">
                         <span v-bind:title="album.albumName" class="msk"></span>
                     </a>
                     <a title="播放" class="icon-play f-alpha f-fr " href="javascript:void(0)"></a></div>
                 <p class="dec">
-                    <a v-bind:href="['/album?id='+album.albumId]"
+                    <a v-bind:href="['singer.html?id='+album.singer.singerId]" target="_blank"
                        class="tit f-thide s-fc0"
                        v-bind:title="album.albumName">{{album.albumName}}</a>
                 </p>
                 <p>
                     <span class="nm f-thide" v-bind:title="album.singerName">
-                        <a v-bind:href="['/singer?id='+album.singerId]" class="s-fc3">{{album.singerName}}</a>
+                        <a v-bind:href="['singer.html?id='+album.singer.singerId]" target="_blank" class="s-fc3">{{album.singerName}}</a>
                     </span>
                 </p>
             </li>

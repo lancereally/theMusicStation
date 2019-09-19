@@ -12,8 +12,26 @@
     <link rel="stylesheet" href="css/songList.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+
     <script>
+        var user_id = $.cookie('userId');
+        if (user_id === undefined) {
+            location.href = "Index.html";
+        }
+
+
         $(function () {
+
+            $.ajax({
+                url: "/user/getUserInfo",
+                type: "post",
+                datatype: "json",
+                data :{"userId" : parseInt(user_id)},
+                success: function (data) {
+                    $(".login-button img").attr("src",data.userHeadUrl);
+                }
+            });
 
             var url = location.search,
                 keyWord = {};
@@ -68,7 +86,7 @@
 </head>
 <body>
 
-<header style="border-bottom: 30px #ffd700 solid;">
+<header>
     <div id="head-title">
         <div id="head-title-container">
             <h2 class="logo"><a hidefocus="true" href="/#" id="tuHai">土嗨音乐网</a></h2>
@@ -123,27 +141,46 @@
                 </li>
             </ul>
             <div class="login-button">
-            <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+                      <span>
+<!--              <a href="#" id="login">登录</a>-->
+                          <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>
             <div class="search-box">
                 <div class="srchbg">
-              <span class="parent">
-                <input
-                        type="text"
-                        name="srch"
-                        id="srch"
-                        class="txt j-flag"
-                        value=""
-                        style="opacity: 1;"
-                        placeholder="音乐/视频/电台/用户"
-                />
-              </span>
+                    <span class="parent" style="margin: 8px 0 0 20px;">
+                        <a type="button" id="srch"
+                           style="opacity: 1;color: #333;line-height: 16px;text-decoration: none;font-size: 12px"
+                           href="search.html">搜索音乐/歌手/歌词...</a>
+                    </span>
                 </div>
             </div>
+        </div>
+    </div>
+    <div id="head-nav">
+        <div id="head-nav-contain">
+            <ul class="nav">
+                <li>
+                    <a href="#"><em>推荐</em></a>
+                </li>
+                <li>
+                    <a href="#"><em>排行榜</em></a>
+                </li>
+                <li>
+                    <a href="songList.html"><em>歌单</em></a>
+                </li>
+                <li>
+                    <a href="#"><em> 主播电台</em></a>
+                </li>
+                <li>
+                    <a href="singers.html"><em>歌手</em></a>
+                </li>
+                <li>
+                    <a href="#"><em>新碟上架</em></a>
+                </li>
+            </ul>
         </div>
     </div>
 </header>

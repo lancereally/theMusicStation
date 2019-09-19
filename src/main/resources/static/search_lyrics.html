@@ -82,20 +82,21 @@
                 <div class="td">
                     <div class="hd">
                         <a id="" class="ply " title="播放" data-res-action="play"
-                           v-bind:href="['/song?id='+song.songId]"></a></div>
+                           v-bind:href="['PlayMusic.html?id='+song.songId]" target="_parent"></a></div>
                 </div>
                 <div class="td w0">
                     <div class="sn">
-                        <div class="text"><a v-bind:href="['/song?id='+song.songId]">
+                        <div class="text"><a v-bind:href="['PlayMusic.html?id='+song.songId]" target="_blank">
                             <b v-bind:title="song.songName">{{song.songName}}</b></a></div>
                     </div>
                 </div>
                 <div class="td">
                     <div class="opt hshow">
-                        <a class="u-icn u-icn-81 icn-add" v-bind:href="['/addToList?id='+song.songId]" title="添加到播放列表"
-                                              hidefocus="true" data-res-copyright="1" data-res-type="18"
-                                              data-res-id="1368371706" data-res-action="addto" data-res-from="33"
-                                              data-res-data="h">
+                        <a class="u-icn u-icn-81 icn-add" v-bind:href="['PlayMusic.html?id='+song.songId]"
+                           target="_blank" title="添加到播放列表"
+                           hidefocus="true" data-res-copyright="1" data-res-type="18"
+                           data-res-id="1368371706" data-res-action="addto" data-res-from="33"
+                           data-res-data="h">
                         </a>
                         <span data-res-id="L1368371706" data-res-action="fav" data-res-type="18"
                                   class="icn icn-fav" title="收藏"></span>
@@ -106,12 +107,13 @@
                 </div>
                 <div class="td w1">
                     <div class="text">
-                        <a v-bind:href="['/singer?id='+song.singerId]">{{song.singerName}}</a></div>
+                        <a v-bind:href="['singer.html?id='+song.singerName]" target="_blank">{{song.singerName}}</a></div>
                 </div>
                 <div class="td w2">
                     <div class="text">
                         <a class="s-fc3"
-                           v-bind:href="['/album?id='+song.albumId]" v-bind:title="'《'+song.albumName+'》'">
+                           v-bind:href="['singer.html?id='+song.singerName]" target="_blank"
+                           v-bind:title="'《'+song.albumName+'》'">
                             《{{song.album.albumName}}》
                         </a>
                     </div>

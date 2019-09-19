@@ -1,6 +1,7 @@
+//cookie
 var userId = $.cookie('userId');
 if (userId === undefined) {
-    location.href = "Index.html"
+    location.href = "Index.html";
 }
 $(function () {
     //获取用户头像
@@ -58,7 +59,6 @@ $(function () {
                                 name: playSong.songName,
                                 artist: playSong.singerName,
                                 url: playSong.songUrl,
-                                cover: playSong.songPicUrl,
                                 lrc: playSong.songLyric
                             }]
                         });

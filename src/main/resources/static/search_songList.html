@@ -83,7 +83,7 @@
                 </td>
                 <td class="w7">
                     <div class="u-cover u-cover-3">
-                        <a v-bind:href="'/songlist?songlistId='+sl.songlistId">
+                        <a>
                             <img v-bind:src="sl.songlistPicUrl">
                             <span v-bind:title="sl.songlistName" class="msk"></span>
                         </a>
@@ -104,8 +104,7 @@
                         <div class="tt">
                             <div class="ttc">
                                 <span class="txt">
-                                    <a v-bind:href="'/songlist?songlistId='+sl.songlistId"
-                                       v-bind:title="sl.songlistName">{{sl.songlistName}}
+                                    <a v-bind:title="sl.songlistName">{{sl.songlistName}}
 <!--                                        <span class="s-fc7">h</span>-->
                                     </a>
                                 </span>
@@ -117,7 +116,7 @@
                 <td class="w4">
                     <div class="text">
                         <span class="s-fc3">by</span>&nbsp;&nbsp;
-                        <a class="s-fc3" v-bind:href="'/user?userId='+sl.usersSet.userId" v-bind:title="sl.usersSet.userName">{{sl.usersSet[0].userName}}</a>
+                        <a class="s-fc3" v-bind:title="sl.usersSet.userName">{{sl.usersSet[0].userName}}</a>
                     </div>
                 </td>
                 <td class="w6 s-fc4">收藏：<span id="flag_fav_count-2866655903">{{sl.songlistKeepNum}}</span></td>

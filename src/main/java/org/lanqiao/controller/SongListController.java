@@ -89,4 +89,8 @@ public class SongListController {
     public List<SongList> selectSongListByInput(String input){
         return songListService.selectSongListByInput(input);
     }
+
+    //随即查询八个歌单
+    @RequestMapping("/index/hotSong/selectEightSongList")
+    public List<SongList> selectEightSongList(){ return songListService.selectEightSongList();}
 }

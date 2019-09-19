@@ -1,5 +1,47 @@
 <!DOCTYPE html>
 
+<style>
+    .aplayer{
+        margin-left: 0px !important;
+        width: 100% !important;
+        top: -205px;
+        left:-5px;
+        background: rgba(0,0,0,0) !important;
+    }
+    .aplayer.aplayer-withlrc .aplayer-pic{
+        height: 205px !important;
+        width: 205px !important;
+    }
+    .aplayer.aplayer-withlrc .aplayer-info{
+        margin:0 !important;
+        height: 205px !important;
+    }
+    .aplayer .aplayer-pic{
+        background: rgba(0,0,0,0) !important;
+    }
+    .aplayer-body{
+        position: relative;
+        width: inherit;
+    }
+    .aplayer .aplayer-info .aplayer-music{
+        display: none;
+    }
+    .aplayer.aplayer-withlrc .aplayer-lrc{
+        height: 70px;
+        margin: 75px 0 7px;
+    }
+    .aplayer.aplayer-withlrc .aplayer-lrc:before{
+        display: none !important;
+    }
+    .layui-anim-rotate{
+        animation-duration: 10s !important;
+    }
+    .aplayer .aplayer-info .aplayer-controller{
+        margin-top:12px !important;
+    }
+
+
+</style>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -96,38 +138,43 @@
     <div id="container-main">
         <div id="container-left">
             <div class="music-info" id="songInfo">
-                <div class="music-head">
-                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv">
-                        <img :src="songPicUrl">
-                    </div>
-                    <span class="msk msk1"> </span>
-                </div>
-                <div class="lyric">
-                    <div class="hd">
-                        <i class="lab"></i>
-                        <div class="tit">
-                            <em>{{songName}}</em>
+                <div class="music-play">
+                    <div class="music-head">
+                        <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv" >
+                            <img :src="songPicUrl">
                         </div>
+                        <span class="msk msk1"> </span>
                     </div>
-                    <p class="des"></p>
-                    <p class="des">歌手：
-                        <span><a class="" href="">{{singerName}}</a></span>
-                    </p>
+                    <div id="aplayer" class="music_play">
+                        <pre class="aplayer-lrc-content">
+                        </pre>
+                    </div>
+                    <div class="lyric">
+                        <div class="hd">
+                            <i class="lab"></i>
+                            <div class="tit">
+                                <em>{{songName}}</em>
+                            </div>
+                            <p class="des">歌手：
+                                <span><a class="" href="">{{singerName}}</a>&nbsp;&nbsp;&nbsp;&nbsp;所属专辑：</span><span><a>{{albumName}}</a></span>
+                            </p>
 
-                    <p class="des">所属专辑：
-                        <span><a>{{albumName}}</a></span>
-                    </p>
-                    <div class="m-info" id="minf">
-                        <button type="button" class="btnCre btnCre_bcolor a-mover" id="play_btn">播放</button>
+                        </div>
+
+
+
+
+                        <!--
+                        <div class="m-info" id="minf">
+                            <button type="button" class="btnCre btnCre_bcolor a-mover" id="play_btn">播放</button>
+                        </div>
+                        -->
+                        <!--                    <div class="lyric-content" v-html="songLyric">-->
+                        <!--                    </div>-->
+                        <div class="crl"></div>
                     </div>
-                    <!--                    <div class="lyric-content" v-html="songLyric">-->
-                    <!--                    </div>-->
-                    <div class="crl"></div>
                 </div>
-                <div id="aplayer" class="music_play">
-                <pre class="aplayer-lrc-content">
-                </pre>
-                </div>
+
             </div>
 
             <div class="sl_msg" style="    float: left;    width: 100%;" id="songComment">
