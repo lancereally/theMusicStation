@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.SongListMapper">
+    <resultMap id="SonglistResultMap" type="org.lanqiao.entity.SongList">
+        <id column="songlist_id" property="songlistId" jdbcType="INTEGER"/>
+        <result column="songlist_name" property="songlistName" jdbcType="VARCHAR"/>
+        <result column="songlist_description" property="songlistDescription" jdbcType="VARCHAR"/>
+        <result column="songlist_tag" property="songlistTag" jdbcType="VARCHAR"/>
+        <result column="songlist_count" property="songlistCount" jdbcType="INTEGER"/>
+        <result column="songlist_create_time" property="songlistCreateTime" jdbcType="TIMESTAMP"/>
+        <result column="songlist_commet_num" property="songlistCommetNum" jdbcType="INTEGER"/>
+        <result column="songlist_keep_num" property="songlistKeepNum" jdbcType="INTEGER"/>
+        <result column="songlist_pic_url" property="songlistPicUrl" jdbcType="VARCHAR"/>
+        <collection property="usersSet" resultMap="UsersResultMap"></collection>
+    </resultMap>
+    <resultMap id="UsersResultMap" type="org.lanqiao.entity.Users" >
+        <id column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="user_account" property="userAccount" jdbcType="INTEGER" />
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+        <result column="user_text" property="userText" jdbcType="VARCHAR" />
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR" />
+        <result column="user_birthday" property="userBirthday" jdbcType="VARCHAR" />
+        <result column="user_location" property="userLocation" jdbcType="VARCHAR" />
+        <result column="user_head_url" property="userHeadUrl" jdbcType="VARCHAR" />
+        <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
+        <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+        <result column="user_phone_activation" property="userPhoneActivation" jdbcType="INTEGER" />
+        <result column="user_phone" property="userPhone" jdbcType="INTEGER" />
+        <result column="user_qq" property="userQq" jdbcType="INTEGER" />
+        <result column="user_id_card" property="userIdCard" jdbcType="VARCHAR" />
+        <result column="user_vip_state" property="userVipState" jdbcType="INTEGER" />
+        <result column="attention" property="attention" jdbcType="INTEGER" />
+        <result column="fans" property="fans" jdbcType="INTEGER" />
+        <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <select id="selectSongList" resultMap="SonglistResultMap" parameterType="String">
+        select s.songlist_id, s.songlist_name, u.user_name,s.songlist_pic_url  from songlist s , users u , usersonglist us
+        where s.songlist_id = us.songlist_id and us.user_id = u.user_id
+        <if test="_parameter != null">
+        and
+            songlist_description like "%${_parameter}%"
+        </if>
+    </select>
+    
+    
+    <!--查询歌单信息-->
+    <select id="selectBySongListId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
+        select u.user_head_url,u.user_name,sl.songlist_name,sl.songlist_pic_url,sl.songlist_create_time,sl.songlist_id,sl.songlist_description,sl.songlist_tag from users u,songlist sl,usersonglist usl
+        where sl.songlist_id = usl.songlist_id and usl.user_id = u.user_id and u.user_id = #{userId} and sl.songlist_id = #{songListId}
+    </select>
+    <!--    查询创建的歌单-gcd-->
+    <select id="selectLikeByUserId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
+        select sl.*  from songlist sl, usersonglist usl where sl.songlist_id = usl.songlist_id and usl.us_relation=1 and usl.user_id = #{userId}
+    </select>
+    <!--    查询收藏的歌单-gcd-->
+    <select id="selectShouByUserId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
+        select sl.*  from songlist sl, usersonglist usl where sl.songlist_id = usl.songlist_id and usl.us_relation=2 and usl.user_id = #{userId}
+    </select>
+    <!--    创建歌单-gcd-->
+    <insert id="insertSongList" parameterType="java.lang.String">
+        insert into songlist(songlist_name) values ( #{songlistName})
+    </insert>
+    <!--    查询歌单id通过用户名字-gcd-->
+    <select id="selectSongListBySongListName" resultType="java.lang.Integer" parameterType="java.lang.String" >
+        select sl.songlist_id from songlist sl where songlist_name= #{songListName}
+    </select>
+    <!--    插入用户歌单关系表-gcd-->
+    <insert id="insertUserSongList" parameterType="java.lang.Integer">
+        insert into usersonglist(songlist_id,user_id,us_relation) values (#{songListId},#{userId},#{usRelation})
+    </insert>
+    <!--编辑歌单信息-郭长达-->
+    <update id="updateSongListInfo" parameterType="org.lanqiao.entity.SongList">
+        update songlist set songlist_name = #{songlistName},songlist_pic_url= #{songlistPicUrl},songlist_description= #{songlistDescription} where songlist_id = #{songlistId}
+    </update>
+    <!--删除歌单-郭长达-->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from songlist where songlist_id = #{songListId,jdbcType=INTEGER}
+    </delete>
+    <!--取消收藏歌单-郭长达-->
+    <delete id="cancelBySongListId" parameterType="java.lang.Integer">
+        delete from usersonglist where songlist_id = #{songListId}
+    </delete>
+    <!--编辑歌单标签信息-郭长达-->
+    <update id="updataSongListTag" parameterType="org.lanqiao.entity.SongList">
+        update songlist set songlist_tag = #{songlistTag} where songlist_id = #{songlistId}
+    </update>
+
+
+
+
+
+
+
+    <!-- Lzc : selectSongListByInput -->
+    <select id="selectSongListByInput" resultMap="SonglistResultMap" parameterType="java.lang.String">
+        select sl.songlist_id,sl.songlist_pic_url,sl.songlist_name,sl.songlist_count,u.user_name,sl.songlist_keep_num,sl.songlist_commet_num from songlist sl,users u,usersonglist usl where ((sl.songlist_name like concat('%',#{input},'%')) or (u.user_name like concat('%',#{input},'%'))) and sl.songlist_id = usl.songlist_id and usl.user_id = u.user_id
+    </select>
+
+    <sql id="Base_Column_List">
+    songlist_id, songlist_name, songlist_description, songlist_tag, songlist_count, songlist_create_time, 
+    songlist_commet_num, songlist_keep_num, songlist_pic_url
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="SonglistResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from songlist
+        where songlist_id = #{songlistId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="org.lanqiao.entity.SongList">
+    insert into songlist (songlist_id, songlist_name, songlist_description, 
+      songlist_tag, songlist_count, songlist_create_time, 
+      songlist_commet_num, songlist_keep_num, songlist_pic_url
+      )
+    values (#{songlistId,jdbcType=INTEGER}, #{songlistName,jdbcType=VARCHAR}, #{songlistDescription,jdbcType=VARCHAR}, 
+      #{songlistTag,jdbcType=VARCHAR}, #{songlistCount,jdbcType=INTEGER}, #{songlistCreateTime,jdbcType=TIMESTAMP}, 
+      #{songlistCommetNum,jdbcType=INTEGER}, #{songlistKeepNum,jdbcType=INTEGER}, #{songlistPicUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.SongList">
+        insert into songlist
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="songlistId != null">
+                songlist_id,
+            </if>
+            <if test="songlistName != null">
+                songlist_name,
+            </if>
+            <if test="songlistDescription != null">
+                songlist_description,
+            </if>
+            <if test="songlistTag != null">
+                songlist_tag,
+            </if>
+            <if test="songlistCount != null">
+                songlist_count,
+            </if>
+            <if test="songlistCreateTime != null">
+                songlist_create_time,
+            </if>
+            <if test="songlistCommetNum != null">
+                songlist_commet_num,
+            </if>
+            <if test="songlistKeepNum != null">
+                songlist_keep_num,
+            </if>
+            <if test="songlistPicUrl != null">
+                songlist_pic_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="songlistId != null">
+                #{songlistId,jdbcType=INTEGER},
+            </if>
+            <if test="songlistName != null">
+                #{songlistName,jdbcType=VARCHAR},
+            </if>
+            <if test="songlistDescription != null">
+                #{songlistDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="songlistTag != null">
+                #{songlistTag,jdbcType=VARCHAR},
+            </if>
+            <if test="songlistCount != null">
+                #{songlistCount,jdbcType=INTEGER},
+            </if>
+            <if test="songlistCreateTime != null">
+                #{songlistCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="songlistCommetNum != null">
+                #{songlistCommetNum,jdbcType=INTEGER},
+            </if>
+            <if test="songlistKeepNum != null">
+                #{songlistKeepNum,jdbcType=INTEGER},
+            </if>
+            <if test="songlistPicUrl != null">
+                #{songlistPicUrl,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.SongList">
+        update songlist
+        <set>
+            <if test="songlistName != null">
+                songlist_name = #{songlistName,jdbcType=VARCHAR},
+            </if>
+            <if test="songlistDescription != null">
+                songlist_description = #{songlistDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="songlistTag != null">
+                songlist_tag = #{songlistTag,jdbcType=VARCHAR},
+            </if>
+            <if test="songlistCount != null">
+                songlist_count = #{songlistCount,jdbcType=INTEGER},
+            </if>
+            <if test="songlistCreateTime != null">
+                songlist_create_time = #{songlistCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="songlistCommetNum != null">
+                songlist_commet_num = #{songlistCommetNum,jdbcType=INTEGER},
+            </if>
+            <if test="songlistKeepNum != null">
+                songlist_keep_num = #{songlistKeepNum,jdbcType=INTEGER},
+            </if>
+            <if test="songlistPicUrl != null">
+                songlist_pic_url = #{songlistPicUrl,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where songlist_id = #{songlistId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.SongList">
+    update songlist
+    set songlist_name = #{songlistName,jdbcType=VARCHAR},
+      songlist_description = #{songlistDescription,jdbcType=VARCHAR},
+      songlist_tag = #{songlistTag,jdbcType=VARCHAR},
+      songlist_count = #{songlistCount,jdbcType=INTEGER},
+      songlist_create_time = #{songlistCreateTime,jdbcType=TIMESTAMP},
+      songlist_commet_num = #{songlistCommetNum,jdbcType=INTEGER},
+      songlist_keep_num = #{songlistKeepNum,jdbcType=INTEGER},
+      songlist_pic_url = #{songlistPicUrl,jdbcType=VARCHAR}
+    where songlist_id = #{songlistId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -440,7 +440,7 @@
             </li>
             <li>
               <span>
-                <a href="#">
+                <a href="share.html">
                   <em>朋友</em>
                   <sub class="cor">&nbsp;</sub>
                 </a>
@@ -511,7 +511,7 @@
               <a href="#"><em> 主播电台</em></a>
             </li>
             <li>
-              <a href="#"><em>歌手</em></a>
+              <a href="singers.html"><em>歌手</em></a>
             </li>
             <li>
               <a href="#"><em>新碟上架</em></a>
@@ -758,7 +758,72 @@
         </div>
         <div class="n-disk">
           <div class="" id="album-roll">
-            <div></div>
+            <a hidefocus="true"  class="roll-left" id="roll-left">&nbsp;</a>
+            <a hidefocus="true"  class="roll-right" id="roll-right">&nbsp;</a>
+            <div class="album-inner">
+               <ul id="album-item-1">
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+              </ul>
+              <ul  id="album-item-2">
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+              </ul>
+              <ul  id="album-item-3">
+                <li >
+                  <div class="album-roll-item">
+                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
+                    <p ><a >Lover</a></p>
+                    <p ><a >Taylor Swift</a></p>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <span class="n-clmnad"></span>
@@ -872,4 +937,67 @@
       //,anim: 'updown' //切换动画方式
     })
   })
+  var index =1;
+  var free=true;
+  $("#roll-right").on("click",function(){
+    if(free){
+      free=false;
+    if(index==1){
+      $("#album-item-1").animate({left:'670px'},1000,function(){
+        free=true;
+      });
+      $("#album-item-3").animate({left:'-30px'},1000);
+      $("#album-item-2").css({left:'-670px'});
+      index=3;
+    }
+    else if(index ==3){
+      $("#album-item-3").animate({left:'670px'},1000,function(){
+        free=true;
+      });
+      $("#album-item-2").animate({left:'-30px'},1000);
+      $("#album-item-1").css({left:'-670px'});
+      index=2;
+    }
+    else{
+      $("#album-item-2").animate({left:'670px'},1000,function(){
+        free=true;
+      });
+      $("#album-item-1").animate({left:'-30px'},1000);
+      $("#album-item-3").css({left:'-670px'});
+      index=1;
+    }
+    }
+  })
+
+  $("#roll-left").on("click",function(){
+    if(free){
+      free=false;
+      if(index==1){
+        $("#album-item-1").animate({left:'-670px'},1000,function(){
+          free=true;
+        });
+        $("#album-item-2").animate({left:'-30px'},1000);
+        $("#album-item-3").css({left:'670px'});
+        index=2;
+      }
+      else if(index ==3){
+        $("#album-item-3").animate({left:'-670px'},1000,function(){
+          free=true;
+        });
+        $("#album-item-1").animate({left:'-30px'},1000);
+        $("#album-item-2").css({left:'670px'});
+        index=1;
+      }
+      else if(index==2){
+        $("#album-item-2").animate({left:'-670px'},1000,function(){
+          free=true;
+        });
+        $("#album-item-3").animate({left:'-30px'},1000);
+        $("#album-item-1").css({left:'670px'});
+        index=3;
+      }
+
+    }
+  })
+
 </script>

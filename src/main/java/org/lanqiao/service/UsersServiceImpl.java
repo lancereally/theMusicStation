@@ -164,4 +164,9 @@ public class UsersServiceImpl implements UsersService {
             return usersMapper.insertFan(userId,otherId);
         }
     }
+    //郭长达-查询用户头像
+    @Override
+    public Users getUserHeadPic(Integer userId) {
+        return usersMapper.selectHeadUrl(userId);
+    }
 }

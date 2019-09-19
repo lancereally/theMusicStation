@@ -154,11 +154,12 @@
                             songListName: data[i].songList.songlistName,
                             songListPic: data[i].songList.songlistPicUrl
                         });
+                        if(i%5==0)
                         $("#list-create").css("height", "+=195");
                         // $("#song_list_create").text(vm.songListCreate.length);
                     }
                 }
-                else
+                else if(data == null)
                     $("#song_list_create").val(0);
             }
         });
@@ -179,7 +180,7 @@
                             songListName: data[i].songList.songlistName,
                             songListPic: data[i].songList.songlistPicUrl
                         });
-                        var num = (i+1)%4;
+                        var num = i%4;
                         if (!(num > 0))
                         $(".list-liked").css("height", "+=195");
                         // $("#song_list_liked").text(vm.songListLiked.length);
@@ -190,6 +191,27 @@
         $("#editor").click(function () {
             location.href = "MySetting.html";
         })
+
+        //登出
+        // $(".logout").click(function () {
+        //     $.ajax({
+        //         url: "/user/logout",
+        //         type: "post",
+        //         datatype: "json",
+        //         data: {"userId": parseInt(userId)},
+        //         success: function (data) {
+        //             if(data>1){
+        //                 location.href = "Index.html";
+        //                 layui.use('layer', function(){
+        //                     var layer = layui.layer;
+        //                     layer.msg("登出成功~",{
+        //                         area:['400px', '50px']
+        //                     });
+        //                 });
+        //             }
+        //         }
+        //     })
+        // })
 //$(function)结尾
     });
 </script>
@@ -288,7 +310,7 @@
                 class="icn icn-verify"></i><em>实名认证</em></a></li>
     </ul>
     <ul class="f-cb lt">
-        <li><a hidefocus="true" class="itm-3" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
+        <li><a hidefocus="true" class="itm-3 logout" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
         </li>
     </ul>
     <i class="arr"></i></div>
@@ -396,7 +418,7 @@
                 </h3>
             </div>
         </div>
-        <ul class="myList m-cvrlst f-cb" id="list-create" style="width:950px">
+        <ul class="myList m-cvrlst f-cb" id="list-create" style="width:950px;height:195px">
 
             <li id="auto-id-mAWJbXHGwJhdD4LN" v-for="listCreate in songListCreate">
                 <div class="u-cover u-cover-1"><img
@@ -418,7 +440,7 @@
                 </h3>
             </div>
         </div>
-        <ul class="list-liked m-cvrlst f-cb">
+        <ul class="list-liked m-cvrlst f-cb" id="list-liked" style="width:950px;height:195px">
 
             <li v-for="listLiked in songListLiked">
                 <div class="u-cover u-cover-1">
@@ -427,7 +449,8 @@
                             href="#" class="msk" :title="listLiked.songListName"></a>
                     <div class="bottom"><a class="icon-play f-fr" title="播放"
                                            data-res-action="play" data-res-type="13"
-                    ></a><p style="font-size: small;margin-top:5px">{{listCreate.songListName}}</p><span class="icon-headset"></span>
+                    ></a><p style="font-size: small;margin-top:5px">{{listLiked.songListName}}</p>
+<!--                        <span class="icon-headset"></span>-->
 <!--                        <span class="nb">{{listLiked.playTimes}}</span>-->
                     </div>
                 </div>

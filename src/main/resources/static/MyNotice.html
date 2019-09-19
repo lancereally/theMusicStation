@@ -27,7 +27,8 @@
                     vm.notices.push({
                         picUrl:data[i].userHeadUrl,
                         userNames:data[i].userName,
-                        timess:data[i].songComment.songcTime.substr(0,10)
+                        timess:data[i].songComment.songcTime.substr(0,10),
+                        myText:data[i].songComment.songcText
                     });
                 }
             }
@@ -46,7 +47,7 @@
                     <div class="mn"><a href="#" class="s-fc0 f-fw1">{{notice.userNames}}</a><span
                             class="sep s-fc4">赞了你的评论</span></div>
                 </div>
-                <div class="sec2"><p class="s-fc3 f-brk">草，这功能可算完成了</p></div>
+                <div class="sec2"><p class="s-fc3 f-brk">{{notice.myText}}</p></div>
             </div>
         </div>
     </div>

@@ -22,6 +22,9 @@ public interface UsersMapper {
     int updateByPrimaryKey(Users record);
 
 
+    //郭长达
+    //查询用户头像
+    Users selectHeadUrl(Integer userId);
     //》》》郭书卿》》》
     Users selectShareCountByPK_q(Integer userId);
     Users selectFansByPk_q(Integer userId);

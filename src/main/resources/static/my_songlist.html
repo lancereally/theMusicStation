@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/my_songlist.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/layui/layui.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css">
+    <script type="text/javascript" src="js/wangEditor.min.js"></script>
+    <script src="js/my_songlist.js"></script>
+</head>
+<body>
+
+<div class="sl_head">
+    <div class="sl_sechd" id="listInfo">
+        <div class="sl_pic">
+            <img :src="songlistPicUrl" style="height: 200px;width: 200px">
+            <span class="sl_msk"></span>
+        </div>
+        <div class="sl_det">
+            <div class="det_one ">
+                <i class="one_tag">
+                    <!--                    <span class="one_top"></span>-->
+                </i>
+                <a class="one_edit" v-if="songlistId>1" :href="url" @click="goToEdit(songlistId)">编辑</a>
+                <h2 class="one_title">{{songlistName}}</h2>
+            </div>
+            <div class="det_two">
+                <a class="two_pic">
+                    <img :src="userHeadUrl" >
+                </a>
+                <span class="two_name"><a class="username">{{userName}}</a></span>
+                <span class="two_time">{{songlistCreateTime | formatDate}} 创建</span>
+            </div>
+            <div class="det_three">
+                <button type="button" class="btn btn-primary btn-sm">播放</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">收藏</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">分享</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">下载</button>
+                <button type="button" class="btn btn-default btn-sm three_distance">评论</button>
+            </div>
+            <div class="tag_div" v-if="songlistTag.length>0">
+                <b >标签：</b>
+                <a class="sl_tag" v-for="(item,index) in songlistTag" ><span>{{item}}</span></a>
+            </div><br>
+            <p class="jiesao" v-if="songlistDescription.length>0">
+                <b>介绍：</b>
+                <span>{{songlistDescription}}</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="sl_headtitle" id="songInfo">
+    <h3>
+        <span class="title_size">歌曲列表</span>
+    </h3>
+    <span class="songlist_num">
+            <span class="list_size">{{songCount}}</span>
+            首歌
+        </span>
+    <div class="play_num">
+        播放：<strong id="playcount">{{songPlayCount}}</strong>次
+    </div>
+</div>
+<div class="sl_body">
+    <table class="body_table">
+        <thead>
+        <th class="w1">
+            <div class="wp ap0"></div>
+        </th>
+        <th>
+            <div class="wp ">歌曲标题</div>
+        </th>
+        <th class="w2">
+            <div class="wp">时长</div>
+        </th>
+        <th class="w3">
+            <div class="wp">歌手</div>
+        </th>
+        <th class="w4">
+            <div class="wp">专辑</div>
+        </th>
+        </thead>
+        <tbody id="songVue">
+        <tr :class="{even:index%2==0}" v-for="(song ,index) in songSet">
+            <td>
+                <div class="table_head">
+                    <span class="table_num">{{index+1}}</span>
+                    <span class="tb_play"></span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_name">
+                    <a :href="url" @click="goToSong(song.songId)" target="_parent">{{song.songName}}</a>
+                </div>
+            </td>
+            <td>
+                <span class="tb_time">{{song.songDuration}}</span>
+            </td>
+            <td>
+                <div class="tb_text">
+                    <span>
+                        <a>{{song.singerName}}</a>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <div class="tb_text ab_text">
+                    <span>
+                        <a>{{song.albumName}}</a>
+                    </span>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="sl_msg">
+    <div class="msg_headtitle">
+        <h3>
+            <span class="msg_size">评论</span>
+        </h3>
+        <span class="msg_num">共
+            <span class="msg_size"></span>
+            条评论
+        </span>
+    </div>
+    <div class="msg_det" id="songComment">
+        <div class="msg_user">
+            <div class="userpic">
+                <img :src="userHeadUrl1 ">
+            </div>
+            <div class="msg_text">
+                <div class="msg_textarea" id="editText">
+                    <textarea class="msg_info" placeholder="评论"></textarea>
+                </div>
+                <div class="msg_bar" id="editPic">
+                    <i class="bar_emoj msg_icon"></i>
+                    <i class="bar_at msg_icon"></i>
+                </div>
+                <button type="button" class="btn btn-primary btn-xs" id="msg_send">评论</button>
+                <span class="info_num">140</span>
+            </div>
+        </div>
+        <div class="msg_show" >
+            <div style="margin-bottom: 20px">
+                <h3 class="m_hd" v-if="awComment.length>0">精彩评论</h3>
+                <div class="aw_msg" v-for="(comment,index) in awComment">
+                    <div class="msg_userpic">
+                        <a><img :src="comment.user.userHeadUrl"></a>
+                    </div>
+                    <div class="msg_userinfo">
+                        <div class="msg_pl">
+                            <a>{{comment.user.userName}}</a>
+                            <img>
+                            :<span>{{comment.songlcText}}</span>
+                        </div>
+                        <div class="pl_bar">
+                            <div class="pl_time">{{comment.songlcTime | formatDate }}</div>
+                            <a @click="dianzanAw(comment.songlcId,index)">
+                                <i class="zan" ></i>(<span>{{comment.songlcLikes}}</span>)
+                            </a>
+                            <span class="pl_jg">|</span>
+                            <a class="replay">回复</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h3 class="m_hd" v-if="commentList.length>0">最新评论</h3>
+            <div class="aw_msg" v-for="(comments,index) in commentList">
+                <div class="msg_userpic">
+                    <a><img :src="comments.user.userHeadUrl"></a>
+                </div>
+                <div class="msg_userinfo">
+                    <div class="msg_pl">
+                        <a>{{comments.user.userName}}</a>
+                        <img>
+                        ：<span>{{comments.songlcText}}</span>
+                    </div>
+                    <div class="pl_bar">
+                        <div class="pl_time">{{comments.songlcTime | formatDate }}</div>
+                        <a @click="dianzan(comments.songlcId,index)">
+                            <i class="zan"></i>(<span>{{comments.songlcLikes}}</span>)
+                        </a>
+                        <span class="pl_jg">|</span>
+                        <a class="replay">回复</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="msg_page">
+            <div class="page_bar">
+                <button type="button" class="btn btn-default btn-sm three_distance" name="pageUp">上一页</button>
+                <button type="button" class="btn btn-default btn-sm three_distance" name="pageDown">下一页</button>
+<!--                <a>上一页</a>-->
+<!--                <a>1</a>-->
+<!--                <a>2</a>-->
+<!--                <a>3</a>-->
+<!--                <a>下一页</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

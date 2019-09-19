@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>singer</title>
+    <link href="css/main-gsq.css" rel="stylesheet">
+    <link href="css/singers.css" rel="stylesheet">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+
+            var bigBox = new Vue({
+                el: "#bigBox",
+                data: {
+                    singerKey: "",
+                    enterSingers: [],
+                    hotSingers: [],
+                    getEnterSingerTimes: "first",
+                    getHotSingerTimes: "first",
+                    singerKeyWord: "",
+                    keySingers: [],
+                    singerNameKeyWord:''
+                },
+                methods: {
+                    getEnterSingers: function () {
+                        bigBox.enterSingers = [];
+                        $.ajax({
+                            url: bigBox.getEnterSingerTimes === "first" ? "/singer/getEnterSingers/first" : "/singer/getEnterSingers/second",
+                            datatype: "json",
+                            type: "post",
+                            success: function (singers) {
+                                for (var i = 0; i < singers.length; i++) {
+                                    bigBox.enterSingers.push({
+                                        singerName: singers[i].singerName,
+                                        singerPicUrl: singers[i].singerPicUrl,
+                                        singerId: singers[i].singerId,
+                                        userId:singers[i].userId
+
+                                    })
+                                }
+                                bigBox.getEnterSingerTimes = "first"
+                            }
+                        })
+                    },
+                    getHotSingers: function () {
+                        bigBox.hotSingers = [];
+                        $.ajax({
+                            url: bigBox.getHotSingerTimes === "first" ? "/singer/getHotSingers/first" : "/singer/getHotSingers/second",
+                            datatype: "json",
+                            type: "post",
+                            success: function (singers) {
+                                for (var i = 0; i < singers.length; i++) {
+                                    bigBox.hotSingers.push({
+                                        singerName: singers[i].singerName,
+                                        singerPicUrl: singers[i].singerPicUrl,
+                                        singerId: singers[i].singerId,
+                                        userId:singers[i].userId
+
+                                    })
+                                }
+                                bigBox.getHotSingerTimes = "first";
+                            }
+                        })
+                    },
+                    moreEnterSingers: function () {
+                        $("#enterSingers").show();
+                        $("#enterSingers").siblings().hide();
+                        bigBox.getEnterSingerTimes = "second";
+                        bigBox.getEnterSingers();
+                    },
+                    moreHotSingers: function () {
+                        $("#hotSingers").show();
+                        $("#hotSingers").siblings().hide();
+                        bigBox.getHotSingerTimes = "second";
+                        bigBox.getHotSingers();
+                    },
+                    toGoSingerHomepage: function () {
+
+                    },
+                    selectSingerByKeyWord: function () {
+                        bigBox.keySingers = [];
+                        $.ajax({
+                            url: "/singer/selectSingerByKeyWord",
+                            type: "post",
+                            data: {
+                                singerKeyWord: bigBox.singerKeyWord,
+                                singerNameKeyWord:bigBox.singerNameKeyWord
+                            },
+                            datatype: "json",
+                            success: function (singers) {
+                                for (var i = 0; i < singers.length; i++) {
+                                    bigBox.keySingers.push({
+                                        singerName: singers[i].singerName,
+                                        singerPicUrl: singers[i].singerPicUrl,
+                                        singerId: singers[i].singerId,
+                                        userId:singers[i].userId
+                                    })
+                                }
+                            }
+                        })
+                    },
+                    checkByKeyWord:function () {
+                        var el = event.currentTarget;
+                        bigBox.singerKeyWord = el.innerHTML;
+                        bigBox.singerNameKeyWord = "";
+                        $("#keySingers").show();
+                        $("#keySingers").siblings().hide();
+                        bigBox.selectSingerByKeyWord();
+                    }
+                }
+            });
+
+            bigBox.getEnterSingers();
+            bigBox.getHotSingers();
+
+            $(".recommend").click(function () {
+                bigBox.singerKey = $(this).html();
+            });
+
+            $(".n-ltlst li a").attr("class", "n-ltlst-li-a");
+
+            $(".n-ltlst li a").click(function () {
+                $(this).parent().siblings().children(0).attr("class", "n-ltlst-li-a");
+                $(this).attr("class", "n-ltlst-li-click");
+                if ($(this).text() != "热门") {
+                    bigBox.singerNameKeyWord = $(this).text();
+                }else {
+                    bigBox.singerNameKeyWord = ""
+                }
+                bigBox.selectSingerByKeyWord();
+            });
+
+            $("#keySingers").hide();
+
+        })
+    </script>
+</head>
+<body>
+<iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
+<div class="mainBody" id="bigBox">
+    <div class="m-left">
+        <h2 class="tit">推荐</h2>
+        <ul>
+            <li>
+                <a class="recommend" @click="moreHotSingers">推荐歌手</a>
+            </li>
+            <li class="h-line">
+                <a class="recommend" @click="moreEnterSingers">入驻歌手</a>
+            </li>
+        </ul>
+        <h2 class="tit">华语</h2>
+        <ul>
+            <li>
+                <a class="recommend" @click="checkByKeyWord">华语男歌手</a>
+            </li>
+            <li>
+                <a class="recommend" @click="checkByKeyWord">华语女歌手</a>
+            </li>
+            <li class="h-line">
+                <a class="recommend" @click="checkByKeyWord">华语组合/乐队</a>
+            </li>
+        </ul>
+    </div>
+    <div class="m-right">
+
+        <div id="enterSingers">
+            <div class="u-title">
+                <h2 class="f-w-n f-left">入驻歌手</h2>
+                <a class="f-right more" @click="moreEnterSingers">更多></a>
+            </div>
+            <div style="height: 368px; width: 719px">
+                <ul class="sPic">
+                    <li class="f-left" v-for="(singer,index) in enterSingers">
+                        <img :src="singer.singerPicUrl" height="130px" width="130px">
+                        <div>
+                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="hotSingers">
+            <div class="u-title">
+                <h2 class="f-w-n f-left">热门歌手</h2>
+                <a class="f-right more" @click="moreHotSingers">更多></a>
+            </div>
+            <div style="height: 368px; width: 719px">
+                <ul class="sPic">
+                    <li class="f-left" v-for="(singer,index) in hotSingers">
+                        <img :src="singer.singerPicUrl" height="130px" width="130px">
+                        <div>
+                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="h-line" style="margin-bottom: 10px"></div>
+
+
+        <div id="keySingers">
+            <div class="u-title">
+                <h2 class="f-w-n f-left">{{singerKeyWord}}</h2>
+            </div>
+            <div>
+                <ul class="n-ltlst">
+                    <li style="width: 50px"><a>热门</a></li>
+                    <li><a>A</a></li>
+                    <li><a>B</a></li>
+                    <li><a>C</a></li>
+                    <li><a>D</a></li>
+                    <li><a>E</a></li>
+                    <li><a>F</a></li>
+                    <li><a>G</a></li>
+                    <li><a>H</a></li>
+                    <li><a>I</a></li>
+                    <li><a>J</a></li>
+                    <li><a>L</a></li>
+                    <li><a>M</a></li>
+                    <li><a>N</a></li>
+                    <li><a>O</a></li>
+                    <li><a>P</a></li>
+                    <li><a>Q</a></li>
+                    <li><a>R</a></li>
+                    <li><a>S</a></li>
+                    <li><a>T</a></li>
+                    <li><a>U</a></li>
+                    <li><a>V</a></li>
+                    <li><a>W</a></li>
+                    <li><a>X</a></li>
+                    <li><a>Y</a></li>
+                    <li><a>Z</a></li>
+                </ul>
+            </div>
+            <div style="height: 368px; width: 719px">
+                <ul class="sPic">
+                    <li class="f-left" v-for="(singer,index) in keySingers">
+                        <img :src="singer.singerPicUrl" height="130px" width="130px">
+                        <div>
+                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -12,10 +12,10 @@
 </head>
 <script>
     //cookie
-    var userId = $.cookie('userId');
-    if (userId === undefined) {
-        location.href = "Index.html";
-    }
+    // var userId = $.cookie('userId');
+    // if (userId === undefined) {
+    //     location.href = "Index.html";
+    // }
 $(function () {
     //用户选择控制
     $(".j-uflag").mouseleave(function () {
@@ -67,9 +67,9 @@ $(function () {
         //未登陆，暂且手动输入数字模拟
         data: {"userId": parseInt(userId)},
         success: function (data) {
-            if(data==null)
+            if(data.length<1)
                 $("#comment").click(function () {
-                    $(".iframe").attr("src","NoComment.html");
+                    $(".iframe").attr("src","NoNotice.html");
                 })
             else
                 $("#notice").click(function () {

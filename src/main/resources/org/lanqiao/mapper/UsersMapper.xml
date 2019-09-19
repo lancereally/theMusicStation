@@ -125,6 +125,10 @@
   </select>
 
   <!--《《《郭书卿《《《-->
+  <!--获取当前用户头像-gcd-->
+  <select id="selectHeadUrl" parameterType="java.lang.Integer" resultMap="UsersResultMap">
+    select user_head_url from users where user_id=#{userId}
+  </select>
 
 
 
@@ -150,18 +154,25 @@
   </select>
 
   <select id="getMyComment" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
-    select s.user_id, s.songc_text, s.songc_time
-from users u, songcomment s
-where u.user_id = #{userId,jdbcType=INTEGER}
-and s.songc_to_id = u.user_id
+select s.user_id,u.user_head_url,u.user_name,s.songc_time,s.songc_text,id.songc_text
+from (select s.songc_id,s.songc_text
+from users u,songcomment s
+where u.user_id = #{userId,jdbcType=INTEGER} and s.user_id = u.user_id) id,songcomment s, users u
+where s.songc_to_id = id.songc_id and u.user_id = s.user_id
   </select>
+<!--  MyComment 无原评论版-->
+
+<!--  select s.user_id, s.songc_text, s.songc_time-->
+<!--  from users u, songcomment s-->
+<!--  where u.user_id = #{userId,jdbcType=INTEGER}-->
+<!--  and s.songc_to_id = u.user_id-->
+
   <select id="getMyNotice" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
-    SELECT u.user_name, id.songc_time, id.user_id, u.user_head_url
-from (select s.user_id, s.songc_time
-from users u, songcomment s
-where u.user_id = #{userId,jdbcType=INTEGER}
-and s.songc_to_id = u.user_id and s.songc_likes = 1) id, users u
-where u.user_id = id.user_id
+    select s.user_id,u.user_head_url,u.user_name,s.songc_time,id.songc_text
+from (select s.songc_id,s.songc_text
+from users u,songcomment s
+where u.user_id = #{userId,jdbcType=INTEGER} and s.user_id = u.user_id) id,songcomment s, users u
+where s.songc_to_id = id.songc_id and u.user_id = s.user_id
   </select>
 
   <select id="getFanCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >

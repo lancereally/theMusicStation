@@ -1,0 +1,306 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+}
+
+.main_det {
+    padding: 40px;
+}
+
+.main_hd {
+    height: 27px;
+    border-bottom: 1px solid #cbcbcb;
+    font-family: simsun, \5b8b\4f53;
+}
+
+.main_hd a {
+    color: #0c73c2;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.hd_to {
+    margin: 0 6px 0 8px;
+    color: #999999;
+}
+
+.hd_target {
+    font-weight: bold;
+}
+
+.main_body {
+    margin-top: 30px;
+}
+
+.body_form {
+    width: 364px;
+    float: left;
+    margin-right: 30px;
+}
+.itm{
+    position: relative;
+    zoom: 1;
+    min-height: 32px;
+    margin-bottom: 10px;
+    padding-left: 62px;
+}
+.imp_tag{
+    position: absolute;
+    left: 0;
+    top: 11px;
+    color:#c20c0c;
+}
+.lab{
+    width: 62px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 32px;
+    text-align: right;
+}
+.name_text{
+    height: 29px;
+    margin: 0;
+    padding: 5px 6px 6px;
+    border: 1px solid #cdcdcd;
+    border-radius: 2px;
+    line-height: 29px;
+    width: 292px;
+    font-size: 12px;
+    color: #333;
+}
+.tag_info{
+    padding-top: 5px;
+}
+.sel_tag{
+    color: #0c73c2;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 23px;
+}
+.tag_tip{
+    margin-top: 8px;
+    color: #999;
+}
+.body_text{
+    padding-right: 14px;
+    position: relative;
+    zoom: 1;
+}
+.text_info{
+    height: 122px;
+    width: 292px;
+    margin-right: -20px;
+    padding: 5px 6px 6px;
+    border: 1px solid #cdcdcd;
+    border-radius: 2px;
+    line-height: 19px;
+    resize: none;
+    overflow: auto;
+}
+.text_num{
+    position: absolute;
+    bottom: 8px;
+    right: 15px;
+    color: #D0D0D0;
+}
+.body_btn{
+    margin-top: 40px;
+}
+.body_pic{
+    float: left;
+    width: 140px;
+    height: 140px;
+    position: relative;
+    zoom: 1;
+}
+.body_pic img{
+    float: left;
+    width: 140px;
+    height: 140px;
+}
+.btm{
+    background: #8e8e8e;
+    opacity: 0.8;
+    display: block;
+    position: absolute;
+    width: 140px;
+    height: 26px;
+    left: 0;
+    bottom: 0;
+}
+.btm span{
+    position: absolute;
+    left:48px;
+    top: 5px;
+    color: #FFFFFF;
+}
+.body_upload{
+    color: #fff;
+    text-align: center;
+    line-height: 26px;
+    display: block;
+    position: absolute;
+    width: 140px;
+    height: 26px;
+    left: 0;
+    bottom: 0;
+
+    cursor: pointer;
+    text-decoration: none;
+}
+.three_distance{
+    margin-left: 20px;
+}
+.edit_tag{
+    display: none;
+    top: 170px;
+    left: 100px;
+    position: absolute;
+    z-index: 9998;
+    width: 530px;
+    border-radius: 4px;
+    box-shadow: 0 5px 16px rgba(0,0,0,0.8);
+    border: none;
+}
+.tag_hd{
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid #191919;
+    border-radius: 4px 4px 0 0;
+    background: #2d2d2d;
+}
+.tag_title{
+    padding-right: 45px;
+    margin: 0;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 18px;
+    border-radius: 3px 3px 0 0;
+    font-weight: bold;
+    font-size: 14px;
+    color: #fff;
+    background-position: 50% 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.tag_body{
+    padding: 0;
+    border: 1px solid #878787;
+    border-width: 0 1px 1px;
+    border-radius: 0 0 4px 4px;
+    background: #fff;
+}
+.tag_select{
+    position: relative;
+    zoom: 1;
+}
+.sel_kj{
+    position: relative;
+    zoom: 1;
+    padding: 0 0 0 20px;
+    height: 315px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+.sel_kj h4{
+    padding: 15px 0 0;
+    color: #999;
+    font-weight: normal;
+}
+.sel_content{
+    padding: 15px 0;
+    display: block;
+}
+.sel_content::after {
+    clear: both;
+    content: '.';
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.sel_content h5{
+    float: left;
+    width: 50px;
+    margin-right: -50px;
+    line-height: 30px;
+    font-weight: bold;
+}
+.tag_list{
+    float: right;
+    width: 100%;
+}
+.tag_list ul{
+    margin: -10px 0 0 30px;
+}
+.tag_list li{
+    position: relative;
+    float: left;
+    display: inline;
+    width: 70px;
+    height: 31px;
+    margin: 10px 0 0 20px;
+}
+.btn_icon{
+    padding: 0 5px 0 0;
+    white-space: nowrap;
+    position: absolute;
+    width: 65px;
+    display: block;
+    color: #666;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+    background: url("../images/MyMusic/button2.png") no-repeat right -100px;
+}
+.btn_icon span{
+    display: block;
+    color: #666;
+    padding: 0 0 0 5px;
+    background: url("../images/MyMusic/button2.png") no-repeat  0 -59px;
+}
+.sel_icon{
+    display: inline;
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    vertical-align: middle;
+    background: url("../images/MyMusic/icon.png") no-repeat -25px -430px;
+}
+.tag_save{
+    border-top: 1px solid #c6c6c6
+}
+.save_kj{
+    height: 52px;
+    line-height: 32px;
+    padding: 8px 20px;
+    border: 1px solid #fff;
+    border-radius: 0 0 4px 4px;
+    text-align: center;
+    background: #f7f7f7;
+}
+.btn_long{
+    width: 80px;
+}
+.tag_close{
+    position: absolute;
+    z-index: 20;
+    top: 16px;
+    right: 20px;
+    width: 10px;
+    height: 10px;
+    overflow: hidden;
+    text-indent: -9999px;
+    cursor: pointer;
+    background: url("../images/MyMusic/layer.png") no-repeat 0 -95px;
+}

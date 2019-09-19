@@ -126,6 +126,16 @@ public class UsersController {
         response.addCookie(cookie);
         return usersService.getIdByAnything(users);
     }
+
+    //退出当前账户
+//    @RequestMapping("/user/logout")
+//    public int logout(HttpServletResponse response,int users){
+//        Cookie cookie = new Cookie("userId", users+"1");
+//        cookie.setPath("/");
+////        response.addCookie(cookie);
+//        return 1;
+//    }
+
     //登录验证账户
 //    @RequestMapping("/login/checkAccount")
 //    public boolean checkAccount(HttpServletResponse response, String str, String password) {

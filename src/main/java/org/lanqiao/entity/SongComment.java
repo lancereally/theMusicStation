@@ -16,6 +16,16 @@ public class SongComment {
     private Integer songcToId;
 
     private Date songcTime;
+    //用户和评论是一对多，所以在多的一方添加一的一个实体
+    private Users user;
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 
     public Integer getSongcId() {
         return songcId;

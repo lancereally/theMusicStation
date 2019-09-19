@@ -16,7 +16,7 @@
     <title>MyVIP</title>
 </head>
 <script>
-    cookie
+    //cookie
     var userId = $.cookie('userId');
     if (userId === undefined) {
         location.href = "Index.html";
@@ -195,25 +195,35 @@
     }
     function sendVip() {
         //会员状态激活
-        var fanName = $(".friend-name").text();
-        $.ajax({
-            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
-            url: "/user/activeVIP",
-            type: "post",
-            datatype: "json",
-            data: {
-                "userName":fanName,
-                "userVipState":1
-            },
-            success: function (data) {
-                if(data == true)
-                    // alert("您的好友已成为尊贵的土嗨会员！");
-                layui.use('layer', function(){
-                    var layer = layui.layer;
-                    layer.msg('您的好友已成为尊贵的土嗨会员~');
+        if($(".friend-name").text() == "云音乐小秘书")
+            layui.use('layer', function(){
+                var layer = layui.layer;
+                layer.msg('YOYO，您还未选择好友！',{
+                    area:['400px', '50px']
                 });
-            }
-        });
+            });
+        else{
+            var fanName = $(".friend-name").text();
+            $.ajax({
+                // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+                url: "/user/activeVIP",
+                type: "post",
+                datatype: "json",
+                data: {
+                    "userName":fanName,
+                    "userVipState":1
+                },
+                success: function (data) {
+                    if(data == true)
+                    // alert("您的好友已成为尊贵的土嗨会员！");
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('您的好友已成为尊贵的土嗨会员~');
+                        });
+                }
+            });
+        }
+
     }
 </script>
 <body>
@@ -422,8 +432,11 @@
 <div id="main">
     <div class="member-body">
         <div class="user-info f-pr">
-            <div class="is-login"><span class="check f-pa"><a href="#" class="s-fc7">本月已下载的会员歌曲</a><i
-                    class="u-gt f-ff1 s-fc7 u-user-downInfo">&gt;</i></span>
+            <div class="is-login">
+                <span class="check f-pa">
+<!--                    <a href="#" class="s-fc7">本月已下载的会员歌曲</a>-->
+<!--                    <i class="u-gt f-ff1 s-fc7 u-user-downInfo">&gt;</i>-->
+                </span>
                 <div class="user-head f-cb">
                     <div class="avatar f-fl"><img class="avatar-img "
                                                   src="http://p1.music.126.net/8pIhzQNEG_eJ-d1bycBhCw==/19075427230380611.jpg?imageView=1&amp;type=webp&amp;thumbnail=1567x0&amp;quality=85&amp;interlace=1">
