@@ -103,7 +103,7 @@
                                 bigBox.songCount = songs.length;
                                 for (var i = 0; i < songs.length; i++) {
                                     bigBox.songs.push({
-                                        songId: songs[i].songId,
+                                        songId: songs[i].id,
                                         songName: songs[i].songName,
                                         songDuration: songs[i].songDuration,
                                         albumName: songs[i].albumName
@@ -254,7 +254,7 @@
 
                     <tbody>
                     <tr v-for="(song,index) in songs">
-                        <td>{{index+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i><img
+                        <td>{{index+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a :href="'PlayMusic.html?id=' + song.songId" target="_parent"><i><img
                                 src="images/play.png" height="15px"></i></a></td>
                         <td>{{song.songName}}</td>
                         <td><a href="#">{{song.songDuration}}</a></td>

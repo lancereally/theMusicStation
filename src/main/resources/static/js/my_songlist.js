@@ -1,3 +1,8 @@
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
     //获取url值
     var url = location.search,
@@ -10,7 +15,8 @@ $(function () {
             songListId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
-
+    //存点击回复得到的评论id
+    var replayId=0;
     var ss = new Vue({
         el: "#songVue",
         data: {
@@ -24,7 +30,7 @@ $(function () {
                     url: "/MyMusic/songlist/songshow",
                     type: "post",
                     data: {
-                        songListId: songListId.songListId
+                        songListId: songListId.id
                     },
                     dataType: "json",
                     success: function (data) {
@@ -45,7 +51,7 @@ $(function () {
                 });
             },
             goToSong: function (songId){
-                ss.url='PlayMusic.html' + '?songId=' + escape(songId);
+                ss.url='PlayMusic.html' + '?id=' + escape(songId);
             }
         }
     });
@@ -60,7 +66,7 @@ $(function () {
                 $.ajax({
                     url: "/MyMusic/songlist/countshow",
                     type: "post",
-                    data: {songListId: songListId.songListId},
+                    data: {songListId: songListId.id},
                     dataType: "json",
                     success: function (data) {
                         sinfo.songCount = data;
@@ -71,7 +77,7 @@ $(function () {
                 $.ajax({
                     url: "/MyMusic/songlist/playcountshow",
                     type: "post",
-                    data: {songListId: songListId.songListId},
+                    data: {songListId: songListId.id},
                     dataType: "json",
                     success: function (data) {
                         sinfo.songPlayCount = data;
@@ -85,7 +91,8 @@ $(function () {
         data: {
             awComment:[],
             commentList: [],
-            userHeadUrl1:""
+            userHeadUrl1:"",
+            userName:""
         },
         methods: {
             getComment: function () {
@@ -94,7 +101,7 @@ $(function () {
                     url: "/MyMusic/songlist/showComment",
                     type: "post",
                     data: {
-                        songListId: songListId.songListId
+                        songListId: songListId.id
                     },
                     dataType: "json",
                     success: function (data) {
@@ -112,8 +119,8 @@ $(function () {
                     url:"/MyMusic/showSonglistInfo",
                     type:"post",
                     data:{
-                        songListId: songListId.songListId,
-                        userId:5
+                        songListId: songListId.id,
+                        userId:parseInt(userId)
                     },
                     dataType:"json",
                     success:function (data) {
@@ -127,12 +134,13 @@ $(function () {
                     url:"/MyMusic/songlist/awComment",
                     type:"post",
                     data:{
-                        songListId: songListId.songListId
+                        songListId: songListId.id
                     },
                     dataType:"json",
                     success:function (data) {
                         if (data.length > 0) {
                             comment.awComment = data;
+
                         } else {
                         }
                     }
@@ -169,8 +177,9 @@ $(function () {
                 })
             },
             replay:function (songlcId,userName) {
-                alert(songlcId)
-                $("#com_text").val("@"+userName+":");
+                replayId=songlcId;
+                comment.userName=userName;
+                $("#editText").before("<span>"+"@"+userName+"："+"</span>");
             }
         },
         filters: {
@@ -207,8 +216,8 @@ $(function () {
                     url: "/MyMusic/showSonglistInfo",
                     type: "post",
                     data: {
-                        songListId: songListId.songListId,
-                        userId: 5
+                        songListId: songListId.id,
+                        userId: parseInt(userId)
                     },
                     dataType: "json",
                     success: function (data) {
@@ -225,10 +234,10 @@ $(function () {
                 });
             },
             goToEdit:function (songlistId) {
-                songList.url= 'MyMusic_edit.html' + '?songListId=' + escape(songlistId);
+                songList.url= 'MyMusic_edit.html' + '?id=' + escape(songlistId);
             },
             goToPlay:function (songId) {
-                songList.url= 'PlayMusic.html' + '?songId=' + escape(songId);
+                songList.url= 'PlayMusic.html' + '?id=' + escape(songId);
             }
         },
         filters: {
@@ -265,9 +274,10 @@ $(function () {
            url:"/MyMusic/songlist/insert",
            type:"post",
            data:{
-               songlistId: songListId.songListId,
+               songlistId: songListId.id,
                songlcText:$("textarea[class='msg_info']").val(),
-               userId:5
+               songlcToId:replayId,
+               userId:parseInt(userId)
            },
            dataType:"json",
            success:function (data) {

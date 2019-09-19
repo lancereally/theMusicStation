@@ -44,6 +44,7 @@ public class ShareServiceImpl implements ShareService{
                 Song song = songMapper.selectSingerByPK_q(s.getSongId());
                 s.setSongName(song.getSongName());
                 s.setSongUrl(song.getSongUrl());
+                s.setSongPicUrl(song.getSongPicUrl());
                 s.setSingerName(song.getSingerName());
             }
             if (s.getShareFromId() != null){
@@ -57,6 +58,7 @@ public class ShareServiceImpl implements ShareService{
                         Song song = songMapper.selectSingerByPK_q(s1.getSongId());
                         s1.setSongName(song.getSongName());
                         s1.setSongUrl(song.getSongUrl());
+                        s1.setSongPicUrl(song.getSongPicUrl());
                         s1.setSingerName(song.getSingerName());
                     }
                 }

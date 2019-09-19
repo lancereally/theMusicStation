@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/my_singer.css">
+    <script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/vue.min.js"></script>
+    <script>
+        var userId = $.cookie('userId');
+        if (userId === undefined) {
+            location.href = "Index.html";
+        }
+        $(function () {
+            var sing = new Vue({
+                el: "#singerVue",
+                data: {
+                    singerList:[],
+                    url:""
+                },
+                methods:{
+                    getSingerList:function () {
+                        sing.singerList=[];
+                        $.ajax({
+                            url: "/MyMusic/mysinger",
+                            type: "post",
+                            data: {userId: parseInt(userId)},
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    for (var i = 0; i < data.length; i++) {
+                                        sing.singerList=data;
+                                    }
+                                } else {
+                                    alert("表中无记录");
+                                }
+                            }
+                        })
+                    },
+                    getUrl:function (singerId) {
+                        sing.url= 'singer.html' + '?id=' + escape(singerId);
+                    }
+                }
+
+            });
+            sing.getSingerList();
+        })
+
+    </script>
+</head>
+<body>
+<div class="my_singer" >
+    <!--  v-for="singer in singerList"      <button @click="getSingerList()">111</button>-->
+    <div class="singer_top"><h3><span>我的歌手</span></h3></div>
+    <div id="singerVue">
+
+
+    <ul>
+        <li v-for="singer in singerList">
+            <div class="singer_list" >
+                <div class="singer_pic">
+                    <a :href="url" @click="getUrl(singer.singerId)" target="_parent">
+                        <img :src="singer.singerPicUrl">
+                    </a>
+                </div>
+                <div class="singer_det">
+                    <h4>
+                        <a >{{singer.singerName}}</a>
+                    </h4>
+                    <p class="ab_num">{{singer.albumSet.length}}个专辑&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;161个MV</p>
+                </div>
+            </div>
+        </li>
+    </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+
+</html>
+
