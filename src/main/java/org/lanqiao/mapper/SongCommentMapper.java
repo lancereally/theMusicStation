@@ -27,4 +27,6 @@ public interface SongCommentMapper {
     List<SongComment> selectAwesomeComment(Integer songId);
     //歌曲点赞-郭长达
     int updateLikeNum(Integer songId);
+    //根据被评论的id取被评论用户名字-郭长达
+    String selectUserNameById(Integer songcToId);
 }

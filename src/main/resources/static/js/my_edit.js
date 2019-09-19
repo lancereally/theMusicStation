@@ -1,3 +1,8 @@
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
     var tagVal = [];
     var url = location.search,
@@ -24,8 +29,8 @@ $(function () {
                     url: "/MyMusic/showSonglistInfo",
                     type: "post",
                     data: {
-                        songListId: songListId.songListId,
-                        userId: 5
+                        songListId: songListId.id,
+                        userId: parseInt(userId)
                     },
                     dataType: "json",
                     success: function (data) {
@@ -73,7 +78,7 @@ $(function () {
             type: "post",
             data: {
                 songlistTag: tagVal[0] + " " + tagVal[1] + " " + tagVal[2],
-                songlistId: songListId.songListId
+                songlistId: songListId.id
             },
             dataType: "json",
             success: function (data) {
@@ -133,7 +138,7 @@ $(function () {
             url: "/MyMusic/songList/uploadFile",
             type: "post",
             data: {
-                "imageFile": $('#SongListPic')[0].src,
+                "imageFile": $('#SongListPic')[0].src==null?$("#SongListPic").attr("src"):$('#SongListPic')[0].src,
             },
             dataType: "text",
             success: function (data) {
@@ -142,7 +147,7 @@ $(function () {
                     url: "/MyMusic/editSonglist",
                     type: "post",
                     data: {
-                        songlistId: songListId.songListId,
+                        songlistId: songListId.id,
                         songlistName: $("input[class='name_text']").val(),
                         songlistPicUrl: data,
                         songlistDescription: $("textarea[class='text_info']").val()
@@ -154,7 +159,7 @@ $(function () {
                                 var layer = layui.layer;
                                 layer.msg('编辑成功！');
                             });
-                            setTimeout("window.location.reload()", "1000");
+                            setTimeout("parent.location.reload();", "1000");
                         }
                     }
                 })

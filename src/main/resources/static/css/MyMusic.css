@@ -9,6 +9,9 @@ a {
 div{
     display: block;
 }
+#index_title{
+    font-size: 18px;
+}
 .mymusic_head{
     height: 75px;
     width: auto;

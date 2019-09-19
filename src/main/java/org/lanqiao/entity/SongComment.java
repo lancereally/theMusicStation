@@ -19,6 +19,16 @@ public class SongComment {
     //用户和评论是一对多，所以在多的一方添加一的一个实体
     private Users user;
 
+    private String toUserName;
+
+    public String getToUserName() {
+        return toUserName;
+    }
+
+    public void setToUserName(String toUserName) {
+        this.toUserName = toUserName;
+    }
+
     public Users getUser() {
         return user;
     }

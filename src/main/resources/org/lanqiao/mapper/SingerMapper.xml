@@ -54,7 +54,7 @@
 
     <!--郭长达-->
     <select id="selectByUserId" resultMap="SingerResultMap" parameterType="java.lang.Integer">
-        select s.singer_name,s.singer_pic_url ,a.* from album a, singer s, usersingers us,users u where a.singer_id = s.singer_id and  us.singer_id = s.singer_id and us.user_id = u.user_id and u.user_id =#{userId}
+        select s.singer_id,s.singer_name,s.singer_pic_url ,a.* from album a, singer s, usersingers us,users u where a.singer_id = s.singer_id and  us.singer_id = s.singer_id and us.user_id = u.user_id and u.user_id =#{userId}
     </select>
 
     <!-- Lzc -->

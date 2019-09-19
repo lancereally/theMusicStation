@@ -1,4 +1,9 @@
 //我的音乐js文件
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
     //vue使用
     var song = new Vue({
@@ -16,7 +21,7 @@ $(function () {
                 $.ajax({
                     url:"/MyMusic/likesonglist",
                     type:"post",
-                    data:{userId:5},
+                    data:{userId:parseInt(userId)},
                     dataType:"json",
                     success:function (data) {
                         if (data.length > 0) {
@@ -39,7 +44,7 @@ $(function () {
                 $.ajax({
                     url:"/MyMusic/shousonglist",
                     type:"post",
-                    data:{userId:5},
+                    data:{userId:parseInt(userId)},
                     dataType:"json",
                     success:function (data) {
                         if (data.length > 0) {
@@ -58,10 +63,10 @@ $(function () {
                 })
             },
             goTo:function (slId) {
-                song.url= 'my_songlist.html' + '?songListId=' + escape(slId);
+                song.url= 'my_songlist.html' + '?id=' + escape(slId);
             },
             goToE:function (songListId) {
-                song.eurl= 'MyMusic_edit.html' + '?songListId=' + escape(songListId);
+                song.eurl= 'MyMusic_edit.html' + '?id=' + escape(songListId);
                 // alert(song.eurl)
             },
             getSongListId:function(songListId){
@@ -111,7 +116,13 @@ $(function () {
         }
     });
     //创建按钮使用
-
+    //我的电台
+    $("#radio").click(function () {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.msg("该功能维护中！！敬请期待");
+        });
+    });
     $("a[class='create_btn']").click(function () {
         $("div[class='mymusic_create']").css("display", "inline");
         $("div[class='control']").css("display", "inline")
@@ -151,7 +162,7 @@ $(function () {
                                 data:{
                                     // songListUserVo:,
                                     songListId:songListId,
-                                    userId:5,
+                                    userId:parseInt(userId),
                                     usRelation:1
                                 },
                                 dataType:"json",
