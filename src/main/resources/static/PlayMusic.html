@@ -168,17 +168,13 @@
                     </span>
                 </div>
                 <div class="msg_det" >
-                    <div class="msg_user">
+                    <div class="msg_user" >
                         <div class="userpic">
                             <img :src="userHeadUrl1">
                         </div>
                         <div class="msg_text">
-                            <div class="msg_textarea">
-                                <textarea class="msg_info" placeholder="评论"></textarea>
-                            </div>
-                            <div class="msg_bar">
-                                <i class="bar_emoj msg_icon"></i>
-                                <i class="bar_at msg_icon"></i>
+                            <div class="msg_textarea" id="editText">
+                                <textarea class="msg_info" id="com_text" placeholder="评论"></textarea>
                             </div>
                             <button type="button" class="btn btn-primary btn-xs" id="msg_send">评论</button>
                             <span class="info_num">140</span>
@@ -194,7 +190,7 @@
                                 <div class="msg_pl">
                                     <a>{{awc.user.userName}}</a>
                                     <img>
-                                    ：<span :class="{vipUser:awc.user.userVipState==1}" >{{awc.songcText}}</span>
+                                    ：&nbsp;<span v-if="awc.toUserName!=null">@{{awc.toUserName}}&nbsp;&nbsp;&nbsp;</span><span :class="{vipUser:awc.user.userVipState==1}" >{{awc.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
                                     <div class="pl_time">{{awc.songcTime | formatDate}}</div>
@@ -202,7 +198,7 @@
                                         <i class="zan a-mover"></i>({{awc.songcLikes}})
                                     </a>
                                     <span class="pl_jg">|</span>
-                                    <a class="replay">回复</a>
+                                    <a class="replay"  href="#songComment" @click="replay(awc.songcId,awc.user.userName)">回复</a>
                                 </div>
                             </div>
                         </div>
@@ -215,7 +211,7 @@
                                 <div class="msg_pl">
                                     <a>{{comment.user.userName}}</a>
                                     <img>
-                                    ：<span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songcText}}</span>
+                                    ：&nbsp;<span v-if="comment.toUserName!=null">@{{comment.toUserName}}&nbsp;&nbsp;&nbsp;</span><span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songcText}}</span>
                                 </div>
                                 <div class="pl_bar">
                                     <div class="pl_time">{{comment.songcTime|formatDate}}</div>
@@ -223,7 +219,7 @@
                                         <i class="zan a-mover"></i>({{comment.songcLikes}})
                                     </a>
                                     <span class="pl_jg">|</span>
-                                    <a class="replay">回复</a>
+                                    <a class="replay" href="#songComment" @click="replay(comment.songcId,comment.user.userName)">回复</a>
                                 </div>
                             </div>
                         </div>

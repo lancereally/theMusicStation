@@ -9,7 +9,9 @@ $(function () {
         for (var i = 0; i < strs.length; i++) {
             songId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
-    }
+    };
+    //存点击回复得到的评论id
+    var replayId=0;
     //Vue歌曲信息
     var playSong = new Vue({
         el: "#songInfo",
@@ -72,7 +74,8 @@ $(function () {
         data:{
             awComment:[],
             commentList: [],
-            userHeadUrl1:""
+            userHeadUrl1:"",
+            userName:""
         },
         methods:{
             //查询精彩评论
@@ -150,7 +153,12 @@ $(function () {
                         }
                     }
                 })
-            }
+            },
+            replay:function (songcId,userName) {
+                replayId=songcId;
+                sComment.userName=userName;
+                $("#editText").before("<span>"+"@"+userName+"："+"</span>");
+                }
         },
         filters:{
             formatDate:function(val) {
@@ -216,6 +224,7 @@ $(function () {
             data:{
                 songId: songId.songId,
                 songcText:$("textarea[class='msg_info']").val(),
+                songcToId:replayId,
                 userId:5
             },
             dataType:"json",

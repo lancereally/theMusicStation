@@ -154,7 +154,7 @@ $(function () {
                                 var layer = layui.layer;
                                 layer.msg('编辑成功！');
                             });
-                            setTimeout("window.location.reload()", "1000");
+                            setTimeout("parent[0].location.reload()", "1000");
                         }
                     }
                 })
