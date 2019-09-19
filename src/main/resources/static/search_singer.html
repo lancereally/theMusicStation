@@ -75,13 +75,13 @@
             <ul class="m-cvrlst m-cvrlst-5 f-cb">
                 <li v-for="(singer,index) in singerList">
                     <div class="u-cover u-cover-5">
-                        <a v-bind:href="['/singer?id='+singer.singerId]">
+                        <a v-bind:href="['singer.html?id='+singer.singerId]" target="_blank">
                             <img v-bind:src="singer.singerPicUrl">
                             <span v-bind:title="singer.singerName" class="msk"></span></a>
                     </div>
                     <p>
                         <a class="nm f-thide s-fc0"
-                           v-bind:href="['/singer?id='+singer.singerId]"
+                           v-bind:href="['singer.html?id='+singer.singerId]" target="_blank"
                            v-bind:title="singer.singerName">{{singer.singerName}}</a>
                     </p>
                 </li>
