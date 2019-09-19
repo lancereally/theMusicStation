@@ -50,4 +50,9 @@ public class SongServiceImpl implements SongService{
     }
 
 
+
+    @Override
+    public List<Song> selectLyricByInput(String input) {
+        return songMapper.selectLyricByInput(input);
+    }
 }

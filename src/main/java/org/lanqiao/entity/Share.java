@@ -10,6 +10,8 @@ public class Share {
 
     private String userHeadUrl;
 
+    private Integer userVipState;
+
     private Integer userId;/*用户名*/  /*用户头像*/  /*动态数量*/
     /*关注数量*/ /*粉丝数量*/
 
@@ -18,6 +20,8 @@ public class Share {
     private String songName;
 
     private String songUrl;
+
+    private String songPicUrl;
 
     private String singerName;
 
@@ -42,6 +46,22 @@ public class Share {
     private Integer shareForwardCount;/*评论总数*/
 
     private List<Share> shareList;
+
+    public String getSongPicUrl() {
+        return songPicUrl;
+    }
+
+    public void setSongPicUrl(String songPicUrl) {
+        this.songPicUrl = songPicUrl;
+    }
+
+    public Integer getUserVipState() {
+        return userVipState;
+    }
+
+    public void setUserVipState(Integer userVipState) {
+        this.userVipState = userVipState;
+    }
 
     public List<Share> getShareList() {
         return shareList;

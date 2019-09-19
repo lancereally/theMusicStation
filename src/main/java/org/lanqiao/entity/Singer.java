@@ -29,6 +29,8 @@ public class Singer {
     //用户账户的用户名
     private String userName;
 
+    private Integer userVipState;
+
     //用户账户的头像地址
     private String userHeadUrl;
 
@@ -40,6 +42,15 @@ public class Singer {
 //    public void setAlbumCount(Integer albumCount) {
 //        this.albumCount = albumCount;
 //    }
+
+
+    public Integer getUserVipState() {
+        return userVipState;
+    }
+
+    public void setUserVipState(Integer userVipState) {
+        this.userVipState = userVipState;
+    }
 
     public String getUserName() {
         return userName;

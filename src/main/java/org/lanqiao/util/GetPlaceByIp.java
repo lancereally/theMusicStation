@@ -52,23 +52,22 @@ public class GetPlaceByIp {
         }
         String url = "https://api.map.baidu.com/location/ip?ip=" + ip + "&ak=KIRrGA1a7ZybDYc5wcYRshvf36VzRe9B&coor=bd09ll";
         JSONObject jsonObject = readJsonFromUrl(url);
-        System.out.println(jsonObject.toString());
-        String place = (String) ((JSONObject) jsonObject.get("content")).get("address");
-        System.out.println(place);
-        return place;
+//        System.out.println(jsonObject.toString());
+//        System.out.println(place);
+        return (String) ((JSONObject) jsonObject.get("content")).get("address");
     }
 
 //    public static void main(String[] args){
 //
 //    }
 
-    public static void main(String[] args) throws IOException, JSONException {
-        //这里调用百度的ip定位api服务 详见 http://api.map.baidu.com/lbsapi/cloud/ip-location-api.htm
-//     这里面是gsq的Music-share项目的ak
-        JSONObject json = readJsonFromUrl("https://api.map.baidu.com/location/ip?ip&ak=KIRrGA1a7ZybDYc5wcYRshvf36VzRe9B&coor=bd09ll");
-        System.out.println(json.toString());
-        System.out.println(((JSONObject) json.get("content")).get("address"));
-        String place = (String) ((JSONObject) json.get("content")).get("address");
-        System.out.println(place);
-    }
+//    public static void main(String[] args) throws IOException, JSONException {
+//        //这里调用百度的ip定位api服务 详见 http://api.map.baidu.com/lbsapi/cloud/ip-location-api.htm
+////     这里面是gsq的Music-share项目的ak
+//        JSONObject json = readJsonFromUrl("https://api.map.baidu.com/location/ip?ip&ak=KIRrGA1a7ZybDYc5wcYRshvf36VzRe9B&coor=bd09ll");
+//        System.out.println(json.toString());
+//        System.out.println(((JSONObject) json.get("content")).get("address"));
+//        String place = (String) ((JSONObject) json.get("content")).get("address");
+//        System.out.println(place);
+//    }
 }

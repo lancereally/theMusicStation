@@ -21,6 +21,7 @@ public interface UsersMapper {
 
     int updateByPrimaryKey(Users record);
 
+
     //郭长达
     //查询用户头像
     Users selectHeadUrl(Integer userId);
@@ -36,9 +37,65 @@ public interface UsersMapper {
     //《《《郭书卿《《《
 
 
+
 //    徐东方
+    Users getLittleInfo(Integer userId);
+
+    public List<Users> getFollowCount(Integer userId);
+
+    public List<Users> getFanCount(Integer userId);
+
+    public List<Users> getPlaySongCount(Integer userId);
+
+    public List<Users> getSongListCreateCount(Integer userId);
+
+    public List<Users> getSongListCreateLiked(Integer userId);
+
+    public List<Users> getSongRanking(Integer userId);
+
+    //展示创建的歌单
+    public List<Users> getSongListCreate(Integer userId);
+
+    //展示收藏的歌单
+    public List<Users> getSongListLiked(Integer userId);
+
+    public int updateUserInfo(Users users);
+
+    public int updateVIP(Users users);
+
+    public int checkName(String userName);
+
+    //注册
 
 
+    //账号登录
+    public int accountLogin(Users users);
 
+    //获取comment
+    public List<Users> getMyComment(Users users);
+
+    public List<Users> getMyNotice(Users users);
+
+    //拉取fans and follows
+    public List<Users> getMyFollows(Users users);
+
+    public List<Users> getMyFans(Users users);
+
+    //cookie
+    public int getIdByAnything(Users users);
+
+    //手机
+    public int updatePhoneInfo(Users users);
+    public int selectCodeByPhone(String phoneNumber);
+    public String getUserPhone(Integer userId);
+    public List<Users> checkPhone(String phoneNumber);
+// 徐东方
 //
+
+    // <- Lzc : search users
+    List<Users> selectUsersByInput(String input);
+    List<Users> selectUsersByInput1(String input);
+    List<Integer> selectUsersByInput2(List<Integer> userIdList);
+    List<Integer> selectUsersByInput3(List<Integer> userIdList);
+    // ->
 }

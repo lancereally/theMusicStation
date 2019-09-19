@@ -5,6 +5,8 @@
     <title>singer</title>
     <link href="css/main-gsq.css" rel="stylesheet">
     <link href="css/singers.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css" />
+
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.min.js"></script>
     <script>
@@ -137,10 +139,89 @@
     </script>
 </head>
 <body>
-<iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
+<header style="border-bottom: 30px #ffd700 solid;">
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="/#" id="tuHai">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="/#">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="MyMusic.html">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="share.html">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+              <a href="#" id="login">登录</a>
+              <div class="sanjiao_down"></div>
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+              <span class="parent">
+                <input
+                        type="text"
+                        name="srch"
+                        id="srch"
+                        class="txt j-flag"
+                        value=""
+                        style="opacity: 1;"
+                        placeholder="音乐/视频/电台/用户"
+                />
+              </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--<iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>-->
 <div class="mainBody" id="bigBox">
     <div class="m-left">
-        <h2 class="tit">推荐</h2>
+        <h2 class="titl">推荐</h2>
         <ul>
             <li>
                 <a class="recommend" @click="moreHotSingers">推荐歌手</a>
@@ -149,7 +230,7 @@
                 <a class="recommend" @click="moreEnterSingers">入驻歌手</a>
             </li>
         </ul>
-        <h2 class="tit">华语</h2>
+        <h2 class="titl">华语</h2>
         <ul>
             <li>
                 <a class="recommend" @click="checkByKeyWord">华语男歌手</a>
@@ -174,7 +255,7 @@
                     <li class="f-left" v-for="(singer,index) in enterSingers">
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
-                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <a :href="'singer.html?id='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
                             <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
@@ -192,7 +273,7 @@
                     <li class="f-left" v-for="(singer,index) in hotSingers">
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
-                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <a :href="'singer.html?id='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
                             <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>
@@ -241,7 +322,7 @@
                     <li class="f-left" v-for="(singer,index) in keySingers">
                         <img :src="singer.singerPicUrl" height="130px" width="130px">
                         <div>
-                            <a :href="'singer.html?singerId='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
+                            <a :href="'singer.html?id='+singer.singerId" class="singerName font-12 f-left f-c-3">{{singer.singerName}}</a>
                             <i class="f-right" @click="toGoSingerHomepage" v-if="singer.userId > 0"><img src="images/head.png" height="17px"></i>
                         </div>
                     </li>

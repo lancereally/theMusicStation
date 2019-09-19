@@ -14,10 +14,23 @@
     <script src="js/vue.js"></script>
     <script>
         $(function () {
+
+            var url = location.search,
+                keyWord = {};
+
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    keyWord[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+
+            }
+
             var bigBox = new Vue({
                 el:"#bigBox",
                 data:{
-                    keyWord:"",
+                    keyWord:keyWord.keyWord,
                     songList:[]
                 },
                 methods:{
@@ -54,6 +67,86 @@
     </script>
 </head>
 <body>
+
+<header style="border-bottom: 30px #ffd700 solid;">
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="/#" id="tuHai">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="/#">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="MyMusic.html">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="share.html">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+              <a href="#" id="login">登录</a>
+              <div class="sanjiao_down"></div>
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+              <span class="parent">
+                <input
+                        type="text"
+                        name="srch"
+                        id="srch"
+                        class="txt j-flag"
+                        value=""
+                        style="opacity: 1;"
+                        placeholder="音乐/视频/电台/用户"
+                />
+              </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 <div class="mainBody mainSongList" id="bigBox">
 
     <div class="u-title">
@@ -69,30 +162,34 @@
         <div class="choseDivLeft">
             <span class="choseClass choseClassFont1">语种</span>
             <span class="choseClass choseClassFont2">华语</span>
-            <span class="choseClass choseClassFont2">欧美</span>
+            <span class="choseClass choseClassFont2">英语</span>
             <span class="choseClass choseClassFont2">日语</span>
             <span class="choseClass choseClassFont2">汉语</span>
+            <span class="choseClass choseClassFont2">粤语</span>
         </div>
         <div class="choseDivLeft">
             <span class="choseClass choseClassFont1">风格</span>
-            <span class="choseClass choseClassFont2">流行</span>
+            <span class="choseClass choseClassFont2">古典</span>
             <span class="choseClass choseClassFont2">摇滚</span>
             <span class="choseClass choseClassFont2">民谣</span>
             <span class="choseClass choseClassFont2">电子</span>
+            <span class="choseClass choseClassFont2">轻音乐</span>
         </div>
         <div class="choseDivLeft">
             <span class="choseClass choseClassFont1">场景</span>
-            <span class="choseClass choseClassFont2">清晨</span>
             <span class="choseClass choseClassFont2">夜晚</span>
             <span class="choseClass choseClassFont2">学习</span>
-            <span class="choseClass choseClassFont2">工作</span>
+            <span class="choseClass choseClassFont2">午休</span>
+            <span class="choseClass choseClassFont2">运动</span>
+            <span class="choseClass choseClassFont2">驾车</span>
         </div>
         <div class="choseDivLeft">
-            <span class="choseClass choseClassFont1">主题</span>
-            <span class="choseClass choseClassFont2">景点</span>
-            <span class="choseClass choseClassFont2">翻唱</span>
-            <span class="choseClass choseClassFont2">儿童</span>
-            <span class="choseClass choseClassFont2">校园</span>
+            <span class="choseClass choseClassFont1">情感</span>
+            <span class="choseClass choseClassFont2">清新</span>
+            <span class="choseClass choseClassFont2">怀旧</span>
+            <span class="choseClass choseClassFont2">浪漫</span>
+            <span class="choseClass choseClassFont2">伤感</span>
+            <span class="choseClass choseClassFont2">治愈</span>
         </div>
     </div>
 
