@@ -25,4 +25,7 @@ public interface AlbumMapper {
 
     // Lzc : search album
     List<Album> selectAlbumByInput(String input);
+
+    //gt
+    List<Album> select15Album();
 }

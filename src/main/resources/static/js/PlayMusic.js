@@ -39,12 +39,12 @@ $(function () {
                         playSong.albumName = data.album.albumName;
                         const ap = new APlayer({
                             container: document.getElementById('aplayer'),
+
                             lrcType: 1,
                             audio: [{
                                 name: playSong.songName,
                                 artist: playSong.singerName,
                                 url: playSong.songUrl,
-                                cover: playSong.songPicUrl,
                                 lrc: playSong.songLyric
                             }]
                         });

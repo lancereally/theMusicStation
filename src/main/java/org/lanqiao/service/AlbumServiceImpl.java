@@ -20,4 +20,9 @@ public class AlbumServiceImpl implements AlbumService{
     public List<Album> selectAlbumByInput(String input) {
         return albumMapper.selectAlbumByInput(input);
     }
+
+    @Override
+    public List<Album> select15Album() {
+        return albumMapper.select15Album();
+    }
 }

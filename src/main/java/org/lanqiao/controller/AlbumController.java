@@ -18,5 +18,7 @@ public class AlbumController {
     public List<Album> selectAlbumByInput(String input){
         return albumService.selectAlbumByInput(input);
     }
-
+    //gt
+    @RequestMapping("index/albumRecomment/select15Album")
+    public List<Album> select15Album(){ return albumService.select15Album();}
 }

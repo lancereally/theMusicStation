@@ -92,6 +92,10 @@
         where sosol.songlist_id = sl.songlist_id and sosol.song_id = s.song_id and u.user_id = usl.user_id and usl.songlist_id = sl.songlist_id and usl.us_relation = 1 and s.song_id = 5
     </select>
 
+    <select id="selectEightSongList" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
+        select * from songlist order by rand() LIMIT 8
+    </select>
+
 
 
 

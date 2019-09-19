@@ -18,7 +18,7 @@
     <div id="getSong" >
 
     </div>
-    <div class="audio-box">
+    <div class="audio-box" id="audio-box">
       <div class="audio-container">
         <div class="audio-view">
           <div class="audio-cover"></div>
@@ -65,27 +65,12 @@
   <script type="text/javascript" src="js/audio.js"></script>
   <script type="text/javascript">
     $(function() {
-      var getSong = new vue({
-        el:"getSong",
-        data:{
-          songSet:[]
-        },
-        methods: {
-          getSongSet:function () {
-            getSong.songSet = [];
-            $.ajax({
-              url:"/MyMusic/songlist/playcountshow"
-            })
-          }
-        }
-
-      })
 
       var song = [
         {
-          cover: 'img/cover5.jpg',
-          src: '1.mp3',
-          title: '1'
+          cover: '',
+          src: '',
+          title: ''
         }
       ]
 

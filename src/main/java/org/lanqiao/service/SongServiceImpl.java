@@ -49,10 +49,23 @@ public class SongServiceImpl implements SongService{
         return songMapper.selectSong(songId);
     }
 
+    @Override
+    public List<Song> selectSongByPlayTimes() {
+        return songMapper.selectSongByPlayTimes();
+    }
 
 
     @Override
     public List<Song> selectLyricByInput(String input) {
         return songMapper.selectLyricByInput(input);
+    }
+    @Override
+    public List<Song> selectSongByCreateTime() {
+        return songMapper.selectSongByCreateTime();
+    }
+
+    @Override
+    public List<Song> selectTenSong() {
+        return songMapper.selectTenSong();
     }
 }
