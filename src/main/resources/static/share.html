@@ -6,12 +6,13 @@
     <link href="css/main-gsq.css" rel=stylesheet>
     <link href="css/share.css" rel="stylesheet">
     <link rel="stylesheet" href="css/index.css" />
-
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/wangEditor.min.js"></script>
     <link href="css/wangEditor.css" rel="stylesheet">
     <script src="js/timeChange.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+
     <style>
         #tuHai:hover{
             text-decoration:none;
@@ -19,7 +20,16 @@
 
     </style>
     <script>
+
+        var user_id = $.cookie('userId');
+        if (user_id === undefined) {
+            location.href = "Index.html";
+        }
+
+
         $(function () {
+
+
             //Vue
             var bigBox = new Vue({
                 el: "#mainBody",
@@ -35,7 +45,7 @@
                     songKey: "",
                     songs: [],
                     checkSongId: "",
-                    userId: 1,
+                    userId: parseInt(user_id),
                     choseSong: "",
                     choseSinger: "",
                     shareComment:[],
@@ -138,7 +148,7 @@
                             data: {
                                 shareText: bigBox.shareText,
                                 shareFromId: bigBox.otherShareId,
-                                userId: 2
+                                userId: bigBox.userId
                             },
                             success: function () {
                                 $("#shareOthersDiv").hide();
@@ -176,7 +186,7 @@
                             type: "post",
                             datatype: 'json',
                             data: {
-                                userId: 1
+                                userId: bigBox.userId
                             },
                             success: function (user) {
                                 bigBox.users.push({
@@ -259,7 +269,7 @@
                             url: "/share/becomeOtherFan",
                             type: "post",
                             data: {
-                                userId: 1,
+                                userId: bigBox.userId,
                                 otherId: el.lastChild.innerHTML
                             },
                             datatype: "json",

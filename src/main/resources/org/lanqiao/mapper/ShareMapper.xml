@@ -36,7 +36,7 @@
     <!--    //    徐东方-->
 
     <select id="getShareCommentCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">
-        select count(share_id) from sharecomment where share_id = #{share_id}
+        select count(share_id) as share_comment_count  from sharecomment where share_id = #{share_id}
     </select>
 
     <select id="getShareForwardCount_q" resultMap="ShareResultMap" parameterType="java.lang.Integer">

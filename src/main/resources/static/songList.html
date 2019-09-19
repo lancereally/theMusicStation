@@ -14,10 +14,23 @@
     <script src="js/vue.js"></script>
     <script>
         $(function () {
+
+            var url = location.search,
+                keyWord = {};
+
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    keyWord[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+
+            }
+
             var bigBox = new Vue({
                 el:"#bigBox",
                 data:{
-                    keyWord:"",
+                    keyWord:keyWord.keyWord,
                     songList:[]
                 },
                 methods:{
