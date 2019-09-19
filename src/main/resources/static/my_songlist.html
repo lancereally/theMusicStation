@@ -160,7 +160,7 @@
                         <div class="msg_pl">
                             <a >{{comment.user.userName}}</a>
                             <img>
-                            ：<span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songlcText}}</span>
+                            ：&nbsp;<span v-if="comment.toUserName!=null">@{{comment.toUserName}}&nbsp;&nbsp;&nbsp;</span><span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songlcText}}</span>
                         </div>
                         <div class="pl_bar">
                             <div class="pl_time">{{comment.songlcTime | formatDate }}</div>
@@ -168,7 +168,7 @@
                                 <i class="zan" ></i>(<span>{{comment.songlcLikes}}</span>)
                             </a>
                             <span class="pl_jg">|</span>
-                            <a class="replay" href="#songComment" @click="replay(comment.songlcId)">回复</a>
+                            <a class="replay" href="#songComment" @click="replay(comment.songlcId,comment.user.userName)">回复</a>
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                     <div class="msg_pl">
                         <a>{{comments.user.userName}}</a>
                         <img>
-                        ：<span :class="{vipUser:comments.user.userVipState==1}" >{{comments.songlcText}}</span>
+                        ：&nbsp;<span v-if="comments.toUserName!=null">@{{comments.toUserName}}&nbsp;&nbsp;&nbsp;</span><span :class="{vipUser:comments.user.userVipState==1}" > <span>{{userName}}</span>{{comments.songlcText}}</span>
                     </div>
                     <div class="pl_bar">
                         <div class="pl_time">{{comments.songlcTime | formatDate }}</div>
@@ -197,13 +197,7 @@
         </div>
         <div class="msg_page">
             <div class="page_bar">
-                <button type="button" class="btn btn-default btn-sm three_distance" name="pageUp">上一页</button>
-                <button type="button" class="btn btn-default btn-sm three_distance" name="pageDown">下一页</button>
-<!--                <a>上一页</a>-->
-<!--                <a>1</a>-->
-<!--                <a>2</a>-->
-<!--                <a>3</a>-->
-<!--                <a>下一页</a>-->
+
             </div>
         </div>
     </div>

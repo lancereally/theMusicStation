@@ -15,7 +15,11 @@ public class SongListCommentServiceImpl implements SongListCommentService {
     SongListCommentMapper songListCommentMapper;
     @Override
     public List<SongListComment> selectCommentBySongListId(Integer songListId) {
-        return songListCommentMapper.selectCommentBySongListId(songListId);
+        List<SongListComment> list = songListCommentMapper.selectCommentBySongListId(songListId);
+        for (SongListComment item : list) {
+            item.setToUserName(songListCommentMapper.selectUserNameById(item.getSonglcToId()));
+        }
+        return list;
     }
 
     @Override
@@ -25,7 +29,11 @@ public class SongListCommentServiceImpl implements SongListCommentService {
     //查询精彩评论-郭长达
     @Override
     public List<SongListComment> selectAwesomeComment(Integer songListId) {
-        return songListCommentMapper.selectAwesomeComment(songListId);
+        List<SongListComment> listComments = songListCommentMapper.selectAwesomeComment(songListId);
+        for (SongListComment item : listComments) {
+            item.setToUserName(songListCommentMapper.selectUserNameById(item.getSonglcToId()));
+        }
+        return listComments;
     }
     //歌单点赞-郭长达
     @Override

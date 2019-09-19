@@ -10,7 +10,8 @@ $(function () {
             songListId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
-
+    //存点击回复得到的评论id
+    var replayId=0;
     var ss = new Vue({
         el: "#songVue",
         data: {
@@ -85,7 +86,8 @@ $(function () {
         data: {
             awComment:[],
             commentList: [],
-            userHeadUrl1:""
+            userHeadUrl1:"",
+            userName:""
         },
         methods: {
             getComment: function () {
@@ -133,6 +135,7 @@ $(function () {
                     success:function (data) {
                         if (data.length > 0) {
                             comment.awComment = data;
+
                         } else {
                         }
                     }
@@ -169,8 +172,9 @@ $(function () {
                 })
             },
             replay:function (songlcId,userName) {
-                alert(songlcId)
-                $("#com_text").val("@"+userName+":");
+                replayId=songlcId;
+                comment.userName=userName;
+                $("#editText").before("<span>"+"@"+userName+"："+"</span>");
             }
         },
         filters: {
@@ -267,6 +271,7 @@ $(function () {
            data:{
                songlistId: songListId.songListId,
                songlcText:$("textarea[class='msg_info']").val(),
+               songlcToId:replayId,
                userId:5
            },
            dataType:"json",
