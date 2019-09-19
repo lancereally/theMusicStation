@@ -6,9 +6,24 @@
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/search.css">
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
     <script>
+        var user_id = $.cookie('userId');
+        if (user_id === undefined) {
+            location.href = "Index.html";
+        }
         // Document.ready
         $(function () {
+            //获取用户头像
+            $.ajax({
+                url: "/user/getUserInfo",
+                type: "post",
+                datatype: "json",
+                data :{"userId" : parseInt(user_id)},
+                success: function (data) {
+                    $(".login-button img").attr("src",data.userHeadUrl);
+                }
+            });
             // 需求查询按钮特效
             $("li a").click(function () {
                 $("li a").removeClass("z-slt");
@@ -27,6 +42,7 @@
             });
         })
     </script>
+    <script src="js/jquery.cookie.js"></script>
 </head>
 <body>
 <!--<iframe id="headerFrame" src="head.html" height="105px" width="100%" frameborder="0"></iframe>-->
@@ -86,8 +102,9 @@
             </ul>
             <div class="login-button">
             <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+<!--              <a href="#" id="login">登录</a>-->
+                <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>

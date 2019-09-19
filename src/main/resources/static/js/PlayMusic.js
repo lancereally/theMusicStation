@@ -1,4 +1,14 @@
 $(function () {
+    //获取用户头像
+    $.ajax({
+        url: "/user/getUserInfo",
+        type: "post",
+        datatype: "json",
+        data :{"userId" : parseInt(userId)},
+        success: function (data) {
+            $(".login-button img").attr("src",data.userHeadUrl);
+        }
+    });
     //获取url值
     var url = location.search,
         songId = {};
