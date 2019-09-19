@@ -27,4 +27,9 @@ public class SongController {
     public int getSongPlayCount(Integer songListId){
         return songService.selectSongPlayCount(songListId);
     }
+    // Lzc : search lyric
+    @RequestMapping("/search/selectLyricByInput")
+    public List<Song> selectLyricByInput(String input){
+        return songService.selectLyricByInput(input);
+    }
 }

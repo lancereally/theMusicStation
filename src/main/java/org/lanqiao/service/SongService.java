@@ -10,4 +10,6 @@ public interface SongService {
     //查询歌单歌曲总数和播放总数
     int selectSongCount(Integer songListId);
     int selectSongPlayCount(Integer songListId);
+    // Lzc : search lyric
+    List<Song> selectLyricByInput(String input);
 }

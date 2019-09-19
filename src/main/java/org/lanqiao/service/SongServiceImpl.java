@@ -38,4 +38,9 @@ public class SongServiceImpl implements SongService{
         }
         return count;
     }
+
+    @Override
+    public List<Song> selectLyricByInput(String input) {
+        return songMapper.selectLyricByInput(input);
+    }
 }

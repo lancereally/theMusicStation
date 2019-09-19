@@ -28,4 +28,6 @@ public interface SongMapper {
     //查询歌单中歌曲数和播放次数
 //    int selectSongPlayCount(Integer songListId);
 //    int selectSongCount(Integer songListId);
+    // Lzc : search lyric
+    List<Song> selectLyricByInput(String input);
 }
