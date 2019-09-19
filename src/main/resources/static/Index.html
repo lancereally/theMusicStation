@@ -161,14 +161,25 @@
                   }
                   ,
                   success:function (data) {
-                    if(data>0){location.href = "MyHomePage.html";
-                      layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
-                          area:['400px', '50px']
-                        });
-                      });
+                    if(data>0){
+                      // location.href = "MyHomePage.html";
+                      // layui.use('layer', function(){
+                      //   var layer = layui.layer;
+                      //   layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
+                      //     area:['400px', '50px']
+                      //   });
+                      // });
                       // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                      layer.confirm("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount,{
+                                btn: ['确定']
+                              }, function (index, layero) {
+                        location.href = "MyHomePage.html";
+                                //移除元素
+                                 $("#tr" + id).remove();
+                                //无法关闭这个消息框
+                                layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                              }
+                      );
                     }
                   }
                 });
@@ -228,6 +239,7 @@
           loginState = 1;
         }
       });
+
 //账号密码登录
       $(".accountLogin").click(function () {
         if(loginState == 1)
@@ -264,7 +276,7 @@
             // alert("YOYO对不起,您的账号或密码有误");
               layui.use('layer', function(){
                 var layer = layui.layer;
-                layer.msg('YOYO对不起,您的账号或密码有误',{
+                layer.msg('YOYO切克闹~该手机还未进行认证，可直接注册登录~',{
                   area:['400px', '50px']
                 });
               });
@@ -295,7 +307,7 @@
               // alert("该手机还未进行认证！！！");
               layui.use('layer', function(){
                 var layer = layui.layer;
-                layer.msg('该手机还未进行认证！！！',{
+                layer.msg('YOYO切克闹~该手机还未进行认证，可一键注册登录~',{
                   area:['400px', '50px']
                 });
               });
@@ -312,12 +324,13 @@
                 });
               });
             }
-
           }
         })
       });
+
+      //验证码发送
       $(".ma").click(function () {
-        if(state == 1)
+        if(state>=0)
         $.ajax({
           url:"/user/getIdentifyingCode",
           type:"post",
@@ -335,17 +348,18 @@
             });
           }
         })
-        else
-          // alert("该手机还未进行认证！！！");
-        layui.use('layer', function(){
-          var layer = layui.layer;
-          layer.msg('该手机还未进行认证！！！',{
-            area:['400px', '50px']
-          });
-        });
+        // else
+        //   // alert("该手机还未进行认证！！！");
+        // layui.use('layer', function(){
+        //   var layer = layui.layer;
+        //   layer.msg('YOYO切克闹~该手机还未进行认证，可直接注册登录~',{
+        //     area:['400px', '50px']
+        //   });
+        // });
       });
+
+      //点击手机登录按钮
       $(".phoneLogin").click(function () {
-        if(state == 1)
         $.ajax({
           url:"/user/checkIdentifyingCode",
           type:"post",
@@ -355,44 +369,78 @@
             'phoneNumber':$(".phoneNum").val()
           },
           success:function (data) {
-            if(data>0){
-              // alert("于2019.9.15实现短信验证功能");
-              layui.use('layer', function(){
-                var layer = layui.layer;
-                layer.msg('YOYO切克闹~登录成功~',{
-                  area:['400px', '50px']
-                });
-              });
+            if(state > 0){
+              if(data>0){
+                // alert("于2019.9.15实现短信验证功能");
+                // layui.use('layer', function(){
+                //   var layer = layui.layer;
+                //   layer.msg('YOYO切克闹~登录成功~',{
+                //     area:['400px', '50px']
+                //   });
+                // });
+                layer.confirm("YOYO切克闹~登录成功~",{
+                          btn: ['确定']
+                        }, function (index, layero) {
+                          location.href = "MyHomePage.html";
+                          //移除元素
+                          $("#tr" + id).remove();
+                          //无法关闭这个消息框
+                          layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                        }
+                );
+              }
+            }
+            else{
+              var userAccount = account();
               $.ajax({
-                url:"/user/getIdByAnything",
+                url:"/user/register",
                 type:"post",
-                dataType:"json",
+                dataType:"text",
                 data:{
-                  'userPhone':$(".phoneNum").val()
+                  'userName':"新用户"+userAccount,
+                  "userAccount":userAccount,
+                  "userPassword":123456+"",
+                  "userHeadUrl":"images/userPicDefault.jpg"
                 },
                 success:function (data) {
-                  if(data>0){location.href = "MyHomePage.html";
-                    // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
-                    layui.use('layer', function(){
-                      var layer = layui.layer;
-                      layer.msg("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount,{
-                        area:['400px', '50px']
-                      });
+                    // alert("YOYO切克闹~登录成功嗨起来！");
+                    $.ajax({
+                      url:"/user/getIdByAnything",
+                      type:"post",
+                      dataType:"json",
+                      data:{
+                        'userAccount':userAccount
+                      }
+                      ,
+                      success:function (data) {
+                        if(data>0){
+                          // location.href = "MyHomePage.html";
+                          // layui.use('layer', function(){
+                          //   var layer = layui.layer;
+                          //   layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
+                          //     area:['400px', '50px']
+                          //   });
+                          // });
+                          // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                          layer.confirm("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount+"初始密码为123456",{
+                                    btn: ['确定']
+                                  }, function (index, layero) {
+                                    location.href = "MyHomePage.html";
+                                    //移除元素
+                                    $("#tr" + id).remove();
+                                    //无法关闭这个消息框
+                                    layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                                  }
+                          );
+                        }
+                      }
                     });
-                  }
+                  // alert("DB管理员已经删库跑路，本站暂停使用~");
                 }
-              });
+              })
             }
           }
         })
-        else
-          // alert("该手机还未进行认证！！！");
-        layui.use('layer', function(){
-          var layer = layui.layer;
-          layer.msg('该手机还未进行认证！！！',{
-            area:['400px', '50px']
-          });
-        });
       });
       // $(".phoneLogin").click(function () {
       //   $.ajax({
