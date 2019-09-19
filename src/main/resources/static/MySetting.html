@@ -36,6 +36,17 @@
         });
 
 
+        //获取用户悬浮头像
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+            url: "/user/getUserInfo",
+            type: "post",
+            datatype: "json",
+            data :{"userId" : parseInt(userId)},
+            success: function (data) {
+                $(".login-button img").attr("src",data.userHeadUrl);
+            }
+        });
         //获取用户基本信息
         $.ajax({
             // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
@@ -172,7 +183,7 @@
                             "userBirthday":$(".year").text()+"-"+$(".month").text()+"-"+$(".date").text(),
                             "userLocation":$(".province").text()+$(".city").text(),
                             "userText":$(".text").text(),
-                            "userSex":"保密",
+                            "userSex":"男",
                             "userHeadUrl":$("#avatar").attr("src")
                         },
                         success: function (data) {
@@ -185,7 +196,6 @@
                     });
                 }
             });
-
         });
 
     });//function结束
@@ -249,9 +259,10 @@
                 </li>
             </ul>
             <div class="login-button">
-            <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+           <span>
+<!--              <a href="#" id="login">登录</a>-->
+               <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>

@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="css/MyPrivateLetter.css"/>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <meta charset="UTF-8">
     <title>PrivateLetter</title>
 </head>
+<script>
+    //COOKIE
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
+    $(function () {
+
+    })
+
+</script>
 <body>
 <div class="g-mn6">
     <div class="g-mn6c"></div>
