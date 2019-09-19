@@ -23,6 +23,7 @@
     <result column="attention" property="attention" jdbcType="INTEGER" />
     <result column="fans" property="fans" jdbcType="INTEGER" />
     <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
+    <result column="songListCount" property="songListCount" jdbcType="INTEGER" />
 
 <!--用户粉丝关注-->
     <result column="usera_id" property="useraId" jdbcType="VARCHAR" />
@@ -113,7 +114,7 @@
   </select>
 
   <select id="selectOtherUsersByRand" resultMap="UsersResultMap">
-    select  user_id, user_text, user_name, user_head_url  from users order by rand() limit 3
+    select  user_id, user_text, user_name, user_head_url,user_vip_state  from users order by rand() limit 3
   </select>
 
   <insert id="insertFan" parameterType="java.lang.Integer">
@@ -129,8 +130,26 @@
   <select id="selectHeadUrl" parameterType="java.lang.Integer" resultMap="UsersResultMap">
     select user_head_url from users where user_id=#{userId}
   </select>
+  <!--获取喜欢这首歌的用户头像（播放次数排序）-郭长达-->
+  <select id="selectHeadUrlLikeSong" parameterType="java.lang.Integer" resultMap="UsersResultMap">
+    select u.user_head_url from users u,song s, usersong us where s.song_id = us.song_id and us.user_id = u.user_id and s.song_id = #{songId} order by us.us_play_times desc limit 0,4
+  </select>
 
 
+  <!-- Head Lzc : search users -->
+  <select id="selectUsersByInput" resultMap="UsersResultMap" parameterType="java.lang.String">
+    select user_id,user_head_url,user_name,user_text,user_sex,songListCount,fans from (select u.user_id,u.user_head_url,u.user_name,u.user_text,u.user_sex,count(usl.user_id) as songListCount from users u,usersonglist usl where (u.user_id in (select u.user_id from users u where u.user_name like CONCAT('%',#{input},'%'))) and u.user_id = usl.user_id group by u.user_id) as m, (select uf.userb_id,count(uf.userb_id) as fans from userfan as uf where uf.userb_id in (select u.user_id from users u where u.user_name like CONCAT('%',#{input},'%')) group by uf.userb_id) as n where m.user_id = n.userb_id group by user_id
+  </select>
+  <select id="selectUsersByInput1" resultMap="UsersResultMap" parameterType="java.lang.String">
+    select user_id,user_head_url,user_name,user_text,user_sex from users where (user_id in (select u.user_id from users u where u.user_name like CONCAT('%',#{input},'%'))) order by user_id
+  </select>
+  <select id="selectUsersByInput2" resultType="java.util.List" parameterType="java.util.List">
+    select count(usl.user_id) as songListCount from usersonglist usl where usl.user_id in (#{userIdList}) group by user_id order by user_id
+  </select>
+  <select id="selectUsersByInput3" resultType="java.util.List" parameterType="java.util.List">
+    select count(uf.userb_id) as fans from userfan as uf where uf.userb_id in (#{userIdList}) group by uf.userb_id order by uf.userb_id
+  </select>
+  <!-- End Lzc : search users -->
 
 <!--  <sql id="Base_Column_List" >-->
 <!--    user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, -->

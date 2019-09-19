@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>search_lyrics</title>
+    <link rel="stylesheet" href="css/search_music.css">
+    <link rel="stylesheet" href="css/search_lyrics.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script>
+        $(function () {
+            // 结果记录数
+            var resNum = 0;
+            $(".s-fc6",parent.document).html(resNum);
+
+            // 获取父页面搜索内容
+            var searchContent = $("#m-search-input", parent.document).val();
+
+            var vm = new Vue({
+                el: "#myView",
+                data: {
+                    songList: []
+                    // currPage: "1"
+                },
+                methods: {
+                    getSingers: function (input) {
+                        $.ajax({
+                            url: "/search/selectLyricByInput",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                input: searchContent
+                            },
+                            success: function (data) {
+                                if (data.length > 0) {
+                                    vm.songList = data;
+                                    resNum = data.length;
+                                    // 设置结果记录数
+                                    $(".s-fc6", parent.document).html(resNum);
+                                    // 处理歌词换行
+                                    for (var i = 0; i < vm.songList.length; i++){
+                                        vm.songList[i].songLyric = vm.songList[i].songLyric.replace(/\r\n/g,"<br/>");
+                                        vm.songList[i].songLyric = vm.songList[i].songLyric.replace(/\[.{8,9}]/g,"");
+                                    }
+                                }
+                            }
+                        })
+                    }
+                    // prePage: function () {
+                    //     if (vm.$data.currPage > 1) {
+                    //         vm.$data.currPage--;
+                    //         $("#getBtn").trigger("click");
+                    //     }else alert("不能再往前啦")
+                    // },
+                    // nextPage: function () {
+                    //     $.ajax({
+                    //         url: "/backend/getMaxPage",
+                    //         type: "post",
+                    //         dateType: "json",
+                    //         success: function (maxPage) {
+                    //             if (vm.$data.currPage < maxPage) {
+                    //                 vm.$data.currPage++;
+                    //                 $("#getBtn").trigger("click");
+                    //             }else alert("再往后也没有啦")
+                    //         }
+                    //     })
+                    // }
+                }
+            });
+
+            // 搜索
+            if (searchContent !== "")
+                vm.getSingers(searchContent);
+        })
+    </script>
+</head>
+<body>
+<div class="ztag j-flag" id="myView">
+    <div class="n-srchrst">
+        <div class="srchsongst" v-for="(song,index) in songList">
+            <div class="item f-cb h-flag">
+                <div class="td">
+                    <div class="hd">
+                        <a id="" class="ply " title="播放" data-res-action="play"
+                           v-bind:href="['/song?id='+song.songId]"></a></div>
+                </div>
+                <div class="td w0">
+                    <div class="sn">
+                        <div class="text"><a v-bind:href="['/song?id='+song.songId]">
+                            <b v-bind:title="song.songName">{{song.songName}}</b></a></div>
+                    </div>
+                </div>
+                <div class="td">
+                    <div class="opt hshow">
+                        <a class="u-icn u-icn-81 icn-add" v-bind:href="['/addToList?id='+song.songId]" title="添加到播放列表"
+                                              hidefocus="true" data-res-copyright="1" data-res-type="18"
+                                              data-res-id="1368371706" data-res-action="addto" data-res-from="33"
+                                              data-res-data="h">
+                        </a>
+                        <span data-res-id="L1368371706" data-res-action="fav" data-res-type="18"
+                                  class="icn icn-fav" title="收藏"></span>
+                        <span data-res-id="L1368371706" data-res-action="share" data-res-type="18" class="icn icn-share"
+                            title="分享"></span>
+                        <span data-res-id="1368371706" data-indexid="L1368371706" data-res-action="download"
+                              data-res-type="18" class="icn icn-dl" title="下载"></span></div>
+                </div>
+                <div class="td w1">
+                    <div class="text">
+                        <a v-bind:href="['/singer?id='+song.singerId]">{{song.singerName}}</a></div>
+                </div>
+                <div class="td w2">
+                    <div class="text">
+                        <a class="s-fc3"
+                           v-bind:href="['/album?id='+song.albumId]" v-bind:title="'《'+song.albumName+'》'">
+                            《{{song.album.albumName}}》
+                        </a>
+                    </div>
+                </div>
+                <div class="td">{{song.songDuration}}</div>
+            </div>
+            <div class="lyric">
+                <div id="lrc_abstract1368371706"><p>
+<!--                    <span class="s-fc7">H</span>.E</p>-->
+<!--                    <p> 编曲：李芷嫣的爸爸</p>-->
+                    <span class="lyc" v-html="song.songLyric"></span>
+                </div>
+                <div id="lrc_all1368371706" class="f-hide"><p><span class="s-fc7">H</span>.E</p>
+<!--                    <p> 编曲：李芷嫣的爸爸</p>-->
+                </div>
+<!--                <div class="crl">-->
+<!--                    <a data-res-id="1368371706" data-res-action="open" data-res-type="1006"-->
+<!--                       href="javascript:void(0)" class="s-fc3">展开<i class="u-icn u-icn-69"></i></a>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

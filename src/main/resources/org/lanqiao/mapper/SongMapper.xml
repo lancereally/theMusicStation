@@ -59,6 +59,10 @@
 <!--      select count(so.song_id) from son so,songsonglist sosol where sosol.song_id = so.song_id and sosol.songlist_id= #{songListId}-->
 <!--    </select>-->
 
+    <!-- Lzc : select lyric -->
+    <select id="selectLyricByInput" resultMap="SongResultMap" parameterType="java.lang.String">
+        select so.song_id,so.song_name,so.song_duration,so.song_lyric,si.singer_id,si.singer_name,al.album_id,al.album_name from song so,singer si,album al where (song_lyric like concat('%',#{input},'%')) and so.album_id = al.album_id and so.singer_id = si.singer_id
+    </select>
 
     <sql id="Base_Column_List">
     song_id, song_name, song_lyric, song_description, song_url, song_duration, song_download, 

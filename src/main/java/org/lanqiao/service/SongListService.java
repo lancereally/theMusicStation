@@ -26,7 +26,8 @@ public interface SongListService {
     int cancelBySongListId(Integer songListId);
     //编辑歌单标签信息-郭长达
     int updataSongListTag(SongList songList);
-
+    //查询拥有某个歌曲的歌单-郭长达
+    List<SongList> selectSongListBySongId(Integer songId);
     List<SongList> selectByKeyWord(String keyWord);
     // Lzc : search song list
     List<SongList> selectSongListByInput(String input);

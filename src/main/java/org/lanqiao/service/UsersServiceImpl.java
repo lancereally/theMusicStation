@@ -5,6 +5,7 @@ import org.lanqiao.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -168,5 +169,30 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Users getUserHeadPic(Integer userId) {
         return usersMapper.selectHeadUrl(userId);
+    }
+    //获取喜欢这首歌的用户头像-郭长达
+    @Override
+    public List<Users> getUserHeadPicLikeSong(Integer songId) {
+        return usersMapper.selectHeadUrlLikeSong(songId);
+    }
+
+    @Override
+    public List<Users> selectUsersByInput(String input) {
+         return usersMapper.selectUsersByInput(input);
+         // better but not access yet
+//        List<Integer> userIdList = new ArrayList<>();
+//        List<Users> usersList = usersMapper.selectUsersByInput1(input);
+//        for (Users user : usersList) {
+//            userIdList.add(user.getUserId());
+//        }
+//        int i = 0;
+//        for (Users user : usersList) {
+//            user.setSongListCount(usersMapper.selectUsersByInput2(userIdList).get(i++));
+//        }
+//        i = 0;
+//        for (Users user : usersList) {
+//            user.setFans(usersMapper.selectUsersByInput3(userIdList).get(i++));
+//        }
+//        return usersList;
     }
 }
