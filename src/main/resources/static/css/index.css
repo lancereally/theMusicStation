@@ -293,9 +293,11 @@ header #head-title #head-title-container .logo a {
 
 #download-i {
   width: 254px;
-  height: 336px;
-  background: #000;
+  height: 306px;
+  background: #242424;
   float: left;
+  overflow: hidden;
+  padding-top: 30px;
 }
 
 #download-i span {
@@ -304,21 +306,27 @@ header #head-title #head-title-container .logo a {
   display: block;
   padding: 168px 0px;
 }
+#download-i img{
+  width:730px;
+}
 
 #container {
   width: 984px;
-  height: 500px;
-  /*background: gray;*/
+  height: 100%;
   margin: 0 auto;
+  display: table;
 }
 
 #container-right {
   position: relative;
   float: right;
   width: 250px;
-  height: 500px;
   background: #ffd700;
   border: 1px solid #d3d3d3;
+  overflow: hidden;
+}
+#container-right img{
+  margin-left: 38px;
 }
 
 #container-left {
@@ -514,7 +522,8 @@ header #head-title #head-title-container .logo a {
 
 
 .album-roll-item img{
-  width:100%;
+  width:100px;
+  height:100px;
   margin-bottom: 3px;
   cursor: pointer;
 }
@@ -558,6 +567,13 @@ header #head-title #head-title-container .logo a {
 }
 .cver img {
   display: block;
+  width: 100%;
+  height: 100%;
+}
+.cver .msk{
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
 }

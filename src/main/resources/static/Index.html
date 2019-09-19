@@ -281,66 +281,31 @@
           <div class="" id="album-roll">
             <a hidefocus="true"  class="roll-left" id="roll-left">&nbsp;</a>
             <a hidefocus="true"  class="roll-right" id="roll-right">&nbsp;</a>
-            <div class="album-inner">
-               <ul id="album-item-1">
-                <li >
+            <div class="album-inner" id="album">
+              <ul id="album-item-1">
+                <li v-for="(album,index) in AlbumSet1">
                   <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
+                    <img :src="album.albumPicUrl">
+                    <p ><a >{{album.albumName}}</a></p>
+                    <p ><a >{{album.singer.singerName}}</a></p>
                   </div>
                 </li>
-                <li >
-                  <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
-                  </div>
-                </li>
-                <li >
-                  <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
-                  </div>
-                </li>
-                <li >
-                  <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
-                  </div>
-                </li>
-                <li >
-                  <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
-                  </div>
-                </li>
-              </ul>
+               </ul>
               <ul  id="album-item-2">
-                <li >
+                <li v-for="(album,index) in AlbumSet2">
                   <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
-                  </div>
-                </li>
-                <li >
-                  <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
+                    <img :src="album.albumPicUrl">
+                    <p ><a >{{album.albumName}}</a></p>
+                    <p ><a >{{album.singer.singerName}}</a></p>
                   </div>
                 </li>
               </ul>
               <ul  id="album-item-3">
-                <li >
+                <li v-for="(album,index) in AlbumSet3">
                   <div class="album-roll-item">
-                    <img src="http://p2.music.126.net/a0bINEA9ZxTQm3BuXIJRYA==/109951164171117030.jpg?param=140y140">
-                    <p ><a >Lover</a></p>
-                    <p ><a >Taylor Swift</a></p>
+                    <img :src="album.albumPicUrl">
+                    <p ><a >{{album.albumName}}</a></p>
+                    <p ><a >{{album.singer.singerName}}</a></p>
                   </div>
                 </li>
               </ul>
@@ -459,7 +424,13 @@
           </dl>
         </div>
       </div>
-      <div id="container-right"></div>
+      <div id="container-right">
+        <img src="img/1.png">
+        <img src="img/2.png">
+        <img src="img/3.png">
+        <img src="img/4.png">
+        <img src="img/5.png">
+      </div>
     </div>
   </body>
 </html>
