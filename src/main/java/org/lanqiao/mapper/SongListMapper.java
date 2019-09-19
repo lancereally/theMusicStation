@@ -45,4 +45,6 @@ public interface SongListMapper {
     List<SongList> selectSongList(String keyWord);
     // Lzc : search song list
     List<SongList> selectSongListByInput(String input);
+    //随机查询八个歌单
+    List<SongList> selectEightSongList();
 }

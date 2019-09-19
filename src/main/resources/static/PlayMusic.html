@@ -1,5 +1,20 @@
 <!DOCTYPE html>
 
+<style>
+    .aplayer{
+    }
+    .aplayer.aplayer-withlrc .aplayer-pic{
+
+    }
+    .aplayer.aplayer-withlrc .aplayer-info{
+        margin:0 !important;
+    }
+    .layui-anim-rotate{
+        animation-duration: 10s !important;
+    }
+
+
+</style>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -125,7 +140,7 @@
         <div id="container-left">
             <div class="music-info" id="songInfo">
                 <div class="music-head">
-                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv">
+                    <div class="layui-anim" data-anim="layui-anim-rotate layui-anim-loop" id="loopDiv" >
                         <img :src="songPicUrl">
                     </div>
                     <span class="msk msk1"> </span>
@@ -139,15 +154,15 @@
                     </div>
                     <p class="des"></p>
                     <p class="des">歌手：
-                        <span><a class="" href="">{{singerName}}</a></span>
+                        <span><a class="" href="">{{singerName}}</a>&nbsp;&nbsp;&nbsp;&nbsp;所属专辑：</span><span><a>{{albumName}}</a></span>
                     </p>
 
-                    <p class="des">所属专辑：
-                        <span><a>{{albumName}}</a></span>
-                    </p>
+
+                    <!--
                     <div class="m-info" id="minf">
                         <button type="button" class="btnCre btnCre_bcolor a-mover" id="play_btn">播放</button>
                     </div>
+                    -->
                     <!--                    <div class="lyric-content" v-html="songLyric">-->
                     <!--                    </div>-->
                     <div class="crl"></div>

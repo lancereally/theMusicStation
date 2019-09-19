@@ -40,4 +40,16 @@ public class SongController {
     public Song getSongInfoBySongId(Integer songId){
         return songService.selectSongInfoBySongId(songId);
     }
+
+    //根据播放次数查询
+    @RequestMapping("Index/playTime/selectSongByPlayTimes")
+    public List<Song> selectSongByPlayTimes(){return songService.selectSongByPlayTimes();}
+    //根据创建时间查询
+    @RequestMapping("Index/CreateTime/selectSongByCreateTime")
+    public List<Song> selectSongByCreateTime(){return songService.selectSongByCreateTime();}
+    //查询原创歌曲
+    @RequestMapping("Index/tenSong/selectTenSong")
+    public List<Song> selectTenSong(){
+        return songService.selectTenSong();
+    }
 }

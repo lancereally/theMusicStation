@@ -46,8 +46,8 @@
 }
 
 .lyric {
-  float: right;
-  width: 414px;
+  float: left;
+  width: 100%;
 }
 
 .hd {
@@ -276,4 +276,10 @@
 .btnCre_bcolor{
   background: #0c73c2;
   color: #FFFFFF;
+}
+.play-music{
+  float: left;
+  width: 100%;
+  height: 205px;
+  margin: 25px 0;
 }

@@ -6,6 +6,8 @@
     <title>网易云音乐</title>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript" src="js/layui/layui.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="js/layui/css/layui.css" />
     <link rel="stylesheet" href="css/MyOption.css">
@@ -235,7 +237,10 @@
             <div><img src="img/roll-3.jpg" /></div>
           </div>
         </div>
-        <div id="download-i"><span>DOWNLOAD</span></div>
+        <div id="download-i">
+          <img src="img/tuhai1.png"/>
+          <img src="img/yyue1.png" />
+        </div>
       </div>
     </div>
     <div id="container">
@@ -249,112 +254,13 @@
             <a href="" class="tab-l">民谣</a><span class="line">|</span>
             <a href="" class="tab-l">电子</a>
           </div>
-          <span class="tab-l tab" style="float: right;">更多</span>
-        </div>
-        <ul class="cvrlist">
-          <li>
-            <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
-              <div class="bottom">
-                <a class="icon-play"></a>
-                <span class="icon-headset"></span>
-                <span class="nb">1926万</span>
-              </div>
-            </div>
-            <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
-            </p>
-          </li>
-          <li>
-            <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
-              <div class="bottom">
-                <a class="icon-play"></a>
-                <span class="icon-headset"></span>
-                <span class="nb">1926万</span>
-              </div>
-            </div>
-            <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
-            </p>
-          </li>
-          <li>
-            <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
-              <div class="bottom">
-                <a class="icon-play"></a>
-                <span class="icon-headset"></span>
-                <span class="nb">1926万</span>
-              </div>
-            </div>
-            <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
-            </p>
-          </li>
-          <li>
-            <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
-              <div class="bottom">
-                <a class="icon-play"></a>
-                <span class="icon-headset"></span>
-                <span class="nb">1926万</span>
-              </div>
-            </div>
-            <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
-            </p>
-          </li>
-          <li>
-            <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
-              <div class="bottom">
-                <a class="icon-play"></a>
-                <span class="icon-headset"></span>
-                <span class="nb">1926万</span>
-              </div>
-            </div>
-            <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
-            </p>
-          </li>
-          <li>
-            <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
-              <div class="bottom">
-                <a class="icon-play"></a>
-                <span class="icon-headset"></span>
-                <span class="nb">1926万</span>
-              </div>
-            </div>
-            <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
-            </p>
-          </li>
-          <li>
-            <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
-              <div class="bottom">
-                <a class="icon-play"></a>
-                <span class="icon-headset"></span>
-                <span class="nb">1926万</span>
-              </div>
-            </div>
-            <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
-            </p>
-          </li>
 
-          <li>
+        </div>
+        <ul class="cvrlist" id="hotSongList" >
+          <li v-for="(songList,index) in songListSet">
             <div class="u-cover u-cover-1">
-              <img src="img/cvr-1.jpg" />
-              <a href="" class="msk"> </a>
+              <img :src="songList.songListPicUrl" style="width:140px;height: 140px">
+              <a  class="msk" :href="url" @click="sendSongListId(songList.songListId)"> </a>
               <div class="bottom">
                 <a class="icon-play"></a>
                 <span class="icon-headset"></span>
@@ -362,7 +268,7 @@
               </div>
             </div>
             <p class="dec">
-              <a> [欧美私人订制] 最懂你的欧美日推</a>
+              <a>{{songList.songListName}}</a>
             </p>
           </li>
         </ul>
@@ -444,10 +350,9 @@
         <span class="n-clmnad"></span>
         <div class="v-hd">
           <a href="#" class="tit">榜单</a>
-          <span class="tab-l tab" style="float: right;">更多</span>
         </div>
         <div class="n-blist">
-          <dl class="blk">
+          <dl class="blk" >
             <dt class="top">
               <div class="cver">
                 <img src="img/speedup.jpg" />
@@ -455,7 +360,7 @@
               </div>
               <div class="tit">
                 <a href="">
-                  <h3>云音乐飙升榜</h3>
+                  <h3>土嗨飙升榜</h3>
                 </a>
                 <div class="btn">
                   <a href="" class="btn-play-1"></a>
@@ -463,69 +368,88 @@
                 </div>
               </div>
             </dt>
-            <dd>
+            <dd id="Leaderboard1">
               <ol>
                 <li
                   onmouseover="this.className='z-hvr'"
                   onmouseout="this.className=''"
                   class=""
+                  v-for="(song,index) in songSet"
                 >
-                  <span class="no no-top">1</span>
-                  <a href="" class="nm" title="我不好">我不好</a>
+                  <span class="no" >{{index+1}}</span>
+                  <a  class="nm" :href="url" @click="sendSongId(song.songId)">{{song.songName}}</a>
                   <div class="oper">
                     <a href="" class="btn-play-2"></a>
                     <a href="" class="btn-add-2"></a>
                     <a href="" class="btn-add-3"></a>
                   </div>
                 </li>
+              </ol>
+            </dd>
+          </dl>
+          <dl class="blk" >
+            <dt class="top">
+              <div class="cver">
+                <img src="img/newSongLB.jpg" />
+                <a class="msk"> </a>
+              </div>
+              <div class="tit">
+                <a href="">
+                  <h3>土嗨新歌榜</h3>
+                </a>
+                <div class="btn">
+                  <a href="" class="btn-play-1"></a>
+                  <a href="" class="btn-add-1"></a>
+                </div>
+              </div>
+            </dt>
+            <dd id="Leaderboard2">
+              <ol>
                 <li
-                  onmouseover="this.className='z-hvr'"
-                  onmouseout="this.className=''"
-                  class=""
+                        onmouseover="this.className='z-hvr'"
+                        onmouseout="this.className=''"
+                        class=""
+                        v-for="(song,index) in songSet"
                 >
-                  <span class="no no-top">2</span>
-                  <a href="" class="nm" title="她不是">我不好</a>
+                  <span class="no" >{{index+1}}</span>
+                  <a  class="nm" :href="url" @click="sendSongId(song.songId)">{{song.songName}}</a>
                   <div class="oper">
                     <a href="" class="btn-play-2"></a>
                     <a href="" class="btn-add-2"></a>
                     <a href="" class="btn-add-3"></a>
                   </div>
                 </li>
+              </ol>
+            </dd>
+          </dl>
+
+          <dl class="blk" >
+            <dt class="top">
+              <div class="cver">
+                <img src="img/tenSong.jpg" />
+                <a class="msk"> </a>
+              </div>
+              <div class="tit">
+                <a href="">
+                  <h3>土嗨原创榜</h3>
+                </a>
+                <div class="btn">
+                  <a href="" class="btn-play-1"></a>
+                  <a href="" class="btn-add-1"></a>
+                </div>
+              </div>
+            </dt>
+            <dd id="Leaderboard3">
+              <ol>
                 <li
-                  onmouseover="this.className='z-hvr'"
-                  onmouseout="this.className=''"
-                  class=""
+                        onmouseover="this.className='z-hvr'"
+                        onmouseout="this.className=''"
+                        class=""
+                        v-for="(song,index) in songSet"
                 >
-                  <span class="no no-top">3</span>
-                  <a href="" class="nm" title="我不好">亦是此间少年</a>
+                  <span class="no" >{{index+1}}</span>
+                  <a  class="nm" :href="url" @click="sendSongId(song.songId)">{{song.songName}}</a>
                   <div class="oper">
-                    <a href="" class="btn-play-2"></a>
-                    <a href="" class="btn-add-2"></a>
-                    <a href="" class="btn-add-3"></a>
-                  </div>
-                </li>
-                <li
-                  onmouseover="this.className='z-hvr'"
-                  onmouseout="this.className=''"
-                  class=""
-                >
-                  <span class="no ">4</span>
-                  <a href="" class="nm" title="我不好">我不好</a>
-                  <div class="oper">
-                    <a href="" class="btn-play-2"></a>
-                    <a href="" class="btn-add-2"></a>
-                    <a href="" class="btn-add-3"></a>
-                  </div>
-                </li>
-                <li
-                  onmouseover="this.className='z-hvr'"
-                  onmouseout="this.className=''"
-                  class=""
-                >
-                  <span class="no no-top">1</span>
-                  <a href="" class="nm" title="我不好">我不好</a>
-                  <div class="oper">
-                    <a href="" class="btn-play-2"></a>
                     <a href="" class="btn-add-2"></a>
                     <a href="" class="btn-add-3"></a>
                   </div>

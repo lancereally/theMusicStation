@@ -532,7 +532,8 @@ header #head-title #head-title-container .logo a {
 }
 
 .n-blist {
-  height: 472px;
+  height: 443px;
+  width:inherit;
   margin-top: 20px;
   padding-left: 1px;
   background: url(../img/n-blist.png);
@@ -653,6 +654,7 @@ header #head-title #head-title-container .logo a {
   font-size: 12px;
   color: #000;
   vertical-align: center;
+  overflow: hidden;
 }
 
 .nm:hover {

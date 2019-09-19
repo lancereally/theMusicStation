@@ -17,7 +17,7 @@ $(function () {
         el: "#songVue",
         data: {
             songSet: [],
-            url
+            url:""
         },
         methods: {
             getSongSet: function () {

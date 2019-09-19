@@ -72,4 +72,7 @@ public class SongListServiceImpl implements SongListService{
     public List<SongList> selectSongListByInput(String input) {
         return songListMapper.selectSongListByInput(input);
     }
+
+    @Override
+    public List<SongList> selectEightSongList(){ return songListMapper.selectEightSongList();};
 }

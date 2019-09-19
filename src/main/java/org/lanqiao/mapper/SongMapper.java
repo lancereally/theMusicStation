@@ -33,4 +33,13 @@ public interface SongMapper {
     Song selectSong( Integer songId );
     //查询歌曲信息-郭长达
     Song selectSongInfoBySongId(Integer songId);
+
+    //根据播放次数查询
+    List<Song> selectSongByPlayTimes();
+
+    //根据创建时间查询歌单
+    List<Song> selectSongByCreateTime();
+
+    //查询原创歌曲
+    List<Song> selectTenSong();
 }

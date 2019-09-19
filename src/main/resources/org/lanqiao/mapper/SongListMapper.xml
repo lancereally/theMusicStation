@@ -87,6 +87,9 @@
         update songlist set songlist_tag = #{songlistTag} where songlist_id = #{songlistId}
     </update>
 
+    <select id="selectEightSongList" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
+        select * from songlist order by rand() LIMIT 8
+    </select>
 
 
 
