@@ -139,11 +139,11 @@
             </div>
             <div class="msg_text">
                 <div class="msg_textarea" id="editText">
-                    <textarea class="msg_info" placeholder="评论"></textarea>
+                    <textarea class="msg_info" id="com_text" placeholder="评论"></textarea>
                 </div>
                 <div class="msg_bar" id="editPic">
-                    <i class="bar_emoj msg_icon"></i>
-                    <i class="bar_at msg_icon"></i>
+<!--                    <i class="bar_emoj msg_icon"></i>-->
+<!--                    <i class="bar_at msg_icon"></i>-->
                 </div>
                 <button type="button" class="btn btn-primary btn-xs" id="msg_send">评论</button>
                 <span class="info_num">140</span>
@@ -160,7 +160,7 @@
                         <div class="msg_pl">
                             <a >{{comment.user.userName}}</a>
                             <img>
-                            :<span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songlcText}}</span>
+                            ：<span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songlcText}}</span>
                         </div>
                         <div class="pl_bar">
                             <div class="pl_time">{{comment.songlcTime | formatDate }}</div>
@@ -168,7 +168,7 @@
                                 <i class="zan" ></i>(<span>{{comment.songlcLikes}}</span>)
                             </a>
                             <span class="pl_jg">|</span>
-                            <a class="replay">回复</a>
+                            <a class="replay" href="#songComment" @click="replay(comment.songlcId)">回复</a>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,7 @@
                             <i class="zan"></i>(<span>{{comments.songlcLikes}}</span>)
                         </a>
                         <span class="pl_jg">|</span>
-                        <a class="replay">回复</a>
+                        <a class="replay" href="#songComment" @click="replay(comments.songlcId,comments.user.userName)">回复</a>
                     </div>
                 </div>
             </div>

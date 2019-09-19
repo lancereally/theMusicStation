@@ -167,6 +167,10 @@ $(function () {
                         }
                     }
                 })
+            },
+            replay:function (songlcId,userName) {
+                alert(songlcId)
+                $("#com_text").val("@"+userName+":");
             }
         },
         filters: {
