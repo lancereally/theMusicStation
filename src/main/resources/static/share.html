@@ -5,11 +5,19 @@
     <title>share</title>
     <link href="css/main-gsq.css" rel=stylesheet>
     <link href="css/share.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css" />
+
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/wangEditor.min.js"></script>
     <link href="css/wangEditor.css" rel="stylesheet">
     <script src="js/timeChange.js"></script>
+    <style>
+        #tuHai:hover{
+            text-decoration:none;
+        }
+
+    </style>
     <script>
         $(function () {
             //Vue
@@ -67,7 +75,9 @@
                                         shareId: data[i].shareId,
                                         shareLikes: data[i].shareLikes,
                                         shareFromId: data[i].shareFromId,
-                                        userVipState:data[i].userVipState
+                                        userVipState:data[i].userVipState,
+                                        songPicUrl:data[i].songPicUrl,
+                                        songId:data[i].songId
                                     })
                             }
                         })
@@ -425,9 +435,86 @@
     </script>
 </head>
 <body>
+<header style="border-bottom: 30px #ffd700 solid;">
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="/#" id="tuHai">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="/#">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="MyMusic.html">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="share.html">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+              <a href="#" id="login">登录</a>
+              <div class="sanjiao_down"></div>
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+              <span class="parent">
+                <input
+                        type="text"
+                        name="srch"
+                        id="srch"
+                        class="txt j-flag"
+                        value=""
+                        style="opacity: 1;"
+                        placeholder="音乐/视频/电台/用户"
+                />
+              </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-
-<iframe src="head.html" frameborder="0" width="100%" height="71px" style="border-bottom: 30px #ffd700 solid"></iframe>
 <div id="mainBody">
 
 
@@ -614,8 +701,8 @@
                         <div v-if="sh.songName != null">
                             <div class="s-music">
                                 <div class="f-left">
-                                    <a href="#">
-                                        <img src="images/userPic.jpg" height="45">
+                                    <a :href="'PlayMusic.html?id='+sh.songId">
+                                        <img :src="sh.songPicUrl" height="45">
                                         <img src="images/v-play.png" height="25" class="img-t">
                                     </a>
                                 </div>
@@ -660,8 +747,8 @@
                                 <div v-if="shSon.songName != null">
                                     <div class="s-music">
                                         <div class="f-left">
-                                            <a href="#">
-                                                <img src="images/userPic.jpg" height="45">
+                                            <a :href="'PlayMusic.html?id='+shSon.songId">
+                                                <img :src="shSon.songPicUrl" height="45">
                                                 <img src="images/v-play.png" height="25" class="img-t">
                                             </a>
                                         </div>

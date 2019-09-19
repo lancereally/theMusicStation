@@ -33,7 +33,7 @@
         <result column="singer_id" property="singerId" jdbcType="INTEGER"/>
     </resultMap>
     <select id="selectSingerByPK_q" resultMap="SongResultMap" parameterType="java.lang.Integer">
-    select song_name, song_url, singer_name from song, singer where song.singer_id = singer.singer_id and song_id = 1
+    select song_name,song_pic_url, song_url, singer_name from song, singer where song.singer_id = singer.singer_id and song_id = #{song_id}
   </select>
 
 
