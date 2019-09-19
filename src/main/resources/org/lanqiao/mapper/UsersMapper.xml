@@ -4,6 +4,7 @@
   <resultMap id="UsersResultMap" type="org.lanqiao.entity.Users" >
     <id column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="slCount" property="slCount" jdbcType="VARCHAR" />
     <result column="user_account" property="userAccount" jdbcType="INTEGER" />
     <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
     <result column="user_text" property="userText" jdbcType="VARCHAR" />
@@ -14,16 +15,90 @@
     <result column="user_real_name" property="userRealName" jdbcType="VARCHAR" />
     <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
     <result column="user_phone_activation" property="userPhoneActivation" jdbcType="INTEGER" />
-    <result column="user_phone" property="userPhone" jdbcType="INTEGER" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="user_phone_code" property="userPhoneCode" jdbcType="INTEGER" />
     <result column="user_qq" property="userQq" jdbcType="INTEGER" />
     <result column="user_id_card" property="userIdCard" jdbcType="VARCHAR" />
     <result column="user_vip_state" property="userVipState" jdbcType="INTEGER" />
-
     <result column="attention" property="attention" jdbcType="INTEGER" />
     <result column="fans" property="fans" jdbcType="INTEGER" />
     <result column="shareCount" property="shareCount" jdbcType="INTEGER" />
+    <result column="songListCount" property="songListCount" jdbcType="INTEGER" />
 
+<!--用户粉丝关注-->
+    <result column="usera_id" property="useraId" jdbcType="VARCHAR" />
+    <result column="userb_id" property="userbId" jdbcType="INTEGER" />
+<!--    用户与歌曲-->
+    <association property="userSong" javaType="org.lanqiao.entity.UserSong">
+      <id column="us_id" property="usId" jdbcType="INTEGER" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="song_id" property="songId" jdbcType="INTEGER" />
+      <result column="us_liked_state" property="usLikedState" jdbcType="INTEGER" />
+      <result column="us_play_times" property="usPlayTimes" jdbcType="INTEGER" />
+    </association>
+<!--    用户与歌单-->
+    <association property="userSongList" javaType="org.lanqiao.entity.UserSongList">
+      <id column="usl_id" property="uslId" jdbcType="INTEGER" />
+      <result column="songlist_id" property="songlistId" jdbcType="INTEGER" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="us_relation" property="usRelation" jdbcType="INTEGER" />
+    </association>
+    <!--   歌曲评论-->
+    <association property="songComment" javaType="org.lanqiao.entity.SongComment">
+      <id column="songc_id" property="songcId" jdbcType="INTEGER" />
+      <result column="song_id" property="songId" jdbcType="INTEGER" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="songc_text" property="songcText" jdbcType="VARCHAR" />
+      <result column="songc_likes" property="songcLikes" jdbcType="INTEGER" />
+      <result column="songc_to_id" property="songcToId" jdbcType="INTEGER" />
+      <result column="songc_time" property="songcTime" jdbcType="TIMESTAMP" />
+    </association>
+    <!--    歌曲-->
+    <association property="song" javaType="org.lanqiao.entity.Song">
+      <id column="song_id" property="songId" jdbcType="INTEGER" />
+      <result column="song_name" property="songName" jdbcType="VARCHAR" />
+      <result column="song_lyric" property="songLyric" jdbcType="VARCHAR" />
+      <result column="song_description" property="songDescription" jdbcType="VARCHAR" />
+      <result column="song_url" property="songUrl" jdbcType="VARCHAR" />
+      <result column="song_duration" property="songDuration" jdbcType="VARCHAR" />
+      <result column="song_download" property="songDownload" jdbcType="INTEGER" />
+      <result column="song_commet_count" property="songCommetCount" jdbcType="INTEGER" />
+      <result column="song_play_times" property="songPlayTimes" jdbcType="INTEGER" />
+      <result column="song_create_date" property="songCreateDate" jdbcType="TIMESTAMP" />
+      <result column="song_status" property="songStatus" jdbcType="INTEGER" />
+      <result column="song_keep_num" property="songKeepNum" jdbcType="INTEGER" />
+      <result column="album_id" property="albumId" jdbcType="INTEGER" />
+      <result column="song_pic_url" property="songPicUrl" jdbcType="VARCHAR" />
+      <result column="singer_id" property="singerId" jdbcType="INTEGER" />
+      <result column="singer_name" property="singerName" jdbcType="VARCHAR" />
+    </association>
+    <!--    用户与歌手-->
+    <association property="singer" javaType="org.lanqiao.entity.Singer">
+      <id column="singer_id" property="singerId" jdbcType="INTEGER" />
+      <result column="singer_name" property="singerName" jdbcType="VARCHAR" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="singer_description" property="singerDescription" jdbcType="VARCHAR" />
+      <result column="singer_pic_url" property="singerPicUrl" jdbcType="VARCHAR" />
+    </association>
+<!--    歌曲与歌单-->
+    <association property="songSongList" javaType="org.lanqiao.entity.SongSongList">
+      <result column="songlist_id" property="songlistId" jdbcType="INTEGER" />
+      <result column="song_id" property="songId" jdbcType="INTEGER" />
+    </association>
+<!--    歌单-->
+    <association property="songList" javaType="org.lanqiao.entity.SongList">
+      <id column="songlist_id" property="songlistId" jdbcType="INTEGER" />
+      <result column="songlist_name" property="songlistName" jdbcType="VARCHAR" />
+      <result column="songlist_description" property="songlistDescription" jdbcType="VARCHAR" />
+      <result column="songlist_tag" property="songlistTag" jdbcType="VARCHAR" />
+      <result column="songlist_count" property="songlistCount" jdbcType="INTEGER" />
+      <result column="songlist_create_time" property="songlistCreateTime" jdbcType="TIMESTAMP" />
+      <result column="songlist_commet_num" property="songlistCommetNum" jdbcType="INTEGER" />
+      <result column="songlist_keep_num" property="songlistKeepNum" jdbcType="INTEGER" />
+      <result column="songlist_pic_url" property="songlistPicUrl" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
+
 
   <!--》》》郭书卿》》》-->
   <select id="selectFansByPk_q" resultMap="UsersResultMap" parameterType="java.lang.Integer">
@@ -61,14 +136,330 @@
   </select>
 
 
-  <sql id="Base_Column_List" >
-    user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, 
-    user_location, user_head_url, user_real_name, user_email, user_phone_activation, 
-    user_phone, user_qq, user_id_card, user_vip_state
-  </sql>
+  <!-- Head Lzc : search users -->
+  <select id="selectUsersByInput" resultMap="UsersResultMap" parameterType="java.lang.String">
+    select user_id,user_head_url,user_name,user_text,user_sex,songListCount,fans from (select u.user_id,u.user_head_url,u.user_name,u.user_text,u.user_sex,count(usl.user_id) as songListCount from users u,usersonglist usl where (u.user_id in (select u.user_id from users u where u.user_name like CONCAT('%',#{input},'%'))) and u.user_id = usl.user_id group by u.user_id) as m, (select uf.userb_id,count(uf.userb_id) as fans from userfan as uf where uf.userb_id in (select u.user_id from users u where u.user_name like CONCAT('%',#{input},'%')) group by uf.userb_id) as n where m.user_id = n.userb_id group by user_id
+  </select>
+  <select id="selectUsersByInput1" resultMap="UsersResultMap" parameterType="java.lang.String">
+    select user_id,user_head_url,user_name,user_text,user_sex from users where (user_id in (select u.user_id from users u where u.user_name like CONCAT('%',#{input},'%'))) order by user_id
+  </select>
+  <select id="selectUsersByInput2" resultType="java.util.List" parameterType="java.util.List">
+    select count(usl.user_id) as songListCount from usersonglist usl where usl.user_id in (#{userIdList}) group by user_id order by user_id
+  </select>
+  <select id="selectUsersByInput3" resultType="java.util.List" parameterType="java.util.List">
+    select count(uf.userb_id) as fans from userfan as uf where uf.userb_id in (#{userIdList}) group by uf.userb_id order by uf.userb_id
+  </select>
+  <!-- End Lzc : search users -->
+
+<!--  <sql id="Base_Column_List" >-->
+<!--    user_id, user_name, user_account, user_password, user_text, user_sex, user_birthday, -->
+<!--    user_location, user_head_url, user_real_name, user_email, user_phone_activation, -->
+<!--    user_phone, user_qq, user_id_card, user_vip_state-->
+<!--  </sql>-->
+
+<!--徐东方-->
+  <select id="getLittleInfo" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select
+    user_name,user_head_url,user_location,user_vip_state
+    from users
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getFollowCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select
+    f.usera_id
+    from users u,userfan f
+    where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = f.usera_id
+  </select>
+
+  <select id="getMyComment" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+select s.user_id,u.user_head_url,u.user_name,s.songc_time,s.songc_text,id.songc_text
+from (select s.songc_id,s.songc_text
+from users u,songcomment s
+where u.user_id = #{userId,jdbcType=INTEGER} and s.user_id = u.user_id) id,songcomment s, users u
+where s.songc_to_id = id.songc_id and u.user_id = s.user_id
+  </select>
+<!--  MyComment 无原评论版-->
+
+<!--  select s.user_id, s.songc_text, s.songc_time-->
+<!--  from users u, songcomment s-->
+<!--  where u.user_id = #{userId,jdbcType=INTEGER}-->
+<!--  and s.songc_to_id = u.user_id-->
+
+  <select id="getMyNotice" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select s.user_id,u.user_head_url,u.user_name,s.songc_time,id.songc_text
+from (select s.songc_id,s.songc_text
+from users u,songcomment s
+where u.user_id = #{userId,jdbcType=INTEGER} and s.user_id = u.user_id) id,songcomment s, users u
+where s.songc_to_id = id.songc_id and u.user_id = s.user_id
+  </select>
+
+  <select id="getFanCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select
+    f.usera_id
+    from users u,userfan f
+    where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = f.userb_id
+  </select>
+
+  <select id="getPlaySongCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select
+    s.us_id
+    from users u,usersong s
+    where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id
+  </select>
+
+  <select id="getSongListCreateCount" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select
+    count(distinct(s.usl_id))
+    from users u,usersonglist s
+    where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id and s.us_relation = 0
+    or s.us_relation = 2
+  </select>
+
+  <select id="getSongListCreateLiked" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
+    select
+    count(distinct(s.usl_id))
+    from users u,usersonglist s
+    where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id and s.us_relation = 1
+    or s.us_relation = 2
+  </select>
+
+  <select id="getSongRanking" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select s.song_name, si.singer_name, us.us_play_times
+    from users u, song s, singer si, usersong us
+    where u.user_id=#{userId,jdbcType=INTEGER} and u.user_id=us.user_id and us.song_id=s.song_id and s.singer_id=si.singer_id
+    ORDER BY us.us_play_times desc
+  </select>
+
+  <select id="getMyFollows" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    SELECT u.user_head_url, u.user_name
+from users u
+where u.user_id in
+(SELECT f.userb_id
+from users u, userfan f
+where u.user_id = #{userId,jdbcType=INTEGER} and f.usera_id = u.user_id)
+  </select>
+
+  <select id="getIdByAnything" resultType="java.lang.Integer" parameterType="org.lanqiao.entity.Users">
+select user_id
+from users
+where
+    <if test="userName != null" >
+      user_name = #{userName,jdbcType=VARCHAR}
+    </if>
+    <if test="userAccount != null" >
+      user_account = #{userAccount,jdbcType=INTEGER}
+    </if>
+    <if test="userPhone != null" >
+      user_phone = #{userPhone,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="getMyFans" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    SELECT u.user_head_url, u.user_name
+from users u
+where u.user_id in
+(SELECT f.usera_id
+from users u, userfan f
+where u.user_id = #{userId,jdbcType=INTEGER} and f.userb_id = u.user_id)
+  </select>
+
+  <select id="getSongListCreate" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+      select DISTINCT(zi.songlist_name), sl.songlist_pic_url
+      from (SELECT DISTINCT(sl.songlist_name)
+      from songlist sl, usersonglist us, users u
+      where
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 0)
+      or
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 2)) zi, songsonglist ss, song s,songlist sl
+      where sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
+      and sl.songlist_name = zi.songlist_name
+</select>
+<!--  无总播放量-->
+
+<!--  SELECT DISTINCT(sl.songlist_name), u.user_id,-->
+<!--  sl.songlist_pic_url, sum(DISTINCT(s.song_play_times)) as slCount-->
+<!--  from songlist sl, usersonglist us, songsonglist ss, song s, users u-->
+<!--  where-->
+<!--  us.us_relation = 0 and u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id-->
+<!--  and sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id-->
+
+<!--精简版，歌单缺失1-->
+
+<!--  SELECT DISTINCT(sl.songlist_name), u.user_id,-->
+<!--  sl.songlist_pic_url-->
+<!--  from songlist sl, usersonglist us, songsonglist ss, song s, users u-->
+<!--  where-->
+<!--  us.us_relation = 0 and u.user_id = 1 and u.user_id = us.user_id and us.songlist_id = sl.songlist_id-->
+<!--  and sl.songlist_id = ss.songlist_id-->
+
+  <select id="getSongListLiked" resultMap="UsersResultMap" parameterType="java.lang.Integer">
+    select DISTINCT(zi.songlist_name), sl.songlist_pic_url
+      from (SELECT DISTINCT(sl.songlist_name)
+      from songlist sl, usersonglist us, users u
+      where
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 1)
+      or
+      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 2)) zi, songsonglist ss, song s,songlist sl
+      where sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
+      and sl.songlist_name = zi.songlist_name
+  </select>
+
+<!--  <select id="selectCodeByPhone" resultType="java.lang.Integer" parameterType="java.lang.String">-->
+<!--    SELECT user_phone_code-->
+<!--    from users-->
+<!--    where user_phone = #{userPhone,jdbcType=VARCHAR}-->
+<!--  </select>-->
+  <select id="getUserPhone" resultType="java.lang.String" parameterType="java.lang.Integer">
+    SELECT user_phone
+    from users
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="checkPhone" resultMap="UsersResultMap" parameterType="java.lang.String">
+    SELECT user_id
+    from users
+    where user_phone = #{userPhone,jdbcType=VARCHAR}
+  </select>
+
+  <update id="updateVIP" parameterType="org.lanqiao.entity.Users" >
+    update users
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userText != null" >
+        user_text = #{userText,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userLocation != null" >
+        user_location = #{userLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadUrl != null" >
+        user_head_url = #{userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        user_real_name = #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoneActivation != null" >
+        user_phone_activation = #{userPhoneActivation,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        user_qq = #{userQq,jdbcType=INTEGER},
+      </if>
+      <if test="userIdCard != null" >
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userVipState != null" >
+        user_vip_state = #{userVipState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where
+    <if test="userId != null" >
+      user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </update>
+  <update id="updateUserInfo" parameterType="org.lanqiao.entity.Users" >
+    update users
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccount != null" >
+        user_account = #{userAccount,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userText != null" >
+        user_text = #{userText,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null" >
+        user_birthday = #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="userLocation != null" >
+        user_location = #{userLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeadUrl != null" >
+        user_head_url = #{userHeadUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userRealName != null" >
+        user_real_name = #{userRealName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null" >
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhoneActivation != null" >
+        user_phone_activation = #{userPhoneActivation,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        user_qq = #{userQq,jdbcType=INTEGER},
+      </if>
+      <if test="userIdCard != null" >
+        user_id_card = #{userIdCard,jdbcType=VARCHAR},
+      </if>
+      <if test="userVipState != null" >
+        user_vip_state = #{userVipState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where
+    <if test="userId != null" >
+      user_id = #{userId,jdbcType=INTEGER}
+    </if>
+  </update>
+
+  <update id="updatePhoneInfo" parameterType="org.lanqiao.entity.Users" >
+    update users
+    <set >
+      <if test="userPhoneCode != null" >
+        user_phone_code = #{userPhoneCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where
+    <if test="userPhone != null" >
+      user_Phone = #{userPhone,jdbcType=VARCHAR}
+    </if>
+  </update>
+<!--MySetting-->
+  <select id="checkName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from users where user_name = #{userName}
+  </select>
+
+  <select id="accountLogin" resultType="java.lang.Integer" parameterType="org.lanqiao.entity.Users">
+        select count(*) from users where user_account = #{userAccount} and user_password = #{userPassword}
+  </select>
+<!--徐东方-->
+
   <select id="selectByPrimaryKey" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+    select
+    *
     from users
     where user_id = #{userId,jdbcType=INTEGER}
   </select>

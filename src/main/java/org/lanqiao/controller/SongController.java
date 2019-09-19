@@ -50,4 +50,9 @@ public class SongController {
     public List<Users> getUserHeadLikeSong(Integer songId){
         return usersService.getUserHeadPicLikeSong(songId);
     }
+    // Lzc : search lyric
+    @RequestMapping("/search/selectLyricByInput")
+    public List<Song> selectLyricByInput(String input){
+        return songService.selectLyricByInput(input);
+    }
 }

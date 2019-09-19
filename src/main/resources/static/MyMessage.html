@@ -6,10 +6,16 @@
     <link rel="stylesheet" href="css/MyOption.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <meta charset="UTF-8">
     <title>MyMessage</title>
 </head>
 <script>
+    //cookie
+    // var userId = $.cookie('userId');
+    // if (userId === undefined) {
+    //     location.href = "Index.html";
+    // }
 $(function () {
     //用户选择控制
     $(".j-uflag").mouseleave(function () {
@@ -28,39 +34,50 @@ $(function () {
     $("#letter").click(function () {
         $(".iframe").attr("src","MyPrivateLetter.html");
     });
+    $("#comment").click(function () {
+        $(".iframe").attr("src","MyComment.html");
+    });
+    $("#notice").click(function () {
+        $(".iframe").attr("src","MyNotice.html");
+    });
+
+    //head头像转换
+    // $(".login-button")
+
     //判断评论是否为空
     $.ajax({
         url: "/user/getMyComment",
         type: "post",
         datatype: "json",
         //未登陆，暂且手动输入数字模拟
-        data: {"userId": 1},
+        data: {"userId": parseInt(userId)},
         success: function (data) {
-            if(data==null)
+            if(data.length<1)
                 $("#comment").click(function () {
                     $(".iframe").attr("src","NoComment.html");
                 })
             else
                 $("#comment").click(function () {
-                    $(".iframe").attr("src","NoComment.html");
+                    $(".iframe").attr("src","MyComment.html");
                 })
         }
     });
-    //判断通知是否为空
+
+    // //判断通知是否为空
     $.ajax({
         url: "/user/getMyNotice",
         type: "post",
         datatype: "json",
         //未登陆，暂且手动输入数字模拟
-        data: {"userId": 1},
+        data: {"userId": parseInt(userId)},
         success: function (data) {
-            if(data==null)
+            if(data.length<1)
                 $("#comment").click(function () {
                     $(".iframe").attr("src","NoNotice.html");
                 })
             else
-                $("#comment").click(function () {
-                    $(".iframe").attr("src","NoNotice.html");
+                $("#notice").click(function () {
+                    $(".iframe").attr("src","MyNotice.html");
                 })
         }
     });
@@ -146,7 +163,7 @@ $(function () {
         </div>
     </div>
 </header>
-<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+<div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
     <ul class="f-cb lb mg">
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>
@@ -173,15 +190,13 @@ $(function () {
             <li class="j-iflag z-slt" data-umi="/private" data-type="msg" id="auto-id-Sb8fKFhhZndfzTlm"><a
                     id="letter" href="#"><i
                     class="u-icn u-icn-45"></i><span class="textspan">私信</span><i class="u-bub u-bub-1"
-                                                                                  style="display: block;"><b
-                    class="f-alpha"></b><em>10</em></i></a></li>
+                                                                                  style="display: block;"><em>10</em></i></a></li>
             <li class="j-iflag" data-umi="/comment" data-type="comment"><a id="comment" href="#"><i
                     class="u-icn u-icn-46"></i><span class="textspan">评论</span><i class="u-bub"
                                                                                   style="display: none;"></i></a></li>
             <li class="j-iflag" data-umi="/notify" data-type="notice"><a id="notice" href="#"><i
-                    class="u-icn u-icn-47"></i><span class="textspan">通知</span><i class="u-bub "
-                                                                                  style="display: block;"><b
-                    class="f-alpha"></b><em>6</em></i></a></li>
+                    class="u-icn u-icn-47"></i><span class="textspan">通知</span>
+                <i class="u-bub " style="display: block;"></b><em>6</em></i></a></li>
         </ul>
     </div>
         <iframe class="iframe" src="MyPrivateLetter.html" frameborder="0"

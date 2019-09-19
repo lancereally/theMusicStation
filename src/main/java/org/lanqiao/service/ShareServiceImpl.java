@@ -87,9 +87,18 @@ public class ShareServiceImpl implements ShareService{
 
 
     @Override
+    //    徐东方
+    public List<Share> getEventCount(Integer userId){
+        return shareMapper.getEventCount(userId);
+    }
+//    徐东方
+
+
+    @Override
     public Integer insertShareComment(ShareComment shareComment) {
         return shareCommentMapper.insertSelective(shareComment);
     }
+
 
 
 }

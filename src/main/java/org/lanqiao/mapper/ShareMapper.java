@@ -32,4 +32,7 @@ public interface ShareMapper {
 
     int updateShareLikesByPK_q(Integer shareId);
 
+    //    徐东方
+    List<Share> getEventCount(Integer userId);
+//    徐东方
 }

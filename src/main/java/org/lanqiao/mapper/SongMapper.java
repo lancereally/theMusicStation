@@ -33,4 +33,6 @@ public interface SongMapper {
     Song selectSong( Integer songId );
     //查询歌曲信息-郭长达
     Song selectSongInfoBySongId(Integer songId);
+    // Lzc : search lyric
+    List<Song> selectLyricByInput(String input);
 }

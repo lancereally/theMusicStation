@@ -1,0 +1,55 @@
+body {
+  --size: 1px;
+  --border: calc(var(--size) / 10);
+  background: #111;
+  font-family: Arial, sans-serif;
+}
+
+section {
+
+}
+
+div {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  display: inline-block;
+  margin: var(--border);
+  background: #ffff00;
+  background: linear-gradient(to bottom, #ffff00 0%, #ffff00 40%, #52361b 55%, #ffff00 80%, #ffff00 91%);
+  border-radius: var(--border);
+  padding: var(--border);
+  font-size: 0;
+  box-shadow: inset 0px 0px calc(var(--size) / 20) black;
+}
+div::before {
+  position: absolute;
+  top: var(--border);
+  right: var(--border);
+  bottom: var(--border);
+  left: var(--border);
+  z-index: 0;
+  background: #52361b;
+  border-radius: calc(var(--border) / 2);
+  box-shadow: inset 0px 0px calc(var(--size) / 10) black;
+  content: '';
+}
+
+span {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  z-index: 1;
+  display: block;
+  background: #ffff00;
+  background: linear-gradient(to bottom, #ffff00 0%, #ffff00 40%, #8c5c2e 55%, #ffff00 80%, #ffff00 91%);
+  border-radius: calc(var(--border) / 2);
+  box-shadow: 0px 0px calc(var(--size) / 20) black;
+  font-size: var(--size);
+  font-weight: 800;
+
+  line-height: var(--size);
+  text-align: center;
+  -webkit-background-clip: text;
+  color: transparent;
+}

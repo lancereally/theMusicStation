@@ -21,6 +21,7 @@ public class Album {
 
     private String albumPicUrl;
 
+
     private Integer singerId;
     //一对多关系，在一的一方添加一个多的实体
     private Singer singer;
@@ -105,6 +106,7 @@ public class Album {
         this.albumPicUrl = albumPicUrl == null ? null : albumPicUrl.trim();
     }
 
+
     public Integer getSingerId() {
         return singerId;
     }
@@ -112,4 +114,5 @@ public class Album {
     public void setSingerId(Integer singerId) {
         this.singerId = singerId;
     }
+
 }

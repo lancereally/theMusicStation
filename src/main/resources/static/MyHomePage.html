@@ -3,186 +3,218 @@
 <head>
     <link rel="stylesheet" href="css/MyHomePage.css">
     <link rel="stylesheet" href="css/index.css"/>
-    <link rel="stylesheet" href="css/MyOption.css">
+    <link rel="stylesheet" href="css/MyOption.css"/>
+<!--    <link rel="stylesheet" href="css/MyOption.css">-->
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
-    <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="js/layui/css/layui.css" />
+    <script src="js/layui/layui.js"></script>
     <meta charset="UTF-8">
     <title>MyHomePage</title>
 </head>
-<!--<script>-->
-<!--//用户选择控制-->
-<!--$(".j-uflag").mouseleave(function () {-->
-<!--$(".j-uflag").css("display","none");-->
-<!--});-->
-<!--$(".login-button").mouseenter(function () {-->
-<!--$(".j-uflag").css("display","block");-->
-<!--});-->
-<!--$(".login-button").mouseleave(function () {-->
-<!--$(".j-uflag").css("display","none");-->
-<!--});-->
-<!--$(".j-uflag").mouseenter(function () {-->
-<!--$(".j-uflag").css("display","block");-->
-<!--});-->
-<!--    //cookie-->
-<!--    var userId = $.cookie('userId');-->
-<!--    if (userId === undefined) {-->
-<!--        location.href = "";-->
-<!--    }-->
-<!--    $(function () {-->
-<!--        //获取动态数量-->
-<!--        $.ajax({-->
-<!--            url: "/user/getEventCount",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            //未登陆，暂且手动输入数字模拟-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                $("#event_count").val(data);-->
-<!--            }-->
-<!--        });-->
-<!--        //获取关注数量-->
-<!--        $.ajax({-->
-<!--            url: "/user/getFollowCount",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            //未登陆，暂且手动输入数字模拟-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                $("#follow_count").val(data);-->
-<!--            }-->
-<!--        })-->
-<!--        //获取粉丝数量-->
-<!--        $.ajax({-->
-<!--            url: "/user/getFanCount",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            //未登陆，暂且手动输入数字模拟-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                $("#fan_count").val(data);-->
-<!--            }-->
-<!--        })-->
-<!--        //获取听歌数量-->
-<!--        $.ajax({-->
-<!--            url: "/user/getPlaySongCount",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            //未登陆，暂且手动输入数字模拟-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                $("#play_song_count").val(data + "首");-->
-<!--            }-->
-<!--        })-->
-<!--        // //获取创建歌单数量-->
-<!--        // $.ajax({-->
-<!--        //     url: "/user/getSongListCreateCount",-->
-<!--        //     type: "post",-->
-<!--        //     datatype: "json",-->
-<!--        //     //未登陆，暂且手动输入数字模拟-->
-<!--        //     data: {"userId": 1},-->
-<!--        //     success: function (data) {-->
-<!--        //         $("#song_list_creat").val(data);-->
-<!--        //     }-->
-<!--        // })-->
-<!--        // //获取收藏歌单数量-->
-<!--        // $.ajax({-->
-<!--        //     url: "/user/getSongListCreateLiked",-->
-<!--        //     type: "post",-->
-<!--        //     datatype: "json",-->
-<!--        //     //未登陆，暂且手动输入数字模拟-->
-<!--        //     data: {"userId": 1},-->
-<!--        //     success: function (data) {-->
-<!--        //         $("#song_list_liked").val(data);-->
-<!--        //     }-->
-<!--        // })-->
-<!--        //获取用户基本信息-->
-<!--        $.ajax({-->
-<!--            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟-->
-<!--            url: "http://localhost:8080/cart/getUserInfo",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                vm.userInfo.push({-->
-<!--                    name: data.userName,-->
-<!--                    headPic: data.userHeadPic,-->
-<!--                    location: data.userLocation-->
-<!--                });-->
-<!--            }-->
-<!--        });-->
-<!--        //展示听歌排行-->
-<!--        $.ajax({-->
-<!--            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟-->
-<!--            url: "http://localhost:8080/cart/getSongRanking",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                for (var i = 0; i < data.length; i++) {-->
-<!--                    vm.songRanking.push({-->
-<!--                        songId: data[i].cartId,-->
-<!--                        picurl: data[i].pic.picUrl,-->
-<!--                        names: data[i].product.proName,-->
-<!--                        words: data[i].product.proWords,-->
-<!--                        picwords: data[i].pic.picWords,-->
-<!--                        prices: data[i].product.proPrice,-->
-<!--                        count: data[i].cartCount-->
-<!--                    });-->
-<!--                    $(".cart-main").css("height", "+=195");-->
-<!--                    //显示商品列数-->
-<!--                    $(".number").text(vm.products.length);-->
-<!--                }-->
-<!--            }-->
-<!--        });-->
-<!--        //展示我创建的歌单-->
-<!--        $.ajax({-->
-<!--            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟-->
-<!--            url: "http://localhost:8080/cart/getSongListCreate",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                for (var i = 0; i < data.length; i++) {-->
-<!--                    vm.songListCreate.push({-->
-<!--                        name: data[i].cartId,-->
-<!--                        picUrl: data[i].slpicUrl,-->
-<!--                        playTimes: data[i].proName-->
-<!--                    });-->
-<!--                    $("#list-create").css("height", "+=195");-->
-<!--                    $("#song_list_create").text(vm.songListCreate.length);-->
-<!--                }-->
-<!--            }-->
-<!--        });-->
-<!--        //展示我收藏的歌单-->
-<!--        $.ajax({-->
-<!--            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟-->
-<!--            url: "http://localhost:8080/cart/getSongListLiked",-->
-<!--            type: "post",-->
-<!--            datatype: "json",-->
-<!--            data: {"userId": 1},-->
-<!--            success: function (data) {-->
-<!--                if(data == null)-->
-<!--                    $("#song_list_liked").text(0);-->
-<!--                else {-->
-<!--                    for (var i = 0; i < data.length; i++) {-->
-<!--                        vm.songListLiked.push({-->
-<!--                            name: data[i].cartId,-->
-<!--                            picUrl: data[i].slpicUrl,-->
-<!--                            playTimes: data[i].proName-->
-<!--                        });-->
-<!--                        var num = (i+1)%4;-->
-<!--                        if (!(num > 0))-->
-<!--                        $(".list-liked").css("height", "+=195");-->
-<!--                        $("#song_list_liked").text(vm.songListLiked.length);-->
-<!--                    }-->
-<!--                }-->
-<!--            }-->
-<!--        })-->
-<!--//$(function)结尾-->
-<!--    });-->
-<!--</script>-->
+<script>
+    //cookie
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
+
+    $(function () {
+        //用户选择控制
+        $(".j-uflag").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".login-button").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        $(".login-button").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".j-uflag").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        //获取用户基本信息
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+            url: "/user/getUserInfo",
+            type: "post",
+            datatype: "json",
+            data :{"userId" : parseInt(userId)},
+            success: function (data) {
+                $(".userName").text(data.userName);
+                $(".userHead").attr("src",data.userHeadUrl);
+                $(".userLocation").text(data.userLocation);
+                $(".login-button img").attr("src",data.userHeadUrl);
+            }
+        });
+        //获取动态数量
+        $.ajax({
+            url: "/user/getEventCount",
+            type: "post",
+            datatype: "json",
+            //未登陆，暂且手动输入数字模拟
+            data: {"userId": parseInt(userId)},
+            success: function (data) {
+                $("#event_count").text(data.length);
+            }
+        });
+        //获取关注数量
+        $.ajax({
+            url: "/user/getFollowCount",
+            type: "post",
+            datatype: "json",
+            //未登陆，暂且手动输入数字模拟
+            data: {"userId": parseInt(userId)},
+            success: function (data) {
+                $("#follow_count").text(data.length);
+            }
+        })
+        //获取粉丝数量
+        $.ajax({
+            url: "/user/getFanCount",
+            type: "post",
+            datatype: "json",
+            //未登陆，暂且手动输入数字模拟
+            data: {"userId": parseInt(userId)},
+            success: function (data) {
+                $("#fan_count").text(data.length);
+            }
+        })
+        //获取听歌数量
+
+        $.ajax({
+            url: "/user/getPlaySongCount",
+            type: "post",
+            datatype: "json",
+            //未登陆，暂且手动输入数字模拟
+            data: {"userId": parseInt(userId)},
+            success: function (data) {
+                var $a = parseFloat(data.length);
+                $("#play_song_count").text($a+ "首");
+            }
+        })
+      //  获取创建歌单数量
+      //   $.ajax({
+      //       url: "/user/getSongListCreateCount",
+      //       type: "post",
+      //       datatype: "json",
+      //       //未登陆，暂且手动输入数字模拟
+      //       data: {"userId": parseInt(userId)},
+      //       success: function (data) {
+      //           $("#song_list_create").text(data.length);
+      //       }
+      //   })
+        //获取收藏歌单数量
+        // $.ajax({
+        //     url: "/user/getSongListLikedCount",
+        //     type: "post",
+        //     datatype: "json",
+        //     //未登陆，暂且手动输入数字模拟
+        //     data: {"userId": parseInt(userId)},
+        //     success: function (data) {
+        //         $("#song_list_liked").text(data.length);
+        //     }
+        // })
+        //
+        //展示听歌排行
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+            url: "/user/getSongRanking",
+            type: "post",
+            datatype: "json",
+            data: {"userId": parseInt(userId)},
+            success: function (data) {
+                if(data.length>0){
+                    for (var i = 0; i < data.length; i++) {
+                        vm.songRanking.push({
+                            songName: data[i].song.songName,
+                            singerName: data[i].singer.singerName,
+                            playTimes: data[i].userSong.usPlayTimes,
+                        });
+                        $(".m-record").css("height", "+=48");
+                    }
+                }
+
+                //显示歌曲列数
+                // $(".number").text(vm.products.length);
+            }
+        });
+        //展示我创建的歌单
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+            url: "/user/getSongListCreate",
+            type: "post",
+            datatype: "json",
+            data: {"userId": parseInt(userId)},
+            success: function (data) {
+                if(data.length>0){
+                    $("#song_list_create").text(data.length);
+                    for (var i = 0; i < data.length; i++) {
+                        vm.songListCreate.push({
+                            songListName: data[i].songList.songlistName,
+                            songListPic: data[i].songList.songlistPicUrl
+                        });
+                        if(i%5==0)
+                        $("#list-create").css("height", "+=195");
+                        // $("#song_list_create").text(vm.songListCreate.length);
+                    }
+                }
+                else if(data == null)
+                    $("#song_list_create").val(0);
+            }
+        });
+        //展示我收藏的歌单
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+            url: "/user/getSongListLiked",
+            type: "post",
+            datatype: "json",
+            data: {"userId": parseInt(userId)},
+            success: function (data) {
+                if(data == null)
+                    $("#song_list_liked").text(0);
+                else {
+                    $("#song_list_liked").text(data.length);
+                    for (var i = 0; i < data.length; i++) {
+                        vm.songListLiked.push({
+                            songListName: data[i].songList.songlistName,
+                            songListPic: data[i].songList.songlistPicUrl
+                        });
+                        var num = i%4;
+                        if (!(num > 0))
+                        $(".list-liked").css("height", "+=195");
+                        // $("#song_list_liked").text(vm.songListLiked.length);
+                    }
+                }
+            }
+        });
+        $("#editor").click(function () {
+            location.href = "MySetting.html";
+        })
+
+        //登出
+        $(".logout").click(function () {
+            $.ajax({
+                url: "/user/logout",
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                    if(data>0){
+                        location.href = "Index.html";
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg("登出成功~",{
+                                area:['400px', '50px']
+                            });
+                        });
+                    }
+                }
+            })
+        })
+//$(function)结尾
+    });
+</script>
 <body>
 <header>
     <div id="head-title">
@@ -240,8 +272,9 @@
             </ul>
             <div class="login-button">
             <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+<!--              <a href="#" id="login">登录</a>-->
+<!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>
@@ -263,7 +296,7 @@
         </div>
     </div>
 </header>
-<div class="m-tlist m-tlist-lged j-uflag" style="margin: 10px 170px 0 0;display: none;z-index: 999;">
+<div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
     <ul class="f-cb lb mg">
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>
@@ -278,7 +311,7 @@
                 class="icn icn-verify"></i><em>实名认证</em></a></li>
     </ul>
     <ul class="f-cb lt">
-        <li><a hidefocus="true" class="itm-3" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
+        <li><a hidefocus="true" class="itm-3 logout" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
         </li>
     </ul>
     <i class="arr"></i></div>
@@ -287,21 +320,21 @@
     <div class="content">
         <dl class="m-proifo">
             <dt class="f-pr" id="ava">
-                <img width="180px" height="180px"
-                     src="http://p1.music.126.net/8pIhzQNEG_eJ-d1bycBhCw==/19075427230380611.jpg?param=180y180">
-                <div class="btm"><a href="">更换头像</a></div>
+                <img width="180px" height="180px" class="userHead"
+                     src="">
+
             </dt>
             <dd>
                 <div class="name f-cb">
                     <div class="f-cb">
                         <div class="edit">
-                            <a href="MySetting.html" hidefocus="true" class="u-btn2 u-btn2-1">
+                            <a href="MySetting.html"  class="u-btn2 u-btn2-1">
                                 <input type="button" id="editor" value="编辑个人资料"></a>
 
                         </div>
                         <div class="rect" id="newmusician"></div>
                         <h2 id="j-name-wrap" class="wrap f-fl f-cb ">
-                            <span class="tit f-ff2 s-fc0 f-thide" style="font-size: x-large">Lancereallyet</span>
+                            <span class="tit f-ff2 s-fc0 userName" style="font-size: x-large;width:200px"></span>
                             <span id="j-vip-code"></span>
                             <i class="icn u-icn u-icn-01"></i>
                         </h2>
@@ -310,16 +343,16 @@
                 <ul class="data s-fc3 f-cb" id="tab-box">
                     <li class="fst"><a href="#"><strong id="event_count">0</strong><span>动态</span></a>
                     </li>
-                    <li><a href="#"><strong id="follow_count">4</strong><span>关注</span></a></li>
+                    <li><a href="#"><strong id="follow_count">0</strong><span>关注</span></a></li>
                     <li>
                         <a href="#">
-                            <strong id="fan_count">3</strong>
+                            <strong id="fan_count">0</strong>
                             <span>粉丝</span>
                             <i class="u-icn u-icn-68 f-alpha" id="newCount" style="display:none;"></i>
                         </a></li>
                 </ul>
-                <div class="inf s-fc3">
-                    <span>所在地区：山东省 - 青岛市</span>
+                <div class="inf s-fc3" style="margin-top: 100px">
+                    <span >所在地区：<span class="userLocation">山东省 - 青岛市</span></span>
                 </div>
                 <!--                <div class="inf s-fc3 f-cb">-->
                 <!--                    <span class="tit">社交网络：</span>-->
@@ -342,9 +375,9 @@
                 <!--                    </div>-->
             </span>
             <div class="nav f-cb">
-                <span data-action="songsall" id="songsall">所有时间</span>
-                <i style="display:block;margin-top: 4px">|</i>
-                <span data-action="songsweek" id="songsweek" class="z-sel">最近一周</span>
+
+
+
             </div>
             <!--            </div>-->
         </div>
@@ -355,11 +388,11 @@
                     <div class="song">
                         <div class="tt">
                             <div class="ttc"><span class="txt"><a href="#"><b
-                                    title="Can't Take My Eyes Off You">Can't Take My Eyes Off You</b></a>
+                                    :title="song.songName">{{song.songName}}</b></a>
                                 <span class="ar s-fc8">
                                     <em>-</em>
-                                <span title="王若琳">
-                                <a class="s-fc8" href="#" hidefocus="true">王若琳</a>
+                                <span :title="song.singerName">
+                                <a class="s-fc8" href="#" hidefocus="true">{{song.singerName}}</a>
                             </span>
                             </span>
                             </span>
@@ -374,51 +407,56 @@
                             <span data-res-action="download" class="icn icn-dl" title="下载">下载</span>
                         </div>
                     </div>
-                    <div class="tops"><span class="bg" style="width:100%;"></span><span class="times f-ff2">18次</span>
+                    <div class="tops"><span class="bg" style="width:100%;"></span><span class="times f-ff2">{{song.playTimes}}次</span>
                     </div>
                 </li>
             </ul>
         </div>
         <div class="h-myList">
             <div class="u-title u-title-1 f-cb" id="cHeader" style="">
-                <h3><span class="f-ff2 f-pr ">我创建的歌单<span class="f-pa f-r-black-icon" id="song_list_create"
-                                                         style="display:inline-block;width:8px;height:8px;top:1px;background-size:cover;">（6）</span></span>
+                <h3><span class="f-ff2 f-pr ">我创建的歌单（<span class="f-pa f-r-black-icon" id="song_list_create"
+                                                         style="display:inline-block;width:8px;height:8px;top:1px;background-size:cover;"></span></span>
                 </h3>
             </div>
         </div>
-        <ul class="myList m-cvrlst f-cb" id="list-create">
+        <ul class="myList m-cvrlst f-cb" id="list-create" style="width:950px;height:195px">
+
             <li id="auto-id-mAWJbXHGwJhdD4LN" v-for="listCreate in songListCreate">
                 <div class="u-cover u-cover-1"><img
-                        src="https://p1.music.126.net/gQak9qGoTNz5OVq5jFj24Q==/3390893860837593.jpg?param=140y140"><a
-                        href="#" class="msk" title="Lancereallyet喜欢的音乐"></a>
+                        :src="listCreate.songListPic"><a
+                        href="#" class="msk" :title="listCreate.songListName"></a>
                     <div class="bottom"><a class="icon-play f-fr" title="播放"
                                            data-res-action="play" data-res-type="13"
-                    ></a><span class="icon-headset"></span><span
-                            class="nb">805</span></div>
+                    ></a><p style="font-size: small;margin:5px;width:100px;overflow:hidden;">{{listCreate.songListName}}</p>
+<!--                        <span class="nb">{{listCreate.playTimes}}</span>-->
+                    </div>
                 </div>
                 <p class="dec"><a class="tit f-thide s-fc0" href="#"
-                                  title="Lancereallyet喜欢的音乐">Lancereallyet喜欢的音乐</a></p></li>
+                                  :title="listCreate.songListName">{{listCreate.songListName}}</a></p></li>
         </ul>
         <div class="h-list-liked">
             <div class="u-title u-title-1 f-cb" id="sHeader" style="">
-                <h3><span class="f-ff2 f-pr">我收藏的歌单<span class="f-pa f-r-black-icon" id="song_list_liked"
-                                                         style="display:inline-block;width:8px;height:8px;background-size:cover;top:1px;">（10）</span></span>
+                <h3><span class="f-ff2 f-pr">我收藏的歌单（<span class="f-pa f-r-black-icon" id="song_list_liked"
+                                                         style="display:inline-block;width:8px;height:8px;background-size:cover;top:1px;"></span></span>
                 </h3>
             </div>
         </div>
-        <ul class="list-liked m-cvrlst f-cb">
+        <ul class="list-liked m-cvrlst f-cb" id="list-liked" style="width:950px;height:195px">
+
             <li v-for="listLiked in songListLiked">
                 <div class="u-cover u-cover-1">
-                    <img src="https://p1.music.126.net/NHN-622oYp758ZehSLeCzg==/3402988506771254.jpg?param=140y140">
+                    <img :src="listLiked.songListPic">
                     <a
-                            href="#" class="msk" title="Lancereallyet喜欢的音乐"></a>
+                            href="#" class="msk" :title="listLiked.songListName"></a>
                     <div class="bottom"><a class="icon-play f-fr" title="播放"
                                            data-res-action="play" data-res-type="13"
-                    ></a><span class="icon-headset"></span><span
-                            class="nb">77</span></div>
+                    ></a><p style="font-size: small;margin-top:5px">{{listLiked.songListName}}</p>
+<!--                        <span class="icon-headset"></span>-->
+<!--                        <span class="nb">{{listLiked.playTimes}}</span>-->
+                    </div>
                 </div>
                 <p class="dec"><a class="tit f-thide s-fc0" href="#"
-                                  title="Lancereallyet喜欢的音乐">泽野弘之</a></p></li>
+                                  :title="listLiked.songListName">{{listLiked.songListName}}</a></p></li>
         </ul>
     </div>
 </div>
@@ -427,7 +465,6 @@
     var vm = new Vue({
         el:".content",
         data: {
-            userInfo:[],
             songRanking: [],
             songListCreate:[],
             songListLiked:[]
