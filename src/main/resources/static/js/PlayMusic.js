@@ -1,4 +1,18 @@
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html"
+}
 $(function () {
+    //获取用户头像
+    $.ajax({
+        url: "/user/getUserInfo",
+        type: "post",
+        datatype: "json",
+        data :{"userId" : parseInt(userId)},
+        success: function (data) {
+            $(".login-button img").attr("src",data.userHeadUrl);
+        }
+    });
     //获取url值
     var url = location.search,
         songId = {};
@@ -114,7 +128,7 @@ $(function () {
                     url:"/PlayMusic/showUserHead",
                     type:"post",
                     data:{
-                        userId:5
+                        userId:parseInt(userId)
                     },
                     dataType:"json",
                     success:function (data) {
@@ -225,7 +239,7 @@ $(function () {
                 songId: songId.id,
                 songcText:$("textarea[class='msg_info']").val(),
                 songcToId:replayId,
-                userId:5
+                userId:parseInt(userId)
             },
             dataType:"json",
             success:function (data) {
