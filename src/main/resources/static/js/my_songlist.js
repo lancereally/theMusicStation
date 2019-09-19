@@ -10,13 +10,12 @@ $(function () {
             songListId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
         }
     }
-    //
-    // console.log('传过来的参数是:', songListId.songListId);
-    // alert( songListId.songListId);
+
     var ss = new Vue({
         el: "#songVue",
         data: {
-            songSet: []
+            songSet: [],
+            url:""
         },
         methods: {
             getSongSet: function () {
@@ -32,6 +31,7 @@ $(function () {
                         if (data.length > 0) {
                             for (var i = 0; i < data.length; i++) {
                                 ss.songSet.push({
+                                    songId:data[i].songId,
                                     songName: data[i].songName,
                                     songDuration: data[i].songDuration,
                                     singerName: data[i].singerName,
@@ -43,6 +43,9 @@ $(function () {
                         }
                     }
                 });
+            },
+            goToSong: function (songId){
+                ss.url='PlayMusic.html' + '?songId=' + escape(songId);
             }
         }
     });
@@ -54,26 +57,24 @@ $(function () {
         },
         methods: {
             getSongCount: function () {
-                sinfo.songCount;
                 $.ajax({
                     url: "/MyMusic/songlist/countshow",
                     type: "post",
                     data: {songListId: songListId.songListId},
                     dataType: "json",
                     success: function (data) {
-                        songCount = data;
+                        sinfo.songCount = data;
                     }
                 })
             },
             getSongPlayCount: function () {
-                sinfo.songPlayCount;
                 $.ajax({
                     url: "/MyMusic/songlist/playcountshow",
                     type: "post",
                     data: {songListId: songListId.songListId},
                     dataType: "json",
                     success: function (data) {
-                        songPlayCount = data;
+                        sinfo.songPlayCount = data;
                     }
                 })
             }
@@ -136,6 +137,40 @@ $(function () {
                         }
                     }
                 })
+            },
+            dianzanAw:function (songlcId,index) {
+                $.ajax({
+                    url:"/MyMusic/dianzan",
+                    type:"post",
+                    data:{
+                        songlcId:songlcId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            comment.awComment[index].songlcLikes =  comment.awComment[index].songlcLikes +1;
+                        }
+                    }
+                })
+            },
+            dianzan:function (songlcId,index) {
+                $.ajax({
+                    url:"/MyMusic/dianzan",
+                    type:"post",
+                    data:{
+                        songlcId:songlcId
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        if(data==1){
+                            comment.commentList[index].songlcLikes+=1;
+                        }
+                    }
+                })
+            },
+            replay:function (songlcId,userName) {
+                alert(songlcId)
+                $("#com_text").val("@"+userName+":");
             }
         },
         filters: {
@@ -158,6 +193,8 @@ $(function () {
             songlistName: "",
             songlistCreateTime: "",
             songlistPicUrl: "",
+            songlistDescription:"",
+            songlistTag:[],
             userName: "",
             userHeadUrl: "",
             url:""
@@ -179,6 +216,9 @@ $(function () {
                         songList.songlistName=data.songlistName;
                         songList.songlistCreateTime=data.songlistCreateTime;
                         songList.songlistPicUrl=data.songlistPicUrl;
+                        songList.songlistDescription=data.songlistDescription;
+                        if(data.songlistTag!=null)
+                            songList.songlistTag=data.songlistTag.split(" ");
                         songList.userName=data.usersSet[0].userName;
                         songList.userHeadUrl=data.usersSet[0].userHeadUrl
                     }
@@ -186,6 +226,9 @@ $(function () {
             },
             goToEdit:function (songlistId) {
                 songList.url= 'MyMusic_edit.html' + '?songListId=' + escape(songlistId);
+            },
+            goToPlay:function (songId) {
+                songList.url= 'PlayMusic.html' + '?songId=' + escape(songId);
             }
         },
         filters: {

@@ -27,4 +27,9 @@ public class SongListCommentController {
     public List<SongListComment> getAwComment(Integer songListId){
         return commentService.selectAwesomeComment(songListId);
     }
+    //歌单点赞-郭长达
+    @RequestMapping("/MyMusic/dianzan")
+    public int updateCommentLike(Integer songlcId){
+        return commentService.updateCommentLike(songlcId);
+    }
 }

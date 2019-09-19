@@ -13,6 +13,10 @@ public interface UsersService {
 
     public Integer becomeOtherFan(Integer userId,Integer otherId);
     //《《《郭书卿《《《
+    //郭长达-查询用户头像
+    public Users getUserHeadPic(Integer userId);
+    //获取喜欢这首歌的用户头像
+    public List<Users> getUserHeadPicLikeSong(Integer songId);
 
     // Lzc : search users
     List<Users> selectUsersByInput(String input);

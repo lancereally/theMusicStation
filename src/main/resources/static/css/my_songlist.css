@@ -127,6 +127,34 @@ ul{
 .three_distance{
     margin-left: 10px;
 }
+.tag_div{
+    margin: 10px 0 5px;
+    line-height: 22px;
+}
+.tag_div b{
+    float: left;
+}
+.sl_tag{
+    float: left;
+    margin: 0px 10px 3px 0;
+    padding: 0 10px 0 0;
+    text-shadow: 0 1px #fdfdfd;
+    color: #777;
+    text-decoration: none;
+    height: 22px;
+    line-height: 22px;
+    background: url("../images/MyMusic/button2.png") no-repeat right -27px;
+}
+.sl_tag span{
+    position: relative;
+    zoom: 1;
+    padding: 0 3px 0 13px;
+    float: left;
+    height: 22px;
+    line-height: 22px;
+    background: url("../images/MyMusic/button2.png") no-repeat 0 0;
+    /*cursor: pointer;*/
+}
 .jiesao{
     margin-top: 12px;
     line-height: 18px;
@@ -264,6 +292,9 @@ ul{
     font-weight: normal;
 
     line-height: 28px;
+}
+.msg_tsize{
+    color: gold;
 }
 .msg_num{
     margin: 9px 0 0 20px;
@@ -420,4 +451,8 @@ ul{
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     border-radius: 0;
     background: rgba(0,0,0,0.1);
+}
+.vipUser{
+    color: gold;
+    font-weight: bolder;
 }

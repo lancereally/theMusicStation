@@ -40,6 +40,18 @@ public class SongServiceImpl implements SongService{
     }
 
     @Override
+    public Song selectSongInfoBySongId(Integer songId) {
+        return songMapper.selectSongInfoBySongId(songId);
+    }
+
+    @Override
+    public Song selectSong(Integer songId) {
+        return songMapper.selectSong(songId);
+    }
+
+
+
+    @Override
     public List<Song> selectLyricByInput(String input) {
         return songMapper.selectLyricByInput(input);
     }

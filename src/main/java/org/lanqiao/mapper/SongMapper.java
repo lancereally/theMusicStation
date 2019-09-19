@@ -28,6 +28,11 @@ public interface SongMapper {
     //查询歌单中歌曲数和播放次数
 //    int selectSongPlayCount(Integer songListId);
 //    int selectSongCount(Integer songListId);
+
+    //查询单曲
+    Song selectSong( Integer songId );
+    //查询歌曲信息-郭长达
+    Song selectSongInfoBySongId(Integer songId);
     // Lzc : search lyric
     List<Song> selectLyricByInput(String input);
 }

@@ -27,22 +27,27 @@
         .f--rigt {
             float: right;
         }
-        .album-1{
+
+        .album-1 {
             width: 590px;
             height: 360px;
             overflow: hidden;
         }
-        .xiaoshi{
+
+        .xiaoshi {
             display: none;
         }
-        .f-left{
+
+        .f-left {
             float: left;
             list-style-type: none;
         }
-        .pad-0{
+
+        .pad-0 {
             padding: 0;
         }
-        .btnfav{
+
+        .btnfav {
             display: block;
             position: absolute;
             bottom: 650px;
@@ -64,115 +69,116 @@
             var url = location.search,
                 singerId = {};
 
-            if(url.indexOf("?") != -1) {
+            if (url.indexOf("?") != -1) {
                 var str = url.substr(1);
                 var strs = str.split("&");
-                for(var i = 0; i < strs.length; i++) {
+                for (var i = 0; i < strs.length; i++) {
                     singerId[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
                 }
 
             }
 
             var bigBox = new Vue({
-                el:"#bigBox",
-                data:{
-                    singer:"",
-                    songs:[],
-                    singerId:singerId.singerId,
-                    songCount:"",
-                    albums:[],
-                    collection:"收藏"
+                el: "#bigBox",
+                data: {
+                    singer: "",
+                    songs: [],
+                    singerId: singerId.singerId,
+                    songCount: "",
+                    albums: [],
+                    collection: "收藏"
 
                 },
-                methods:{
-                    getSongs:function () {
+                methods: {
+                    getSongs: function () {
                         bigBox.songs = [];
                         $.ajax({
-                            url:"/singer/getSongs",
-                            datatype:"json",
-                            data:{
-                                singerId:bigBox.singerId
+                            url: "/singer/getSongs",
+                            datatype: "json",
+                            data: {
+                                singerId: bigBox.singerId
                             },
-                            type:"post",
-                            success:function (songs) {
+                            type: "post",
+                            success: function (songs) {
                                 bigBox.songCount = songs.length;
-                                for (var i = 0; i <songs.length; i++) {
+                                for (var i = 0; i < songs.length; i++) {
                                     bigBox.songs.push({
-                                        songId:songs[i].songId,
-                                        songName:songs[i].songName,
-                                        songDuration:songs[i].songDuration,
-                                        albumName:songs[i].albumName
+                                        songId: songs[i].songId,
+                                        songName: songs[i].songName,
+                                        songDuration: songs[i].songDuration,
+                                        albumName: songs[i].albumName
                                     })
                                 }
                             }
                         })
                     },
-                    showSongs:function () {
+                    showSongs: function () {
                         $("#songs").show();
                         $("#album").hide();
                         $("#MV").hide();
                         $("#description").hide();
                         bigBox.getSongs();
                     },
-                    showAlbum:function () {
+                    showAlbum: function () {
                         $("#songs").hide();
                         $("#album").show();
                         $("#MV").hide();
                         $("#description").hide();
                         bigBox.getAlbum();
                     },
-                    showMV:function () {
+                    showMV: function () {
                         $("#songs").hide();
                         $("#album").hide();
                         $("#MV").show();
                         $("#description").hide()
                     },
-                    showDescription:function () {
+                    showDescription: function () {
                         $("#songs").hide();
                         $("#album").hide();
                         $("#MV").hide();
                         $("#description").show()
                     },
-                    getSinger:function () {
+                    getSinger: function () {
                         $.ajax({
-                            url:"/singer/getSinger",
-                            type:"post",
-                            data:{
-                                singerId:bigBox.singerId
+                            url: "/singer/getSinger",
+                            type: "post",
+                            data: {
+                                singerId: bigBox.singerId
                             },
-                            datatype:"json",
-                            success:function (singer) {
+                            datatype: "json",
+                            success: function (singer) {
                                 bigBox.singer = singer
                             }
                         })
                     },
-                    getAlbum:function () {
+                    getAlbum: function () {
                         bigBox.album = [];
                         $.ajax({
-                            url:"/singer/getAlbum",
-                            datatype:"json",
-                            data:{
-                                singerId : bigBox.singerId
+                            url: "/singer/getAlbum",
+                            datatype: "json",
+                            data: {
+                                singerId: bigBox.singerId
                             },
-                            type:"post",
-                            success:function (album) {
+                            type: "post",
+                            success: function (album) {
                                 bigBox.albums = album;
                             }
                         })
                     },
-                    checkCollection:function () {
-                        bigBox.collection = "收藏";
+                    checkCollection: function () {
                         $.ajax({
-                            url:check === 0 ? "/singer/checkCollection" : "/singer/collectionSinger",
-                            datatype:"json",
-                            data:{
-                                userId : userId,
+                            url: bigBox.collection === "收藏" ? "/singer/checkCollection" : "/singer/collectionSinger",
+                            datatype: "json",
+                            data: {
+                                userId: userId,
                                 singerId: bigBox.singerId
                             },
-                            type:"post",
-                            success:function (check) {
-                                if (check == "true"){
+                            type: "post",
+                            success: function (check) {
+                                if (check == "true" || check === 1) {
                                     bigBox.collection = "已收藏"
+                                } else {
+                                    bigBox.collection = "收藏"
                                 }
                             }
                         })
@@ -182,18 +188,18 @@
 
             });
 
-            var check = 0;
             bigBox.getSinger();
             bigBox.showSongs();
             bigBox.checkCollection();
 
             $("#artist-sub").click(function () {
-                check = 1;
-                bigBox.checkCollection();
+                if (bigBox.collection === "收藏"){
+                    bigBox.collection = "已收藏";
+                    bigBox.checkCollection();
+                }
             })
 
         });
-
 
 
     </script>
@@ -202,124 +208,126 @@
 <div id="bigBox">
 
 
-<div class=" f-left">
-    <h2 class="f-w-n f-left">{{singer.singerName}}</h2><i class="f-left" style="padding-top: 20px"><h4 class="f-w-n f-c-d">{{singer.antherName}}</h4></i>
-    <div style="clear: both">
-        <img :src="singer.singerPicUrl" height="300px" width="640px">
-        <a id="artist-sub" href="javascript:void(0)" class="btnfav f-tid">{{collection}}</a>
+    <div class=" f-left">
+        <h2 class="f-w-n f-left">{{singer.singerName}}</h2><i class="f-left" style="padding-top: 20px"><h4
+            class="f-w-n f-c-d">{{singer.antherName}}</h4></i>
+        <div style="clear: both">
+            <img :src="singer.singerPicUrl" height="300px" width="640px">
+            <a id="artist-sub" href="javascript:void(0)" class="btnfav f-tid">{{collection}}</a>
+        </div>
     </div>
-</div>
-<div style="width: 100%; height: 500px; overflow: hidden">
+    <div style="width: 100%; height: 500px; overflow: hidden">
 
 
-    <ul class="nav nav-tabs" id="myTab">
-        <li  class="active" @click="showSongs"><a data-toggle="tab">热门作品</a></li>
-        <li @click="showAlbum"><a data-toggle="tab">所有专辑</a></li>
-        <li @click="showMV"><a data-toggle="tab">相关MV</a></li>
-        <li @click="showDescription"><a data-toggle="tab">艺人介绍</a></li>
-    </ul>
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active" @click="showSongs"><a data-toggle="tab">热门作品</a></li>
+            <li @click="showAlbum"><a data-toggle="tab">所有专辑</a></li>
+            <li @click="showMV"><a data-toggle="tab">相关MV</a></li>
+            <li @click="showDescription"><a data-toggle="tab">艺人介绍</a></li>
+        </ul>
 
-    <!--音乐-->
-    <div id="songs">
-        <div id="btns">
-            <button type="button" class="btn btn-primary f--left"><i><img src="images/v-play.png" height="20px"></i>播放
-            </button>
-            <span style="width: 10px; height: 10px" class="f--left"></span>
-            <button type="button" class="btn btn-default f--left"><i><img src="images/favorites.png" height="20px"></i>收藏热门({{songCount}})
-            </button>
-            <div class="dropdown f--rigt">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                    下拉菜单
-                    <span class="caret"></span>
+        <!--音乐-->
+        <div id="songs">
+            <div id="btns">
+                <button type="button" class="btn btn-primary f--left"><i><img src="images/v-play.png" height="20px"></i>播放
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">热门单曲</a></li>
-                    <li><a href="#">作词作品</a></li>
-                    <li><a href="#">作曲作品</a></li>
+                <span style="width: 10px; height: 10px" class="f--left"></span>
+                <button type="button" class="btn btn-default f--left"><i><img src="images/favorites.png" height="20px"></i>收藏热门({{songCount}})
+                </button>
+                <div class="dropdown f--rigt">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                            data-toggle="dropdown">
+                        下拉菜单
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">热门单曲</a></li>
+                        <li><a href="#">作词作品</a></li>
+                        <li><a href="#">作曲作品</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center">
+
+
+                <table class="table table-striped table-hover" style="border-bottom: 1px #dddddd solid">
+
+                    <tbody>
+                    <tr v-for="(song,index) in songs">
+                        <td>{{index+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i><img
+                                src="images/play.png" height="15px"></i></a></td>
+                        <td>{{song.songName}}</td>
+                        <td><a href="#">{{song.songDuration}}</a></td>
+                        <td><a href="#">{{song.albumName}}</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <!--专辑-->
+        <div id="album">
+            <div style="height: 368px; width: 719px">
+                <ul class="sPic album-1 pad-0">
+                    <li class="f-left" v-for="album in albums">
+                        <img :src="album.albumPicUrl" height="130px" width="130px">
+                        <div>
+                            <a href="#" class="singerName font-12 f-left f-c-3">{{album.albumName}}</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
-        <div class="text-center">
 
-
-            <table class="table table-striped table-hover" style="border-bottom: 1px #dddddd solid">
-
-                <tbody>
-                <tr v-for="(song,index) in songs">
-                    <td>{{index+1}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><i><img
-                            src="images/play.png" height="15px"></i></a></td>
-                    <td>{{song.songName}}</td>
-                    <td><a href="#">{{song.songDuration}}</a></td>
-                    <td><a href="#">{{song.albumName}}</a></td>
-                </tr>
-                </tbody>
-            </table>
-
+        <!--MV-->
+        <div id="MV">
+            <div style="height: 368px; width: 719px">
+                <ul class="sPic  album-1 pad-0">
+                    <li class="f-left" v-for="mv in MV">
+                        <img src="images/singer.jpg" height="130px">
+                        <div>
+                            <a href="#" class="singerName font-12 f-left f-c-3">{{mv}}</a>
+                        </div>
+                    </li>
+                    <li class="f-left">
+                        <img src="images/singer.jpg" height="130px">
+                        <div>
+                            <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
+                        </div>
+                    </li>
+                    <li class="f-left">
+                        <img src="images/singer.jpg" height="130px">
+                        <div>
+                            <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
+                        </div>
+                    </li>
+                    <li class="f-left">
+                        <img src="images/singer.jpg" height="130px">
+                        <div>
+                            <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
+                        </div>
+                    </li>
+                    <li class="f-left">
+                        <img src="images/singer.jpg" height="130px">
+                        <div>
+                            <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
+
+        <div id="description">
+            <div style="padding: 10px 20px">
+                姓名：{{singer.singerName}}
+            </div>
+            <div style="padding: 10px 20px">
+                {{singer.singerDescription}}
+            </div>
+        </div>
+
     </div>
-
-    <!--专辑-->
-    <div id="album">
-        <div style="height: 368px; width: 719px">
-            <ul class="sPic album-1 pad-0">
-                <li class="f-left" v-for="album in albums">
-                    <img :src="album.albumPicUrl" height="130px" width="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">{{album.albumName}}</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <!--MV-->
-    <div id="MV">
-        <div style="height: 368px; width: 719px">
-            <ul class="sPic  album-1 pad-0">
-                <li class="f-left" v-for="mv in MV">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">{{mv}}</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-                <li class="f-left">
-                    <img src="images/singer.jpg" height="130px">
-                    <div>
-                        <a href="#" class="singerName font-12 f-left f-c-3">张惠妹</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="description">
-        <div style="padding: 10px 20px">
-           姓名：{{singer.singerName}}
-        </div>
-        <div style="padding: 10px 20px">
-            {{singer.singerDescription}}
-        </div>
-    </div>
-
-</div>
 
 </div>
 </body>
