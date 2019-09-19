@@ -193,25 +193,24 @@
         })
 
         //登出
-        // $(".logout").click(function () {
-        //     $.ajax({
-        //         url: "/user/logout",
-        //         type: "post",
-        //         datatype: "json",
-        //         data: {"userId": parseInt(userId)},
-        //         success: function (data) {
-        //             if(data>1){
-        //                 location.href = "Index.html";
-        //                 layui.use('layer', function(){
-        //                     var layer = layui.layer;
-        //                     layer.msg("登出成功~",{
-        //                         area:['400px', '50px']
-        //                     });
-        //                 });
-        //             }
-        //         }
-        //     })
-        // })
+        $(".logout").click(function () {
+            $.ajax({
+                url: "/user/logout",
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                    if(data>0){
+                        location.href = "Index.html";
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg("登出成功~",{
+                                area:['400px', '50px']
+                            });
+                        });
+                    }
+                }
+            })
+        })
 //$(function)结尾
     });
 </script>

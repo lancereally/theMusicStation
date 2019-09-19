@@ -136,13 +136,14 @@ public class UsersController {
     }
 
     //退出当前账户
-//    @RequestMapping("/user/logout")
-//    public int logout(HttpServletResponse response,int users){
-//        Cookie cookie = new Cookie("userId", users+"1");
-//        cookie.setPath("/");
-////        response.addCookie(cookie);
-//        return 1;
-//    }
+    @RequestMapping("/user/logout")
+    public int logout(HttpServletResponse response){
+        Cookie cookie = new Cookie("userId", "");
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return 1;
+    }
 
     //登录验证账户
 //    @RequestMapping("/login/checkAccount")
