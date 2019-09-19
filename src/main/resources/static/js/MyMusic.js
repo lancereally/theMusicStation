@@ -5,6 +5,16 @@ if (userId === undefined) {
     location.href = "Index.html";
 }
 $(function () {
+    //获取用户头像
+    $.ajax({
+        url: "/user/getUserInfo",
+        type: "post",
+        datatype: "json",
+        data :{"userId" : parseInt(userId)},
+        success: function (data) {
+            $(".login-button img").attr("src",data.userHeadUrl);
+        }
+    });
     //vue使用
     var song = new Vue({
         el:"#songList",

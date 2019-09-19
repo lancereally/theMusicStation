@@ -3,11 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>搜索</title>
+    <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/search.css">
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
     <script>
+        var user_id = $.cookie('userId');
+        if (user_id === undefined) {
+            location.href = "Index.html";
+        }
         // Document.ready
         $(function () {
+            //获取用户头像
+            $.ajax({
+                url: "/user/getUserInfo",
+                type: "post",
+                datatype: "json",
+                data :{"userId" : parseInt(user_id)},
+                success: function (data) {
+                    $(".login-button img").attr("src",data.userHeadUrl);
+                }
+            });
             // 需求查询按钮特效
             $("li a").click(function () {
                 $("li a").removeClass("z-slt");
@@ -26,9 +42,84 @@
             });
         })
     </script>
+    <script src="js/jquery.cookie.js"></script>
 </head>
 <body>
-<iframe id="headerFrame" src="head.html" height="105px" width="100%" frameborder="0"></iframe>
+<!--<iframe id="headerFrame" src="head.html" height="105px" width="100%" frameborder="0"></iframe>-->
+<header style="border-bottom: 30px #ffd700 solid;">
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="Index.html" id="tuHai">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="Index.html">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="MyMusic.html">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="share.html">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+            <span>
+<!--              <a href="#" id="login">登录</a>-->
+                <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+                    <span class="parent" style="margin: 8px 0 0 20px;">
+                        <a type="button" id="srch"
+                           style="opacity: 1;color: #333;line-height: 16px;text-decoration: none;font-size: 12px"
+                           href="search.html">搜索音乐/歌手/歌词...</a>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 <div class="g-bd">
     <div class="g-wrap n-srch">
         <div class="pgsrch f-pr j-suggest" id="auto-id-yRB0Bv3Qb0dtVCdb">
