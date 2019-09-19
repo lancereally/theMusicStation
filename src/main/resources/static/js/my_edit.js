@@ -133,7 +133,7 @@ $(function () {
             url: "/MyMusic/songList/uploadFile",
             type: "post",
             data: {
-                "imageFile": $('#SongListPic')[0].src,
+                "imageFile": $('#SongListPic')[0].src==null?$("#SongListPic").attr("src"):$('#SongListPic')[0].src,
             },
             dataType: "text",
             success: function (data) {
@@ -154,7 +154,7 @@ $(function () {
                                 var layer = layui.layer;
                                 layer.msg('编辑成功！');
                             });
-                            setTimeout("parent[0].location.reload()", "1000");
+                            setTimeout("parent.location.reload();", "1000");
                         }
                     }
                 })
