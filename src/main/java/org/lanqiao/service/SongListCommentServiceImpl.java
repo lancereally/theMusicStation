@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class SongListCommetServiceImpl implements SongListCommentService {
+public class SongListCommentServiceImpl implements SongListCommentService {
 
     @Autowired
     SongListCommentMapper songListCommentMapper;
@@ -26,5 +26,10 @@ public class SongListCommetServiceImpl implements SongListCommentService {
     @Override
     public List<SongListComment> selectAwesomeComment(Integer songListId) {
         return songListCommentMapper.selectAwesomeComment(songListId);
+    }
+    //歌单点赞-郭长达
+    @Override
+    public int updateCommentLike(Integer songlcId) {
+        return songListCommentMapper.updateLikeNum(songlcId);
     }
 }

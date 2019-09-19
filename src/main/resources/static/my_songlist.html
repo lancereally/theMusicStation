@@ -37,13 +37,20 @@
                 <span class="two_time">{{songlistCreateTime | formatDate}} 创建</span>
             </div>
             <div class="det_three">
-                <button type="button" class="btn btn-primary btn-sm">播放</button>
+                <button type="button" class="btn btn-primary btn-sm"><a :href="url" @click="goToPlay(1)" target="_parent">播放</a></button>
                 <button type="button" class="btn btn-default btn-sm three_distance">收藏</button>
                 <button type="button" class="btn btn-default btn-sm three_distance">分享</button>
                 <button type="button" class="btn btn-default btn-sm three_distance">下载</button>
-                <button type="button" class="btn btn-default btn-sm three_distance">评论</button>
+                <button type="button" class="btn btn-default btn-sm three_distance"><a href="#songComment">评论</a></button>
             </div>
-            <p class="jiesao">介绍：</p>
+            <div class="tag_div" v-if="songlistTag.length>0">
+                <b >标签：</b>
+                <a class="sl_tag" v-for="(item,index) in songlistTag" ><span>{{item}}</span></a>
+            </div><br>
+            <p class="jiesao" v-if="songlistDescription.length>0">
+                <b>介绍：</b>
+                <span>{{songlistDescription}}</span>
+            </p>
         </div>
     </div>
 </div>
@@ -89,7 +96,7 @@
             </td>
             <td>
                 <div class="tb_name">
-                    <a>{{song.songName}}</a>
+                    <a :href="url" @click="goToSong(song.songId)" target="_parent">{{song.songName}}</a>
                 </div>
             </td>
             <td>
@@ -115,28 +122,28 @@
 </div>
 
 
-<div class="sl_msg">
+<div class="sl_msg" id="songComment">
     <div class="msg_headtitle">
         <h3>
             <span class="msg_size">评论</span>
         </h3>
         <span class="msg_num">共
-            <span class="msg_size"></span>
+            <span class="msg_tsize">{{commentList.length}}</span>
             条评论
         </span>
     </div>
-    <div class="msg_det" id="songComment">
+    <div class="msg_det" >
         <div class="msg_user">
             <div class="userpic">
                 <img :src="userHeadUrl1 ">
             </div>
             <div class="msg_text">
                 <div class="msg_textarea" id="editText">
-                    <textarea class="msg_info" placeholder="评论"></textarea>
+                    <textarea class="msg_info" id="com_text" placeholder="评论"></textarea>
                 </div>
                 <div class="msg_bar" id="editPic">
-                    <i class="bar_emoj msg_icon"></i>
-                    <i class="bar_at msg_icon"></i>
+<!--                    <i class="bar_emoj msg_icon"></i>-->
+<!--                    <i class="bar_at msg_icon"></i>-->
                 </div>
                 <button type="button" class="btn btn-primary btn-xs" id="msg_send">评论</button>
                 <span class="info_num">140</span>
@@ -144,30 +151,30 @@
         </div>
         <div class="msg_show" >
             <div style="margin-bottom: 20px">
-                <h3 class="m_hd">精彩评论</h3>
-                <div class="aw_msg" v-for="comment in awComment">
+                <h3 class="m_hd" v-if="awComment.length>0">精彩评论</h3>
+                <div class="aw_msg" v-for="(comment,index) in awComment">
                     <div class="msg_userpic">
                         <a><img :src="comment.user.userHeadUrl"></a>
                     </div>
                     <div class="msg_userinfo">
                         <div class="msg_pl">
-                            <a>{{comment.user.userName}}</a>
+                            <a >{{comment.user.userName}}</a>
                             <img>
-                            :<span>{{comment.songlcText}}</span>
+                            ：<span :class="{vipUser:comment.user.userVipState==1}" >{{comment.songlcText}}</span>
                         </div>
                         <div class="pl_bar">
                             <div class="pl_time">{{comment.songlcTime | formatDate }}</div>
-                            <a>
-                                <i class="zan"></i>(<span>{{comment.songlcLikes}}</span>)
+                            <a @click="dianzanAw(comment.songlcId,index)">
+                                <i class="zan" ></i>(<span>{{comment.songlcLikes}}</span>)
                             </a>
                             <span class="pl_jg">|</span>
-                            <a class="replay">回复</a>
+                            <a class="replay" href="#songComment" @click="replay(comment.songlcId)">回复</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <h3 class="m_hd">最新评论</h3>
-            <div class="aw_msg" v-for="comments in commentList">
+            <h3 class="m_hd" v-if="commentList.length>0">最新评论</h3>
+            <div class="aw_msg" v-for="(comments,index) in commentList">
                 <div class="msg_userpic">
                     <a><img :src="comments.user.userHeadUrl"></a>
                 </div>
@@ -175,15 +182,15 @@
                     <div class="msg_pl">
                         <a>{{comments.user.userName}}</a>
                         <img>
-                        ：<span>{{comments.songlcText}}</span>
+                        ：<span :class="{vipUser:comments.user.userVipState==1}" >{{comments.songlcText}}</span>
                     </div>
                     <div class="pl_bar">
                         <div class="pl_time">{{comments.songlcTime | formatDate }}</div>
-                        <a>
+                        <a @click="dianzan(comments.songlcId,index)">
                             <i class="zan"></i>(<span>{{comments.songlcLikes}}</span>)
                         </a>
                         <span class="pl_jg">|</span>
-                        <a class="replay">回复</a>
+                        <a class="replay" href="#songComment" @click="replay(comments.songlcId,comments.user.userName)">回复</a>
                     </div>
                 </div>
             </div>

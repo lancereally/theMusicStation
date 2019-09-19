@@ -26,4 +26,6 @@ public interface SongListCommentMapper {
     int insertSongListComment(SongListComment songListComment);
     //精彩评论查询-郭长达
     List<SongListComment> selectAwesomeComment(Integer songListId);
+    //歌单点赞-郭长达
+    int updateLikeNum(Integer songLcId);
 }

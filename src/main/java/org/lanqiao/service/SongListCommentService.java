@@ -11,4 +11,6 @@ public interface SongListCommentService {
     int insertSongListComment(SongListComment songListComment);
     //查询精彩评论-郭长达
     List<SongListComment> selectAwesomeComment(Integer songListId);
+    //点赞-郭长达
+    int updateCommentLike(Integer songlcId);
 }
