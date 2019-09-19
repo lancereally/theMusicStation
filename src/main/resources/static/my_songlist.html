@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/my_songlist.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <script src="js/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/layui/layui.js"></script>
@@ -40,7 +41,7 @@
                 <button type="button" class="btn btn-primary btn-sm"><a :href="url" @click="goToPlay(1)" target="_parent">播放</a></button>
                 <button type="button" class="btn btn-default btn-sm three_distance"><a href="#songComment">评论</a></button>
             </div>
-            <div class="tag_div" v-if="songlistTag.length>0">
+            <div class="tag_div" v-if="songlistTag.length>=1">
                 <b >标签：</b>
                 <a class="sl_tag" v-for="(item,index) in songlistTag" ><span>{{item}}</span></a>
             </div><br>

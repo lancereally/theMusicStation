@@ -1,3 +1,8 @@
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
     var tagVal = [];
     var url = location.search,
@@ -25,7 +30,7 @@ $(function () {
                     type: "post",
                     data: {
                         songListId: songListId.id,
-                        userId: 5
+                        userId: parseInt(userId)
                     },
                     dataType: "json",
                     success: function (data) {

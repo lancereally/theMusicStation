@@ -1,3 +1,8 @@
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
     //获取url值
     var url = location.search,
@@ -115,7 +120,7 @@ $(function () {
                     type:"post",
                     data:{
                         songListId: songListId.id,
-                        userId:5
+                        userId:parseInt(userId)
                     },
                     dataType:"json",
                     success:function (data) {
@@ -212,7 +217,7 @@ $(function () {
                     type: "post",
                     data: {
                         songListId: songListId.id,
-                        userId: 5
+                        userId: parseInt(userId)
                     },
                     dataType: "json",
                     success: function (data) {
@@ -272,7 +277,7 @@ $(function () {
                songlistId: songListId.id,
                songlcText:$("textarea[class='msg_info']").val(),
                songlcToId:replayId,
-               userId:5
+               userId:parseInt(userId)
            },
            dataType:"json",
            success:function (data) {

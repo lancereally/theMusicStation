@@ -1,4 +1,9 @@
 //我的音乐js文件
+//cookie
+var userId = $.cookie('userId');
+if (userId === undefined) {
+    location.href = "Index.html";
+}
 $(function () {
     //vue使用
     var song = new Vue({
@@ -16,7 +21,7 @@ $(function () {
                 $.ajax({
                     url:"/MyMusic/likesonglist",
                     type:"post",
-                    data:{userId:5},
+                    data:{userId:parseInt(userId)},
                     dataType:"json",
                     success:function (data) {
                         if (data.length > 0) {
@@ -39,7 +44,7 @@ $(function () {
                 $.ajax({
                     url:"/MyMusic/shousonglist",
                     type:"post",
-                    data:{userId:5},
+                    data:{userId:parseInt(userId)},
                     dataType:"json",
                     success:function (data) {
                         if (data.length > 0) {
@@ -157,7 +162,7 @@ $(function () {
                                 data:{
                                     // songListUserVo:,
                                     songListId:songListId,
-                                    userId:5,
+                                    userId:parseInt(userId),
                                     usRelation:1
                                 },
                                 dataType:"json",
