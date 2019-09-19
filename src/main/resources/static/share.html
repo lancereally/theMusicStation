@@ -78,7 +78,7 @@
                                 for (var i = 0; i < data.length; i++)
                                     bigBox.shares.push({
                                         userName: data[i].userName,
-                                        videoOrMusic: data[i].songUrl == null ? data[i].shareFromId == null ? "发布视频" : "转发动态" : "分享音乐",
+                                        videoOrMusic: data[i].shareTitle == null ? data[i].shareFromId == null ? "分享音乐" : "转发动态" : "发布视频",
                                         songUrl: data[i].songUrl,
                                         songName: data[i].songName,
                                         singerName: data[i].singerName,
