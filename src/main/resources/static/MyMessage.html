@@ -12,11 +12,22 @@
 </head>
 <script>
     //cookie
-    // var userId = $.cookie('userId');
-    // if (userId === undefined) {
-    //     location.href = "Index.html";
-    // }
+    var userId = $.cookie('userId');
+    if (userId === undefined) {
+        location.href = "Index.html";
+    }
 $(function () {
+    //获取用户悬浮头像
+    $.ajax({
+        // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+        url: "/user/getUserInfo",
+        type: "post",
+        datatype: "json",
+        data :{"userId" : parseInt(userId)},
+        success: function (data) {
+            $(".login-button img").attr("src",data.userHeadUrl);
+        }
+    });
     //用户选择控制
     $(".j-uflag").mouseleave(function () {
         $(".j-uflag").css("display","none");
@@ -169,7 +180,7 @@ $(function () {
         <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
         </li>
         <li><a href="MyMessage.html" class="itm-2"><i class="icn icn-msg"></i><em>我的消息</em><span
-                class="m-topmsg f-pa j-uflag">9</span></a></li>
+                class="m-topmsg f-pa j-uflag"></span></a></li>
         <li><a href="MyVIP.html" class="itm-2" ><i
                 class="icn icn-mbr"></i><em>VIP会员</em></a></li>
     </ul>

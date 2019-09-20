@@ -213,15 +213,14 @@ where s.songc_to_id = id.songc_id and u.user_id = s.user_id
     count(distinct(s.usl_id))
     from users u,usersonglist s
     where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id and s.us_relation = 0
-    or s.us_relation = 2
+    or s.us_relation = 1
   </select>
 
   <select id="getSongListCreateLiked" resultMap="UsersResultMap" parameterType="java.lang.Integer" >
     select
     count(distinct(s.usl_id))
     from users u,usersonglist s
-    where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id and s.us_relation = 1
-    or s.us_relation = 2
+    where u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = s.user_id and s.us_relation = 2
   </select>
 
   <select id="getSongRanking" resultMap="UsersResultMap" parameterType="java.lang.Integer">
@@ -273,7 +272,7 @@ where u.user_id = #{userId,jdbcType=INTEGER} and f.userb_id = u.user_id)
       and us.us_relation = 0)
       or
       (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
-      and us.us_relation = 2)) zi, songsonglist ss, song s,songlist sl
+      and us.us_relation = 1)) zi, songsonglist ss, song s,songlist sl
       where sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
       and sl.songlist_name = zi.songlist_name
 </select>
@@ -300,11 +299,8 @@ where u.user_id = #{userId,jdbcType=INTEGER} and f.userb_id = u.user_id)
       from (SELECT DISTINCT(sl.songlist_name)
       from songlist sl, usersonglist us, users u
       where
-      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
-      and us.us_relation = 1)
-      or
-      (u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
-      and us.us_relation = 2)) zi, songsonglist ss, song s,songlist sl
+      u.user_id = #{userId,jdbcType=INTEGER} and u.user_id = us.user_id and us.songlist_id = sl.songlist_id
+      and us.us_relation = 2) zi, songsonglist ss, song s,songlist sl
       where sl.songlist_id = ss.songlist_id and ss.song_id = s.song_id
       and sl.songlist_name = zi.songlist_name
   </select>
