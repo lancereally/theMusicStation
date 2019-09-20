@@ -54,7 +54,6 @@ $(function () {
                         playSong.albumName = data.album.albumName;
                         const ap = new APlayer({
                             container: document.getElementById('aplayer'),
-
                             lrcType: 1,
                             audio: [{
                                 name: playSong.songName,

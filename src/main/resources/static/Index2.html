@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+
+        <html>
+        <head>
+            <meta charset="utf-8" />
+            <title>网易云音乐</title>
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <!--    <script type="application/javascript" src="js/layui/layui.js"></script>-->
+            <script type="application/javascript" src="js/jquery.cookie.js"></script>
+            <script type="text/javascript" src="js/jquery.validate.js"></script>
+            <script type="text/javascript" src="js/jquery.validate.regex.js"></script>
+            <script type="application/javascript" src="js/layui/layui.js"></script>
+            <script src="js/vue.min.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+            <link rel="stylesheet" href="css/index.css" />
+            <link rel="stylesheet" href="js/layui/css/layui.css" />
+            <script type="text/javascript" src="js/layui/layui.js"></script>
+            <link rel="stylesheet" href="css/MyOption.css">
+            <link rel="stylesheet" href="css/index.css"/>
+            <link rel="stylesheet" href="css/Login.css"/>
+            <link rel="stylesheet" href="css/LoginAccount.css"/>
+        </head>
+        <script>
+            $(function () {
+                //获取用户悬浮头像
+                $.ajax({
+                    // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+                    url: "/user/getUserInfo",
+                    type: "post",
+                    datatype: "json",
+                    data :{"userId" : parseInt(userId)},
+                    success: function (data) {
+                        $(".login-button img").attr("src",data.userHeadUrl);
+                    }
+                });
+                $("#login").click(function () {
+                    $(".login").css("display","block");
+                });
+                $(".loginAccount").click(function () {
+                    $("#loginAccount").css("display","block");
+                    $(".login").css("display","none");
+                });
+                $(".loginPhone").click(function () {
+                    $("#loginPhone").css("display","block");
+                    $(".login").css("display","none");
+                });
+                $(".loginNewUser").click(function () {
+                    $("#loginNewUser").css("display","block");
+                    $(".login").css("display","none");
+                });
+                $(".s-primary").click(function () {
+                    $(".m-layer").css("display","none");
+                    $(".login").css("display","block");
+                });
+                $(".zcls").click(function () {
+                    $(".m-layer").css("display","none");
+                });
+
+
+                //注册
+                $(".username").blur(function () {
+                    if($(".username").val() != "")
+                        $.ajax({
+                            url:"/user/checkName",
+                            type:"post",
+                            dataType:"text",
+                            data:{
+                                'userName':$(".username").val()
+                            },
+                            success:function (data) {
+                                if(data == "false"){
+                                    layui.use('layer', function(){
+                                        var layer = layui.layer;
+                                        layer.msg('该用户名已经存在！',{
+                                            area:['400px', '50px']
+                                        });
+                                    });
+                                    // alert("该用户名已经存在！");
+                                }else{
+                                    layui.use('layer', function(){
+                                        var layer = layui.layer;
+                                        layer.msg('哦哟，这名字可以哦~',{
+                                            area:['400px', '50px']
+                                        });
+                                    });
+                                    // alert("哦哟，这名字可以哦~");
+                                }
+                                if($("#nickname").val() == ""){
+                                    $(".text").addClass("error");
+                                    $("#nickname").val("昵称不得为空！");
+                                }
+                            }
+                        })
+                });
+
+
+                function account() {
+                    //x上限，y下限
+                    var x = 999999;
+                    var y = 100000;
+                    var rand = parseInt(Math.random() * (x - y + 1) + y);
+                    return rand;
+                }
+
+
+//注册账号信息校验
+                var state = 0;
+                $(".register").validate({
+                    rules: {
+                        userName:{
+                            required: true,
+                            regex: /^\w{3,15}$/
+                            // 昵称 /^\w{4,20}$/
+                            //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                        },
+                        userPassword:{
+                            required: true,
+                            regex: /^\w{6,15}$/
+                        }
+                    },
+                    messages: {
+                        userName: {
+                            required: "YOYO切克闹!土嗨昵称为3-15位任意字符哦~",
+                            regex: "昵称格式不正确！"
+                        },
+                        userPassword:{
+                            required:"请输入长度6位以上的密码",
+                            regex:"密码格式不正确!"
+                        }
+                    },
+                    errorPlacement: function(error, element) {
+                        error.appendTo( element.parent());
+                    },
+                    success:function () {
+                        state = 1;
+                    }
+                });
+//账号注册
+                $(".userLogin").click(function () {
+                    if(state != 1)
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('某处信息有误~',{
+                                area:['400px', '50px']
+                            });
+                        });
+                    else if($(".proto").attr('checked','checked')){
+                        var userAccount = account();
+                        $.ajax({
+                            url:"/user/register",
+                            type:"post",
+                            dataType:"text",
+                            data:{
+                                'userName':$(".username").val(),
+                                "userAccount":userAccount,
+                                "userPassword":$(".password").val(),
+                                "userHeadUrl":"images/userPicDefault.jpg"
+                            },
+                            success:function (data) {
+                                if(data == "1"){
+                                    // layui.use('layer', function(){
+                                    //   var layer = layui.layer;
+                                    //   layer.msg('YOYO切克闹~登录成功嗨起来！',{
+                                    //     area:['400px', '50px']
+                                    //   });
+                                    // });
+                                    // alert("YOYO切克闹~登录成功嗨起来！");
+                                    $.ajax({
+                                        url:"/user/getIdByAnything",
+                                        type:"post",
+                                        dataType:"json",
+                                        data:{
+                                            'userAccount':userAccount
+                                        }
+                                        ,
+                                        success:function (data) {
+                                            if(data>0){
+                                                // location.href = "MyHomePage.html";
+                                                // layui.use('layer', function(){
+                                                //   var layer = layui.layer;
+                                                //   layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
+                                                //     area:['400px', '50px']
+                                                //   });
+                                                // });
+                                                // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                                                layer.confirm("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount,{
+                                                        btn: ['确定']
+                                                    }, function (index, layero) {
+                                                        location.href = "MyHomePage.html";
+                                                        //移除元素
+                                                        $("#tr" + id).remove();
+                                                        //无法关闭这个消息框
+                                                        layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                                                    }
+                                                );
+                                            }
+                                        }
+                                    });
+                                }
+                                // else
+                                //   layui.use('layer', function(){
+                                //     var layer = layui.layer;
+                                //     layer.msg('DB管理员已经删库跑路，本站暂停使用~',{
+                                //       area:['400px', '50px']
+                                //     });
+                                //   });
+                                // alert("DB管理员已经删库跑路，本站暂停使用~");
+                            }
+                        })
+                    }
+                    else
+                    {
+                        // alert("您还未同意土嗨音乐协议哦~");
+                        layui.use('layer', function(){
+                            var layer = layui.layer;
+                            layer.msg('您还未同意土嗨音乐协议哦~',{
+                                area:['400px', '50px']
+                            });
+                        });
+                    }
+                });
+
+                //登录信息校验
+                var loginState = 0;
+                $(".accountLoginValidater").validate({
+                    rules: {
+                        userAccount:{
+                            required: true,
+                            minlength: 6
+                            // 昵称 /^\w{4,20}$/
+                            //手机号  /^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/
+                        },
+                        userPassword:{
+                            required: true,
+                            minlength:3
+                        }
+                    },
+                    messages: {
+                        userAccount: {
+                            required: "",
+                            minlength: "YOYO切克闹!土嗨账号长度至少为6位哦~"
+                        },
+                        userPassword:{
+                            required:"请输入密码",
+                            maxlength:"密码不正确!"
+                        }
+                    },
+                    errorPlacement: function(error, element) {
+                        error.appendTo( element.parent() );
+                    },
+                    success:function () {
+                        loginState = 1;
+                    }
+                });
+
+//账号密码登录
+                $(".accountLogin").click(function () {
+                    if(loginState == 1)
+                        $.ajax({
+                            url:"/user/accountLogin",
+                            type:"post",
+                            dataType:"json",
+                            data:{
+                                'userAccount':$(".account").val(),
+                                "userPassword":$(".pass").val()
+                            },
+                            success:function (data) {
+                                if(data == false){
+                                    // layui.use('layer', function () {
+                                    //   var layer = layui.layer;
+                                    //   layer.msg('YOYO切克闹~登录成功嗨起来！',{
+                                    //     area:['400px', '50px']});
+                                    // });
+                                    $.ajax({
+                                        url:"/user/getIdByAnything",
+                                        type:"post",
+                                        dataType:"json",
+                                        data:{
+                                            'userAccount':$(".account").val(),
+                                        }
+                                        ,
+                                        success:function (data) {
+                                            if(data>0)
+                                                location.href = "MyHomePage.html";
+                                        }
+                                    });
+                                }
+                                else
+                                // alert("YOYO对不起,您的账号或密码有误");
+                                    layui.use('layer', function(){
+                                        var layer = layui.layer;
+                                        layer.msg('YOYO切克闹~该手机还未进行认证，可直接注册登录~',{
+                                            area:['400px', '50px']
+                                        });
+                                    });
+                            }
+                        })
+                    else
+                        layui.use('layer', function () {
+                            var layer = layui.layer;
+                            layer.msg('某处信息格式错误！',{
+                                area:['400px', '50px']});
+                        });
+                });
+
+
+
+                var state = 0;
+                //手机验证码登录
+                $(".phoneNum").blur(function () {
+                    $.ajax({
+                        url:"/user/checkPhone",
+                        type:"post",
+                        dataType:"json",
+                        data:{
+                            'phoneNumber':$(".phoneNum").val(),
+                        },
+                        success:function (data) {
+                            if(data.length<1){
+                                // alert("该手机还未进行认证！！！");
+                                layui.use('layer', function(){
+                                    var layer = layui.layer;
+                                    layer.msg('YOYO切克闹~该手机还未进行认证，可一键注册登录~',{
+                                        area:['400px', '50px']
+                                    });
+                                });
+                                state = 0;
+                            }
+
+                            else{
+                                state = 1;
+                                // alert("YOYO切克闹~该手机已认证~");
+                                layui.use('layer', function(){
+                                    var layer = layui.layer;
+                                    layer.msg('YOYO切克闹~该手机已认证，可登录~',{
+                                        area:['400px', '50px']
+                                    });
+                                });
+                            }
+                        }
+                    })
+                });
+
+                //验证码发送
+                $(".ma").click(function () {
+                    if(state>=0)
+                        $.ajax({
+                            url:"/user/getIdentifyingCode",
+                            type:"post",
+                            dataType:"text",
+                            data:{
+                                'phoneNumber':$(".phoneNum").val(),
+                            },
+                            success:function (data) {
+                                // alert("YOYO切克闹！验证码已发送，请稍作等待~")
+                                layui.use('layer', function(){
+                                    var layer = layui.layer;
+                                    layer.msg('YOYO切克闹！验证码已发送，请稍作等待~',{
+                                        area:['400px', '50px']
+                                    });
+                                });
+                            }
+                        })
+                    // else
+                    //   // alert("该手机还未进行认证！！！");
+                    // layui.use('layer', function(){
+                    //   var layer = layui.layer;
+                    //   layer.msg('YOYO切克闹~该手机还未进行认证，可直接注册登录~',{
+                    //     area:['400px', '50px']
+                    //   });
+                    // });
+                });
+
+                //点击手机登录按钮
+                $(".phoneLogin").click(function () {
+                    $.ajax({
+                        url:"/user/checkIdentifyingCode",
+                        type:"post",
+                        dataType:"text",
+                        data:{
+                            'IdentifyingCode':parseInt($(".validate").val()),
+                            'phoneNumber':$(".phoneNum").val()
+                        },
+                        success:function (data) {
+                            if(state > 0){
+                                if(data>0){
+                                    // alert("于2019.9.15实现短信验证功能");
+                                    // layui.use('layer', function(){
+                                    //   var layer = layui.layer;
+                                    //   layer.msg('YOYO切克闹~登录成功~',{
+                                    //     area:['400px', '50px']
+                                    //   });
+                                    // });
+
+                                    // layer.confirm("YOYO切克闹~登录成功~",{
+                                    //           btn: ['确定']
+                                    //         }, function (index, layero) {
+                                    //           location.href = "MyHomePage.html";
+                                    //           //移除元素
+                                    //           $("#tr" + id).remove();
+                                    //           //无法关闭这个消息框
+                                    //           layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                                    //         }
+                                    // );
+                                }
+                            }
+                            else{
+                                var userAccount = account();
+                                $.ajax({
+                                    url:"/user/register",
+                                    type:"post",
+                                    dataType:"text",
+                                    data:{
+                                        'userName':"新用户"+userAccount,
+                                        "userAccount":userAccount,
+                                        "userPassword":123456+"",
+                                        "userHeadUrl":"images/userPicDefault.jpg"
+                                    },
+                                    success:function (data) {
+                                        // alert("YOYO切克闹~登录成功嗨起来！");
+                                        $.ajax({
+                                            url:"/user/getIdByAnything",
+                                            type:"post",
+                                            dataType:"json",
+                                            data:{
+                                                'userAccount':userAccount
+                                            }
+                                            ,
+                                            success:function (data) {
+                                                if(data>0){
+                                                    // location.href = "MyHomePage.html";
+                                                    // layui.use('layer', function(){
+                                                    //   var layer = layui.layer;
+                                                    //   layer.msg('YOYO切克闹~注册成功嗨起来！\\n 您的账号为'+userAccount,{
+                                                    //     area:['400px', '50px']
+                                                    //   });
+                                                    // });
+                                                    // alert("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount);
+                                                    layer.confirm("YOYO切克闹~注册成功嗨起来！\n 您的账号为"+userAccount+"初始密码为123456",{
+                                                            btn: ['确定']
+                                                        }, function (index, layero) {
+                                                            location.href = "MyHomePage.html";
+                                                            //移除元素
+                                                            $("#tr" + id).remove();
+                                                            //无法关闭这个消息框
+                                                            layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                                                        }
+                                                    );
+                                                }
+                                            }
+                                        });
+                                        // alert("DB管理员已经删库跑路，本站暂停使用~");
+                                    }
+                                })
+                            }
+                        }
+                    })
+                });
+                // $(".phoneLogin").click(function () {
+                //   $.ajax({
+                //     url:"/user/phoneLogin",
+                //     type:"post",
+                //     dataType:"text",
+                //     data:{
+                //       'userAccount':$(".account").val(),
+                //       "userPassword":$(".password").val()
+                //     },
+                //     success:function (data) {
+                //       if(data == "true")
+                //         alert("YOYO切克闹~登录成功嗨起来！");
+                //       else
+                //         alert("DB管理员已经删库跑路，本站暂停使用~");
+                //     }
+                //   })
+                // });
+
+
+            })//function
+
+        </script>
+<body>
+<header>
+    <div id="head-title">
+        <div id="head-title-container">
+            <h2 class="logo"><a hidefocus="true" href="Index2.html">土嗨音乐网</a></h2>
+            <ul class="head-ul">
+                <li>
+              <span>
+                <a href="Index2.html">
+                  <em>发现音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="MyMusic.html">
+                  <em>我的音乐</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="share.html">
+                  <em>朋友</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>商城</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>音乐人</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+                <li>
+              <span>
+                <a href="#">
+                  <em>下载客户端</em>
+                  <sub class="cor">&nbsp;</sub>
+                </a>
+              </span>
+                </li>
+            </ul>
+            <div class="login-button">
+           <span>
+<!--              <a href="#" id="login">登录</a>-->
+               <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
+            </span>
+            </div>
+            <a class="creator-center">创作者中心</a>
+            <div class="search-box">
+                <div class="srchbg">
+                    <span class="parent" style="margin: 8px 0 0 20px;">
+                        <a type="button" id="srch"
+                           style="opacity: 1;color: #333;line-height: 16px;text-decoration: none;font-size: 12px"
+                           href="search.html">搜索音乐/歌手/歌词...</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="head-nav">
+        <div id="head-nav-contain">
+            <ul class="nav">
+                <li>
+                    <a href="#"><em>推荐</em></a>
+                </li>
+                <li>
+                    <a href="#"><em>排行榜</em></a>
+                </li>
+                <li>
+                    <a href="songList.html"><em>歌单</em></a>
+                </li>
+                <li>
+                    <a href="#"><em> 主播电台</em></a>
+                </li>
+                <li>
+                    <a href="singers.html"><em>歌手</em></a>
+                </li>
+                <li>
+                    <a href="#"><em>新碟上架</em></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<div class="auto-1568105551339 m-layer z-show " id="loginPhone" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">手机短信登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+    <div class="n-log2 n-log2-2">
+        <div class="f-pr" style="z-index:5;">
+            <input type="text" name="e" class="js-input u-txt phoneNum" placeholder="请输入手机号" autocomplete="off">
+            <ul class="js-suggest u-fill" style="visibility:hidden;" ></ul>
+        </div>
+        <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2 ma" hidefocus="true" href="#" data-action="login"><i>点击获取验证码</i></a>
+        </div>
+        <div class="f-mgt10">
+            <input type="password" name="epw" id="epw" class="js-input u-txt validate" placeholder="请输入验证码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2 phoneLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+        </div>
+    </div>
+    <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+</div></div><span class="zcls" title="关闭窗体" >×</span></div>
+<div class="auto-1568105551339 m-layer z-show " id="loginAccount" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号登录</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" id="auto-id-GIUtr1rxR6Tr59E4">
+    <form action="" class="accountLoginValidater">
+        <div class="n-log2 n-log2-2 accountLoginValidate">
+            <div class="f-pr" style="z-index:5;">
+                <input type="text" name="userAccount" class="js-input u-txt account" placeholder="请输入帐号" autocomplete="off">
+                <ul class="js-suggest u-fill" style="visibility:hidden;"></ul>
+            </div>
+            <div class="f-mgt10">
+                <input type="password" name="userPassword" class="js-input u-txt pass" placeholder="请输入密码" autocomplete="new-password">
+            </div>
+            <div class="js-captcha"></div>
+            <div class="ScapTcha js-scaptcha"></div>
+            <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+            <div class="f-mgt10">
+                <label class="s-fc3"><input type="checkbox" checked="checked" class="u-auto">自动登录</label>
+                <a href="//reg.163.com/getpasswd/RetakePassword.jsp" target="_blank" class="f-fr s-fc3">忘记密码？</a>
+            </div>
+            <div class="f-mgt20">
+                <a class="js-primary u-btn2 u-btn2-2 accountLogin" hidefocus="true" href="#" data-action="login"><i>登　录</i></a>
+            </div>
+        </div>
+    </form>
+
+    <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+</div></div><span class="zcls" title="关闭窗体" >×</span></div>
+<div class="auto-1568105551339 m-layer z-show " id="loginNewUser" style="top: 198px; left: 500px;display:none"><div class="zbar" ><div class="zttl f-thide">土嗨账号注册</div></div><div class="zcnt"><div class="lyct lyct-1 f-cb" >
+    <form action="" class="register"><div class="n-log2 n-log2-2 ">
+        <div class="f-pr" style="z-index:5;">
+            <input type="text" name="userName" id="userName" class="js-input u-txt username" placeholder="请输入昵称" autocomplete="off">
+            <ul class="js-suggest u-fill" style="visibility:hidden;" id="auto-id-CIFtIW9szaHfGuVh"></ul>
+        </div>
+        <div class="f-mgt10">
+            <input type="password" name="userPassword"  class="js-input u-txt password" placeholder="请输入密码" autocomplete="new-password">
+        </div>
+        <div class="f-mgt10">
+            <input type="password" name="epw"  class="js-input u-txt password2" placeholder="请再次输入密码" autocomplete="new-password">
+        </div>
+        <div class="js-captcha"></div>
+        <div class="ScapTcha js-scaptcha"></div>
+        <div class="u-err" style="display:none;"><i class="u-icn u-icn-25"></i><span></span></div>
+        <div class="f-mgt10">
+            <label class="check"><input name="gender" type="radio" class="proto" value="0">
+                <a href="#" target="_blank" class="">请阅读并遵守土嗨音乐协议</a>
+            </label>
+        </div>
+        <div class="f-mgt20">
+            <a class="js-primary u-btn2 u-btn2-2 userLogin" hidefocus="true" href="#" data-action="login"><i>注　册</i></a>
+        </div>
+    </div></form>
+
+    <div class="n-loglink2"><a href="javascript:;" data-action="select" class="s-primary">&lt;&nbsp;&nbsp;其他登录方式</a></div>
+</div></div><span class="zcls" title="关闭窗体" id="auto-id-H0iRlpFpOZ2EdSyw">×</span></div>
+<div class="auto-1568105551339 m-layer z-show login" style="top: 198px; left: 503px;display:none"><div class="zbar" id="auto-id-cUzAhzE6Kx69KFTU"><div class="zttl f-thide">登录</div></div><div class="zcnt"><div class="lyct lyct-1" id="auto-id-kXP3EkBRbFKINXWU">
+    <div class="n-log2 n-log2-1 f-cb">
+        <div class="u-main">
+            <div class="u-plt"></div>
+            <div class="f-mgt10">
+                <a href="javascript:;" class="loginAccount u-btn2 u-btn2-2" data-action="login" data-type="mobile"><i>土嗨账号登录</i></a>
+            </div>
+            <div class="f-mgt10">
+                <a href="javascript:;" class="loginPhone u-btn2 u-btn2-2" data-action="login" data-type="mobile"><i>手机号登录</i></a>
+            </div>
+            <div class="f-mgt10">
+                <a href="javascript:;" class="loginNewUser u-btn2 u-btn2-1" data-action="reg"><i>注　册</i></a>
+            </div>
+        </div>
+
+    </div>
+</div></div><span class="zcls" title="关闭窗体" id="auto-id-w3HErZCodgJJwRJQ">×</span></div>
+
+<div id="mid">
+    <div class="roll">
+        <div class="layui-carousel" id="roll-screen">
+            <div carousel-item>
+                <div><img src="img/roll-1.jpg" /></div>
+                <div><img src="img/roll-2.jpg" /></div>
+                <div><img src="img/roll-3.jpg" /></div>
+            </div>
+        </div>
+        <div id="download-i">
+            <img src="img/tuhai1.png"/>
+            <img src="img/yyue1.png" />
+        </div>
+    </div>
+</div>
+<div id="container">
+    <div id="container-left">
+        <div class="v-hd">
+            <a href="#" class="tit">热门推荐</a>
+            <div class="tab">
+                <a href="" class="tab-l">华语</a><span class="line">|</span>
+                <a href="" class="tab-l">流行</a><span class="line">|</span>
+                <a href="" class="tab-l">摇滚</a><span class="line">|</span>
+                <a href="" class="tab-l">民谣</a><span class="line">|</span>
+                <a href="" class="tab-l">电子</a>
+            </div>
+
+        </div>
+        <ul class="cvrlist" id="hotSongList" >
+            <li v-for="(songList,index) in songListSet">
+                <div class="u-cover u-cover-1">
+                    <img :src="songList.songListPicUrl" style="width:140px;height: 140px">
+                    <a  class="msk" :href="url" @click="sendSongListId(songList.songListId)"> </a>
+                    <div class="bottom">
+                        <a class="icon-play"></a>
+                        <span class="icon-headset"></span>
+                        <span class="nb">1926万</span>
+                    </div>
+                </div>
+                <p class="dec">
+                    <a>{{songList.songListName}}</a>
+                </p>
+            </li>
+        </ul>
+
+        <div class="v-hd">
+            <a href="#" class="tit">新碟上架</a>
+            <span class="tab-l tab" style="float: right;">更多</span>
+        </div>
+        <div class="n-disk">
+            <div class="" id="album-roll">
+                <a hidefocus="true"  class="roll-left" id="roll-left">&nbsp;</a>
+                <a hidefocus="true"  class="roll-right" id="roll-right">&nbsp;</a>
+                <div class="album-inner" id="album">
+                    <ul id="album-item-1">
+                        <li v-for="(album,index) in AlbumSet1">
+                            <div class="album-roll-item">
+                                <img :src="album.albumPicUrl">
+                                <p ><a >{{album.albumName}}</a></p>
+                                <p ><a >{{album.singer.singerName}}</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul  id="album-item-2">
+                        <li v-for="(album,index) in AlbumSet2">
+                            <div class="album-roll-item">
+                                <img :src="album.albumPicUrl">
+                                <p ><a >{{album.albumName}}</a></p>
+                                <p ><a >{{album.singer.singerName}}</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul  id="album-item-3">
+                        <li v-for="(album,index) in AlbumSet3">
+                            <div class="album-roll-item">
+                                <img :src="album.albumPicUrl">
+                                <p ><a >{{album.albumName}}</a></p>
+                                <p ><a >{{album.singer.singerName}}</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="n-clmnad"></span>
+        <div class="v-hd">
+            <a href="#" class="tit">榜单</a>
+        </div>
+        <div class="n-blist">
+            <dl class="blk" >
+                <dt class="top">
+                    <div class="cver">
+                        <img src="img/speedup.jpg" />
+                        <a class="msk"> </a>
+                    </div>
+                    <div class="tit">
+                        <a href="">
+                            <h3>土嗨飙升榜</h3>
+                        </a>
+                        <div class="btn">
+                            <a href="" class="btn-play-1"></a>
+                            <a href="" class="btn-add-1"></a>
+                        </div>
+                    </div>
+                </dt>
+                <dd id="Leaderboard1">
+                    <ol>
+                        <li
+                                onmouseover="this.className='z-hvr'"
+                                onmouseout="this.className=''"
+                                class=""
+                                v-for="(song,index) in songSet"
+                        >
+                            <span class="no" >{{index+1}}</span>
+                            <a  class="nm" :href="url" @click="sendSongId(song.songId)">{{song.songName}}</a>
+                            <div class="oper">
+                                <a href="" class="btn-play-2"></a>
+                                <a href="" class="btn-add-2"></a>
+                                <a href="" class="btn-add-3"></a>
+                            </div>
+                        </li>
+                    </ol>
+                </dd>
+            </dl>
+            <dl class="blk" >
+                <dt class="top">
+                    <div class="cver">
+                        <img src="img/newSongLB.jpg" />
+                        <a class="msk"> </a>
+                    </div>
+                    <div class="tit">
+                        <a href="">
+                            <h3>土嗨新歌榜</h3>
+                        </a>
+                        <div class="btn">
+                            <a href="" class="btn-play-1"></a>
+                            <a href="" class="btn-add-1"></a>
+                        </div>
+                    </div>
+                </dt>
+                <dd id="Leaderboard2">
+                    <ol>
+                        <li
+                                onmouseover="this.className='z-hvr'"
+                                onmouseout="this.className=''"
+                                class=""
+                                v-for="(song,index) in songSet"
+                        >
+                            <span class="no" >{{index+1}}</span>
+                            <a  class="nm" :href="url" @click="sendSongId(song.songId)">{{song.songName}}</a>
+                            <div class="oper">
+                                <a href="" class="btn-play-2"></a>
+                                <a href="" class="btn-add-2"></a>
+                                <a href="" class="btn-add-3"></a>
+                            </div>
+                        </li>
+                    </ol>
+                </dd>
+            </dl>
+
+            <dl class="blk" >
+                <dt class="top">
+                    <div class="cver">
+                        <img src="img/tenSong.jpg" />
+                        <a class="msk"> </a>
+                    </div>
+                    <div class="tit">
+                        <a href="">
+                            <h3>土嗨原创榜</h3>
+                        </a>
+                        <div class="btn">
+                            <a href="" class="btn-play-1"></a>
+                            <a href="" class="btn-add-1"></a>
+                        </div>
+                    </div>
+                </dt>
+                <dd id="Leaderboard3">
+                    <ol>
+                        <li
+                                onmouseover="this.className='z-hvr'"
+                                onmouseout="this.className=''"
+                                class=""
+                                v-for="(song,index) in songSet"
+                        >
+                            <span class="no" >{{index+1}}</span>
+                            <a  class="nm" :href="url" @click="sendSongId(song.songId)">{{song.songName}}</a>
+                            <div class="oper">
+                                <a href="" class="btn-add-2"></a>
+                                <a href="" class="btn-add-3"></a>
+                            </div>
+                        </li>
+                    </ol>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div id="container-right">
+        <img src="img/1.png">
+        <img src="img/2.png">
+        <img src="img/3.png">
+        <img src="img/4.png">
+        <img src="img/5.png">
+    </div>
+</div>
+</body>
+</html>
+<script>
+    layui.use('carousel', function() {
+        var carousel = layui.carousel
+        //建造实例
+        carousel.render({
+            elem: '#roll-screen',
+            width: '730px', //设置容器宽度
+            height: '336px',
+            interval: 3000,
+            arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        })
+    })
+    var index =1;
+    var free=true;
+    $("#roll-right").on("click",function(){
+        if(free){
+            free=false;
+            if(index==1){
+                $("#album-item-1").animate({left:'670px'},1000,function(){
+                    free=true;
+                });
+                $("#album-item-3").animate({left:'-30px'},1000);
+                $("#album-item-2").css({left:'-670px'});
+                index=3;
+            }
+            else if(index ==3){
+                $("#album-item-3").animate({left:'670px'},1000,function(){
+                    free=true;
+                });
+                $("#album-item-2").animate({left:'-30px'},1000);
+                $("#album-item-1").css({left:'-670px'});
+                index=2;
+            }
+            else{
+                $("#album-item-2").animate({left:'670px'},1000,function(){
+                    free=true;
+                });
+                $("#album-item-1").animate({left:'-30px'},1000);
+                $("#album-item-3").css({left:'-670px'});
+                index=1;
+            }
+        }
+    })
+
+    $("#roll-left").on("click",function(){
+        if(free){
+            free=false;
+            if(index==1){
+                $("#album-item-1").animate({left:'-670px'},1000,function(){
+                    free=true;
+                });
+                $("#album-item-2").animate({left:'-30px'},1000);
+                $("#album-item-3").css({left:'670px'});
+                index=2;
+            }
+            else if(index ==3){
+                $("#album-item-3").animate({left:'-670px'},1000,function(){
+                    free=true;
+                });
+                $("#album-item-1").animate({left:'-30px'},1000);
+                $("#album-item-2").css({left:'670px'});
+                index=1;
+            }
+            else if(index==2){
+                $("#album-item-2").animate({left:'-670px'},1000,function(){
+                    free=true;
+                });
+                $("#album-item-3").animate({left:'-30px'},1000);
+                $("#album-item-1").css({left:'670px'});
+                index=3;
+            }
+
+        }
+    })
+
+</script>
+</title>
+</head>
+<body>
+
+</body>
+</html>

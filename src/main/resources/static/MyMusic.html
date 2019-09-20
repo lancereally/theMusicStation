@@ -2,7 +2,8 @@
 <html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>网易云音乐</title>
+    <title>土嗨音乐网</title>
+    <link rel="stylesheet" href="css/MyOption.css"/>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/vue.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -15,18 +16,33 @@
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/MyMusic.css">
 
+    <script>
+        //用户选择控制
+        $(".j-uflag").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".login-button").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+        $(".login-button").mouseleave(function () {
+            $(".j-uflag").css("display","none");
+        });
+        $(".j-uflag").mouseenter(function () {
+            $(".j-uflag").css("display","block");
+        });
+    </script>
 
 </head>
 <body>
 <div class="mymusic_head">
-    <header>
+    <header style="border-bottom: 30px #ffd700 solid;">
         <div id="head-title">
             <div id="head-title-container">
-                <h2 class="logo"><a id="index_title" hidefocus="true" href="/#">土嗨音乐网</a></h2>
+                <h2 class="logo"><a id="index_title" hidefocus="true" href="Index2.html">土嗨音乐网</a></h2>
                 <ul class="head-ul">
                     <li>
               <span>
-                <a  href="/#">
+                <a  href="Index2.html">
                   <em>发现音乐</em>
                   <sub class="cor">&nbsp;</sub>
                 </a>
@@ -93,7 +109,27 @@
             </div>
         </div>
     </header>
+    <div class="m-tlist m-tlist-lged j-uflag MyOption" style="margin: 10px 170px 0 0;display: none;">
+        <ul class="f-cb lb mg">
+            <li><a hidefocus="true" class="itm-1" href="MyHomePage.html"><i class="icn icn-hm"></i><em id="homePage">我的主页</em></a>
+            </li>
+            <li><a href="MyMessage.html" class="itm-2"><i class="icn icn-msg"></i><em>我的消息</em><span
+                    class="m-topmsg f-pa j-uflag"></span></a></li>
+            <li><a href="MyVIP.html" class="itm-2" ><i
+                    class="icn icn-mbr"></i><em>VIP会员</em></a></li>
+        </ul>
+        <ul class="f-cb ltb mg">
+            <li><a hidefocus="true" class="itm-2" href="MySetting.html"><i class="icn icn-st"></i><em>个人设置</em></a></li>
+            <li><a hidefocus="true" class="itm-2" href="MyAuthentication.html" target="_blank"><i
+                    class="icn icn-verify"></i><em>实名认证</em></a></li>
+        </ul>
+        <ul class="f-cb lt">
+            <li><a hidefocus="true" class="itm-3 logout" href="#" data-action="logout"><i class="icn icn-ex"></i><em>退出</em></a>
+            </li>
+        </ul>
+        <i class="arr"></i></div>
 </div>
+
 <div class="mymusic_body">
     <div class="mymusic_main">
         <div class="mymusic_side">

@@ -52,7 +52,7 @@
     </select>
     <!--    查询创建的歌单-gcd-->
     <select id="selectLikeByUserId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">
-        select sl.*  from songlist sl, usersonglist usl where sl.songlist_id = usl.songlist_id and usl.us_relation=1 and usl.user_id = #{userId}
+        select sl.*  from songlist sl, usersonglist usl where sl.songlist_id = usl.songlist_id and usl.us_relation !=2  and usl.user_id = #{userId}
     </select>
     <!--    查询收藏的歌单-gcd-->
     <select id="selectShouByUserId" parameterType="java.lang.Integer" resultMap="SonglistResultMap">

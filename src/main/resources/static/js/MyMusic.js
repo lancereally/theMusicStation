@@ -2,7 +2,7 @@
 //cookie
 var userId = $.cookie('userId');
 if (userId === undefined) {
-    location.href = "Index.html";
+    location.href = "Index.html"
 }
 $(function () {
     //获取用户头像
