@@ -208,7 +208,7 @@ public class ShareAndSingersController {
         query.setRows(10);  //每页记录数(默认10)
 
         //设置排序规则
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        Sort sort = new Sort(Sort.Direction.DESC, "songPlayTimes");
         query.addSort(sort);
 
         // 设置条件1 歌名为zhoujielun

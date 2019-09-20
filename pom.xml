@@ -141,15 +141,8 @@
 <!--            <artifactId>aliyun-message-sdk-core</artifactId>-->
 <!--            <version>3.2.3</version>-->
 <!--            <scope>system</scope>-->
-<!--&lt;!&ndash;            <systemPath>${project.basedir}/src/main/resources/lib/aliyun-java-sdk-core-3.2.2.jar</systemPath>&ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>com.aliyun</groupId>-->
-<!--                <artifactId>aliyun-java-sdk-core</artifactId>-->
-<!--                <version>4.1.0</version>-->
-<!--            </dependency>-->
+<!--            <systemPath>${project.basedir}/src/main/resources/lib/aliyun-java-sdk-core-3.2.2.jar</systemPath>-->
 <!--        </dependency>-->
-
-
 
         <dependency>
             <groupId>aliyun-message-sdk-mns</groupId>

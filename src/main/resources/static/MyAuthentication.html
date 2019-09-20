@@ -21,6 +21,17 @@
         location.href = "Index.html";
     }
     $(function () {
+        //获取用户悬浮头像
+        $.ajax({
+            // 通过首页用户名字获取用户ID，以此更新列表，暂且手动输入1进行模拟
+            url: "/user/getUserInfo",
+            type: "post",
+            datatype: "json",
+            data :{"userId" : parseInt(userId)},
+            success: function (data) {
+                $(".login-button img").attr("src",data.userHeadUrl);
+            }
+        });
         //用户选择控制
         $(".login-button").mouseenter(function () {
             $(".j-uflag").css("display","block");
@@ -206,7 +217,7 @@
                  type: "post",
                  datatype: "json",
                  data: {
-                     "userId": 1,
+                     "userId": parseInt(userId),
                      "userRealName": $("#realName").val(),
                      "userPhone":parseInt($(".inputPhone").val()),
                      "userEmail":$(".email").val(),
@@ -293,9 +304,10 @@
                 </li>
             </ul>
             <div class="login-button">
-            <span>
-              <a href="#" id="login">登录</a>
-              <div class="sanjiao_down"></div>
+           <span>
+<!--              <a href="#" id="login">登录</a>-->
+               <!--              <div class="sanjiao_down"></div>-->
+                <img src="" style="width: 30px;border-radius: 50%;margin-top:7px">
             </span>
             </div>
             <a class="creator-center">创作者中心</a>

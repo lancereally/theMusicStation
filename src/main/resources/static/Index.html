@@ -147,12 +147,12 @@
             },
             success:function (data) {
               if(data == "1"){
-                layui.use('layer', function(){
-                  var layer = layui.layer;
-                  layer.msg('YOYO切克闹~登录成功嗨起来！',{
-                    area:['400px', '50px']
-                  });
-                });
+                // layui.use('layer', function(){
+                //   var layer = layui.layer;
+                //   layer.msg('YOYO切克闹~登录成功嗨起来！',{
+                //     area:['400px', '50px']
+                //   });
+                // });
                 // alert("YOYO切克闹~登录成功嗨起来！");
                 $.ajax({
                   url:"/user/getIdByAnything",
@@ -186,13 +186,13 @@
                   }
                 });
               }
-              else
-                layui.use('layer', function(){
-                  var layer = layui.layer;
-                  layer.msg('DB管理员已经删库跑路，本站暂停使用~',{
-                    area:['400px', '50px']
-                  });
-                });
+              // else
+              //   layui.use('layer', function(){
+              //     var layer = layui.layer;
+              //     layer.msg('DB管理员已经删库跑路，本站暂停使用~',{
+              //       area:['400px', '50px']
+              //     });
+              //   });
               // alert("DB管理员已经删库跑路，本站暂停使用~");
             }
           })
@@ -255,11 +255,11 @@
           },
           success:function (data) {
             if(data == false){
-              layui.use('layer', function () {
-                var layer = layui.layer;
-                layer.msg('YOYO切克闹~登录成功嗨起来！',{
-                  area:['400px', '50px']});
-              });
+              // layui.use('layer', function () {
+              //   var layer = layui.layer;
+              //   layer.msg('YOYO切克闹~登录成功嗨起来！',{
+              //     area:['400px', '50px']});
+              // });
               $.ajax({
                 url:"/user/getIdByAnything",
                 type:"post",
@@ -380,16 +380,17 @@
                 //     area:['400px', '50px']
                 //   });
                 // });
-                layer.confirm("YOYO切克闹~登录成功~",{
-                          btn: ['确定']
-                        }, function (index, layero) {
-                          location.href = "MyHomePage.html";
-                          //移除元素
-                          $("#tr" + id).remove();
-                          //无法关闭这个消息框
-                          layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
-                        }
-                );
+
+                // layer.confirm("YOYO切克闹~登录成功~",{
+                //           btn: ['确定']
+                //         }, function (index, layero) {
+                //           location.href = "MyHomePage.html";
+                //           //移除元素
+                //           $("#tr" + id).remove();
+                //           //无法关闭这个消息框
+                //           layer.closeAll('dialog');  //加入这个信息点击确定 会关闭这个消息框
+                //         }
+                // );
               }
             }
             else{
