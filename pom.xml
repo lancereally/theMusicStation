@@ -136,13 +136,13 @@
         <artifactId>aliyun-java-sdk-core</artifactId>
         <version>4.1.0</version>
     </dependency>
-        <dependency>
-            <groupId>aliyun-message-sdk-core</groupId>
-            <artifactId>aliyun-message-sdk-core</artifactId>
-            <version>3.2.3</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/lib/aliyun-java-sdk-core-3.2.2.jar</systemPath>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>aliyun-message-sdk-core</groupId>-->
+<!--            <artifactId>aliyun-message-sdk-core</artifactId>-->
+<!--            <version>3.2.3</version>-->
+<!--            <scope>system</scope>-->
+<!--            <systemPath>${project.basedir}/src/main/resources/lib/aliyun-java-sdk-core-3.2.2.jar</systemPath>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>aliyun-message-sdk-mns</groupId>
