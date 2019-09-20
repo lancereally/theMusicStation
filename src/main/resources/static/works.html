@@ -214,8 +214,8 @@
     <div class=" f-left">
         <h2 class="f-w-n f-left">{{singer.singerName}}</h2><i class="f-left" style="padding-top: 20px"><h4
             class="f-w-n f-c-d">{{singer.antherName}}</h4></i>
-        <div style="clear: both">
-            <img :src="singer.singerPicUrl" height="300px" width="640px">
+        <div style="clear: both;height: 300px;width: 640px;overflow: hidden">
+            <img :src="singer.singerPicUrl" width="640px" style="margin: -160px 0 0 0">
             <a id="artist-sub" href="javascript:void(0)" class="btnfav f-tid">{{collection}}</a>
         </div>
     </div>
