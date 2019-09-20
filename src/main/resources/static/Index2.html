@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
 
-<html>
+        <html>
         <head>
             <meta charset="utf-8" />
             <title>网易云音乐</title>
@@ -19,8 +23,14 @@
             <link rel="stylesheet" href="css/index.css"/>
             <link rel="stylesheet" href="css/Login.css"/>
             <link rel="stylesheet" href="css/LoginAccount.css"/>
+            <script type="text/javascript" src="js/jquery.cookie.js"></script>
         </head>
         <script>
+            //cookie
+            var userId = $.cookie('userId');
+            if (userId === undefined) {
+                location.href = "Index.html";
+            }
             $(function () {
                 //获取用户悬浮头像
                 $.ajax({
@@ -33,6 +43,9 @@
                         $(".login-button img").attr("src",data.userHeadUrl);
                     }
                 });
+
+
+
                 $("#login").click(function () {
                     $(".login").css("display","block");
                 });
