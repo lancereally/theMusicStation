@@ -930,7 +930,7 @@
                         <img src="images/V.png" height="11" v-if="star.userVipState == 1">
                     </div>
                     <div class="time font-12 ">
-                        <a href="#">{{star.singerDescription}}</a>
+                        <a href="#" style="display: block;width: 120px;height: 16px;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;">{{star.singerDescription}}</a>
                     </div>
                     <div>
                         <a class="btn awh f-right" @click="becomeOtherFan"><i><img src="images/plus.png" height="12px"></i>关注<i
@@ -954,7 +954,7 @@
                         <img src="images/V.png" height="11" v-if="user.userVipState == 1">
                     </div>
                     <div class="time font-12 ">
-                        <a href="#">{{user.userText}}</a>
+                        <a href="#" style="display: block;width: 120px;height: 16px;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;">{{user.userText}}</a>
                     </div>
                     <div>
                         <a @click="becomeOtherFan" class="btn awh f-right"><i><img src="images/plus.png" height="12px"></i>关注<i
