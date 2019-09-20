@@ -80,7 +80,7 @@ public class FileUploadGsq {
                 e.printStackTrace();
             }
         }
-        return str + "/" + fileName;
+        return "upload/" + fileName;
 
     }
 }
