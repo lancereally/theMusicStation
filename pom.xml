@@ -182,9 +182,9 @@
     </dependencies>
 
     <build>
-        <defaultGoal>compile</defaultGoal>
-        <sourceDirectory>src</sourceDirectory>
-        <finalName>springboot-package</finalName>
+<!--        <defaultGoal>compile</defaultGoal>-->
+<!--        <sourceDirectory>src</sourceDirectory>-->
+<!--        <finalName>springboot-package</finalName>-->
         <plugins>
             <!--反向工具插件-->
             <plugin>
@@ -203,21 +203,21 @@
                     <fork>true</fork> <!--这个要为true热部署才有效-->
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin </artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <mainClass>org.lanqiao.MusicApplication</mainClass>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin </artifactId>-->
+<!--                <configuration>-->
+<!--                    <fork>true</fork>-->
+<!--                    <mainClass>org.lanqiao.MusicApplication</mainClass>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>
